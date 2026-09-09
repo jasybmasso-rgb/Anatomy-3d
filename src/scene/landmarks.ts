@@ -30,3 +30,23 @@ export const LANDMARKS = {
 export function mirrorX([x, y, z]: Vec3): Vec3 {
   return [-x, y, z];
 }
+
+/** Bassin si les pieds sont à Y = 0 (stature ~1,7 m). */
+export const PELVIS_Y_FROM_FEET = 0.9;
+const FOCUS_Y_MIN = FLOOR_Y + 0.04;
+const FOCUS_Y_MAX = 0.72;
+
+/**
+ * Convertit `focus.position` vers l’espace des landmarks (origine bassin).
+ * Accepte aussi un jeu « pieds à Y=0 » (tête ~1,6–1,7).
+ */
+export function toLandmarkFocus(position: Vec3): Vec3 {
+  let [x, y, z] = position;
+  if (y > 0.82) {
+    y -= PELVIS_Y_FROM_FEET;
+  }
+  y = Math.min(FOCUS_Y_MAX, Math.max(FOCUS_Y_MIN, y));
+  x = Math.min(0.45, Math.max(-0.45, x));
+  z = Math.min(0.28, Math.max(-0.28, z));
+  return [x, y, z];
+}

@@ -1,5 +1,5 @@
 import type { Muscle } from "../types/muscle";
-import { mirrorX, type Vec3 } from "./landmarks";
+import { mirrorX, toLandmarkFocus, type Vec3 } from "./landmarks";
 
 export type CapsulePrim = {
   kind: "capsule";
@@ -100,7 +100,7 @@ const HINTS: Record<string, MusclePrim[]> = {
 };
 
 function fallbackFromFocus(muscle: Muscle): MusclePrim[] {
-  const [x, y, z] = muscle.focus.position;
+  const [x, y, z] = toLandmarkFocus(muscle.focus.position);
   return [
     {
       kind: "capsule",

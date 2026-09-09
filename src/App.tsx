@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
 import { SidePanel } from "./components/SidePanel";
 import { muscles, getMuscleById } from "./data/loadMuscles";
@@ -35,7 +36,9 @@ export function App() {
       </header>
       <div className="workspace">
         <div className="viewport" aria-label="Scène anatomique 3D">
-          <AnatomyScene muscle={selected} />
+          <SceneErrorBoundary>
+            <AnatomyScene muscle={selected} />
+          </SceneErrorBoundary>
           {!selected ? (
             <p className="viewport-hint">Squelette humain simplifié — recherchez un muscle pour l’afficher</p>
           ) : null}

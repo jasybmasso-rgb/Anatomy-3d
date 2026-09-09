@@ -14,7 +14,7 @@ Tableau de **22 muscles** (Phase 1). Chaque objet :
 | `origin` | `string` | Origine osseuse / fasciale (manuel). |
 | `insertion` | `string` | Insertion. |
 | `actions` | `string[]` | Mouvements / actions principales. |
-| `focus.position` | `[x,y,z]` | Point visé par la caméra (repère Y-up, figure ~1,7 m). |
+| `focus.position` | `[x,y,z]` | Point visé par la caméra (Y-up). Espace landmarks : bassin à Y=0, pieds ≈ -0,9, crâne ≈ 0,66. Un Y supérieur à 0,82 (pieds à 0) est recalé automatiquement. |
 | `focus.distance` | `number` | Distance caméra–cible (mètres). |
 | `meshHint` | `string` | Indice de forme pour le maillage stylisé (`src/scene/muscleMeshes.ts`). |
 

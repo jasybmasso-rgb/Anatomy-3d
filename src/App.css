@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 100%;
-  background: #0c1118;
+  min-height: 100dvh;
+  background: #121a24;
+  overflow: hidden;
 }
 
 .topbar {
@@ -137,15 +138,25 @@
   min-height: 0;
   display: grid;
   grid-template-columns: 1fr minmax(280px, 340px);
+  grid-template-rows: minmax(0, 1fr);
 }
 
 .viewport {
   position: relative;
+  width: 100%;
+  height: 100%;
   min-height: 0;
+  overflow: hidden;
+  background: #121a24;
 }
 
+.viewport .anatomy-canvas,
 .viewport canvas {
   display: block;
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .viewport-hint {
@@ -155,7 +166,7 @@
   margin: 0;
   padding: 0.4rem 0.7rem;
   border-radius: 999px;
-  background: rgba(12, 17, 24, 0.72);
+  background: rgba(18, 26, 36, 0.78);
   border: 1px solid #243044;
   color: #b7c3d6;
   font-size: 0.82rem;
@@ -228,6 +239,45 @@
 
 .panel-actions li + li {
   margin-top: 0.25rem;
+}
+
+.scene-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  background: #121a24;
+  color: #e8eef4;
+}
+
+.scene-error-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  color: #c44536;
+  font-weight: 700;
+}
+
+.scene-error h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.scene-error p {
+  margin: 0.35rem 0 0;
+  color: #b7c3d6;
+  max-width: 36rem;
+}
+
+.scene-error pre {
+  margin: 0.85rem 0 0;
+  white-space: pre-wrap;
+  color: #8b9bb4;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 860px) {

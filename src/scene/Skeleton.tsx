@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import * as THREE from "three";
 import { FLOOR_Y, LANDMARKS, type Vec3 } from "./landmarks";
 
-const BONE = "#e4d6c0";
-const BONE_DEEP = "#c9b7a0";
+const BONE = "#f3ead8";
+const BONE_DEEP = "#ddcbb3";
 
 function Bone({
   a,
@@ -144,7 +144,7 @@ export function Skeleton() {
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, FLOOR_Y, 0]} receiveShadow>
         <circleGeometry args={[1.8, 48]} />
-        <meshStandardMaterial color="#151c27" roughness={1} metalness={0} />
+        <meshStandardMaterial color="#1b2432" roughness={1} metalness={0} />
       </mesh>
     </group>
   );
