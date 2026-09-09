@@ -33,4 +33,4 @@ Le script télécharge `isa_BP3D_4.0_obj_99.zip`, `isa_element_parts.txt` (corre
 
 Dépendances Python : `pip install -r scripts/requirements-skeleton.txt`.
 
-Taille actuelle du dérivé commité : **10,21 MiB** (`public/models/skeleton.glb`, 203 os, ~284 k sommets, réduction source 99 %). Détail dans `public/models/skeleton.meta.json`. Pas besoin de Git LFS sous la limite GitHub (100 Mo).
+Taille actuelle du dérivé commité : **13,47 MiB** (`public/models/skeleton.glb`, 203 os, ~284 k sommets, normales, réduction source 99 %). Détail dans `public/models/skeleton.meta.json`. Pas besoin de Git LFS sous la limite GitHub (100 Mo).

@@ -22,11 +22,11 @@ function supportsWebGL(): boolean {
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.62} />
-      <hemisphereLight args={["#d7e4f5", "#4a3b30", 1.05]} />
+      <ambientLight intensity={0.78} />
+      <hemisphereLight args={["#e8f0fa", "#5a4a3c", 1.15]} />
       <directionalLight
         position={[2.4, 3.2, 2.2]}
-        intensity={1.55}
+        intensity={1.75}
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}

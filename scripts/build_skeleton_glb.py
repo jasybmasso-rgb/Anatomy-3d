@@ -17,6 +17,7 @@ from pathlib import Path
 
 import numpy as np
 import trimesh
+from trimesh.exchange.gltf import export_glb
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = Path("/tmp/bp3d")
@@ -461,7 +462,8 @@ def main() -> int:
     combined.visual.vertex_colors = [232, 220, 200, 255]
 
     OUT_GLB.parent.mkdir(parents=True, exist_ok=True)
-    combined.export(OUT_GLB)
+    _ = combined.vertex_normals
+    OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
     if size_mb > MAX_GLB_MIB:
         target_faces = max(80_000, int(len(combined.faces) * MAX_GLB_MIB / size_mb))
@@ -471,7 +473,8 @@ def main() -> int:
             if isinstance(simplified, trimesh.Trimesh) and len(simplified.faces) > 1000:
                 combined = simplified
                 combined.visual.vertex_colors = [232, 220, 200, 255]
-                combined.export(OUT_GLB)
+                _ = combined.vertex_normals
+                OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
                 meta["decimatedFaces"] = int(len(combined.faces))
         except Exception as exc:  # noqa: BLE001
             print(f"decimation skipped: {exc}", flush=True)

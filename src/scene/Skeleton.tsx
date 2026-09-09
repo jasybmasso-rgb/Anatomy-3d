@@ -11,11 +11,16 @@ export function Skeleton() {
     const clone = gltf.scene.clone(true);
     const material = new THREE.MeshStandardMaterial({
       color: BONE_COLOR,
-      roughness: 0.52,
-      metalness: 0.04,
+      roughness: 0.48,
+      metalness: 0.02,
+      vertexColors: false,
     });
     clone.traverse((obj) => {
       if (obj instanceof THREE.Mesh) {
+        const geom = obj.geometry;
+        if (!geom.getAttribute("normal")) {
+          geom.computeVertexNormals();
+        }
         obj.castShadow = true;
         obj.receiveShadow = true;
         obj.material = material;

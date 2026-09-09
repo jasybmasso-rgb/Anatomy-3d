@@ -2,7 +2,7 @@
   "targetHeightM": 1.7,
   "detectedUpAxis": 2,
   "mmToM": true,
-  "yawRad": 0.0042951006310886185,
+  "yawRad": 0.0042951006310885265,
   "flippedX": false,
   "bounds": {
     "min": [
@@ -19,8 +19,8 @@
   "vertexCount": 284124,
   "faceCount": 513646,
   "boneCount": 203,
-  "glbBytes": 10710728,
-  "glbMiB": 10.21,
+  "glbBytes": 14120552,
+  "glbMiB": 13.47,
   "sourceZip": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/isa_BP3D_4.0_obj_99.zip",
   "license": "CC BY-SA 2.1 Japan",
   "attribution": "BodyParts3D, Copyright\u00a9 2008 The Database Center for Life Science licensed by CC Attribution-Share Alike 2.1 Japan"
