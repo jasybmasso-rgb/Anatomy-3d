@@ -1,0 +1,338 @@
+[
+  {
+    "id": "biceps-brachial",
+    "name": "Biceps brachial",
+    "nameLatin": "Musculus biceps brachii",
+    "aliases": ["biceps", "biceps du bras", "biceps brachii"],
+    "region": "membre-supérieur",
+    "origin": "Chef long : tubercule supra-glénoïdien de la scapula. Chef court : processus coracoïde de la scapula.",
+    "insertion": "Tubérosité du radius et aponévrose bicipitale (lacertus fibrosus) vers le fascia antérieur de l’avant-bras.",
+    "actions": [
+      "Flexion du coude",
+      "Supination de l’avant-bras",
+      "Flexion accessoire de l’épaule (surtout chef court)"
+    ],
+    "focus": { "position": [-0.22, 0.34, 0.04], "distance": 0.85 },
+    "meshHint": "fusiform-bras-ant"
+  },
+  {
+    "id": "triceps-brachial",
+    "name": "Triceps brachial",
+    "nameLatin": "Musculus triceps brachii",
+    "aliases": ["triceps", "triceps du bras", "triceps brachii"],
+    "region": "membre-supérieur",
+    "origin": "Chef long : tubercule infra-glénoïdien. Chef latéral : face postérieure de l’humérus, au-dessus du sillon du nerf radial. Chef médial : face postérieure de l’humérus, au-dessous de ce sillon.",
+    "insertion": "Face supérieure de l’olécrane de l’ulna, et fascia antébrachial adjacent.",
+    "actions": [
+      "Extension du coude",
+      "Adduction et extension de l’épaule (chef long)"
+    ],
+    "focus": { "position": [-0.22, 0.32, -0.05], "distance": 0.85 },
+    "meshHint": "triceps-bras-post"
+  },
+  {
+    "id": "deltoide",
+    "name": "Deltoïde",
+    "nameLatin": "Musculus deltoideus",
+    "aliases": ["deltoide", "muscle deltoïde", "deltoid"],
+    "region": "épaule",
+    "origin": "Tiers latéral du bord antérieur de la clavicule, bord latéral de l’acromion et épine de la scapula.",
+    "insertion": "Tubérosité deltoïdienne, à la face latérale du corps de l’humérus.",
+    "actions": [
+      "Abduction du bras (surtout faisceau moyen)",
+      "Flexion et rotation médiale (faisceau antérieur / claviculaire)",
+      "Extension et rotation latérale (faisceau postérieur / spinal)"
+    ],
+    "focus": { "position": [-0.24, 0.5, 0.02], "distance": 0.75 },
+    "meshHint": "delta-epaule"
+  },
+  {
+    "id": "grand-pectoral",
+    "name": "Grand pectoral",
+    "nameLatin": "Musculus pectoralis major",
+    "aliases": ["pectoral", "pectoraux", "pectoralis major", "grand pectoral"],
+    "region": "tronc",
+    "origin": "Moitié médiale de la clavicule, face antérieure du sternum et des six premiers cartilages costaux, et aponévrose du muscle oblique externe.",
+    "insertion": "Lèvre latérale du sillon intertuberculaire (coulisse bicipitale) de l’humérus.",
+    "actions": [
+      "Adduction du bras",
+      "Rotation médiale du bras",
+      "Flexion du bras (faisceau claviculaire)",
+      "Extension du bras fléchi (faisceau sterno-costal)"
+    ],
+    "focus": { "position": [-0.1, 0.38, 0.1], "distance": 1.05 },
+    "meshHint": "eventail-pectoral"
+  },
+  {
+    "id": "grand-dorsal",
+    "name": "Grand dorsal",
+    "nameLatin": "Musculus latissimus dorsi",
+    "aliases": ["latissimus", "lats", "dorsal", "latissimus dorsi"],
+    "region": "tronc",
+    "origin": "Processus épineux de T7 à L5, fascia thoraco-lombaire, tiers postérieur de la crête iliaque, et face externe des trois ou quatre dernières côtes.",
+    "insertion": "Plancher du sillon intertuberculaire de l’humérus.",
+    "actions": [
+      "Adduction du bras",
+      "Extension du bras",
+      "Rotation médiale du bras",
+      "Abaissement de l’épaule (avec le grand pectoral)"
+    ],
+    "focus": { "position": [-0.12, 0.22, -0.1], "distance": 1.2 },
+    "meshHint": "nappe-dorsale"
+  },
+  {
+    "id": "trapeze",
+    "name": "Trapèze",
+    "nameLatin": "Musculus trapezius",
+    "aliases": ["trapèzes", "trapeze", "traps", "trapezius"],
+    "region": "tronc",
+    "origin": "Tiers médial de la ligne nuchale supérieure, protubérance occipitale externe, ligament nuchal, processus épineux de C7 à T12 et ligaments supra-épineux.",
+    "insertion": "Tiers latéral de la clavicule, acromion et épine de la scapula.",
+    "actions": [
+      "Élévation de la scapula (faisceau supérieur)",
+      "Rétraction / adduction de la scapula (faisceau moyen)",
+      "Abaissement de la scapula (faisceau inférieur)",
+      "Rotation de la scapula pour l’armé du bras"
+    ],
+    "focus": { "position": [-0.06, 0.5, -0.06], "distance": 1.1 },
+    "meshHint": "losange-trapeze"
+  },
+  {
+    "id": "sterno-cleido-mastoidien",
+    "name": "Sterno-cléido-mastoïdien",
+    "nameLatin": "Musculus sternocleidomastoideus",
+    "aliases": ["SCM", "sterno-cléido-mastoïdien", "sternocleidomastoidien", "sterno cleido mastoidien", "sternocleidomastoid"],
+    "region": "cou",
+    "origin": "Chef sternal : face antérieure du manubrium. Chef claviculaire : tiers médial de la face supérieure de la clavicule.",
+    "insertion": "Processus mastoïde de l’os temporal et moitié latérale de la ligne nuchale supérieure.",
+    "actions": [
+      "Rotation de la tête vers le côté opposé",
+      "Inclinaison homolatérale de la tête",
+      "Flexion du cou (contraction bilatérale)",
+      "Extension de la tête sur le cou (fibres postérieures, tête déjà en extension)"
+    ],
+    "focus": { "position": [-0.05, 0.58, 0.05], "distance": 0.65 },
+    "meshHint": "sangle-scm"
+  },
+  {
+    "id": "biceps-femoral",
+    "name": "Biceps fémoral",
+    "nameLatin": "Musculus biceps femoris",
+    "aliases": ["biceps de la cuisse", "ischio-jambier latéral", "biceps femoris", "ischiojambier"],
+    "region": "membre-inférieur",
+    "origin": "Chef long : tubérosité ischiatique (tendon commun avec le semi-tendineux). Chef court : lèvre latérale de la ligne âpre et septum intermusculaire latéral.",
+    "insertion": "Tête de la fibula, et condyle latéral du tibia de façon accessoire.",
+    "actions": [
+      "Flexion du genou",
+      "Rotation latérale de la jambe lorsque le genou est fléchi",
+      "Extension de la hanche (chef long)"
+    ],
+    "focus": { "position": [-0.1, -0.28, -0.06], "distance": 0.95 },
+    "meshHint": "ischio-lat"
+  },
+  {
+    "id": "semi-tendineux",
+    "name": "Semi-tendineux",
+    "nameLatin": "Musculus semitendinosus",
+    "aliases": ["semitendineux", "semi tendineux", "ischio-jambier médial", "semitendinosus"],
+    "region": "membre-inférieur",
+    "origin": "Tubérosité ischiatique, tendon commun avec le chef long du biceps fémoral.",
+    "insertion": "Face médiale de l’extrémité proximale du tibia, dans la patte d’oie (pes anserinus), en avant du ligament collatéral tibial.",
+    "actions": [
+      "Flexion du genou",
+      "Rotation médiale de la jambe lorsque le genou est fléchi",
+      "Extension de la hanche"
+    ],
+    "focus": { "position": [-0.07, -0.28, -0.06], "distance": 0.95 },
+    "meshHint": "ischio-med-sup"
+  },
+  {
+    "id": "semi-membraneux",
+    "name": "Semi-membraneux",
+    "nameLatin": "Musculus semimembranosus",
+    "aliases": ["semimembraneux", "semi membraneux", "semimembranosus"],
+    "region": "membre-inférieur",
+    "origin": "Tubérosité ischiatique, en dehors et au-dessus du tendon du semi-tendineux.",
+    "insertion": "Face postérieure du condyle médial du tibia, avec expansions vers le ligament poplité oblique et le fascia du poplité.",
+    "actions": [
+      "Flexion du genou",
+      "Rotation médiale de la jambe lorsque le genou est fléchi",
+      "Extension de la hanche"
+    ],
+    "focus": { "position": [-0.06, -0.3, -0.05], "distance": 0.95 },
+    "meshHint": "ischio-med-prof"
+  },
+  {
+    "id": "droit-femoral",
+    "name": "Droit fémoral",
+    "nameLatin": "Musculus rectus femoris",
+    "aliases": ["droit antérieur", "rectus femoris", "droit femoral", "quadriceps"],
+    "region": "membre-inférieur",
+    "origin": "Chef direct : épine iliaque antéro-inférieure. Chef réfléchi : sillon supra-acétabulaire et capsule de la hanche.",
+    "insertion": "Base de la patella, puis tubérosité tibiale par le ligament patellaire (tendon du quadriceps).",
+    "actions": [
+      "Extension du genou",
+      "Flexion de la hanche"
+    ],
+    "focus": { "position": [-0.09, -0.22, 0.07], "distance": 0.95 },
+    "meshHint": "quadriceps-droit"
+  },
+  {
+    "id": "vaste-lateral",
+    "name": "Vaste latéral",
+    "nameLatin": "Musculus vastus lateralis",
+    "aliases": ["vaste externe", "vastus lateralis", "vaste lateral"],
+    "region": "membre-inférieur",
+    "origin": "Grand trochanter, lèvre latérale de la ligne âpre, ligne intertrochantérique et septum intermusculaire latéral.",
+    "insertion": "Bord latéral de la patella et tendon du quadriceps, puis tubérosité tibiale via le ligament patellaire.",
+    "actions": ["Extension du genou"],
+    "focus": { "position": [-0.13, -0.24, 0.01], "distance": 0.95 },
+    "meshHint": "quadriceps-lat"
+  },
+  {
+    "id": "vaste-medial",
+    "name": "Vaste médial",
+    "nameLatin": "Musculus vastus medialis",
+    "aliases": ["vaste interne", "vastus medialis", "vaste medial", "VMO"],
+    "region": "membre-inférieur",
+    "origin": "Lèvre médiale de la ligne âpre, ligne intertrochantérique distale et septum intermusculaire médial.",
+    "insertion": "Bord médial de la patella et tendon du quadriceps, puis tubérosité tibiale via le ligament patellaire.",
+    "actions": ["Extension du genou", "Stabilisation médiale de la patella"],
+    "focus": { "position": [-0.05, -0.26, 0.05], "distance": 0.95 },
+    "meshHint": "quadriceps-med"
+  },
+  {
+    "id": "vaste-intermediaire",
+    "name": "Vaste intermédiaire",
+    "nameLatin": "Musculus vastus intermedius",
+    "aliases": ["crural", "vastus intermedius", "vaste intermediaire"],
+    "region": "membre-inférieur",
+    "origin": "Faces antérieure et latérale des deux tiers proximaux du corps du fémur.",
+    "insertion": "Base de la patella (plan profond du tendon du quadriceps), puis tubérosité tibiale via le ligament patellaire.",
+    "actions": ["Extension du genou"],
+    "focus": { "position": [-0.09, -0.24, 0.04], "distance": 0.95 },
+    "meshHint": "quadriceps-prof"
+  },
+  {
+    "id": "grand-fessier",
+    "name": "Grand fessier",
+    "nameLatin": "Musculus gluteus maximus",
+    "aliases": ["grand glutéal", "fessier", "gluteus maximus", "grand fessier", "grand gluteal"],
+    "region": "membre-inférieur",
+    "origin": "Face glutéale de l’ilium en arrière de la ligne glutéale postérieure, face postérieure du sacrum et du coccyx, ligament sacro-tubéral et fascia thoraco-lombaire.",
+    "insertion": "Tractus ilio-tibial du fascia lata (fibres superficielles) et tubérosité glutéale du fémur (fibres profondes).",
+    "actions": [
+      "Extension de la hanche",
+      "Rotation latérale de la hanche",
+      "Stabilisation du bassin et du genou via le tractus ilio-tibial"
+    ],
+    "focus": { "position": [-0.1, -0.02, -0.1], "distance": 0.85 },
+    "meshHint": "eventail-fessier"
+  },
+  {
+    "id": "iliopsoas",
+    "name": "Ilio-psoas",
+    "nameLatin": "Musculus iliopsoas",
+    "aliases": ["psoas-iliaque", "psoas", "iliaque", "iliopsoas", "psoas iliaque"],
+    "region": "membre-inférieur",
+    "origin": "Psoas : faces latérales de T12 à L5, disques intervertébraux correspondants et processus transverses lombaires. Iliaque : fosse iliaque et lèvre interne de la crête iliaque.",
+    "insertion": "Petit trochanter du fémur (tendon commun).",
+    "actions": [
+      "Flexion de la hanche",
+      "Rotation latérale accessoire de la hanche",
+      "Flexion du tronc sur le bassin (psoas, action bilatérale)"
+    ],
+    "focus": { "position": [-0.06, 0.04, 0.04], "distance": 0.95 },
+    "meshHint": "iliopsoas-profond"
+  },
+  {
+    "id": "gastrocnemien",
+    "name": "Gastrocnémien",
+    "nameLatin": "Musculus gastrocnemius",
+    "aliases": ["jumeaux", "gastrocnemien", "mollet", "gastrocnemius", "triceps sural"],
+    "region": "membre-inférieur",
+    "origin": "Chef médial : face postérieure du condyle fémoral médial. Chef latéral : face postérieure du condyle fémoral latéral.",
+    "insertion": "Face postérieure du calcanéus, via le tendon calcanéen (tendon d’Achille), commun avec le soléaire.",
+    "actions": [
+      "Flexion plantaire de la cheville",
+      "Flexion du genou"
+    ],
+    "focus": { "position": [-0.09, -0.62, -0.06], "distance": 0.75 },
+    "meshHint": "jumeaux-mollet"
+  },
+  {
+    "id": "soleaire",
+    "name": "Soléaire",
+    "nameLatin": "Musculus soleus",
+    "aliases": ["soleus", "soleaire", "triceps sural"],
+    "region": "membre-inférieur",
+    "origin": "Face postérieure de la tête et du tiers proximal de la fibula, ligne soléaire du tibia et arc tendineux entre tibia et fibula.",
+    "insertion": "Face postérieure du calcanéus via le tendon calcanéen (tendon d’Achille).",
+    "actions": ["Flexion plantaire de la cheville"],
+    "focus": { "position": [-0.09, -0.68, -0.04], "distance": 0.75 },
+    "meshHint": "soleaire-mollet"
+  },
+  {
+    "id": "tibial-anterieur",
+    "name": "Tibial antérieur",
+    "nameLatin": "Musculus tibialis anterior",
+    "aliases": ["jambier antérieur", "tibialis anterior", "tibial anterieur"],
+    "region": "membre-inférieur",
+    "origin": "Condyle latéral et moitié proximale de la face latérale du tibia, membrane interosseuse et fascia crural antérieur.",
+    "insertion": "Face médiale et inférieure de l’os cunéiforme médial, et base du premier métatarsien.",
+    "actions": [
+      "Flexion dorsale de la cheville",
+      "Inversion du pied"
+    ],
+    "focus": { "position": [-0.09, -0.62, 0.05], "distance": 0.75 },
+    "meshHint": "tibial-ant"
+  },
+  {
+    "id": "droit-abdomen",
+    "name": "Droit de l’abdomen",
+    "nameLatin": "Musculus rectus abdominis",
+    "aliases": ["grand droit", "abdominaux", "rectus abdominis", "droit abdominal", "abdos"],
+    "region": "tronc",
+    "origin": "Crête pubienne et face antérieure de la symphyse pubienne.",
+    "insertion": "Processus xiphoïde du sternum et cartilages costaux des cinquième, sixième et septième côtes.",
+    "actions": [
+      "Flexion du tronc",
+      "Compression du contenu abdominal",
+      "Rétroversion du bassin"
+    ],
+    "focus": { "position": [0, 0.18, 0.09], "distance": 1.05 },
+    "meshHint": "droit-abdominal"
+  },
+  {
+    "id": "oblique-externe",
+    "name": "Oblique externe",
+    "nameLatin": "Musculus obliquus externus abdominis",
+    "aliases": ["oblique externe de l’abdomen", "grand oblique", "obliquus externus", "obliques"],
+    "region": "tronc",
+    "origin": "Face externe des cinquième à douzième côtes, par des digitations qui s’entrecroisent avec celles du dentelé antérieur et du grand dorsal.",
+    "insertion": "Ligne blanche (via l’aponévrose), lèvre externe de la crête iliaque, et ligament inguinal.",
+    "actions": [
+      "Rotation du tronc vers le côté opposé",
+      "Inclinaison homolatérale du tronc",
+      "Flexion du tronc (action bilatérale)",
+      "Compression de l’abdomen"
+    ],
+    "focus": { "position": [-0.12, 0.16, 0.07], "distance": 1.05 },
+    "meshHint": "oblique-lat"
+  },
+  {
+    "id": "supra-epineux",
+    "name": "Supra-épineux",
+    "nameLatin": "Musculus supraspinatus",
+    "aliases": ["sus-épineux", "supra-epineux", "supraspinatus", "coiffe des rotateurs"],
+    "region": "épaule",
+    "origin": "Fosse supra-épineuse de la scapula et fascia supra-épineux.",
+    "insertion": "Facette supérieure du tubercule majeur de l’humérus, et capsule articulaire gléno-humérale.",
+    "actions": [
+      "Début d’abduction du bras (amorce, ~0–15°)",
+      "Stabilisation de la tête humérale dans la cavité glénoïdale"
+    ],
+    "focus": { "position": [-0.16, 0.54, -0.04], "distance": 0.65 },
+    "meshHint": "coiffe-supra"
+  }
+]

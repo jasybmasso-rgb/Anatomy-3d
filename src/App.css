@@ -1,0 +1,264 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  background: #0c1118;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: minmax(160px, auto) minmax(220px, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid #243044;
+  background: #121926;
+  z-index: 2;
+}
+
+.brand-mark {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.brand-sub {
+  margin: 0.1rem 0 0;
+  color: #8b9bb4;
+  font-size: 0.75rem;
+}
+
+.search {
+  position: relative;
+  max-width: 36rem;
+}
+
+.search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #33455f;
+  background: #0c1118;
+  color: #e8eef4;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.8rem;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #6ea8ff;
+  box-shadow: 0 0 0 3px rgba(110, 168, 255, 0.2);
+}
+
+.search-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.3rem);
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  background: #1a2433;
+  border: 1px solid #33455f;
+  border-radius: 0.55rem;
+  max-height: 18rem;
+  overflow: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.search-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 0.1rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.search-option-active,
+.search-option:hover {
+  background: #24344a;
+}
+
+.search-option-name {
+  font-weight: 600;
+}
+
+.search-option-latin {
+  font-size: 0.8rem;
+  color: #8b9bb4;
+  font-style: italic;
+}
+
+.search-empty {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.3rem);
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  background: #1a2433;
+  border: 1px solid #33455f;
+  border-radius: 0.55rem;
+  color: #b7c3d6;
+  font-size: 0.9rem;
+}
+
+.reset-btn {
+  border: 1px solid #4d3a36;
+  background: #2a1816;
+  color: #f0d4ce;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.reset-btn:hover {
+  background: #3a201c;
+}
+
+.workspace {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 340px);
+}
+
+.viewport {
+  position: relative;
+  min-height: 0;
+}
+
+.viewport canvas {
+  display: block;
+}
+
+.viewport-hint {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  margin: 0;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(12, 17, 24, 0.72);
+  border: 1px solid #243044;
+  color: #b7c3d6;
+  font-size: 0.82rem;
+  pointer-events: none;
+}
+
+.panel {
+  overflow: auto;
+  padding: 1.15rem 1.2rem 1.5rem;
+  border-left: 1px solid #243044;
+  background: #121926;
+}
+
+.panel-kicker,
+.panel-empty-kicker {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  color: #c44536;
+  font-weight: 700;
+}
+
+.panel-empty-kicker {
+  color: #8b9bb4;
+}
+
+.panel-title,
+.panel-empty-title {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.panel-latin {
+  margin: 0.25rem 0 1rem;
+  color: #8b9bb4;
+  font-style: italic;
+}
+
+.panel-empty-body {
+  color: #b7c3d6;
+  margin: 0.75rem 0 0;
+}
+
+.panel-dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel-dl dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b9bb4;
+  margin-bottom: 0.3rem;
+}
+
+.panel-dl dd {
+  margin: 0;
+  color: #e8eef4;
+}
+
+.panel-actions {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.panel-actions li + li {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand reset"
+      "search search";
+  }
+
+  .brand {
+    grid-area: brand;
+  }
+
+  .search {
+    grid-area: search;
+    max-width: none;
+  }
+
+  .reset-btn {
+    grid-area: reset;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(46vh, 1fr) auto;
+  }
+
+  .panel {
+    border-left: 0;
+    border-top: 1px solid #243044;
+    max-height: 42vh;
+  }
+}
