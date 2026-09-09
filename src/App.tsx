@@ -10,6 +10,7 @@ import "./App.css";
 export function App() {
   const [selection, setSelection] = useState<SelectionState>({ selectedMuscleId: null });
   const [resetToken, setResetToken] = useState(0);
+  const [showLandmarks, setShowLandmarks] = useState(false);
   const selected = getMuscleById(selection.selectedMuscleId);
 
   function reset() {
@@ -30,6 +31,14 @@ export function App() {
           resetToken={resetToken}
           onSelect={(id) => setSelection({ selectedMuscleId: id })}
         />
+        <label className="landmarks-toggle">
+          <input
+            type="checkbox"
+            checked={showLandmarks}
+            onChange={(event) => setShowLandmarks(event.target.checked)}
+          />
+          Afficher les repères
+        </label>
         <button type="button" className="reset-btn" onClick={reset}>
           Réinitialiser
         </button>
@@ -37,10 +46,12 @@ export function App() {
       <div className="workspace">
         <div className="viewport" aria-label="Scène anatomique 3D">
           <SceneErrorBoundary>
-            <AnatomyScene muscle={selected} />
+            <AnatomyScene muscle={selected} showLandmarks={showLandmarks} />
           </SceneErrorBoundary>
           {!selected ? (
-            <p className="viewport-hint">Squelette humain simplifié — recherchez un muscle pour l’afficher</p>
+            <p className="viewport-hint">
+              Squelette BodyParts3D — recherchez un muscle pour l’afficher
+            </p>
           ) : null}
         </div>
         <SidePanel muscle={selected} />

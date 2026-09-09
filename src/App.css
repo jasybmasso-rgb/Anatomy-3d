@@ -9,7 +9,7 @@
 
 .topbar {
   display: grid;
-  grid-template-columns: minmax(160px, auto) minmax(220px, 1fr) auto;
+  grid-template-columns: minmax(160px, auto) minmax(220px, 1fr) auto auto;
   gap: 1rem;
   align-items: center;
   padding: 0.7rem 1.1rem;
@@ -131,6 +131,45 @@
 
 .reset-btn:hover {
   background: #3a201c;
+}
+
+.landmarks-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #d5deea;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.landmarks-toggle input {
+  accent-color: #6ea8ff;
+  width: 1rem;
+  height: 1rem;
+}
+
+.landmark-label {
+  padding: 0.28rem 0.5rem;
+  border-radius: 0.4rem;
+  background: rgba(12, 17, 24, 0.88);
+  border: 1px solid #33455f;
+  color: #e8eef4;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  white-space: nowrap;
+  transform: translateY(-1.1rem);
+}
+
+.landmark-label strong {
+  display: block;
+}
+
+.landmark-label em {
+  display: block;
+  color: #8b9bb4;
+  font-size: 0.7rem;
 }
 
 .workspace {
@@ -285,7 +324,8 @@
     grid-template-columns: 1fr auto;
     grid-template-areas:
       "brand reset"
-      "search search";
+      "search search"
+      "landmarks landmarks";
   }
 
   .brand {
@@ -295,6 +335,10 @@
   .search {
     grid-area: search;
     max-width: none;
+  }
+
+  .landmarks-toggle {
+    grid-area: landmarks;
   }
 
   .reset-btn {

@@ -20,6 +20,21 @@ Tableau de **22 muscles** (Phase 1). Chaque objet :
 
 Import applicatif : `src/types/muscle.ts` + `src/data/loadMuscles.ts`.
 
+## `landmarks.json`
+
+Repères osseux nommés, **même espace** que `public/models/skeleton.glb` (Y-up, mètres, origine bassin, face +Z). Généré par `scripts/build_skeleton_glb.py` à partir des centroïdes / extrema (ou bandes de percentiles) des maillages BodyParts3D.
+
+| Champ | Rôle |
+| --- | --- |
+| `id` | Clé stable (kebab-case). Prévue pour lier plus tard origines / insertions. |
+| `name` | Nom affiché (fr-CA). |
+| `nameLatin` | Nom latin / TA usuel. |
+| `region` | Région anatomique. |
+| `position` | `[x, y, z]` dans l’espace du GLB. |
+| `source` | Identifiant FMA, nom de pièce, mode de placement. |
+
+**Précision v1** : points approximatifs (centroïde ou extrémité de boîte), à raffiner manuellement avant un binding origine/insertion. Le toggle UI « Afficher les repères » est **désactivé** par défaut.
+
 La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id` (`src/lib/search.ts`).
 
 ## Ce qui n’est pas ici (volontairement)

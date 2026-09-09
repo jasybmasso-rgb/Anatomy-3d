@@ -1,6 +1,6 @@
 # Anatomy-3d
 
-Application web d’**étude anatomique 3D** (MVP Phase 1) : un squelette humain simplifié, une recherche de muscles, un zoom caméra et un panneau (nom, origine, insertion, mouvements).
+Application web d’**étude anatomique 3D** (MVP Phase 1) : un squelette BodyParts3D, des repères optionnels, une recherche de muscles, un zoom caméra et un panneau (nom, origine, insertion, mouvements).
 
 Interface en **français canadien (fr-CA)**. Licence **MIT**.
 
@@ -13,17 +13,17 @@ Interface en **français canadien (fr-CA)**. Licence **MIT**.
 
 Les chaînes myofasciales (Tom Myers), les nerfs et la superposition multi-éléments **ne font pas** partie de cette phase. Voir `docs/PLAN-PHASES.md` et `docs/SPEC-MVP.md`.
 
-## Choix 3D : squelette procédural
+## Choix 3D : squelette BodyParts3D
 
-Le squelette est généré avec des **géométries Three.js** (capsules, sphères, plaques) plutôt qu’un fichier GLTF externe.
+Le squelette affiché est un **GLB fusionné** (`public/models/skeleton.glb`, **10,21 MiB**) dérivé de **BodyParts3D** (203 os, réduction 99 %). Voir `docs/ATTRIBUTION.md` pour le crédit **CC BY-SA 2.1 Japon** et les implications share-alike.
 
-Raisons :
+Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles restent des maillages **stylisés**. Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif).
 
-- pas de dépendance à un modèle sous licence tierce ;
-- repère contrôlé (Y-up, stature ~1,7 m, origine près du bassin) aligné sur `focus` dans `src/data/muscles.json` ;
-- les muscles sont des maillages **stylisés** (`meshHint`), pas des scans.
+Reconstruction du GLB :
 
-Un GLTF libre pourra remplacer le squelette plus tard sans changer le schéma de données, tant que le même repère est respecté.
+```bash
+bash scripts/build-skeleton-glb.sh
+```
 
 ## Prérequis
 
@@ -53,6 +53,9 @@ npm run preview
 | Chemin | Rôle |
 | --- | --- |
 | `src/data/muscles.json` | 22 muscles du MVP |
+| `src/data/landmarks.json` | Repères osseux (même espace que le GLB) |
+| `public/models/skeleton.glb` | Squelette BodyParts3D (CC BY-SA 2.1 JP) |
+| `docs/ATTRIBUTION.md` | Crédit et share-alike |
 | `src/data/README.md` | Schéma des données |
 | `docs/SPEC-MVP.md` | Spécification Phase 1 |
 | `docs/PLAN-PHASES.md` | Feuille de route |

@@ -1,7 +1,7 @@
 export type Vec3 = [number, number, number];
 
 /** Plancher sous les pieds (origine monde près du bassin, Y-up, stature ~1,7 m). */
-export const FLOOR_Y = -0.9;
+export const FLOOR_Y = -0.932;
 
 export const LANDMARKS = {
   skull: [0, 0.66, 0.02] as Vec3,

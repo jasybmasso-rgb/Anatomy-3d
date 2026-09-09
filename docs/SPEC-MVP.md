@@ -19,8 +19,9 @@ Au chargement, **seul le squelette** est visible. Aucun muscle n’est sélectio
 
 ### Squelette seul (défaut)
 
-- À l’ouverture, la scène affiche un humain simplifié en os uniquement.
-- Choix d’implémentation : **squelette procédural** (géométries Three.js), documenté dans le README racine. Pas de fichier GLTF propriétaire.
+- À l’ouverture, la scène affiche un humain en os uniquement.
+- Choix d’implémentation : **GLB BodyParts3D** (`public/models/skeleton.glb`, CC BY-SA 2.1 Japon). Voir `docs/ATTRIBUTION.md`.
+- Repères osseux optionnels (`src/data/landmarks.json`), masqués par défaut.
 
 ### Recherche et autocomplétion
 
@@ -33,7 +34,7 @@ Au chargement, **seul le squelette** est visible. Aucun muscle n’est sélectio
 
 - Le muscle sélectionné apparaît comme un **maillage stylisé** (pas un scan réel), guidé par `meshHint` et ancré sur le squelette.
 - La caméra s’anime vers `focus.position` à une distance `focus.distance`.
-- Repère : **Y vers le haut**, figure d’environ **1,7 m**, origine de scène près du **bassin**, pieds vers Y = 0.
+- Repère : **Y vers le haut**, figure d’environ **1,7 m**, origine de scène près du **bassin**, face +Z, pieds vers Y ≈ −0,9.
 
 ### Panneau latéral
 

@@ -8,7 +8,7 @@ Les phases sont **séquentielles**. Les phases 2 et suivantes ne commencent **pa
 
 Périmètre :
 
-- squelette 3D seul au chargement ;
+- squelette 3D BodyParts3D (GLB) seul au chargement, repères optionnels ;
 - recherche + autocomplétion de 22 muscles ;
 - affichage stylisé d’un muscle, zoom caméra, panneau (nom, origine, insertion, mouvements) ;
 - réinitialisation ;

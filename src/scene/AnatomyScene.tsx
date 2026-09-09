@@ -1,6 +1,8 @@
 import { ContactShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
 import type { Muscle } from "../types/muscle";
+import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
 import { FLOOR_Y } from "./landmarks";
 import { MuscleMesh } from "./MuscleMesh";
@@ -34,7 +36,12 @@ function Lights() {
   );
 }
 
-export function AnatomyScene({ muscle }: { muscle: Muscle | null }) {
+type AnatomySceneProps = {
+  muscle: Muscle | null;
+  showLandmarks: boolean;
+};
+
+export function AnatomyScene({ muscle, showLandmarks }: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
     return (
       <div className="scene-error" role="alert">
@@ -60,8 +67,11 @@ export function AnatomyScene({ muscle }: { muscle: Muscle | null }) {
       <color attach="background" args={[SCENE_BG]} />
       <fog attach="fog" args={[SCENE_BG, 8, 18]} />
       <Lights />
-      <Skeleton />
-      {muscle ? <MuscleMesh muscle={muscle} /> : null}
+      <Suspense fallback={null}>
+        <Skeleton />
+        {muscle ? <MuscleMesh muscle={muscle} /> : null}
+        <LandmarkLayer visible={showLandmarks} />
+      </Suspense>
       <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />
       <CameraRig muscle={muscle} />
     </Canvas>
