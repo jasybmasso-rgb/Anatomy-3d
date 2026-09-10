@@ -32,7 +32,7 @@ Au chargement, **seul le squelette** est visible. Aucun muscle n’est sélectio
 
 ### Affichage du muscle + zoom
 
-- Le muscle sélectionné apparaît comme un **maillage stylisé** (pas un scan réel), guidé par `meshHint` et ancré sur le squelette.
+- Le muscle sélectionné apparaît comme un **maillage BodyParts3D** (nœud du `muscles.glb`), ou une nappe synthétique si BP3D 4.0 n’a pas ce muscle (grand dorsal, droit de l’abdomen). Les capsules stylisées restent un repli.
 - La caméra s’anime vers `focus.position` à une distance `focus.distance`.
 - Repère : **Y vers le haut**, figure d’environ **1,7 m**, origine de scène près du **bassin**, face +Z, pieds vers Y ≈ −0,9.
 

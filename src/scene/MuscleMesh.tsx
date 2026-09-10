@@ -1,3 +1,4 @@
+import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
 import type { Muscle } from "../types/muscle";
@@ -5,6 +6,18 @@ import { primitivesForMuscle, type CapsulePrim, type MusclePrim } from "./muscle
 import type { Vec3 } from "./landmarks";
 
 const MUSCLE_COLOR = "#c44536";
+
+const muscleMaterial = () =>
+  new THREE.MeshPhysicalMaterial({
+    color: MUSCLE_COLOR,
+    roughness: 0.38,
+    metalness: 0.04,
+    transparent: true,
+    opacity: 0.9,
+    clearcoat: 0.15,
+    side: THREE.DoubleSide,
+    vertexColors: false,
+  });
 
 function CapsuleMesh({ prim }: { prim: CapsulePrim }) {
   const { mid, quat, cyl, radius } = useMemo(() => {
@@ -69,7 +82,7 @@ function Primitive({ prim }: { prim: MusclePrim }) {
   return <BoxMesh position={prim.position} rotation={prim.rotation} size={prim.size} />;
 }
 
-export function MuscleMesh({ muscle }: { muscle: Muscle }) {
+function StylizedMuscle({ muscle }: { muscle: Muscle }) {
   const prims = useMemo(() => primitivesForMuscle(muscle), [muscle]);
   return (
     <group>
@@ -79,3 +92,36 @@ export function MuscleMesh({ muscle }: { muscle: Muscle }) {
     </group>
   );
 }
+
+function GltfMuscle({ muscle }: { muscle: Muscle }) {
+  const gltf = useGLTF("/models/muscles.glb");
+  const object = useMemo(() => {
+    const src = gltf.scene.getObjectByName(muscle.id);
+    if (!src) return null;
+    const clone = src.clone(true);
+    const material = muscleMaterial();
+    clone.traverse((obj) => {
+      if (obj instanceof THREE.Mesh) {
+        const geom = obj.geometry;
+        if (!geom.getAttribute("normal")) {
+          geom.computeVertexNormals();
+        }
+        obj.userData.pick = "muscle";
+        obj.castShadow = true;
+        obj.receiveShadow = false;
+        obj.material = material;
+        obj.visible = true;
+      }
+    });
+    return clone;
+  }, [gltf, muscle.id]);
+
+  if (!object) return <StylizedMuscle muscle={muscle} />;
+  return <primitive object={object} />;
+}
+
+export function MuscleMesh({ muscle }: { muscle: Muscle }) {
+  return <GltfMuscle muscle={muscle} />;
+}
+
+useGLTF.preload("/models/muscles.glb");

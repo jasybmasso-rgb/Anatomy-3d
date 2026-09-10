@@ -17,7 +17,7 @@ Les chaînes myofasciales (Tom Myers), les nerfs et la superposition multi-élé
 
 Le squelette affiché est un **GLB fusionné** (`public/models/skeleton.glb`, **13,47 MiB**, normales incluses) dérivé de **BodyParts3D** (203 os, réduction 99 %). Voir `docs/ATTRIBUTION.md` pour le crédit **CC BY-SA 2.1 Japon** et les implications share-alike.
 
-Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles restent des maillages **stylisés**. Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments (`ligaments.glb`, tan — BP3D + bandes synthétiques aux articulations majeures) et fascias (`fascia.glb`, gris-bleu — tractus ilio-tibiaux BP3D + nappes synthétiques).
+Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les 22 muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments (`ligaments.glb`, tan — BP3D + bandes synthétiques aux articulations majeures) et fascias (`fascia.glb`, gris-bleu — tractus ilio-tibiaux BP3D + nappes synthétiques).
 
 Reconstruction du GLB :
 

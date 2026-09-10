@@ -15,8 +15,11 @@ Tableau de **22 muscles** (Phase 1). Chaque objet :
 | `insertion` | `string` | Insertion. |
 | `actions` | `string[]` | Mouvements / actions principales. |
 | `focus.position` | `[x,y,z]` | Point visé par la caméra (Y-up). Espace landmarks : bassin à Y=0, pieds ≈ -0,9, crâne ≈ 0,66. Un Y supérieur à 0,82 (pieds à 0) est recalé automatiquement. |
-| `focus.distance` | `number` | Distance caméra–cible (mètres). |
-| `meshHint` | `string` | Indice de forme pour le maillage stylisé (`src/scene/muscleMeshes.ts`). |
+| `focus.distance` | `number` | Distance caméra–cible (mètres). Recalculée depuis le maillage (moitié droite, patient). |
+| `meshHint` | `string` | Indice de forme de repli si le GLB n’expose pas le nœud. |
+| `meshSource` | `bodyparts3d` \| `synthetic` | Provenance du maillage 3D. |
+
+Maillages : `public/models/muscles.glb` (nœud = `id`) + catalogue `src/data/muscleMeshes.json`. **20** muscles BP3D ; **grand dorsal** et **droit de l’abdomen** synthétiques (absents de BP3D 4.0). L’UI n’affiche que le muscle sélectionné.
 
 Import applicatif : `src/types/muscle.ts` + `src/data/loadMuscles.ts`.
 

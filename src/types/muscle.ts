@@ -19,6 +19,8 @@ export type Muscle = {
     distance: number;
   };
   meshHint: string;
+  /** bodyparts3d when a BP3D mesh exists; synthetic otherwise. */
+  meshSource?: "bodyparts3d" | "synthetic";
 };
 
 export type SelectionState = {

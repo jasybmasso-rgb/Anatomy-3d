@@ -1,0 +1,751 @@
+{
+  "version": 1,
+  "inclusionRules": "App muscles mapped to BodyParts3D IS-A leaf meshes (heads / parts), concatenated per muscle id, aligned with skeleton.meta.json worldMatrix. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and are synthesized from landmarks (multi-lobe bands). Tensor fasciae latae and other muscles not in muscles.json are omitted.",
+  "count": 22,
+  "countBodyparts3d": 20,
+  "countSynthetic": 2,
+  "muscles": [
+    {
+      "id": "biceps-brachial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "short head of right biceps brachii",
+        "short head of left biceps brachii",
+        "long head of right biceps brachii",
+        "long head of left biceps brachii"
+      ],
+      "fmaIds": [
+        "FMA37684",
+        "FMA37685",
+        "FMA37686",
+        "FMA37687"
+      ],
+      "fileIds": [
+        "FJ1478",
+        "FJ1478M",
+        "FJ1512",
+        "FJ1512M"
+      ],
+      "centroid": [
+        -0.00019,
+        0.30982,
+        0.04597
+      ],
+      "focus": {
+        "position": [
+          -0.18687,
+          0.30933,
+          0.04515
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 5574,
+      "faceCount": 6564
+    },
+    {
+      "id": "triceps-brachial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "long head of right triceps brachii",
+        "long head of left triceps brachii",
+        "medial head of right triceps brachii",
+        "medial head of left triceps brachii",
+        "lateral head of right triceps brachii",
+        "lateral head of left triceps brachii"
+      ],
+      "fmaIds": [
+        "FMA37699",
+        "FMA37700",
+        "FMA37695",
+        "FMA37696",
+        "FMA37697",
+        "FMA37698"
+      ],
+      "fileIds": [
+        "FJ1477",
+        "FJ1477M",
+        "FJ1479",
+        "FJ1479M",
+        "FJ1480",
+        "FJ1480M"
+      ],
+      "centroid": [
+        0.00041,
+        0.28162,
+        0.0035
+      ],
+      "focus": {
+        "position": [
+          -0.19448,
+          0.28168,
+          0.00267
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 6805,
+      "faceCount": 10052
+    },
+    {
+      "id": "deltoide",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "clavicular part of right deltoid",
+        "clavicular part of left deltoid",
+        "acromial part of right deltoid",
+        "acromial part of left deltoid",
+        "spinal part of right deltoid",
+        "spinal part of left deltoid"
+      ],
+      "fmaIds": [
+        "FMA34680",
+        "FMA34681",
+        "FMA34682",
+        "FMA34683",
+        "FMA34684",
+        "FMA34685"
+      ],
+      "fileIds": [
+        "FJ1467",
+        "FJ1467M",
+        "FJ1468",
+        "FJ1468M",
+        "FJ1513",
+        "FJ1513M"
+      ],
+      "centroid": [
+        0.00078,
+        0.44685,
+        0.02428
+      ],
+      "focus": {
+        "position": [
+          -0.147,
+          0.44698,
+          0.02362
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 10373,
+      "faceCount": 10812
+    },
+    {
+      "id": "grand-pectoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "clavicular part of right pectoralis major",
+        "clavicular part of left pectoralis major",
+        "sternocostal part of right pectoralis major",
+        "sternocostal part of left pectoralis major",
+        "abdominal part of right pectoralis major",
+        "abdominal part of left pectoralis major"
+      ],
+      "fmaIds": [
+        "FMA34690",
+        "FMA34691",
+        "FMA79979",
+        "FMA79980",
+        "FMA45874",
+        "FMA45875"
+      ],
+      "fileIds": [
+        "FJ1446",
+        "FJ1446M",
+        "FJ1447",
+        "FJ1447M",
+        "FJ1464",
+        "FJ1464M"
+      ],
+      "centroid": [
+        -8e-05,
+        0.38293,
+        0.11263
+      ],
+      "focus": {
+        "position": [
+          -0.09089,
+          0.38294,
+          0.11225
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 15967,
+      "faceCount": 20992
+    },
+    {
+      "id": "trapeze",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "ascending part of right trapezius",
+        "ascending part of left trapezius",
+        "transverse part of right trapezius",
+        "transverse part of left trapezius",
+        "descending part of right trapezius",
+        "descending part of left trapezius"
+      ],
+      "fmaIds": [
+        "FMA33581",
+        "FMA33583",
+        "FMA33584",
+        "FMA33585",
+        "FMA33586",
+        "FMA33587"
+      ],
+      "fileIds": [
+        "FJ1520",
+        "FJ1520M",
+        "FJ1521",
+        "FJ1521M",
+        "FJ1554",
+        "FJ1554M"
+      ],
+      "centroid": [
+        0.00044,
+        0.45577,
+        -0.02548
+      ],
+      "focus": {
+        "position": [
+          -0.04524,
+          0.45946,
+          -0.0246
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 32132,
+      "faceCount": 44196
+    },
+    {
+      "id": "sterno-cleido-mastoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right sternocleidomastoid",
+        "left sternocleidomastoid"
+      ],
+      "fmaIds": [
+        "FMA13408",
+        "FMA13409"
+      ],
+      "fileIds": [
+        "FJ1573",
+        "FJ1595"
+      ],
+      "centroid": [
+        -0.00174,
+        0.53764,
+        0.05954
+      ],
+      "focus": {
+        "position": [
+          -0.03973,
+          0.5387,
+          0.05861
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 12852,
+      "faceCount": 20568
+    },
+    {
+      "id": "biceps-femoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "long head of right biceps femoris",
+        "long head of left biceps femoris",
+        "short head of right biceps femoris",
+        "short head of left biceps femoris"
+      ],
+      "fmaIds": [
+        "FMA45888",
+        "FMA45889",
+        "FMA45891",
+        "FMA45892"
+      ],
+      "fileIds": [
+        "FJ1395",
+        "FJ1395M",
+        "FJ1444",
+        "FJ1444M"
+      ],
+      "centroid": [
+        0.00045,
+        -0.33733,
+        0.0121
+      ],
+      "focus": {
+        "position": [
+          -0.09667,
+          -0.3373,
+          0.01168
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 8101,
+      "faceCount": 13676
+    },
+    {
+      "id": "semi-tendineux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right semitendinosus",
+        "left semitendinosus"
+      ],
+      "fmaIds": [
+        "FMA22358",
+        "FMA22359"
+      ],
+      "fileIds": [
+        "FJ1436",
+        "FJ1436M"
+      ],
+      "centroid": [
+        0.00033,
+        -0.35826,
+        0.01676
+      ],
+      "focus": {
+        "position": [
+          -0.04977,
+          -0.35843,
+          0.01658
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 3619,
+      "faceCount": 5424
+    },
+    {
+      "id": "semi-membraneux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right semimembranosus",
+        "left semimembranosus"
+      ],
+      "fmaIds": [
+        "FMA22448",
+        "FMA22449"
+      ],
+      "fileIds": [
+        "FJ1435",
+        "FJ1435M"
+      ],
+      "centroid": [
+        0.00038,
+        -0.31436,
+        0.01955
+      ],
+      "focus": {
+        "position": [
+          -0.04057,
+          -0.31436,
+          0.01938
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 5176,
+      "faceCount": 9224
+    },
+    {
+      "id": "droit-femoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right rectus femoris",
+        "left rectus femoris"
+      ],
+      "fmaIds": [
+        "FMA38928",
+        "FMA38929"
+      ],
+      "fileIds": [
+        "FJ1433",
+        "FJ1433M"
+      ],
+      "centroid": [
+        0.00014,
+        -0.25001,
+        0.07361
+      ],
+      "focus": {
+        "position": [
+          -0.10571,
+          -0.25001,
+          0.07315
+        ],
+        "distance": 0.665
+      },
+      "vertexCount": 6652,
+      "faceCount": 11376
+    },
+    {
+      "id": "vaste-lateral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right vastus lateralis",
+        "left vastus lateralis"
+      ],
+      "fmaIds": [
+        "FMA38930",
+        "FMA38931"
+      ],
+      "fileIds": [
+        "FJ1442",
+        "FJ1442M"
+      ],
+      "centroid": [
+        0.0002,
+        -0.3221,
+        0.05696
+      ],
+      "focus": {
+        "position": [
+          -0.12138,
+          -0.32209,
+          0.05644
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 7949,
+      "faceCount": 13376
+    },
+    {
+      "id": "vaste-medial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right vastus medialis",
+        "left vastus medialis"
+      ],
+      "fmaIds": [
+        "FMA38932",
+        "FMA38933"
+      ],
+      "fileIds": [
+        "FJ1443",
+        "FJ1443M"
+      ],
+      "centroid": [
+        0.00014,
+        -0.3329,
+        0.07318
+      ],
+      "focus": {
+        "position": [
+          -0.07533,
+          -0.33291,
+          0.07286
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 5545,
+      "faceCount": 9104
+    },
+    {
+      "id": "vaste-intermediaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right vastus intermedius",
+        "left vastus intermedius"
+      ],
+      "fmaIds": [
+        "FMA38934",
+        "FMA38935"
+      ],
+      "fileIds": [
+        "FJ1441",
+        "FJ1441M"
+      ],
+      "centroid": [
+        0.00012,
+        -0.3154,
+        0.06408
+      ],
+      "focus": {
+        "position": [
+          -0.10432,
+          -0.31554,
+          0.06363
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 5492,
+      "faceCount": 8520
+    },
+    {
+      "id": "grand-fessier",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right gluteus maximus",
+        "left gluteus maximus"
+      ],
+      "fmaIds": [
+        "FMA22328",
+        "FMA22329"
+      ],
+      "fileIds": [
+        "FJ1418",
+        "FJ1418M"
+      ],
+      "centroid": [
+        0.00051,
+        -0.05299,
+        -0.01207
+      ],
+      "focus": {
+        "position": [
+          -0.08736,
+          -0.05277,
+          -0.01213
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 4106,
+      "faceCount": 4752
+    },
+    {
+      "id": "iliopsoas",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right iliacus",
+        "left iliacus",
+        "right psoas major",
+        "left psoas major"
+      ],
+      "fmaIds": [
+        "FMA22322",
+        "FMA22323",
+        "FMA22342",
+        "FMA22343"
+      ],
+      "fileIds": [
+        "FJ1422",
+        "FJ1422M",
+        "FJ1431",
+        "FJ1431M"
+      ],
+      "centroid": [
+        0.00034,
+        0.06363,
+        0.03881
+      ],
+      "focus": {
+        "position": [
+          -0.06352,
+          0.06367,
+          0.03851
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 12165,
+      "faceCount": 15524
+    },
+    {
+      "id": "gastrocnemien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "medial head of right gastrocnemius",
+        "medial head of left gastrocnemius",
+        "lateral head of right gastrocnemius",
+        "lateral head of left gastrocnemius"
+      ],
+      "fmaIds": [
+        "FMA45957",
+        "FMA45958",
+        "FMA45960",
+        "FMA45961"
+      ],
+      "fileIds": [
+        "FJ1394",
+        "FJ1394M",
+        "FJ1397",
+        "FJ1397M"
+      ],
+      "centroid": [
+        0.00042,
+        -0.56323,
+        0.004
+      ],
+      "focus": {
+        "position": [
+          -0.06896,
+          -0.56318,
+          0.0037
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 8021,
+      "faceCount": 13788
+    },
+    {
+      "id": "soleaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right soleus",
+        "left soleus"
+      ],
+      "fmaIds": [
+        "FMA22558",
+        "FMA22559"
+      ],
+      "fileIds": [
+        "FJ1437",
+        "FJ1437M"
+      ],
+      "centroid": [
+        0.0004,
+        -0.63161,
+        0.01354
+      ],
+      "focus": {
+        "position": [
+          -0.08007,
+          -0.63161,
+          0.01319
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 5348,
+      "faceCount": 8836
+    },
+    {
+      "id": "tibial-anterieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right tibialis anterior",
+        "left tibialis anterior"
+      ],
+      "fmaIds": [
+        "FMA22544",
+        "FMA22545"
+      ],
+      "fileIds": [
+        "FJ1439",
+        "FJ1439M"
+      ],
+      "centroid": [
+        0.0002,
+        -0.75881,
+        0.06926
+      ],
+      "focus": {
+        "position": [
+          -0.08575,
+          -0.75875,
+          0.06887
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 4410,
+      "faceCount": 5020
+    },
+    {
+      "id": "oblique-externe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right external oblique",
+        "left external oblique"
+      ],
+      "fmaIds": [
+        "FMA13336",
+        "FMA13337"
+      ],
+      "fileIds": [
+        "FJ1452",
+        "FJ1452M"
+      ],
+      "centroid": [
+        -0.0001,
+        0.14668,
+        0.12779
+      ],
+      "focus": {
+        "position": [
+          -0.0623,
+          0.1467,
+          0.12752
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 127800,
+      "faceCount": 223652
+    },
+    {
+      "id": "supra-epineux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right supraspinatus",
+        "left supraspinatus"
+      ],
+      "fmaIds": [
+        "FMA32544",
+        "FMA32545"
+      ],
+      "fileIds": [
+        "FJ1506",
+        "FJ1506M"
+      ],
+      "centroid": [
+        0.00032,
+        0.45921,
+        0.01344
+      ],
+      "focus": {
+        "position": [
+          -0.13592,
+          0.45923,
+          0.01287
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 1685,
+      "faceCount": 1756
+    },
+    {
+      "id": "grand-dorsal",
+      "source": "synthetic",
+      "sourceNames": [
+        "grand-dorsal"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.00037,
+        0.13877,
+        0.00239
+      ],
+      "focus": {
+        "position": [
+          -0.13822,
+          0.13869,
+          0.00186
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 300,
+      "faceCount": 520,
+      "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+    },
+    {
+      "id": "droit-abdomen",
+      "source": "synthetic",
+      "sourceNames": [
+        "droit-abdomen"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.00018,
+        0.18172,
+        0.13949
+      ],
+      "focus": {
+        "position": [
+          -0.02197,
+          0.18172,
+          0.13949
+        ],
+        "distance": 0.62
+      },
+      "vertexCount": 92,
+      "faceCount": 152,
+      "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+    }
+  ]
+}
