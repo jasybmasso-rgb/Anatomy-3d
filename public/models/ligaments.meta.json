@@ -1,12 +1,10 @@
 {
-  "glbBytes": 1743480,
-  "glbMiB": 1.66,
-  "partCount": 97,
+  "glbBytes": 2078280,
+  "glbMiB": 1.98,
+  "partCount": 60,
   "countBodyparts3d": 18,
-  "countSynthetic": 79,
-  "vertexCount": 39887,
-  "faceCount": 52118,
-  "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic bands are original educational approximations",
+  "countSynthetic": 42,
+  "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 ribbons are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Included: BodyParts3D concepts whose English name is a named ligament, plus interosseous membranes (syndesmoses) and flexor retinacula (deep fibrous / ligamentous layer). Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, lens suspensory ligaments, trochleae, abstract parents, arteries. Major joint ligaments absent from BodyParts3D 4.0 (ACL/PCL, collaterals, hip capsular ligaments, glenohumeral, annular, ATFL/CFL/PTFL, spinal ALL/PLL/flavum) are synthesized as landmark-anchored bands (source=synthetic) \u2014 educational approximations, not cadaver segmentations."
+  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic multi-fiber ribbons (source=synthetic-v2), not cadaver meshes. Spinal stick ligaments and menisci are omitted (quality > quantity)."
 }

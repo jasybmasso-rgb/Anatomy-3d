@@ -1,4 +1,8 @@
-"""Educational synthetic ligaments anchored on landmarks.json."""
+"""Schematic major-joint ligaments: multi-fiber lofted ribbons (synthetic-v2).
+
+Not cadaver meshes. Landmark-anchored, labeled source=synthetic-v2.
+Spine sticks and menisci are omitted on purpose (quality > quantity).
+"""
 
 from __future__ import annotations
 
@@ -8,14 +12,14 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from mesh_primitives import band, disc
+from mesh_primitives import fiber_bundle, torus_ring
 
 ROOT = Path(__file__).resolve().parents[1]
 LANDMARKS = ROOT / "src" / "data" / "landmarks.json"
 
 NOTE = (
-    "Approximation pédagogique : bande synthétique ancrée sur les repères v1 "
-    "(centroïdes / extrema). Pas un scan. Source: synthetic."
+    "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères "
+    "osseux vérifiés. Ce n’est pas une segmentation cadavérique."
 )
 
 
@@ -44,7 +48,7 @@ def entry(id_: str, name: str, latin: str, region: str, joint: str, mesh: trimes
         "region": region,
         "joint": joint,
         "notes": NOTE,
-        "source": "synthetic",
+        "source": "synthetic-v2",
         "sourceName": id_,
         "fmaId": "",
         "fileIds": [],
@@ -52,59 +56,67 @@ def entry(id_: str, name: str, latin: str, region: str, joint: str, mesh: trimes
     }
 
 
-def build() -> tuple[list[trimesh.Trimesh], list[dict]]:
+def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
     p = load_lm()
-    meshes: list[trimesh.Trimesh] = []
+    meshes: list[tuple[str, trimesh.Trimesh]] = []
     catalog: list[dict] = []
 
-    def add(id_, name, latin, region, joint, mesh, radius=None):
+    def add(id_, name, latin, region, joint, mesh):
         if mesh is None or mesh.vertices.size == 0:
             return
-        meshes.append(mesh)
+        meshes.append((id_, mesh))
         catalog.append(entry(id_, name, latin, region, joint, mesh))
 
-    def capsule(id_, name, latin, region, joint, a, b, r):
-        add(id_, name, latin, region, joint, band(a, b, r * 1.75))
+    def bundle(id_, name, latin, region, joint, a, b, **kw):
+        add(id_, name, latin, region, joint, fiber_bundle(a, b, **kw))
 
-    # --- Knee ---
-    for side, suf, flip in (("droit", "d", False), ("gauche", "g", True)):
-        def S(key: str) -> np.ndarray:
-            if key in p:
-                return p[key] if not flip or key.endswith("-g") or key.endswith(f"-{suf}") else p[key]
-            # left condyles / epicondyles: mirror right
-            right_key = key.replace("-g", "-d") if key.endswith("-g") else key
-            if flip and right_key in p:
-                return mirror(p[right_key])
+    def S(key: str, suf: str) -> np.ndarray:
+        if key in p:
             return p[key]
+        if suf == "g" and key.endswith("-g"):
+            right = key[:-2] + "-d"
+            if right in p:
+                return mirror(p[right])
+        raise KeyError(key)
 
-        lat_f = S("condyle-lat-femur-d") if suf == "d" else mirror(p["condyle-lat-femur-d"])
-        med_f = S("condyle-med-femur-d") if suf == "d" else mirror(p["condyle-med-femur-d"])
+    for suf, side in (("d", "droit"), ("g", "gauche")):
+        sx = -1.0 if suf == "d" else 1.0
+        lat_f = S("condyle-lat-femur-d", suf) if suf == "d" else mirror(p["condyle-lat-femur-d"])
+        med_f = S("condyle-med-femur-d", suf) if suf == "d" else mirror(p["condyle-med-femur-d"])
         pat = p[f"patella-{suf}"]
         tub = p[f"tuberosite-tibiale-{suf}"]
         fib = p[f"tete-fibula-{suf}"]
-        tibia_ant = mix(tub, pat, 0.25)
-        tibia_post = off(mix(tub, pat, 0.4), z=-0.035)
-        acl_from = mix(lat_f, med_f, 0.35)
-        pcl_from = mix(med_f, lat_f, 0.35)
+        tibia_ant = mix(tub, pat, 0.22)
+        tibia_post = off(mix(tub, pat, 0.38), z=-0.038)
+        acl_from = off(mix(lat_f, med_f, 0.32), z=-0.004)
+        pcl_from = off(mix(med_f, lat_f, 0.28), z=-0.012)
 
-        capsule(f"lca-{suf}", f"LCA {side}", "Ligamentum cruciatum anterius", "genou", "genou",
-                off(acl_from, z=0.01), off(tibia_ant, z=0.01), 0.004)
-        capsule(f"lcp-{suf}", f"LCP {side}", "Ligamentum cruciatum posterius", "genou", "genou",
-                off(pcl_from, z=-0.01), tibia_post, 0.004)
-        capsule(f"llim-{suf}", f"LLI {side}", "Ligamentum collaterale tibiale", "genou", "genou",
-                med_f, off(tub, x=(-0.02 if suf == "d" else 0.02), y=0.02), 0.005)
-        capsule(f"lle-{suf}", f"LLE {side}", "Ligamentum collaterale fibulare", "genou", "genou",
-                lat_f, fib, 0.0045)
-        capsule(f"patellaire-{suf}", f"Ligament patellaire {side}", "Ligamentum patellae", "genou", "genou",
-                pat, tub, 0.006)
-        men_c = mix(mix(lat_f, med_f, 0.5), tub, 0.35)
-        add(f"menisque-med-{suf}", f"Ménisque médial {side}", "Meniscus medialis", "genou", "genou",
-            disc(off(men_c, x=(-0.012 if suf == "d" else 0.012)), [0, 1, 0.15], 0.02, 0.005))
-        add(f"menisque-lat-{suf}", f"Ménisque latéral {side}", "Meniscus lateralis", "genou", "genou",
-            disc(off(men_c, x=(0.012 if suf == "d" else -0.012)), [0, 1, 0.15], 0.018, 0.005))
+        bundle(
+            f"lca-{suf}", f"LCA {side}", "Ligamentum cruciatum anterius", "genou", "genou",
+            acl_from, off(tibia_ant, x=sx * 0.004, z=0.006),
+            sag=[0, -0.008, -0.012], width=0.011, thickness=0.0028, n_fibers=5, spread=0.0045,
+        )
+        bundle(
+            f"lcp-{suf}", f"LCP {side}", "Ligamentum cruciatum posterius", "genou", "genou",
+            pcl_from, tibia_post,
+            sag=[0, -0.006, 0.01], width=0.012, thickness=0.003, n_fibers=5, spread=0.005,
+        )
+        bundle(
+            f"llim-{suf}", f"LLI {side}", "Ligamentum collaterale tibiale", "genou", "genou",
+            med_f, off(tub, x=sx * -0.018, y=0.015),
+            sag=[sx * -0.006, 0.0, 0.004], width=0.014, thickness=0.0032, n_fibers=6, spread=0.006,
+        )
+        bundle(
+            f"lle-{suf}", f"LLE {side}", "Ligamentum collaterale fibulare", "genou", "genou",
+            lat_f, fib,
+            sag=[sx * 0.008, 0.0, 0.0], width=0.009, thickness=0.0026, n_fibers=4, spread=0.0035,
+        )
+        bundle(
+            f"patellaire-{suf}", f"Ligament patellaire {side}", "Ligamentum patellae", "genou", "genou",
+            pat, tub,
+            sag=[0, 0, 0.006], width=0.018, thickness=0.0034, n_fibers=5, spread=0.007,
+        )
 
-    # --- Hip ---
-    for suf, side in (("d", "droit"), ("g", "gauche")):
         eias = p[f"eias-{suf}"]
         eiia = p[f"eiia-{suf}"]
         isch = p[f"tuberosite-ischiatique-{suf}"]
@@ -112,99 +124,118 @@ def build() -> tuple[list[trimesh.Trimesh], list[dict]]:
         gt = p[f"grand-trochanter-{suf}"]
         pub = p["tubercule-pubien"]
         cox = p[f"os-coxal-{suf}"]
-        capsule(f"ilio-femoral-{suf}", f"Ligament ilio-fémoral {side}", "Ligamentum iliofemorale",
-                "hanche", "hanche", mix(eias, eiia, 0.35), mix(head, gt, 0.45), 0.007)
-        capsule(f"pubo-femoral-{suf}", f"Ligament pubo-fémoral {side}", "Ligamentum pubofemorale",
-                "hanche", "hanche", mix(pub, cox, 0.4), off(head, y=-0.02), 0.0055)
-        capsule(f"ischio-femoral-{suf}", f"Ligament ischio-fémoral {side}", "Ligamentum ischiofemorale",
-                "hanche", "hanche", isch, off(gt, z=-0.02), 0.0055)
-        capsule(f"tete-femur-{suf}", f"Ligament de la tête fémorale {side}", "Ligamentum capitis femoris",
-                "hanche", "hanche", mix(cox, pub, 0.25), head, 0.0035)
+        # Iliofemoral Y (Bertin): two bands from AIIS region.
+        bundle(
+            f"ilio-femoral-sup-{suf}", f"Ilio-fémoral supérieur {side}",
+            "Ligamentum iliofemorale (pars transversa)", "hanche", "hanche",
+            mix(eias, eiia, 0.25), mix(head, gt, 0.55),
+            sag=[0, 0.01, 0.008], width=0.016, thickness=0.0034, n_fibers=6, spread=0.007,
+        )
+        bundle(
+            f"ilio-femoral-inf-{suf}", f"Ilio-fémoral inférieur {side}",
+            "Ligamentum iliofemorale (pars descendens)", "hanche", "hanche",
+            mix(eias, eiia, 0.45), off(mix(head, gt, 0.35), y=-0.02),
+            sag=[0, -0.012, 0.006], width=0.014, thickness=0.0032, n_fibers=5, spread=0.006,
+        )
+        bundle(
+            f"pubo-femoral-{suf}", f"Pubo-fémoral {side}", "Ligamentum pubofemorale", "hanche", "hanche",
+            mix(pub, cox, 0.42), off(head, y=-0.025, z=0.01),
+            sag=[0, -0.01, 0.008], width=0.011, thickness=0.0028, n_fibers=4, spread=0.005,
+        )
+        bundle(
+            f"ischio-femoral-{suf}", f"Ischio-fémoral {side}", "Ligamentum ischiofemorale", "hanche", "hanche",
+            isch, off(gt, z=-0.025),
+            sag=[0, 0.008, -0.012], width=0.012, thickness=0.003, n_fibers=5, spread=0.0055,
+        )
 
-    # --- Shoulder ---
-    for suf, side in (("d", "droit"), ("g", "gauche")):
         acr = p[f"acromion-{suf}"]
         scap = p[f"scapula-{suf}"]
         clav_acr = p[f"extremite-acromiale-clavicule-{suf}"]
         clav_st = p[f"extremite-sternale-clavicule-{suf}"]
         hum = p[f"tete-humerus-{suf}"]
-        cor = mix(mix(scap, acr, 0.45), clav_acr, 0.25)
-        cor = off(cor, z=0.025, y=-0.01)
-        capsule(f"gleno-hum-sup-{suf}", f"Ligament gléno-huméral supérieur {side}",
-                "Ligamentum glenohumerale superius", "épaule", "épaule",
-                mix(scap, acr, 0.55), off(hum, y=0.012), 0.0035)
-        capsule(f"gleno-hum-moy-{suf}", f"Ligament gléno-huméral moyen {side}",
-                "Ligamentum glenohumerale medium", "épaule", "épaule",
-                scap, hum, 0.0035)
-        capsule(f"gleno-hum-inf-{suf}", f"Ligament gléno-huméral inférieur {side}",
-                "Ligamentum glenohumerale inferius", "épaule", "épaule",
-                off(scap, y=-0.02), off(hum, y=-0.012), 0.0035)
-        capsule(f"coraco-humeral-{suf}", f"Ligament coraco-huméral {side}",
-                "Ligamentum coracohumerale", "épaule", "épaule", cor, off(hum, y=0.01), 0.004)
-        capsule(f"coraco-acromial-{suf}", f"Ligament coraco-acromial {side}",
-                "Ligamentum coracoacromiale", "épaule", "épaule", cor, acr, 0.004)
-        capsule(f"acromio-clav-{suf}", f"Ligament acromio-claviculaire {side}",
-                "Ligamentum acromioclaviculare", "épaule", "épaule", clav_acr, acr, 0.004)
-        capsule(f"trapezoide-{suf}", f"Ligament trapézoïde {side}",
-                "Ligamentum trapezoideum", "épaule", "épaule", mix(clav_acr, clav_st, 0.15), cor, 0.0035)
-        capsule(f"conoide-{suf}", f"Ligament conoïde {side}",
-                "Ligamentum conoideum", "épaule", "épaule", mix(clav_acr, clav_st, 0.28), cor, 0.0035)
+        cor = off(mix(mix(scap, acr, 0.45), clav_acr, 0.25), z=0.022, y=-0.008)
+        glen = mix(scap, acr, 0.62)
+        bundle(
+            f"gleno-hum-{suf}", f"Complexe gléno-huméral {side}",
+            "Ligamenta glenohumeralia", "épaule", "épaule",
+            glen, hum,
+            sag=[0, -0.006, 0.004], width=0.016, thickness=0.0026, n_fibers=7, spread=0.009,
+        )
+        bundle(
+            f"coraco-humeral-{suf}", f"Coraco-huméral {side}",
+            "Ligamentum coracohumerale", "épaule", "épaule",
+            cor, off(hum, y=0.012),
+            sag=[0, 0.008, 0.004], width=0.01, thickness=0.0026, n_fibers=4, spread=0.004,
+        )
+        bundle(
+            f"coraco-acromial-{suf}", f"Coraco-acromial {side}",
+            "Ligamentum coracoacromiale", "épaule", "épaule",
+            cor, acr,
+            sag=[0, 0.006, 0.01], width=0.012, thickness=0.0028, n_fibers=4, spread=0.005,
+        )
+        bundle(
+            f"acromio-clav-{suf}", f"Acromio-claviculaire {side}",
+            "Ligamentum acromioclaviculare", "épaule", "épaule",
+            clav_acr, acr,
+            sag=[0, 0.004, 0.003], width=0.01, thickness=0.0028, n_fibers=4, spread=0.004,
+        )
+        bundle(
+            f"coraco-clav-{suf}", f"Coraco-claviculaire {side}",
+            "Ligamenta trapezoidum et conoideum", "épaule", "épaule",
+            mix(clav_acr, clav_st, 0.2), cor,
+            sag=[0, -0.006, 0.0], width=0.011, thickness=0.0026, n_fibers=5, spread=0.005,
+        )
 
-    # --- Elbow ---
-    for suf, side in (("d", "droit"), ("g", "gauche")):
         ole = p[f"olecrane-{suf}"]
         sty_u = p[f"styloide-ulnaire-{suf}"]
         sty_r = p[f"styloide-radial-{suf}"]
-        if suf == "d":
-            epi_m = p["epicondyle-med-humerus-d"]
-            epi_l = p["epicondyle-lat-humerus-d"]
-        else:
-            epi_m = mirror(p["epicondyle-med-humerus-d"])
-            epi_l = mirror(p["epicondyle-lat-humerus-d"])
-        ulna_prox = mix(ole, sty_u, 0.12)
-        rad_head = mix(ole, sty_r, 0.14)
-        capsule(f"lliu-{suf}", f"LCU {side}", "Ligamentum collaterale ulnare",
-                "coude", "coude", epi_m, ulna_prox, 0.004)
-        capsule(f"llir-{suf}", f"LCR {side}", "Ligamentum collaterale radiale",
-                "coude", "coude", epi_l, rad_head, 0.0038)
-        add(f"annulaire-radius-{suf}", f"Ligament annulaire du radius {side}",
-            "Ligamentum anulare radii", "coude", "coude",
-            disc(rad_head, sty_r - ole, 0.012, 0.004))
+        epi_m = p["epicondyle-med-humerus-d"] if suf == "d" else mirror(p["epicondyle-med-humerus-d"])
+        epi_l = p["epicondyle-lat-humerus-d"] if suf == "d" else mirror(p["epicondyle-lat-humerus-d"])
+        ulna_prox = mix(ole, sty_u, 0.11)
+        rad_head = mix(ole, sty_r, 0.13)
+        bundle(
+            f"lliu-{suf}", f"LCU {side}", "Ligamentum collaterale ulnare", "coude", "coude",
+            epi_m, ulna_prox,
+            sag=[sx * -0.004, -0.004, 0.003], width=0.01, thickness=0.0026, n_fibers=5, spread=0.0045,
+        )
+        bundle(
+            f"llir-{suf}", f"LCR {side}", "Ligamentum collaterale radiale", "coude", "coude",
+            epi_l, mix(rad_head, ole, 0.25),
+            sag=[sx * 0.004, -0.003, 0.002], width=0.008, thickness=0.0024, n_fibers=4, spread=0.0035,
+        )
+        axis = sty_r - ole
+        add(
+            f"annulaire-radius-{suf}",
+            f"Annulaire du radius {side}",
+            "Ligamentum anulare radii",
+            "coude",
+            "coude",
+            torus_ring(rad_head, axis, major=0.013, minor=0.0026, major_sec=28, minor_sec=8),
+        )
 
-    # --- Ankle ---
-    for suf, side in (("d", "droit"), ("g", "gauche")):
         mal_l = p[f"maleole-laterale-{suf}"]
         mal_m = p[f"maleole-mediale-{suf}"]
         tal = p[f"talus-{suf}"]
         cal = p[f"calcaneus-{suf}"]
-        capsule(f"lfta-{suf}", f"LTFA {side}", "Ligamentum talofibulare anterius",
-                "cheville", "cheville", mal_l, off(tal, z=0.02), 0.0032)
-        capsule(f"lfcal-{suf}", f"LCF {side}", "Ligamentum calcaneofibulare",
-                "cheville", "cheville", mal_l, cal, 0.0032)
-        capsule(f"lftp-{suf}", f"LTFP {side}", "Ligamentum talofibulare posterius",
-                "cheville", "cheville", mal_l, off(tal, z=-0.015), 0.0032)
-        capsule(f"deltoide-ant-{suf}", f"Deltoïde antérieur {side}", "Pars tibionavicularis lig. deltoidei",
-                "cheville", "cheville", mal_m, off(tal, z=0.018), 0.0034)
-        capsule(f"deltoide-cal-{suf}", f"Deltoïde calcanéen {side}", "Pars tibiocalcanea lig. deltoidei",
-                "cheville", "cheville", mal_m, cal, 0.0034)
-
-    # --- Spine ---
-    chain = [p["c2"], p["c7"], p["t1"], p["t12"], p["l1"], p["l5"], p["sacrum"]]
-    for i in range(len(chain) - 1):
-        a, b = chain[i], chain[i + 1]
-        capsule(f"all-{i}", f"Ligament longitudinal antérieur ({i + 1})",
-                "Ligamentum longitudinale anterius", "rachis", "rachis",
-                off(a, z=0.018), off(b, z=0.018), 0.003)
-        capsule(f"pll-{i}", f"Ligament longitudinal postérieur ({i + 1})",
-                "Ligamentum longitudinale posterius", "rachis", "rachis",
-                off(a, z=-0.012), off(b, z=-0.012), 0.0026)
-        capsule(f"flavum-{i}", f"Ligament jaune ({i + 1})",
-                "Ligamentum flavum", "rachis", "rachis",
-                off(a, z=-0.02), off(b, z=-0.02), 0.0024)
-        capsule(f"interepineux-{i}", f"Ligament inter-épineux ({i + 1})",
-                "Ligamentum interspinale", "rachis", "rachis",
-                off(a, z=-0.028), off(b, z=-0.028), 0.0022)
-    capsule("supraepineux", "Ligament supra-épineux", "Ligamentum supraspinale",
-            "rachis", "rachis", off(p["c7"], z=-0.03), off(p["l5"], z=-0.03), 0.003)
+        bundle(
+            f"lfta-{suf}", f"LTFA {side}", "Ligamentum talofibulare anterius", "cheville", "cheville",
+            mal_l, off(tal, z=0.018, y=0.004),
+            sag=[0, -0.004, 0.006], width=0.008, thickness=0.0022, n_fibers=4, spread=0.0032,
+        )
+        bundle(
+            f"lfcal-{suf}", f"LCF {side}", "Ligamentum calcaneofibulare", "cheville", "cheville",
+            mal_l, cal,
+            sag=[sx * 0.006, -0.006, 0.0], width=0.008, thickness=0.0022, n_fibers=4, spread=0.003,
+        )
+        bundle(
+            f"lftp-{suf}", f"LTFP {side}", "Ligamentum talofibulare posterius", "cheville", "cheville",
+            mal_l, off(tal, z=-0.016),
+            sag=[0, -0.003, -0.005], width=0.008, thickness=0.0022, n_fibers=4, spread=0.003,
+        )
+        bundle(
+            f"deltoide-{suf}", f"Ligament deltoïde {side}", "Ligamentum deltoideum", "cheville", "cheville",
+            mal_m, mix(off(tal, z=0.012), cal, 0.35),
+            sag=[sx * -0.004, -0.005, 0.004], width=0.013, thickness=0.0028, n_fibers=6, spread=0.006,
+        )
 
     return meshes, catalog

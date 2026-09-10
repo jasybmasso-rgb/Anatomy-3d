@@ -22,7 +22,7 @@ export function SearchBar({ muscles, selectedId, resetToken, onSelect }: SearchB
     setActive(0);
   }, [resetToken]);
 
-  const results = useMemo(() => searchMuscles(muscles, query).slice(0, 8), [muscles, query]);
+  const results = useMemo(() => searchMuscles(muscles, query).slice(0, 12), [muscles, query]);
 
   useEffect(() => {
     setActive(0);

@@ -1,10 +1,11 @@
 {
-  "glbBytes": 13639176,
-  "glbMiB": 13.01,
-  "partCount": 22,
-  "countBodyparts3d": 20,
+  "glbBytes": 26976356,
+  "glbMiB": 25.73,
+  "partCount": 153,
+  "countBodyparts3d": 151,
   "countSynthetic": 2,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic stand-ins are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "App muscles mapped to BodyParts3D IS-A leaf meshes (heads / parts), concatenated per muscle id, aligned with skeleton.meta.json worldMatrix. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and are synthesized from landmarks (multi-lobe bands). Tensor fasciae latae and other muscles not in muscles.json are omitted."
+  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x\u22640) vertices.",
+  "maxFacesPerMuscle": 9000
 }

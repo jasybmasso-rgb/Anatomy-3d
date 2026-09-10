@@ -175,15 +175,13 @@ INCLUDE: dict[str, dict[str, str]] = {
 }
 
 INCLUSION_RULES = (
-    "Included: BodyParts3D concepts whose English name is a named ligament, "
-    "plus interosseous membranes (syndesmoses) and flexor retinacula "
-    "(deep fibrous / ligamentous layer). "
-    "Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, "
-    "lens suspensory ligaments, trochleae, abstract parents, arteries. "
-    "Major joint ligaments absent from BodyParts3D 4.0 (ACL/PCL, collaterals, "
-    "hip capsular ligaments, glenohumeral, annular, ATFL/CFL/PTFL, spinal "
-    "ALL/PLL/flavum) are synthesized as landmark-anchored bands "
-    "(source=synthetic) — educational approximations, not cadaver segmentations."
+    "Included from BodyParts3D: named ligaments, interosseous membranes "
+    "(syndesmoses) and flexor retinacula. "
+    "Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, "
+    "trochleae, abstract parents. Crude capsule/stick synthetics (v1) are not "
+    "exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle "
+    "are schematic multi-fiber ribbons (source=synthetic-v2), not cadaver meshes. "
+    "Spinal stick ligaments and menisci are omitted (quality > quantity)."
 )
 
 
@@ -218,7 +216,7 @@ def main() -> int:
             zf.extractall(extract)
     obj_map = sk.find_obj_map(extract)
 
-    items: list[tuple[str, str, trimesh.Trimesh]] = []
+    items: list[tuple[str, trimesh.Trimesh, dict]] = []
     catalog = []
     missing = 0
     for en_name, info in INCLUDE.items():
@@ -242,57 +240,65 @@ def main() -> int:
             continue
         mesh = meshes[0] if len(meshes) == 1 else trimesh.util.concatenate(meshes)
         mesh.apply_transform(matrix)
-        items.append((cid, en_name, mesh))
-        catalog.append(
-            {
-                **info,
-                "source": "bodyparts3d",
-                "sourceName": en_name,
-                "fmaId": cid,
-                "fileIds": element_map.get(cid, []),
-                "centroid": [round(float(x), 5) for x in mesh.vertices.mean(0)],
-            }
-        )
+        rec = {
+            **info,
+            "source": "bodyparts3d",
+            "sourceName": en_name,
+            "fmaId": cid,
+            "fileIds": element_map.get(cid, []),
+            "centroid": [round(float(x), 5) for x in mesh.vertices.mean(0)],
+        }
+        items.append((info["id"], mesh, rec))
+        catalog.append(rec)
 
     if len(items) < 4:
         print("too few ligaments; abort", file=sys.stderr)
         return 1
 
-    print("synthesizing major-joint ligaments…", flush=True)
+    print("synthesizing schematic major-joint ligaments (v2)…", flush=True)
     synth_meshes, synth_catalog = build_synthetic()
     catalog.extend(synth_catalog)
 
-    combined = trimesh.util.concatenate([m for _c, _n, m in items] + synth_meshes)
-    combined.visual.vertex_colors = [210, 176, 148, 180]
-    _ = combined.vertex_normals
+    scene = trimesh.Scene()
+    for part_id, mesh, rec in items:
+        mesh.visual.vertex_colors = [210, 176, 148, 200]
+        _ = mesh.vertex_normals
+        mesh.metadata["name"] = part_id
+        scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)
+    for part_id, mesh in synth_meshes:
+        mesh.visual.vertex_colors = [210, 176, 148, 140]
+        _ = mesh.vertex_normals
+        mesh.metadata["name"] = part_id
+        scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)
+
     OUT_GLB.parent.mkdir(parents=True, exist_ok=True)
-    OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
+    OUT_GLB.write_bytes(export_glb(scene, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
 
     n_bp3d = sum(1 for p in catalog if p.get("source") == "bodyparts3d")
-    n_synth = sum(1 for p in catalog if p.get("source") == "synthetic")
+    n_synth = sum(1 for p in catalog if str(p.get("source", "")).startswith("synthetic"))
     meta = {
         "glbBytes": OUT_GLB.stat().st_size,
         "glbMiB": round(size_mb, 2),
         "partCount": len(catalog),
         "countBodyparts3d": n_bp3d,
         "countSynthetic": n_synth,
-        "vertexCount": int(len(combined.vertices)),
-        "faceCount": int(len(combined.faces)),
-        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic bands are original educational approximations",
+        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 ribbons are original educational approximations",
         "alignedTo": "public/models/skeleton.glb",
         "inclusionRules": INCLUSION_RULES,
     }
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 
     payload = {
-        "version": 2,
+        "version": 3,
         "defaultVisible": False,
         "inclusionRules": INCLUSION_RULES,
         "syntheticDisclaimer": (
-            "Entries with source=synthetic are educational approximations placed between "
-            "named landmarks (or X-mirrored contralateral landmarks). They are not segmented "
-            "from cadaver imaging and must not be treated as morphologically accurate."
+            "Entries with source=synthetic-v2 are schematic multi-fiber ribbons "
+            "between named landmarks. They are not segmented from cadaver imaging "
+            "and must not be treated as morphologically accurate. "
+            "BodyParts3D connective meshes (interosseous membranes, retinacula, "
+            "named ligaments) remain source=bodyparts3d."
         ),
         "count": len(catalog),
         "countBodyparts3d": n_bp3d,
@@ -302,7 +308,7 @@ def main() -> int:
     OUT_CATALOG.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(
         f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(catalog)} parts "
-        f"({n_bp3d} BP3D + {n_synth} synthetic)",
+        f"({n_bp3d} BP3D + {n_synth} synthetic-v2)",
         flush=True,
     )
     return 0

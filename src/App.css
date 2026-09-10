@@ -9,7 +9,7 @@
 
 .topbar {
   display: grid;
-  grid-template-columns: minmax(160px, auto) minmax(200px, 1fr) auto auto auto auto;
+  grid-template-columns: minmax(160px, auto) minmax(200px, 1fr) auto auto;
   gap: 1rem;
   align-items: center;
   padding: 0.7rem 1.1rem;
@@ -319,15 +319,131 @@
   font-size: 0.8rem;
 }
 
+.layer-menu {
+  position: relative;
+  justify-self: end;
+}
+
+.layer-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid #33455f;
+  background: #0c1118;
+  color: #e8eef4;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.layer-menu-btn:hover,
+.layer-menu-btn[aria-expanded="true"] {
+  border-color: #6ea8ff;
+}
+
+.layer-menu-count {
+  min-width: 1.2rem;
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  background: #24344a;
+  color: #b7c3d6;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.layer-menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.35rem);
+  width: min(22rem, 92vw);
+  padding: 0.7rem 0.75rem 0.8rem;
+  background: #1a2433;
+  border: 1px solid #33455f;
+  border-radius: 0.55rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+
+.layer-menu-note {
+  margin: 0 0 0.65rem;
+  color: #8b9bb4;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.layer-menu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.layer-menu-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.38rem 0.4rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  color: #e8eef4;
+  font-size: 0.9rem;
+}
+
+.layer-menu-item:hover {
+  background: #24344a;
+}
+
+.layer-menu-item input {
+  accent-color: #6ea8ff;
+}
+
+.layer-menu-item em {
+  color: #8b9bb4;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.layer-menu-item-soon {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.panel-head {
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.panel-head li + li {
+  margin-top: 0.45rem;
+}
+
+.panel-head strong {
+  display: block;
+  font-size: 0.88rem;
+}
+
+.panel-head span {
+  color: #b7c3d6;
+  font-size: 0.86rem;
+}
+
+.panel-mesh-note {
+  margin: 1.1rem 0 0;
+  color: #8b9bb4;
+  font-size: 0.78rem;
+}
+
 @media (max-width: 860px) {
   .topbar {
     grid-template-columns: 1fr auto;
     grid-template-areas:
       "brand reset"
       "search search"
-      "ligaments ligaments"
-      "fascia fascia"
-      "landmarks landmarks";
+      "layers layers";
   }
 
   .brand {
@@ -339,16 +455,14 @@
     max-width: none;
   }
 
-  .ligaments-toggle {
-    grid-area: ligaments;
+  .layer-menu {
+    grid-area: layers;
+    justify-self: stretch;
   }
 
-  .fascia-toggle {
-    grid-area: fascia;
-  }
-
-  .landmarks-toggle:not(.ligaments-toggle):not(.fascia-toggle) {
-    grid-area: landmarks;
+  .layer-menu-btn {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .reset-btn {

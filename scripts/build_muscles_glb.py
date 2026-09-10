@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Merge BodyParts3D muscle meshes (plus two synthetic stand-ins) into muscles.glb.
+"""Merge all BodyParts3D skeletal muscle meshes into muscles.glb.
 
 Each app muscle id becomes a named node. Same worldMatrix as skeleton.glb.
+Heads / parts are concatenated under one selectable id.
 Source: BodyParts3D / Anatomography (DBCLS), CC BY-SA 2.1 Japan.
 """
 
@@ -17,7 +18,9 @@ from trimesh.exchange.gltf import export_glb
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_skeleton_glb as sk
+from bp3d_muscles import enumerate_muscle_groups
 from build_synthetic_muscles import build as build_synthetic
+from muscle_catalog import catalog_entry
 
 OUT_GLB = sk.ROOT / "public" / "models" / "muscles.glb"
 OUT_META = sk.ROOT / "public" / "models" / "muscles.meta.json"
@@ -25,128 +28,21 @@ OUT_CATALOG = sk.ROOT / "src" / "data" / "muscleMeshes.json"
 MUSCLES_JSON = sk.ROOT / "src" / "data" / "muscles.json"
 SKELETON_META = sk.ROOT / "public" / "models" / "skeleton.meta.json"
 
-# Leaf English names from isa_parts_list_e.txt. Parents ("deltoid") have no unique mesh.
-MUSCLE_PARTS: dict[str, list[str]] = {
-    "biceps-brachial": [
-        "short head of right biceps brachii",
-        "short head of left biceps brachii",
-        "long head of right biceps brachii",
-        "long head of left biceps brachii",
-    ],
-    "triceps-brachial": [
-        "long head of right triceps brachii",
-        "long head of left triceps brachii",
-        "medial head of right triceps brachii",
-        "medial head of left triceps brachii",
-        "lateral head of right triceps brachii",
-        "lateral head of left triceps brachii",
-    ],
-    "deltoide": [
-        "clavicular part of right deltoid",
-        "clavicular part of left deltoid",
-        "acromial part of right deltoid",
-        "acromial part of left deltoid",
-        "spinal part of right deltoid",
-        "spinal part of left deltoid",
-    ],
-    "grand-pectoral": [
-        "clavicular part of right pectoralis major",
-        "clavicular part of left pectoralis major",
-        "sternocostal part of right pectoralis major",
-        "sternocostal part of left pectoralis major",
-        "abdominal part of right pectoralis major",
-        "abdominal part of left pectoralis major",
-    ],
-    "trapeze": [
-        "ascending part of right trapezius",
-        "ascending part of left trapezius",
-        "transverse part of right trapezius",
-        "transverse part of left trapezius",
-        "descending part of right trapezius",
-        "descending part of left trapezius",
-    ],
-    "sterno-cleido-mastoidien": [
-        "right sternocleidomastoid",
-        "left sternocleidomastoid",
-    ],
-    "biceps-femoral": [
-        "long head of right biceps femoris",
-        "long head of left biceps femoris",
-        "short head of right biceps femoris",
-        "short head of left biceps femoris",
-    ],
-    "semi-tendineux": [
-        "right semitendinosus",
-        "left semitendinosus",
-    ],
-    "semi-membraneux": [
-        "right semimembranosus",
-        "left semimembranosus",
-    ],
-    "droit-femoral": [
-        "right rectus femoris",
-        "left rectus femoris",
-    ],
-    "vaste-lateral": [
-        "right vastus lateralis",
-        "left vastus lateralis",
-    ],
-    "vaste-medial": [
-        "right vastus medialis",
-        "left vastus medialis",
-    ],
-    "vaste-intermediaire": [
-        "right vastus intermedius",
-        "left vastus intermedius",
-    ],
-    "grand-fessier": [
-        "right gluteus maximus",
-        "left gluteus maximus",
-    ],
-    "iliopsoas": [
-        "right iliacus",
-        "left iliacus",
-        "right psoas major",
-        "left psoas major",
-    ],
-    "gastrocnemien": [
-        "medial head of right gastrocnemius",
-        "medial head of left gastrocnemius",
-        "lateral head of right gastrocnemius",
-        "lateral head of left gastrocnemius",
-    ],
-    "soleaire": [
-        "right soleus",
-        "left soleus",
-    ],
-    "tibial-anterieur": [
-        "right tibialis anterior",
-        "left tibialis anterior",
-    ],
-    "oblique-externe": [
-        "right external oblique",
-        "left external oblique",
-    ],
-    "supra-epineux": [
-        "right supraspinatus",
-        "left supraspinatus",
-    ],
-}
-
-# Confirmed absent from BodyParts3D 4.0 ISA parts list.
-SYNTHETIC_IDS = ("grand-dorsal", "droit-abdomen")
+MAX_FACES = 9000
+MAX_GLB_MIB = 42.0
 
 INCLUSION_RULES = (
-    "App muscles mapped to BodyParts3D IS-A leaf meshes (heads / parts), "
-    "concatenated per muscle id, aligned with skeleton.meta.json worldMatrix. "
-    "Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and are "
-    "synthesized from landmarks (multi-lobe bands). Tensor fasciae latae and "
-    "other muscles not in muscles.json are omitted."
+    "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique "
+    "OBJ files, grouped by muscle (laterality merged; named heads concatenated). "
+    "Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, "
+    "abstract compartment parents. Latissimus dorsi and rectus abdominis have no "
+    "BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major "
+    "are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices."
 )
 
 
 def _load_named(name_to_row, element_map, obj_map, en_name: str) -> trimesh.Trimesh | None:
-    row = name_to_row.get(en_name)
+    row = name_to_row.get(en_name.lower())
     if row is None:
         return None
     cid = row[0]
@@ -163,6 +59,18 @@ def _load_named(name_to_row, element_map, obj_map, en_name: str) -> trimesh.Trim
     return meshes[0] if len(meshes) == 1 else trimesh.util.concatenate(meshes)
 
 
+def _simplify(mesh: trimesh.Trimesh, max_faces: int) -> trimesh.Trimesh:
+    if len(mesh.faces) <= max_faces:
+        return mesh
+    try:
+        out = mesh.simplify_quadric_decimation(face_count=max_faces)
+        if out is not None and len(out.faces) > 0:
+            return out
+    except Exception as exc:  # noqa: BLE001
+        print(f"    simplify skip ({exc})", flush=True)
+    return mesh
+
+
 def _right_focus(mesh: trimesh.Trimesh) -> tuple[list[float], float]:
     verts = mesh.vertices
     right = verts[verts[:, 0] <= 0.0]
@@ -175,6 +83,49 @@ def _right_focus(mesh: trimesh.Trimesh) -> tuple[list[float], float]:
     return [round(float(x), 5) for x in centroid], round(distance, 3)
 
 
+def _fiber_axis(mesh: trimesh.Trimesh) -> list[float]:
+    verts = np.asarray(mesh.vertices, dtype=np.float64)
+    right = verts[verts[:, 0] <= 0.0]
+    if len(right) < 30:
+        right = verts
+    centered = right - right.mean(0)
+    try:
+        _, _, vh = np.linalg.svd(centered, full_matrices=False)
+        axis = vh[0]
+    except np.linalg.LinAlgError:
+        axis = np.array([0.0, 1.0, 0.0])
+    if abs(axis[0]) > abs(axis[1]) and abs(axis[0]) > abs(axis[2]) and len(right) > 30:
+        # Bilateral leftover: fall back to Y/Z of right half.
+        axis = vh[1] if abs(vh[1][0]) < abs(vh[0][0]) else vh[2]
+    if axis[1] < -0.15:
+        axis = -axis
+    n = np.linalg.norm(axis)
+    if n < 1e-9:
+        axis = np.array([0.0, 1.0, 0.0])
+    else:
+        axis = axis / n
+    return [round(float(x), 5) for x in axis]
+
+
+def _catalog_row(muscle_id, source, names, fma_ids, file_ids, mesh, notes=None):
+    focus_pos, focus_dist = _right_focus(mesh)
+    row = {
+        "id": muscle_id,
+        "source": source,
+        "sourceNames": names,
+        "fmaIds": fma_ids,
+        "fileIds": sorted(set(file_ids)),
+        "centroid": [round(float(x), 5) for x in mesh.vertices.mean(0)],
+        "focus": {"position": focus_pos, "distance": focus_dist},
+        "fiberAxis": _fiber_axis(mesh),
+        "vertexCount": int(len(mesh.vertices)),
+        "faceCount": int(len(mesh.faces)),
+    }
+    if notes:
+        row["notes"] = notes
+    return row
+
+
 def main() -> int:
     if not SKELETON_META.exists():
         print("missing skeleton.meta.json — run scripts/build_skeleton_glb.py first", file=sys.stderr)
@@ -185,22 +136,18 @@ def main() -> int:
         print("invalid worldMatrix in skeleton.meta.json", file=sys.stderr)
         return 1
 
-    muscles_data = json.loads(MUSCLES_JSON.read_text(encoding="utf-8"))
-    app_ids = [m["id"] for m in muscles_data]
-    expected = set(MUSCLE_PARTS) | set(SYNTHETIC_IDS)
-    if set(app_ids) != expected:
-        print("muscle id mismatch", set(app_ids).symmetric_difference(expected), file=sys.stderr)
-        return 1
-
     sk.CACHE.mkdir(parents=True, exist_ok=True)
     parts_path = sk.CACHE / "isa_parts_list_e.txt"
+    inc_path = sk.CACHE / "isa_inclusion_relation_list.txt"
     element_path = sk.CACHE / "isa_element_parts.txt"
     zip_path = sk.CACHE / "isa_BP3D_4.0_obj_99.zip"
     sk.download(sk.PARTS_URL, parts_path)
+    sk.download(sk.INC_URL, inc_path)
     sk.download(sk.ELEMENT_URL, element_path)
     sk.download(sk.ZIP_URL, zip_path, require_zip=True)
 
     parts = sk.load_tsv(parts_path)
+    inclusion = sk.load_tsv(inc_path)
     element_map = sk.load_element_map(element_path)
     name_to_row = {row[2].lower(): row for row in parts if len(row) >= 3}
 
@@ -213,77 +160,91 @@ def main() -> int:
             zf.extractall(extract)
     obj_map = sk.find_obj_map(extract)
 
+    groups = enumerate_muscle_groups(parts, inclusion, element_map)
+    print(f"enumerated {len(groups)} skeletal muscle groups", flush=True)
+
     scene = trimesh.Scene()
     catalog = []
-    by_id: dict[str, trimesh.Trimesh] = {}
+    muscles_out = []
 
-    for muscle_id, names in MUSCLE_PARTS.items():
+    for group in groups:
         loaded: list[trimesh.Trimesh] = []
-        fma_ids: list[str] = []
-        file_ids: list[str] = []
-        for en_name in names:
+        for en_name in group.source_names:
             mesh = _load_named(name_to_row, element_map, obj_map, en_name)
             if mesh is None:
-                print("missing part", muscle_id, en_name, file=sys.stderr)
-                return 1
-            row = name_to_row[en_name]
-            fma_ids.append(row[0])
-            file_ids.extend(element_map.get(row[0], []))
+                print("skip missing part", group.id, en_name, file=sys.stderr)
+                continue
             loaded.append(mesh)
+        if not loaded:
+            print("skip empty muscle", group.id, file=sys.stderr)
+            continue
         mesh = loaded[0] if len(loaded) == 1 else trimesh.util.concatenate(loaded)
         mesh.apply_transform(matrix)
+        mesh = _simplify(mesh, MAX_FACES)
         _ = mesh.vertex_normals
         mesh.visual.vertex_colors = [196, 72, 58, 230]
-        mesh.metadata["name"] = muscle_id
-        scene.add_geometry(mesh, node_name=muscle_id, geom_name=muscle_id)
-        by_id[muscle_id] = mesh
-        centroid = [round(float(x), 5) for x in mesh.vertices.mean(0)]
-        focus_pos, focus_dist = _right_focus(mesh)
-        catalog.append(
-            {
-                "id": muscle_id,
-                "source": "bodyparts3d",
-                "sourceNames": names,
-                "fmaIds": fma_ids,
-                "fileIds": sorted(set(file_ids)),
-                "centroid": centroid,
-                "focus": {"position": focus_pos, "distance": focus_dist},
-                "vertexCount": int(len(mesh.vertices)),
-                "faceCount": int(len(mesh.faces)),
-            }
+        mesh.metadata["name"] = group.id
+        scene.add_geometry(mesh, node_name=group.id, geom_name=group.id)
+        entry = _catalog_row(
+            group.id, "bodyparts3d", group.source_names, group.concept_ids, group.file_ids, mesh
         )
-        print(f"  + {muscle_id:28s}  {len(mesh.faces):7d} faces  BP3D", flush=True)
+        catalog.append(entry)
+        text = catalog_entry(group.key, group.head_labels())
+        muscle = {
+            "id": group.id,
+            **text,
+            "focus": entry["focus"],
+            "fiberAxis": entry["fiberAxis"],
+            "meshSource": "bodyparts3d",
+        }
+        if muscle.get("heads") is None:
+            muscle.pop("heads", None)
+        if not muscle.get("secondaryActions"):
+            muscle.pop("secondaryActions", None)
+        muscles_out.append(muscle)
+        print(
+            f"  + {group.id:32s}  {len(mesh.faces):6d} faces  {len(group.source_names):2d} parts  BP3D",
+            flush=True,
+        )
 
     print("synthesizing missing muscles…", flush=True)
+    synth_notes = (
+        "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+    )
+    synth_keys = {"grand-dorsal": "latissimus dorsi", "droit-abdomen": "rectus abdominis"}
     for muscle_id, mesh in build_synthetic().items():
         _ = mesh.vertex_normals
         mesh.visual.vertex_colors = [196, 72, 58, 230]
         mesh.metadata["name"] = muscle_id
         scene.add_geometry(mesh, node_name=muscle_id, geom_name=muscle_id)
-        by_id[muscle_id] = mesh
-        focus_pos, focus_dist = _right_focus(mesh)
-        catalog.append(
-            {
-                "id": muscle_id,
-                "source": "synthetic",
-                "sourceNames": [muscle_id],
-                "fmaIds": [],
-                "fileIds": [],
-                "centroid": [round(float(x), 5) for x in mesh.vertices.mean(0)],
-                "focus": {"position": focus_pos, "distance": focus_dist},
-                "vertexCount": int(len(mesh.vertices)),
-                "faceCount": int(len(mesh.faces)),
-                "notes": (
-                    "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh "
-                    "for this muscle."
-                ),
-            }
+        entry = _catalog_row(
+            muscle_id, "synthetic", [muscle_id], [], [], mesh, notes=synth_notes
         )
-        print(f"  + {muscle_id:28s}  {len(mesh.faces):7d} faces  synthetic", flush=True)
+        catalog.append(entry)
+        key = synth_keys.get(muscle_id, muscle_id)
+        text = catalog_entry(key, [])
+        muscle = {
+            "id": muscle_id,
+            **text,
+            "focus": entry["focus"],
+            "fiberAxis": entry["fiberAxis"],
+            "meshSource": "synthetic",
+        }
+        if muscle.get("heads") is None:
+            muscle.pop("heads", None)
+        if not muscle.get("secondaryActions"):
+            muscle.pop("secondaryActions", None)
+        muscles_out.append(muscle)
+        print(f"  + {muscle_id:32s}  {len(mesh.faces):6d} faces  synthetic", flush=True)
+
+    muscles_out.sort(key=lambda m: m["name"].lower())
+    catalog.sort(key=lambda m: m["id"])
 
     OUT_GLB.parent.mkdir(parents=True, exist_ok=True)
     OUT_GLB.write_bytes(export_glb(scene, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
+    if size_mb > MAX_GLB_MIB:
+        print(f"warning: GLB {size_mb:.2f} MiB exceeds {MAX_GLB_MIB}", file=sys.stderr)
 
     n_bp3d = sum(1 for p in catalog if p["source"] == "bodyparts3d")
     n_synth = sum(1 for p in catalog if p["source"] == "synthetic")
@@ -296,12 +257,13 @@ def main() -> int:
         "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic stand-ins are original educational approximations",
         "alignedTo": "public/models/skeleton.glb",
         "inclusionRules": INCLUSION_RULES,
+        "maxFacesPerMuscle": MAX_FACES,
     }
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
     OUT_CATALOG.write_text(
         json.dumps(
             {
-                "version": 1,
+                "version": 2,
                 "inclusionRules": INCLUSION_RULES,
                 "count": len(catalog),
                 "countBodyparts3d": n_bp3d,
@@ -314,18 +276,12 @@ def main() -> int:
         + "\n",
         encoding="utf-8",
     )
-
-    catalog_by_id = {entry["id"]: entry for entry in catalog}
-    for muscle in muscles_data:
-        entry = catalog_by_id[muscle["id"]]
-        muscle["meshSource"] = entry["source"]
-        muscle["focus"] = {
-            "position": entry["focus"]["position"],
-            "distance": entry["focus"]["distance"],
-        }
-
-    MUSCLES_JSON.write_text(json.dumps(muscles_data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(catalog)} muscles ({n_bp3d} BP3D + {n_synth} synthetic)", flush=True)
+    MUSCLES_JSON.write_text(json.dumps(muscles_out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(
+        f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(catalog)} muscles "
+        f"({n_bp3d} BP3D + {n_synth} synthetic)",
+        flush=True,
+    )
     return 0
 
 

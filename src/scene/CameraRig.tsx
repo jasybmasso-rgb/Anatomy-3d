@@ -12,13 +12,15 @@ export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 
 const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
-const ZOOM_PIXEL_SCALE = 0.0012;
-const ZOOM_DAMP = 8;
-const TARGET_DAMP = 6;
+/** Match OrbitControls dampingFactor so zoom coasts like left-drag orbit. */
+const DAMPING = 0.08;
+/** Extra coast on wheel velocity (lower = more inertia). */
+const ZOOM_INERTIA = 0.055;
+const ZOOM_PIXEL_SCALE = 0.00155;
 const FOCUS_DAMP = 5;
-const GESTURE_MS = 180;
+const GESTURE_MS = 320;
 const SKIP_PICK = new Set(["ignore", "floor", "shadow"]);
-const SAMPLE_RINGS = [0, 0.035, 0.08, 0.14];
+const SAMPLE_RINGS = [0, 0.03, 0.07, 0.12];
 const SAMPLE_DIRS = 8;
 const _ndc = new THREE.Vector2();
 const _viewDir = new THREE.Vector3();
@@ -30,7 +32,7 @@ function normalizedWheelDelta(event: WheelEvent) {
   let dy = event.deltaY;
   if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) dy *= 16;
   else if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) dy *= 80;
-  return THREE.MathUtils.clamp(dy, -90, 90);
+  return THREE.MathUtils.clamp(dy, -140, 140);
 }
 
 function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Vector3 } {
@@ -108,7 +110,7 @@ export function CameraRig({
   const goalTarget = useRef(new THREE.Vector3(...DEFAULT_TARGET));
   const animating = useRef(true);
   const zooming = useRef(false);
-  const zoomDistance = useRef(camera.position.distanceTo(new THREE.Vector3(...DEFAULT_TARGET)));
+  const zoomDelta = useRef(0);
   const zoomPivot = useRef(new THREE.Vector3(...DEFAULT_TARGET));
   const gestureUntil = useRef(0);
   const raycaster = useRef(new THREE.Raycaster());
@@ -119,26 +121,17 @@ export function CameraRig({
     animating.current = false;
   }
 
-  function syncZoomFromCamera(orbit: OrbitControlsImpl) {
-    zoomDistance.current = THREE.MathUtils.clamp(
-      camera.position.distanceTo(orbit.target),
-      MIN_DISTANCE,
-      MAX_DISTANCE,
-    );
-    zoomPivot.current.copy(orbit.target);
-  }
-
   function applyFocus(point: THREE.Vector3, smooth = true) {
     const orbit = controls.current;
     if (!orbit) return;
     zooming.current = false;
+    zoomDelta.current = 0;
     const offset = camera.position.clone().sub(orbit.target);
     const dist = THREE.MathUtils.clamp(offset.length(), MIN_DISTANCE, MAX_DISTANCE);
     const dir =
       offset.lengthSq() > 1e-8 ? offset.normalize() : new THREE.Vector3(0.42, 0.18, 0.88).normalize();
     goalTarget.current.copy(point);
     goalEye.current.copy(point).addScaledVector(dir, dist);
-    zoomDistance.current = dist;
     zoomPivot.current.copy(point);
     if (smooth) {
       animating.current = true;
@@ -163,8 +156,8 @@ export function CameraRig({
     const next = goalsFor(muscle);
     goalEye.current.copy(next.eye);
     goalTarget.current.copy(next.target);
-    zoomDistance.current = next.eye.distanceTo(next.target);
     zoomPivot.current.copy(next.target);
+    zoomDelta.current = 0;
     animating.current = true;
     zooming.current = false;
   }, [muscle, resetToken]);
@@ -180,7 +173,8 @@ export function CameraRig({
       animating.current = false;
 
       const now = performance.now();
-      const freshGesture = now > gestureUntil.current;
+      const coasting = Math.abs(zoomDelta.current) > 0.04;
+      const freshGesture = now > gestureUntil.current && !coasting;
       gestureUntil.current = now + GESTURE_MS;
 
       if (freshGesture) {
@@ -195,19 +189,17 @@ export function CameraRig({
           const planePoint = raycaster.current.ray.intersectPlane(_plane, _planeHit);
           zoomPivot.current.copy(planePoint ?? orbit.target);
         }
-        zoomDistance.current = THREE.MathUtils.clamp(
-          camera.position.distanceTo(zoomPivot.current),
-          MIN_DISTANCE,
-          MAX_DISTANCE,
-        );
+        // Re-center orbit on the cursor hit without a view jump: translate
+        // camera and target by the same delta, once per gesture.
+        _offset.copy(zoomPivot.current).sub(orbit.target);
+        if (_offset.lengthSq() > 1e-10) {
+          camera.position.add(_offset);
+          orbit.target.copy(zoomPivot.current);
+          orbit.update();
+        }
       }
 
-      const factor = Math.exp(normalizedWheelDelta(event) * ZOOM_PIXEL_SCALE);
-      zoomDistance.current = THREE.MathUtils.clamp(
-        zoomDistance.current * factor,
-        MIN_DISTANCE,
-        MAX_DISTANCE,
-      );
+      zoomDelta.current += normalizedWheelDelta(event) * ZOOM_PIXEL_SCALE;
       zooming.current = true;
     };
 
@@ -240,32 +232,33 @@ export function CameraRig({
         orbit.target.distanceTo(goalTarget.current) < 0.012
       ) {
         animating.current = false;
-        syncZoomFromCamera(orbit);
+        zoomDelta.current = 0;
+        zooming.current = false;
       }
       return;
     }
 
     if (!zooming.current) return;
 
-    // Dolly along the camera→pivot ray so wheel easing is a true distance lerp,
-    // not a mix of (camera−oldTarget) vs (camera−bone). Orbit target follows.
-    _offset.copy(camera.position).sub(zoomPivot.current);
+    const frameDamp = 1 - Math.pow(1 - ZOOM_INERTIA, dtClamped * 60);
+    const apply = zoomDelta.current * frameDamp;
+    zoomDelta.current *= 1 - frameDamp;
+
+    // Pure dolly along camera → orbit target (already the cursor pivot).
+    _offset.copy(camera.position).sub(orbit.target);
     const current = _offset.length();
     if (current < 1e-6) {
       zooming.current = false;
+      zoomDelta.current = 0;
       return;
     }
-    const next = THREE.MathUtils.damp(current, zoomDistance.current, ZOOM_DAMP, dtClamped);
-    camera.position.copy(zoomPivot.current).addScaledVector(_offset.multiplyScalar(1 / current), next);
-    orbit.target.lerp(zoomPivot.current, ease(dtClamped, TARGET_DAMP));
+    const next = THREE.MathUtils.clamp(current * Math.exp(apply), MIN_DISTANCE, MAX_DISTANCE);
+    camera.position.copy(orbit.target).addScaledVector(_offset.multiplyScalar(1 / current), next);
     orbit.update();
 
-    if (
-      Math.abs(next - zoomDistance.current) < 0.002 &&
-      orbit.target.distanceTo(zoomPivot.current) < 0.006 &&
-      performance.now() > gestureUntil.current
-    ) {
+    if (Math.abs(zoomDelta.current) < 0.00025 && performance.now() > gestureUntil.current) {
       zooming.current = false;
+      zoomDelta.current = 0;
     }
   });
 
@@ -274,7 +267,7 @@ export function CameraRig({
       ref={controls}
       makeDefault
       enableDamping
-      dampingFactor={0.08}
+      dampingFactor={DAMPING}
       enableZoom={false}
       screenSpacePanning
       minDistance={MIN_DISTANCE}
@@ -282,7 +275,8 @@ export function CameraRig({
       onStart={() => {
         stopScriptedMotion();
         zooming.current = false;
-        if (controls.current) syncZoomFromCamera(controls.current);
+        zoomDelta.current = 0;
+        if (controls.current) zoomPivot.current.copy(controls.current.target);
       }}
     />
   );

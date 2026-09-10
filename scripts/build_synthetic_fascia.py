@@ -1,4 +1,4 @@
-"""Educational synthetic fascia / aponeurosis sheets anchored on landmarks.json."""
+"""Schematic regional deep-fascia sleeves (synthetic-v2). Quality over quantity."""
 
 from __future__ import annotations
 
@@ -8,14 +8,14 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from mesh_primitives import ribbon
+from mesh_primitives import cylinder_sleeve, loft_ribbon
 
 ROOT = Path(__file__).resolve().parents[1]
 LANDMARKS = ROOT / "src" / "data" / "landmarks.json"
 
 NOTE = (
-    "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. "
-    "Pas un scan. Source: synthetic."
+    "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les "
+    "repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D."
 )
 
 
@@ -39,7 +39,7 @@ def entry(id_: str, name: str, latin: str, region: str, mesh: trimesh.Trimesh) -
         "nameLatin": latin,
         "region": region,
         "notes": NOTE,
-        "source": "synthetic",
+        "source": "synthetic-v2",
         "sourceName": id_,
         "fmaId": "",
         "fileIds": [],
@@ -47,74 +47,86 @@ def entry(id_: str, name: str, latin: str, region: str, mesh: trimesh.Trimesh) -
     }
 
 
-def build() -> tuple[list[trimesh.Trimesh], list[dict]]:
+def _sheet(a, b, c, d, thickness=0.0022) -> trimesh.Trimesh:
+    """Loft two ribbons and concatenate into a thin posterior sheet."""
+    path_a = np.linspace(0.0, 1.0, 10)[:, None] * (b - a) + a
+    path_b = np.linspace(0.0, 1.0, 10)[:, None] * (d - c) + c
+    mid = (path_a + path_b) / 2.0
+    width = float(np.linalg.norm(path_a[5] - path_b[5])) + 0.01
+    return loft_ribbon(mid, width=max(width, 0.04), thickness=thickness, binormal=np.array([0.0, 0.0, 1.0]))
+
+
+def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
     p = load_lm()
-    meshes: list[trimesh.Trimesh] = []
+    meshes: list[tuple[str, trimesh.Trimesh]] = []
     catalog: list[dict] = []
 
     def add(id_, name, latin, region, mesh):
         if mesh is None or mesh.vertices.size == 0:
             return
-        meshes.append(mesh)
+        meshes.append((id_, mesh))
         catalog.append(entry(id_, name, latin, region, mesh))
 
-    # Plantar aponeurosis: calcaneus → forward plantar pad (no metatarsal landmarks).
     for suf, side in (("d", "droit"), ("g", "gauche")):
-        cal = p[f"calcaneus-{suf}"]
-        tal = p[f"talus-{suf}"]
-        distal = off(mix(cal, tal, 1.35), z=0.045, y=-0.018)
+        sx = -1.0 if suf == "d" else 1.0
+        crest = p[f"crete-iliaque-{suf}"]
+        gt = p[f"grand-trochanter-{suf}"]
+        lat_k = p[f"tete-fibula-{suf}"]
+        eias = p[f"eias-{suf}"]
+        thigh_top = mix(crest, eias, 0.35)
+        thigh_bot = mix(gt, lat_k, 0.15)
         add(
-            f"aponevrose-plantaire-{suf}",
-            f"Aponévrose plantaire {side}",
-            "Aponeurosis plantaris",
-            "pied",
-            ribbon(cal, distal, width=0.028, thickness=0.0024),
+            f"fascia-lata-{suf}",
+            f"Fascia lata {side}",
+            "Fascia lata",
+            "cuisse",
+            cylinder_sleeve(
+                off(thigh_top, x=sx * 0.02),
+                off(thigh_bot, x=sx * 0.015),
+                radius=0.055,
+                thickness=0.0022,
+            ),
         )
-
-    # Palmar aponeurosis: continue past the styloids along the forearm axis.
-    for suf, side in (("d", "droit"), ("g", "gauche")):
+        mal = mix(p[f"maleole-laterale-{suf}"], p[f"maleole-mediale-{suf}"], 0.5)
+        add(
+            f"fascia-crural-{suf}",
+            f"Fascia crural {side}",
+            "Fascia cruris",
+            "jambe",
+            cylinder_sleeve(
+                off(lat_k, y=0.02),
+                off(mal, y=0.04),
+                radius=0.038,
+                thickness=0.002,
+            ),
+        )
         ole = p[f"olecrane-{suf}"]
         sty = mix(p[f"styloide-radial-{suf}"], p[f"styloide-ulnaire-{suf}"], 0.5)
-        axis = sty - ole
-        palm = sty + axis * 0.22
         add(
-            f"aponevrose-palmaire-{suf}",
-            f"Aponévrose palmaire {side}",
-            "Aponeurosis palmaris",
-            "main",
-            ribbon(sty, palm, width=0.022, thickness=0.0022),
+            f"fascia-antebrachial-{suf}",
+            f"Fascia antébrachial {side}",
+            "Fascia antebrachii",
+            "avant-bras",
+            cylinder_sleeve(
+                mix(ole, sty, 0.12),
+                mix(ole, sty, 0.92),
+                radius=0.028,
+                thickness=0.0018,
+            ),
         )
 
-    # Thoracolumbar fascia: T12/L1 → iliac crests / PSIS (posterior sheet).
+    # Thoracolumbar posterior sheet — one piece, not two sticks.
     add(
-        "fascia-thoracolombaire-d",
-        "Fascia thoraco-lombaire droit",
-        "Fascia thoracolumbalis dextrum",
+        "fascia-thoracolombaire",
+        "Fascia thoraco-lombaire (nappe postérieure)",
+        "Fascia thoracolumbalis",
         "tronc",
-        ribbon(off(p["t12"], z=-0.03), off(p["eips-d"], z=-0.015), width=0.055, thickness=0.003),
+        _sheet(
+            off(p["t12"], z=-0.032, x=-0.04),
+            off(p["eips-d"], z=-0.018),
+            off(p["t12"], z=-0.032, x=0.04),
+            off(p["eips-g"], z=-0.018),
+            thickness=0.0026,
+        ),
     )
-    add(
-        "fascia-thoracolombaire-g",
-        "Fascia thoraco-lombaire gauche",
-        "Fascia thoracolumbalis sinistrum",
-        "tronc",
-        ribbon(off(p["t12"], z=-0.03), off(p["eips-g"], z=-0.015), width=0.055, thickness=0.003),
-    )
-    add(
-        "fascia-thoracolombaire-lombaire",
-        "Fascia thoraco-lombaire (nappe lombaire)",
-        "Fascia thoracolumbalis (pars lumbalis)",
-        "tronc",
-        ribbon(off(p["l1"], z=-0.028), off(p["sacrum"], z=-0.02), width=0.07, thickness=0.003),
-    )
-
-    # Linea alba / rectus sheath midline — thin anterior band.
-    add(
-        "ligne-blanche",
-        "Ligne blanche",
-        "Linea alba",
-        "tronc",
-        ribbon(off(p["xiphoide"], z=0.02), off(p["symphyse-pubienne"], z=0.025), width=0.012, thickness=0.002),
-    )
-
     return meshes, catalog

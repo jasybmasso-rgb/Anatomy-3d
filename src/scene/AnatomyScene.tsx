@@ -40,6 +40,7 @@ function Lights() {
 
 type AnatomySceneProps = {
   muscle: Muscle | null;
+  showMuscles: boolean;
   showLandmarks: boolean;
   showLigaments: boolean;
   showFascia: boolean;
@@ -48,6 +49,7 @@ type AnatomySceneProps = {
 
 export function AnatomyScene({
   muscle,
+  showMuscles,
   showLandmarks,
   showLigaments,
   showFascia,
@@ -82,7 +84,7 @@ export function AnatomyScene({
         <Skeleton />
         <Fascia visible={showFascia} />
         <Ligaments visible={showLigaments} />
-        {muscle ? <MuscleMesh muscle={muscle} /> : null}
+        {showMuscles && muscle ? <MuscleMesh muscle={muscle} /> : null}
         <LandmarkLayer visible={showLandmarks} />
       </Suspense>
       <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />

@@ -1,11 +1,11 @@
 {
-  "version": 2,
+  "version": 3,
   "defaultVisible": false,
-  "inclusionRules": "Included: BodyParts3D concepts whose English name is a named ligament, plus interosseous membranes (syndesmoses) and flexor retinacula (deep fibrous / ligamentous layer). Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, lens suspensory ligaments, trochleae, abstract parents, arteries. Major joint ligaments absent from BodyParts3D 4.0 (ACL/PCL, collaterals, hip capsular ligaments, glenohumeral, annular, ATFL/CFL/PTFL, spinal ALL/PLL/flavum) are synthesized as landmark-anchored bands (source=synthetic) — educational approximations, not cadaver segmentations.",
-  "syntheticDisclaimer": "Entries with source=synthetic are educational approximations placed between named landmarks (or X-mirrored contralateral landmarks). They are not segmented from cadaver imaging and must not be treated as morphologically accurate.",
-  "count": 97,
+  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic multi-fiber ribbons (source=synthetic-v2), not cadaver meshes. Spinal stick ligaments and menisci are omitted (quality > quantity).",
+  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic multi-fiber ribbons between named landmarks. They are not segmented from cadaver imaging and must not be treated as morphologically accurate. BodyParts3D connective meshes (interosseous membranes, retinacula, named ligaments) remain source=bodyparts3d.",
+  "count": 60,
   "countBodyparts3d": 18,
-  "countSynthetic": 79,
+  "countSynthetic": 42,
   "ligaments": [
     {
       "id": "plantaire-long-d",
@@ -355,15 +355,15 @@
       "nameLatin": "Ligamentum cruciatum anterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lca-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.09682,
-        -0.35983,
-        0.05975
+        -0.10065,
+        -0.35606,
+        0.0489
       ]
     },
     {
@@ -372,15 +372,15 @@
       "nameLatin": "Ligamentum cruciatum posterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lcp-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.07883,
-        -0.41378,
-        0.02628
+        -0.07475,
+        -0.42847,
+        0.02529
       ]
     },
     {
@@ -389,15 +389,15 @@
       "nameLatin": "Ligamentum collaterale tibiale",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "llim-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.06908,
-        -0.47833,
-        0.04855
+        -0.04909,
+        -0.48083,
+        0.04921
       ]
     },
     {
@@ -406,13 +406,13 @@
       "nameLatin": "Ligamentum collaterale fibulare",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lle-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.12702,
+        -0.12834,
         -0.2891,
         0.02336
       ]
@@ -423,49 +423,287 @@
       "nameLatin": "Ligamentum patellae",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "patellaire-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         -0.08457,
         -0.4988,
-        0.06947
+        0.07046
       ]
     },
     {
-      "id": "menisque-med-d",
-      "name": "Ménisque médial droit",
-      "nameLatin": "Meniscus medialis",
-      "region": "genou",
-      "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "menisque-med-d",
+      "id": "ilio-femoral-sup-d",
+      "name": "Ilio-fémoral supérieur droit",
+      "nameLatin": "Ligamentum iliofemorale (pars transversa)",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-sup-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.10106,
-        -0.35568,
-        0.0434
+        -0.12363,
+        -0.01195,
+        0.0627
       ]
     },
     {
-      "id": "menisque-lat-d",
-      "name": "Ménisque latéral droit",
-      "nameLatin": "Meniscus lateralis",
-      "region": "genou",
-      "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "menisque-lat-d",
+      "id": "ilio-femoral-inf-d",
+      "name": "Ilio-fémoral inférieur droit",
+      "nameLatin": "Ligamentum iliofemorale (pars descendens)",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-inf-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.07706,
-        -0.35568,
-        0.0434
+        -0.11617,
+        -0.02305,
+        0.06072
+      ]
+    },
+    {
+      "id": "pubo-femoral-d",
+      "name": "Pubo-fémoral droit",
+      "nameLatin": "Ligamentum pubofemorale",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "pubo-femoral-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.05761,
+        -0.05045,
+        0.0513
+      ]
+    },
+    {
+      "id": "ischio-femoral-d",
+      "name": "Ischio-fémoral droit",
+      "nameLatin": "Ligamentum ischiofemorale",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ischio-femoral-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.09493,
+        -0.09206,
+        0.00592
+      ]
+    },
+    {
+      "id": "gleno-hum-d",
+      "name": "Complexe gléno-huméral droit",
+      "nameLatin": "Ligamenta glenohumeralia",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.15145,
+        0.46984,
+        0.02583
+      ]
+    },
+    {
+      "id": "coraco-humeral-d",
+      "name": "Coraco-huméral droit",
+      "nameLatin": "Ligamentum coracohumerale",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-humeral-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.14973,
+        0.47367,
+        0.0361
+      ]
+    },
+    {
+      "id": "coraco-acromial-d",
+      "name": "Coraco-acromial droit",
+      "nameLatin": "Ligamentum coracoacromiale",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-acromial-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.14506,
+        0.47398,
+        0.03632
+      ]
+    },
+    {
+      "id": "acromio-clav-d",
+      "name": "Acromio-claviculaire droit",
+      "nameLatin": "Ligamentum acromioclaviculare",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "acromio-clav-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.14895,
+        0.48826,
+        0.02897
+      ]
+    },
+    {
+      "id": "coraco-clav-d",
+      "name": "Coraco-claviculaire droit",
+      "nameLatin": "Ligamenta trapezoidum et conoideum",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-clav-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.12699,
+        0.46976,
+        0.03932
+      ]
+    },
+    {
+      "id": "lliu-d",
+      "name": "LCU droit",
+      "nameLatin": "Ligamentum collaterale ulnare",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lliu-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.17322,
+        0.3062,
+        0.02657
+      ]
+    },
+    {
+      "id": "llir-d",
+      "name": "LCR droit",
+      "nameLatin": "Ligamentum collaterale radiale",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "llir-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.22649,
+        0.17849,
+        0.0182
+      ]
+    },
+    {
+      "id": "annulaire-radius-d",
+      "name": "Annulaire du radius droit",
+      "nameLatin": "Ligamentum anulare radii",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "annulaire-radius-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.21443,
+        0.15825,
+        0.02079
+      ]
+    },
+    {
+      "id": "lfta-d",
+      "name": "LTFA droit",
+      "nameLatin": "Ligamentum talofibulare anterius",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lfta-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.0835,
+        -0.87762,
+        0.03293
+      ]
+    },
+    {
+      "id": "lfcal-d",
+      "name": "LCF droit",
+      "nameLatin": "Ligamentum calcaneofibulare",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lfcal-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.08685,
+        -0.89011,
+        0.0168
+      ]
+    },
+    {
+      "id": "lftp-d",
+      "name": "LTFP droit",
+      "nameLatin": "Ligamentum talofibulare posterius",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lftp-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.0835,
+        -0.87945,
+        0.01412
+      ]
+    },
+    {
+      "id": "deltoide-d",
+      "name": "Ligament deltoïde droit",
+      "nameLatin": "Ligamentum deltoideum",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "deltoide-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.06281,
+        -0.87375,
+        0.04184
       ]
     },
     {
@@ -474,15 +712,15 @@
       "nameLatin": "Ligamentum cruciatum anterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lca-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.09682,
-        -0.36008,
-        0.05999
+        0.10064,
+        -0.35634,
+        0.04913
       ]
     },
     {
@@ -491,15 +729,15 @@
       "nameLatin": "Ligamentum cruciatum posterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lcp-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.07887,
-        -0.41383,
-        0.02653
+        0.07478,
+        -0.42855,
+        0.02553
       ]
     },
     {
@@ -508,15 +746,15 @@
       "nameLatin": "Ligamentum collaterale tibiale",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "llim-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.06901,
-        -0.4789,
-        0.04877
+        0.04902,
+        -0.48139,
+        0.04942
       ]
     },
     {
@@ -525,13 +763,13 @@
       "nameLatin": "Ligamentum collaterale fibulare",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lle-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.1281,
+        0.12942,
         -0.28911,
         0.02332
       ]
@@ -542,508 +780,168 @@
       "nameLatin": "Ligamentum patellae",
       "region": "genou",
       "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "patellaire-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         0.08471,
         -0.49866,
-        0.06998
+        0.07096
       ]
     },
     {
-      "id": "menisque-med-g",
-      "name": "Ménisque médial gauche",
-      "nameLatin": "Meniscus medialis",
-      "region": "genou",
-      "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "menisque-med-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.10101,
-        -0.35608,
-        0.04355
-      ]
-    },
-    {
-      "id": "menisque-lat-g",
-      "name": "Ménisque latéral gauche",
-      "nameLatin": "Meniscus lateralis",
-      "region": "genou",
-      "joint": "genou",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "menisque-lat-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.07701,
-        -0.35608,
-        0.04355
-      ]
-    },
-    {
-      "id": "ilio-femoral-d",
-      "name": "Ligament ilio-fémoral droit",
-      "nameLatin": "Ligamentum iliofemorale",
+      "id": "ilio-femoral-sup-g",
+      "name": "Ilio-fémoral supérieur gauche",
+      "nameLatin": "Ligamentum iliofemorale (pars transversa)",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "ilio-femoral-d",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-sup-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.1199,
-        -0.01234,
-        0.06055
+        0.12488,
+        -0.01106,
+        0.06463
       ]
     },
     {
-      "id": "pubo-femoral-d",
-      "name": "Ligament pubo-fémoral droit",
-      "nameLatin": "Ligamentum pubofemorale",
+      "id": "ilio-femoral-inf-g",
+      "name": "Ilio-fémoral inférieur gauche",
+      "nameLatin": "Ligamentum iliofemorale (pars descendens)",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pubo-femoral-d",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-inf-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.05692,
-        -0.04675,
-        0.04541
-      ]
-    },
-    {
-      "id": "ischio-femoral-d",
-      "name": "Ligament ischio-fémoral droit",
-      "nameLatin": "Ligamentum ischiofemorale",
-      "region": "hanche",
-      "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "ischio-femoral-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.09493,
-        -0.09337,
-        0.0104
-      ]
-    },
-    {
-      "id": "tete-femur-d",
-      "name": "Ligament de la tête fémorale droit",
-      "nameLatin": "Ligamentum capitis femoris",
-      "region": "hanche",
-      "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "tete-femur-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.06891,
-        -0.02886,
-        0.0379
-      ]
-    },
-    {
-      "id": "ilio-femoral-g",
-      "name": "Ligament ilio-fémoral gauche",
-      "nameLatin": "Ligamentum iliofemorale",
-      "region": "hanche",
-      "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "ilio-femoral-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.12157,
-        -0.01103,
-        0.06271
+        0.11826,
+        -0.02134,
+        0.0631
       ]
     },
     {
       "id": "pubo-femoral-g",
-      "name": "Ligament pubo-fémoral gauche",
+      "name": "Pubo-fémoral gauche",
       "nameLatin": "Ligamentum pubofemorale",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "pubo-femoral-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.05752,
-        -0.04637,
-        0.04423
+        0.05821,
+        -0.05005,
+        0.05012
       ]
     },
     {
       "id": "ischio-femoral-g",
-      "name": "Ligament ischio-fémoral gauche",
+      "name": "Ischio-fémoral gauche",
       "nameLatin": "Ligamentum ischiofemorale",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "ischio-femoral-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.09692,
-        -0.09317,
-        0.01166
+        0.09691,
+        -0.09185,
+        0.00718
       ]
     },
     {
-      "id": "tete-femur-g",
-      "name": "Ligament de la tête fémorale gauche",
-      "nameLatin": "Ligamentum capitis femoris",
-      "region": "hanche",
-      "joint": "hanche",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "tete-femur-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.06953,
-        -0.02813,
-        0.03667
-      ]
-    },
-    {
-      "id": "gleno-hum-sup-d",
-      "name": "Ligament gléno-huméral supérieur droit",
-      "nameLatin": "Ligamentum glenohumerale superius",
+      "id": "gleno-hum-g",
+      "name": "Complexe gléno-huméral gauche",
+      "nameLatin": "Ligamenta glenohumeralia",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "gleno-hum-sup-d",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.15021,
-        0.47518,
-        0.02422
-      ]
-    },
-    {
-      "id": "gleno-hum-moy-d",
-      "name": "Ligament gléno-huméral moyen droit",
-      "nameLatin": "Ligamentum glenohumerale medium",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "gleno-hum-moy-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.14043,
-        0.45622,
-        0.01667
-      ]
-    },
-    {
-      "id": "gleno-hum-inf-d",
-      "name": "Ligament gléno-huméral inférieur droit",
-      "nameLatin": "Ligamentum glenohumerale inferius",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "gleno-hum-inf-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.14043,
-        0.44021,
-        0.01667
-      ]
-    },
-    {
-      "id": "coraco-humeral-d",
-      "name": "Ligament coraco-huméral droit",
-      "nameLatin": "Ligamentum coracohumerale",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "coraco-humeral-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.14973,
-        0.47036,
-        0.03695
-      ]
-    },
-    {
-      "id": "coraco-acromial-d",
-      "name": "Ligament coraco-acromial droit",
-      "nameLatin": "Ligamentum coracoacromiale",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "coraco-acromial-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.14506,
-        0.47199,
-        0.03617
-      ]
-    },
-    {
-      "id": "acromio-clav-d",
-      "name": "Ligament acromio-claviculaire droit",
-      "nameLatin": "Ligamentum acromioclaviculare",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "acromio-clav-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.14895,
-        0.4876,
-        0.02847
-      ]
-    },
-    {
-      "id": "trapezoide-d",
-      "name": "Ligament trapézoïde droit",
-      "nameLatin": "Ligamentum trapezoideum",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "trapezoide-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.13036,
-        0.47061,
-        0.03937
-      ]
-    },
-    {
-      "id": "conoide-d",
-      "name": "Ligament conoïde droit",
-      "nameLatin": "Ligamentum conoideum",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "conoide-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.12159,
-        0.46838,
-        0.04313
-      ]
-    },
-    {
-      "id": "gleno-hum-sup-g",
-      "name": "Ligament gléno-huméral supérieur gauche",
-      "nameLatin": "Ligamentum glenohumerale superius",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "gleno-hum-sup-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.15065,
-        0.47504,
-        0.02545
-      ]
-    },
-    {
-      "id": "gleno-hum-moy-g",
-      "name": "Ligament gléno-huméral moyen gauche",
-      "nameLatin": "Ligamentum glenohumerale medium",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "gleno-hum-moy-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.14077,
-        0.45592,
-        0.01765
-      ]
-    },
-    {
-      "id": "gleno-hum-inf-g",
-      "name": "Ligament gléno-huméral inférieur gauche",
-      "nameLatin": "Ligamentum glenohumerale inferius",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "gleno-hum-inf-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.14077,
-        0.43992,
-        0.01765
+        0.15191,
+        0.46972,
+        0.0271
       ]
     },
     {
       "id": "coraco-humeral-g",
-      "name": "Ligament coraco-huméral gauche",
+      "name": "Coraco-huméral gauche",
       "nameLatin": "Ligamentum coracohumerale",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "coraco-humeral-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         0.14998,
-        0.47021,
-        0.03812
+        0.47353,
+        0.03728
       ]
     },
     {
       "id": "coraco-acromial-g",
-      "name": "Ligament coraco-acromial gauche",
+      "name": "Coraco-acromial gauche",
       "nameLatin": "Ligamentum coracoacromiale",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "coraco-acromial-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         0.1457,
-        0.47185,
-        0.03758
+        0.47384,
+        0.03773
       ]
     },
     {
       "id": "acromio-clav-g",
-      "name": "Ligament acromio-claviculaire gauche",
+      "name": "Acromio-claviculaire gauche",
       "nameLatin": "Ligamentum acromioclaviculare",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "acromio-clav-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         0.14908,
-        0.48753,
-        0.02985
+        0.48819,
+        0.03035
       ]
     },
     {
-      "id": "trapezoide-g",
-      "name": "Ligament trapézoïde gauche",
-      "nameLatin": "Ligamentum trapezoideum",
+      "id": "coraco-clav-g",
+      "name": "Coraco-claviculaire gauche",
+      "nameLatin": "Ligamenta trapezoidum et conoideum",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "trapezoide-g",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-clav-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.13018,
-        0.47055,
-        0.0405
-      ]
-    },
-    {
-      "id": "conoide-g",
-      "name": "Ligament conoïde gauche",
-      "nameLatin": "Ligamentum conoideum",
-      "region": "épaule",
-      "joint": "épaule",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "conoide-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.12139,
-        0.46845,
-        0.04426
-      ]
-    },
-    {
-      "id": "lliu-d",
-      "name": "LCU droit",
-      "nameLatin": "Ligamentum collaterale ulnare",
-      "region": "coude",
-      "joint": "coude",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "lliu-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.17403,
-        0.30563,
-        0.02635
-      ]
-    },
-    {
-      "id": "llir-d",
-      "name": "LCR droit",
-      "nameLatin": "Ligamentum collaterale radiale",
-      "region": "coude",
-      "joint": "coude",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "llir-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.22732,
-        0.17376,
-        0.01915
-      ]
-    },
-    {
-      "id": "annulaire-radius-d",
-      "name": "Ligament annulaire du radius droit",
-      "nameLatin": "Ligamentum anulare radii",
-      "region": "coude",
-      "joint": "coude",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "annulaire-radius-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.21513,
-        0.15579,
-        0.02139
+        0.1268,
+        0.46975,
+        0.04045
       ]
     },
     {
@@ -1052,15 +950,15 @@
       "nameLatin": "Ligamentum collaterale ulnare",
       "region": "coude",
       "joint": "coude",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lliu-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.17528,
-        0.30563,
-        0.02709
+        0.17448,
+        0.3062,
+        0.0273
       ]
     },
     {
@@ -1069,117 +967,32 @@
       "nameLatin": "Ligamentum collaterale radiale",
       "region": "coude",
       "joint": "coude",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "llir-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.22856,
-        0.17379,
-        0.01991
+        0.22777,
+        0.17851,
+        0.01893
       ]
     },
     {
       "id": "annulaire-radius-g",
-      "name": "Ligament annulaire du radius gauche",
+      "name": "Annulaire du radius gauche",
       "nameLatin": "Ligamentum anulare radii",
       "region": "coude",
       "joint": "coude",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "annulaire-radius-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.21762,
-        0.15585,
-        0.02291
-      ]
-    },
-    {
-      "id": "lfta-d",
-      "name": "LTFA droit",
-      "nameLatin": "Ligamentum talofibulare anterius",
-      "region": "cheville",
-      "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "lfta-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.0835,
-        -0.87896,
-        0.03294
-      ]
-    },
-    {
-      "id": "lfcal-d",
-      "name": "LCF droit",
-      "nameLatin": "Ligamentum calcaneofibulare",
-      "region": "cheville",
-      "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "lfcal-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.08586,
-        -0.88912,
-        0.0168
-      ]
-    },
-    {
-      "id": "lftp-d",
-      "name": "LTFP droit",
-      "nameLatin": "Ligamentum talofibulare posterius",
-      "region": "cheville",
-      "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "lftp-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.0835,
-        -0.87896,
-        0.01544
-      ]
-    },
-    {
-      "id": "deltoide-ant-d",
-      "name": "Deltoïde antérieur droit",
-      "nameLatin": "Pars tibionavicularis lig. deltoidei",
-      "region": "cheville",
-      "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "deltoide-ant-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.06265,
-        -0.86938,
-        0.04843
-      ]
-    },
-    {
-      "id": "deltoide-cal-d",
-      "name": "Deltoïde calcanéen droit",
-      "nameLatin": "Pars tibiocalcanea lig. deltoidei",
-      "region": "cheville",
-      "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "deltoide-cal-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.065,
-        -0.87953,
-        0.03329
+        0.21694,
+        0.15831,
+        0.0223
       ]
     },
     {
@@ -1188,15 +1001,15 @@
       "nameLatin": "Ligamentum talofibulare anterius",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lfta-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         0.08421,
-        -0.87891,
-        0.03502
+        -0.87757,
+        0.035
       ]
     },
     {
@@ -1205,14 +1018,14 @@
       "nameLatin": "Ligamentum calcaneofibulare",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lfcal-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.08669,
-        -0.88935,
+        0.08768,
+        -0.89033,
         0.01808
       ]
     },
@@ -1222,474 +1035,32 @@
       "nameLatin": "Ligamentum talofibulare posterius",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
       "sourceName": "lftp-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
         0.08421,
-        -0.87892,
-        0.01751
+        -0.87941,
+        0.01619
       ]
     },
     {
-      "id": "deltoide-ant-g",
-      "name": "Deltoïde antérieur gauche",
-      "nameLatin": "Pars tibionavicularis lig. deltoidei",
+      "id": "deltoide-g",
+      "name": "Ligament deltoïde gauche",
+      "nameLatin": "Ligamentum deltoideum",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "deltoide-ant-g",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "deltoide-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.06305,
-        -0.8694,
-        0.04849
-      ]
-    },
-    {
-      "id": "deltoide-cal-g",
-      "name": "Deltoïde calcanéen gauche",
-      "nameLatin": "Pars tibiocalcanea lig. deltoidei",
-      "region": "cheville",
-      "joint": "cheville",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "deltoide-cal-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.06553,
-        -0.87984,
-        0.03256
-      ]
-    },
-    {
-      "id": "all-0",
-      "name": "Ligament longitudinal antérieur (1)",
-      "nameLatin": "Ligamentum longitudinale anterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "all-0",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.0001,
-        0.55191,
-        0.04228
-      ]
-    },
-    {
-      "id": "pll-0",
-      "name": "Ligament longitudinal postérieur (1)",
-      "nameLatin": "Ligamentum longitudinale posterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pll-0",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.0001,
-        0.55191,
-        0.01229
-      ]
-    },
-    {
-      "id": "flavum-0",
-      "name": "Ligament jaune (1)",
-      "nameLatin": "Ligamentum flavum",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "flavum-0",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.0001,
-        0.55191,
-        0.00428
-      ]
-    },
-    {
-      "id": "interepineux-0",
-      "name": "Ligament inter-épineux (1)",
-      "nameLatin": "Ligamentum interspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "interepineux-0",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.0001,
-        0.5519,
-        -0.00372
-      ]
-    },
-    {
-      "id": "all-1",
-      "name": "Ligament longitudinal antérieur (2)",
-      "nameLatin": "Ligamentum longitudinale anterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "all-1",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.50694,
-        0.03813
-      ]
-    },
-    {
-      "id": "pll-1",
-      "name": "Ligament longitudinal postérieur (2)",
-      "nameLatin": "Ligamentum longitudinale posterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pll-1",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.50694,
-        0.00813
-      ]
-    },
-    {
-      "id": "flavum-1",
-      "name": "Ligament jaune (2)",
-      "nameLatin": "Ligamentum flavum",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "flavum-1",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.50695,
-        0.00013
-      ]
-    },
-    {
-      "id": "interepineux-1",
-      "name": "Ligament inter-épineux (2)",
-      "nameLatin": "Ligamentum interspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "interepineux-1",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00039,
-        0.50694,
-        -0.00787
-      ]
-    },
-    {
-      "id": "all-2",
-      "name": "Ligament longitudinal antérieur (3)",
-      "nameLatin": "Ligamentum longitudinale anterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "all-2",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00089,
-        0.35737,
-        0.03238
-      ]
-    },
-    {
-      "id": "pll-2",
-      "name": "Ligament longitudinal postérieur (3)",
-      "nameLatin": "Ligamentum longitudinale posterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pll-2",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00089,
-        0.35737,
-        0.00239
-      ]
-    },
-    {
-      "id": "flavum-2",
-      "name": "Ligament jaune (3)",
-      "nameLatin": "Ligamentum flavum",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "flavum-2",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00089,
-        0.35737,
-        -0.00561
-      ]
-    },
-    {
-      "id": "interepineux-2",
-      "name": "Ligament inter-épineux (3)",
-      "nameLatin": "Ligamentum interspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "interepineux-2",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00089,
-        0.35737,
-        -0.01361
-      ]
-    },
-    {
-      "id": "all-3",
-      "name": "Ligament longitudinal antérieur (4)",
-      "nameLatin": "Ligamentum longitudinale anterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "all-3",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00066,
-        0.20011,
-        0.03384
-      ]
-    },
-    {
-      "id": "pll-3",
-      "name": "Ligament longitudinal postérieur (4)",
-      "nameLatin": "Ligamentum longitudinale posterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pll-3",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00065,
-        0.20011,
-        0.00384
-      ]
-    },
-    {
-      "id": "flavum-3",
-      "name": "Ligament jaune (4)",
-      "nameLatin": "Ligamentum flavum",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "flavum-3",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00066,
-        0.20012,
-        -0.00416
-      ]
-    },
-    {
-      "id": "interepineux-3",
-      "name": "Ligament inter-épineux (4)",
-      "nameLatin": "Ligamentum interspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "interepineux-3",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00066,
-        0.20011,
-        -0.01216
-      ]
-    },
-    {
-      "id": "all-4",
-      "name": "Ligament longitudinal antérieur (5)",
-      "nameLatin": "Ligamentum longitudinale anterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "all-4",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00077,
-        0.12796,
-        0.03361
-      ]
-    },
-    {
-      "id": "pll-4",
-      "name": "Ligament longitudinal postérieur (5)",
-      "nameLatin": "Ligamentum longitudinale posterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pll-4",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00077,
-        0.12796,
-        0.0036
-      ]
-    },
-    {
-      "id": "flavum-4",
-      "name": "Ligament jaune (5)",
-      "nameLatin": "Ligamentum flavum",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "flavum-4",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00077,
-        0.12796,
-        -0.00439
-      ]
-    },
-    {
-      "id": "interepineux-4",
-      "name": "Ligament inter-épineux (5)",
-      "nameLatin": "Ligamentum interspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "interepineux-4",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00077,
-        0.12796,
-        -0.01239
-      ]
-    },
-    {
-      "id": "all-5",
-      "name": "Ligament longitudinal antérieur (6)",
-      "nameLatin": "Ligamentum longitudinale anterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "all-5",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.04029,
-        0.01668
-      ]
-    },
-    {
-      "id": "pll-5",
-      "name": "Ligament longitudinal postérieur (6)",
-      "nameLatin": "Ligamentum longitudinale posterius",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "pll-5",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.04029,
-        -0.01331
-      ]
-    },
-    {
-      "id": "flavum-5",
-      "name": "Ligament jaune (6)",
-      "nameLatin": "Ligamentum flavum",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "flavum-5",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00039,
-        0.04029,
-        -0.02132
-      ]
-    },
-    {
-      "id": "interepineux-5",
-      "name": "Ligament inter-épineux (6)",
-      "nameLatin": "Ligamentum interspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "interepineux-5",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.04029,
-        -0.02932
-      ]
-    },
-    {
-      "id": "supraepineux",
-      "name": "Ligament supra-épineux",
-      "nameLatin": "Ligamentum supraspinale",
-      "region": "rachis",
-      "joint": "rachis",
-      "notes": "Approximation pédagogique : bande synthétique ancrée sur les repères v1 (centroïdes / extrema). Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "supraepineux",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00038,
-        0.29353,
-        -0.01271
+        0.06326,
+        -0.87388,
+        0.04163
       ]
     }
   ]

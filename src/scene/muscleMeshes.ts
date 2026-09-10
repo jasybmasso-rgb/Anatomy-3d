@@ -112,7 +112,7 @@ function fallbackFromFocus(muscle: Muscle): MusclePrim[] {
 }
 
 export function primitivesForMuscle(muscle: Muscle): MusclePrim[] {
-  const listed = HINTS[muscle.meshHint] ?? fallbackFromFocus(muscle);
+  const listed = (muscle.meshHint && HINTS[muscle.meshHint]) || fallbackFromFocus(muscle);
   const out: MusclePrim[] = [];
   for (const prim of listed) {
     out.push(prim);

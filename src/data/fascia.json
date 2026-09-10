@@ -1,18 +1,18 @@
 {
-  "version": 1,
+  "version": 2,
   "defaultVisible": false,
-  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Investing-fascia / fascia-lata parents map to those same files and are not duplicated. Flexor retinacula of the wrist remain in ligaments.glb. Excluded: tensor fasciae latae (muscle), nasal septum, septum of telencephalon, skin, fat, abstract parents. BodyParts3D 4.0 has no dedicated meshes for thoracolumbar fascia, plantar / palmar aponeuroses, abdominal fascia, crural fascia, or intermuscular septa; those gaps are filled with landmark-anchored synthetic sheets (source=synthetic).",
+  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Investing-fascia / fascia-lata parents map to those same files and are not duplicated. Flexor retinacula of the wrist remain in ligaments.glb. Excluded: tensor fasciae latae (muscle), nasal septum, brain septa, skin, fat. BodyParts3D 4.0 has no dedicated thoracolumbar / crural / antebrachial fascia meshes. Those three regional sleeves plus one posterior thoracolumbar sheet are schematic (source=synthetic-v2). Palmar / plantar aponeuroses and linea alba sticks from v1 are omitted (quality > quantity).",
   "gaps": [
     "fascia cervicale / nuchal",
-    "fascia crural et rétinaculums de cheville (hors ligaments)",
-    "fascia antebrachial (hors rétinaculum déjà dans ligaments)",
-    "clavipectoral / pectoral fascia",
-    "septums intermusculaires de la cuisse et de la jambe"
+    "rétinaculums de cheville (hors ligaments)",
+    "clavipectoral / fascia pectoral",
+    "septums intermusculaires",
+    "aponévroses palmaire et plantaire (omises : géométrie v1 insuffisante)"
   ],
-  "syntheticDisclaimer": "Entries with source=synthetic are educational approximations placed between named landmarks. They are not segmented from cadaver imaging.",
-  "count": 10,
+  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic regional deep-fascia sleeves / one thoracolumbar sheet. They are not cadaver segmentations.",
+  "count": 9,
   "countBodyparts3d": 2,
-  "countSynthetic": 8,
+  "countSynthetic": 7,
   "fascia": [
     {
       "id": "tractus-ilio-tibial-d",
@@ -51,131 +51,115 @@
       ]
     },
     {
-      "id": "aponevrose-plantaire-d",
-      "name": "Aponévrose plantaire droit",
-      "nameLatin": "Aponeurosis plantaris",
-      "region": "pied",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "aponevrose-plantaire-d",
+      "id": "fascia-lata-d",
+      "name": "Fascia lata droit",
+      "nameLatin": "Fascia lata",
+      "region": "cuisse",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-lata-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.07195,
-        -0.89023,
-        0.05377
+        -0.14405,
+        -0.03343,
+        0.03586
       ]
     },
     {
-      "id": "aponevrose-plantaire-g",
-      "name": "Aponévrose plantaire gauche",
-      "nameLatin": "Aponeurosis plantaris",
-      "region": "pied",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "aponevrose-plantaire-g",
+      "id": "fascia-crural-d",
+      "name": "Fascia crural droit",
+      "nameLatin": "Fascia cruris",
+      "region": "jambe",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-crural-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.07244,
-        -0.89041,
-        0.05449
+        -0.09029,
+        -0.65704,
+        0.02143
       ]
     },
     {
-      "id": "aponevrose-palmaire-d",
-      "name": "Aponévrose palmaire droit",
-      "nameLatin": "Aponeurosis palmaris",
-      "region": "main",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "aponevrose-palmaire-d",
+      "id": "fascia-antebrachial-d",
+      "name": "Fascia antébrachial droit",
+      "nameLatin": "Fascia antebrachii",
+      "region": "avant-bras",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-antebrachial-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.26046,
-        -0.08285,
-        0.07687
+        -0.23115,
+        0.06228,
+        0.04289
       ]
     },
     {
-      "id": "aponevrose-palmaire-g",
-      "name": "Aponévrose palmaire gauche",
-      "nameLatin": "Aponeurosis palmaris",
-      "region": "main",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "aponevrose-palmaire-g",
+      "id": "fascia-lata-g",
+      "name": "Fascia lata gauche",
+      "nameLatin": "Fascia lata",
+      "region": "cuisse",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-lata-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.26125,
-        -0.08275,
-        0.07968
+        0.14587,
+        -0.03323,
+        0.03782
       ]
     },
     {
-      "id": "fascia-thoracolombaire-d",
-      "name": "Fascia thoraco-lombaire droit",
-      "nameLatin": "Fascia thoracolumbalis dextrum",
+      "id": "fascia-crural-g",
+      "name": "Fascia crural gauche",
+      "nameLatin": "Fascia cruris",
+      "region": "jambe",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-crural-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.09171,
+        -0.65705,
+        0.02184
+      ]
+    },
+    {
+      "id": "fascia-antebrachial-g",
+      "name": "Fascia antébrachial gauche",
+      "nameLatin": "Fascia antebrachii",
+      "region": "avant-bras",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-antebrachial-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.23297,
+        0.06233,
+        0.04491
+      ]
+    },
+    {
+      "id": "fascia-thoracolombaire",
+      "name": "Fascia thoraco-lombaire (nappe postérieure)",
+      "nameLatin": "Fascia thoracolumbalis",
       "region": "tronc",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "fascia-thoracolombaire-d",
+      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "source": "synthetic-v2",
+      "sourceName": "fascia-thoracolombaire",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.02227,
-        0.13139,
-        -0.03764
-      ]
-    },
-    {
-      "id": "fascia-thoracolombaire-g",
-      "name": "Fascia thoraco-lombaire gauche",
-      "nameLatin": "Fascia thoracolumbalis sinistrum",
-      "region": "tronc",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "fascia-thoracolombaire-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.02283,
-        0.13144,
-        -0.03735
-      ]
-    },
-    {
-      "id": "fascia-thoracolombaire-lombaire",
-      "name": "Fascia thoraco-lombaire (nappe lombaire)",
-      "nameLatin": "Fascia thoracolumbalis (pars lumbalis)",
-      "region": "tronc",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "fascia-thoracolombaire-lombaire",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.00016,
-        0.09645,
-        -0.02102
-      ]
-    },
-    {
-      "id": "ligne-blanche",
-      "name": "Ligne blanche",
-      "nameLatin": "Linea alba",
-      "region": "tronc",
-      "notes": "Approximation pédagogique : nappe synthétique ancrée sur les repères v1. Pas un scan. Source: synthetic.",
-      "source": "synthetic",
-      "sourceName": "ligne-blanche",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -1e-05,
-        0.14816,
-        0.11832
+        0.00028,
+        0.13142,
+        -0.03999
       ]
     }
   ]

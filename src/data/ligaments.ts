@@ -1,4 +1,4 @@
-export type LigamentSource = "bodyparts3d" | "synthetic";
+export type LigamentSource = "bodyparts3d" | "synthetic-v2";
 
 export type Ligament = {
   id: string;

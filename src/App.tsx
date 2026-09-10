@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LayerMenu, DEFAULT_LAYERS, type LayerId, type LayerState } from "./components/LayerMenu";
 import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
 import { SidePanel } from "./components/SidePanel";
@@ -10,9 +11,7 @@ import "./App.css";
 export function App() {
   const [selection, setSelection] = useState<SelectionState>({ selectedMuscleId: null });
   const [resetToken, setResetToken] = useState(0);
-  const [showLandmarks, setShowLandmarks] = useState(false);
-  const [showLigaments, setShowLigaments] = useState(false);
-  const [showFascia, setShowFascia] = useState(false);
+  const [layers, setLayers] = useState<LayerState>(DEFAULT_LAYERS);
   const selected = getMuscleById(selection.selectedMuscleId);
 
   function reset() {
@@ -20,12 +19,16 @@ export function App() {
     setResetToken((token) => token + 1);
   }
 
+  function setLayer(id: LayerId, value: boolean) {
+    setLayers((prev) => ({ ...prev, [id]: value }));
+  }
+
   return (
     <div className="app">
       <header className="topbar">
         <div className="brand">
           <p className="brand-mark">Anatomy-3d</p>
-          <p className="brand-sub">Phase 1 — squelette et muscles</p>
+          <p className="brand-sub">Phase 1 — squelette et couches</p>
         </div>
         <SearchBar
           muscles={muscles}
@@ -33,30 +36,7 @@ export function App() {
           resetToken={resetToken}
           onSelect={(id) => setSelection({ selectedMuscleId: id })}
         />
-        <label className="landmarks-toggle ligaments-toggle">
-          <input
-            type="checkbox"
-            checked={showLigaments}
-            onChange={(event) => setShowLigaments(event.target.checked)}
-          />
-          Afficher les ligaments
-        </label>
-        <label className="landmarks-toggle fascia-toggle">
-          <input
-            type="checkbox"
-            checked={showFascia}
-            onChange={(event) => setShowFascia(event.target.checked)}
-          />
-          Afficher les fascias
-        </label>
-        <label className="landmarks-toggle">
-          <input
-            type="checkbox"
-            checked={showLandmarks}
-            onChange={(event) => setShowLandmarks(event.target.checked)}
-          />
-          Afficher les repères
-        </label>
+        <LayerMenu layers={layers} onChange={setLayer} />
         <button type="button" className="reset-btn" onClick={reset}>
           Réinitialiser
         </button>
@@ -66,15 +46,16 @@ export function App() {
           <SceneErrorBoundary>
             <AnatomyScene
               muscle={selected}
-              showLandmarks={showLandmarks}
-              showLigaments={showLigaments}
-              showFascia={showFascia}
+              showMuscles={layers.muscles}
+              showLandmarks={layers.landmarks}
+              showLigaments={layers.ligaments}
+              showFascia={layers.fascias}
               resetToken={resetToken}
             />
           </SceneErrorBoundary>
           {!selected ? (
             <p className="viewport-hint">
-              Molette : zoom vers le curseur · Clic droit : panoramique · Double-clic : recentrer
+              Molette : zoom fluide vers le curseur · Clic droit : panoramique · Double-clic : recentrer
             </p>
           ) : null}
         </div>

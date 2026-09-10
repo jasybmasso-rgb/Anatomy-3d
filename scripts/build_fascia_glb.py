@@ -49,19 +49,19 @@ INCLUSION_RULES = (
     "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). "
     "Investing-fascia / fascia-lata parents map to those same files and are not "
     "duplicated. Flexor retinacula of the wrist remain in ligaments.glb. "
-    "Excluded: tensor fasciae latae (muscle), nasal septum, septum of telencephalon, "
-    "skin, fat, abstract parents. "
-    "BodyParts3D 4.0 has no dedicated meshes for thoracolumbar fascia, plantar / "
-    "palmar aponeuroses, abdominal fascia, crural fascia, or intermuscular septa; "
-    "those gaps are filled with landmark-anchored synthetic sheets (source=synthetic)."
+    "Excluded: tensor fasciae latae (muscle), nasal septum, brain septa, skin, fat. "
+    "BodyParts3D 4.0 has no dedicated thoracolumbar / crural / antebrachial fascia "
+    "meshes. Those three regional sleeves plus one posterior thoracolumbar sheet "
+    "are schematic (source=synthetic-v2). Palmar / plantar aponeuroses and linea "
+    "alba sticks from v1 are omitted (quality > quantity)."
 )
 
 GAPS = [
     "fascia cervicale / nuchal",
-    "fascia crural et rétinaculums de cheville (hors ligaments)",
-    "fascia antebrachial (hors rétinaculum déjà dans ligaments)",
-    "clavipectoral / pectoral fascia",
-    "septums intermusculaires de la cuisse et de la jambe",
+    "rétinaculums de cheville (hors ligaments)",
+    "clavipectoral / fascia pectoral",
+    "septums intermusculaires",
+    "aponévroses palmaire et plantaire (omises : géométrie v1 insuffisante)",
 ]
 
 
@@ -96,7 +96,7 @@ def main() -> int:
             zf.extractall(extract)
     obj_map = sk.find_obj_map(extract)
 
-    items: list[tuple[str, str, trimesh.Trimesh]] = []
+    items: list[tuple[str, trimesh.Trimesh]] = []
     catalog = []
     missing = 0
     for en_name, info in INCLUDE.items():
@@ -120,7 +120,7 @@ def main() -> int:
             continue
         mesh = meshes[0] if len(meshes) == 1 else trimesh.util.concatenate(meshes)
         mesh.apply_transform(matrix)
-        items.append((cid, en_name, mesh))
+        items.append((info["id"], mesh))
         catalog.append(
             {
                 **info,
@@ -136,28 +136,35 @@ def main() -> int:
         print("missing BP3D fascia parts:", missing, file=sys.stderr)
         return 1
 
-    print("synthesizing fascia / aponeurosis sheets…", flush=True)
+    print("synthesizing regional fascia sleeves (v2)…", flush=True)
     synth_meshes, synth_catalog = build_synthetic()
     catalog.extend(synth_catalog)
 
-    combined = trimesh.util.concatenate([m for _c, _n, m in items] + synth_meshes)
-    combined.visual.vertex_colors = [140, 170, 190, 160]
-    _ = combined.vertex_normals
+    scene = trimesh.Scene()
+    for part_id, mesh in items:
+        mesh.visual.vertex_colors = [140, 170, 190, 170]
+        _ = mesh.vertex_normals
+        mesh.metadata["name"] = part_id
+        scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)
+    for part_id, mesh in synth_meshes:
+        mesh.visual.vertex_colors = [140, 170, 190, 110]
+        _ = mesh.vertex_normals
+        mesh.metadata["name"] = part_id
+        scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)
+
     OUT_GLB.parent.mkdir(parents=True, exist_ok=True)
-    OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
+    OUT_GLB.write_bytes(export_glb(scene, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
 
     n_bp3d = sum(1 for p in catalog if p.get("source") == "bodyparts3d")
-    n_synth = sum(1 for p in catalog if p.get("source") == "synthetic")
+    n_synth = sum(1 for p in catalog if str(p.get("source", "")).startswith("synthetic"))
     meta = {
         "glbBytes": OUT_GLB.stat().st_size,
         "glbMiB": round(size_mb, 2),
         "partCount": len(catalog),
         "countBodyparts3d": n_bp3d,
         "countSynthetic": n_synth,
-        "vertexCount": int(len(combined.vertices)),
-        "faceCount": int(len(combined.faces)),
-        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic sheets are original educational approximations",
+        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 sleeves are original educational approximations",
         "alignedTo": "public/models/skeleton.glb",
         "inclusionRules": INCLUSION_RULES,
         "gaps": GAPS,
@@ -165,13 +172,13 @@ def main() -> int:
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 
     payload = {
-        "version": 1,
+        "version": 2,
         "defaultVisible": False,
         "inclusionRules": INCLUSION_RULES,
         "gaps": GAPS,
         "syntheticDisclaimer": (
-            "Entries with source=synthetic are educational approximations placed between "
-            "named landmarks. They are not segmented from cadaver imaging."
+            "Entries with source=synthetic-v2 are schematic regional deep-fascia "
+            "sleeves / one thoracolumbar sheet. They are not cadaver segmentations."
         ),
         "count": len(catalog),
         "countBodyparts3d": n_bp3d,
@@ -181,7 +188,7 @@ def main() -> int:
     OUT_CATALOG.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(
         f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(catalog)} parts "
-        f"({n_bp3d} BP3D + {n_synth} synthetic)",
+        f"({n_bp3d} BP3D + {n_synth} synthetic-v2)",
         flush=True,
     )
     return 0

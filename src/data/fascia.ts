@@ -1,4 +1,4 @@
-export type FasciaSource = "bodyparts3d" | "synthetic";
+export type FasciaSource = "bodyparts3d" | "synthetic-v2";
 
 export type FasciaPart = {
   id: string;

@@ -6,6 +6,10 @@ const REGION_LABEL: Record<MuscleRegion, string> = {
   tronc: "Tronc",
   cou: "Cou",
   épaule: "Épaule",
+  dos: "Dos",
+  main: "Main",
+  pied: "Pied",
+  périnée: "Périnée",
 };
 
 type SidePanelProps = {
@@ -19,9 +23,8 @@ export function SidePanel({ muscle }: SidePanelProps) {
         <p className="panel-empty-kicker">Aucun muscle sélectionné</p>
         <h2 className="panel-empty-title">Squelette seulement</h2>
         <p className="panel-empty-body">
-          Recherchez un muscle par son nom français, son nom latin, un alias ou son identifiant.
-          Le maillage stylisé s’affichera sur le squelette, et la caméra se rapprochera du foyer
-          anatomique.
+          Recherchez un muscle, puis activez la couche Muscles dans le menu Couches. La fiche
+          affiche origines, insertions (tous les chefs) et mouvements. Sélection fine : à venir.
         </p>
       </aside>
     );
@@ -41,6 +44,25 @@ export function SidePanel({ muscle }: SidePanelProps) {
           <dt>Insertion</dt>
           <dd>{muscle.insertion}</dd>
         </div>
+        {muscle.heads && muscle.heads.length > 0 ? (
+          <div>
+            <dt>Chefs</dt>
+            <dd>
+              <ul className="panel-head">
+                {muscle.heads.map((head) => (
+                  <li key={head.name}>
+                    <strong>{head.name}</strong>
+                    <span>
+                      O : {head.origin}
+                      <br />
+                      I : {head.insertion}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ) : null}
         <div>
           <dt>Mouvements</dt>
           <dd>
@@ -51,7 +73,22 @@ export function SidePanel({ muscle }: SidePanelProps) {
             </ul>
           </dd>
         </div>
+        {muscle.secondaryActions && muscle.secondaryActions.length > 0 ? (
+          <div>
+            <dt>Mouvements secondaires</dt>
+            <dd>
+              <ul className="panel-actions">
+                {muscle.secondaryActions.map((action) => (
+                  <li key={action}>{action}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ) : null}
       </dl>
+      {muscle.meshSource === "synthetic" ? (
+        <p className="panel-mesh-note">Maillage schématique : absent de BodyParts3D 4.0.</p>
+      ) : null}
     </aside>
   );
 }
