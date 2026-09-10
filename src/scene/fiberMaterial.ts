@@ -1,62 +1,41 @@
 import * as THREE from "three";
 
-const BASE = new THREE.Color("#c44536");
+const RIDGE = new THREE.Color("#d45a4c");
+const GROOVE = new THREE.Color("#5c140e");
 
-/**
- * Pedagogical fiber direction: world-space stripes along origin→insertion (PCA).
- * Injected after project_vertex so it does not depend on USE_ENVMAP/shadow chunks.
- */
-export function createFiberMuscleMaterial(fiberAxis: THREE.Vector3): THREE.MeshPhysicalMaterial {
-  const material = new THREE.MeshPhysicalMaterial({
-    color: BASE,
-    roughness: 0.62,
+/** Stripe frequency in cycles per metre along the fiber axis. */
+const CYCLES_PER_M = 32;
+
+const _p = new THREE.Vector3();
+const _c = new THREE.Color();
+
+export function paintFiberVertexColors(geometry: THREE.BufferGeometry, fiberAxis: THREE.Vector3) {
+  const pos = geometry.getAttribute("position");
+  if (!pos) return;
+  const axis = fiberAxis.clone().normalize();
+  const colors = new Float32Array(pos.count * 3);
+  for (let i = 0; i < pos.count; i += 1) {
+    _p.fromBufferAttribute(pos, i);
+    const along = _p.dot(axis);
+    const wave = 0.5 + 0.5 * Math.sin(along * CYCLES_PER_M * Math.PI * 2);
+    const band = wave * wave;
+    _c.copy(GROOVE).lerp(RIDGE, band);
+    colors[i * 3] = _c.r;
+    colors[i * 3 + 1] = _c.g;
+    colors[i * 3 + 2] = _c.b;
+  }
+  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+}
+
+export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color: "#ffffff",
+    roughness: 0.58,
     metalness: 0.0,
     transparent: true,
     opacity: 0.94,
-    clearcoat: 0.0,
-    sheen: 0.35,
-    sheenColor: new THREE.Color("#8a2a20"),
-    sheenRoughness: 0.85,
+    clearcoat: 0.04,
     side: THREE.DoubleSide,
-    vertexColors: false,
+    vertexColors: true,
   });
-  const axis = fiberAxis.clone().normalize();
-  material.onBeforeCompile = (shader) => {
-    shader.uniforms.uFiberDir = { value: axis };
-    shader.vertexShader = shader.vertexShader
-      .replace(
-        "#include <common>",
-        `#include <common>
-varying vec3 vFiberPos;`,
-      )
-      .replace(
-        "#include <project_vertex>",
-        `#include <project_vertex>
-vFiberPos = (modelMatrix * vec4(transformed, 1.0)).xyz;`,
-      );
-    shader.fragmentShader = shader.fragmentShader
-      .replace(
-        "#include <common>",
-        `#include <common>
-varying vec3 vFiberPos;
-uniform vec3 uFiberDir;`,
-      )
-      .replace(
-        "#include <color_fragment>",
-        `#include <color_fragment>
-vec3 fdir = normalize(uFiberDir);
-float along = dot(vFiberPos, fdir);
-float t = fract(along * 20.0);
-float groove = smoothstep(0.08, 0.0, abs(t - 0.5));
-float fill = smoothstep(0.18, 0.42, abs(t - 0.5));
-vec3 grooveCol = vec3(0.36, 0.08, 0.06);
-vec3 ridgeCol = vec3(0.86, 0.38, 0.30);
-diffuseColor.rgb = mix(ridgeCol, grooveCol, 0.55 + 0.45 * groove);
-diffuseColor.rgb = mix(diffuseColor.rgb, ridgeCol, 0.22 * fill);`,
-      );
-  };
-  material.customProgramCacheKey = () =>
-    `fiber-v2:${axis.x.toFixed(3)},${axis.y.toFixed(3)},${axis.z.toFixed(3)}`;
-  material.needsUpdate = true;
-  return material;
 }
