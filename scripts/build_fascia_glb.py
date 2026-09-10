@@ -50,10 +50,12 @@ INCLUSION_RULES = (
     "Investing-fascia / fascia-lata parents map to those same files and are not "
     "duplicated. Flexor retinacula of the wrist remain in ligaments.glb. "
     "Excluded: tensor fasciae latae (muscle), nasal septum, brain septa, skin, fat. "
-    "BodyParts3D 4.0 has no dedicated thoracolumbar / crural / antebrachial fascia "
-    "meshes. Those three regional sleeves plus one posterior thoracolumbar sheet "
-    "are schematic (source=synthetic-v2). Palmar / plantar aponeuroses and linea "
-    "alba sticks from v1 are omitted (quality > quantity)."
+    "BodyParts3D 4.0 has no dedicated thoracolumbar / crural fascia meshes. "
+    "Fascia lata and crural fascia are open wrap sheets (not cylinders) that "
+    "follow the lateral / anterolateral limb contour (source=synthetic-v2). "
+    "Thoracolumbar fascia is a posterior grid sheet. Antebrachial sleeves, "
+    "palmar / plantar aponeuroses and linea alba from earlier versions are "
+    "omitted (quality > quantity)."
 )
 
 GAPS = [
@@ -62,6 +64,7 @@ GAPS = [
     "clavipectoral / fascia pectoral",
     "septums intermusculaires",
     "aponévroses palmaire et plantaire (omises : géométrie v1 insuffisante)",
+    "fascia antébrachial (omis : les manchons cylindriques n’étaient pas adéquats)",
 ]
 
 
@@ -136,7 +139,7 @@ def main() -> int:
         print("missing BP3D fascia parts:", missing, file=sys.stderr)
         return 1
 
-    print("synthesizing regional fascia sleeves (v2)…", flush=True)
+    print("synthesizing regional fascia wrap sheets (v2)…", flush=True)
     synth_meshes, synth_catalog = build_synthetic()
     catalog.extend(synth_catalog)
 
@@ -164,7 +167,7 @@ def main() -> int:
         "partCount": len(catalog),
         "countBodyparts3d": n_bp3d,
         "countSynthetic": n_synth,
-        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 sleeves are original educational approximations",
+        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 wrap sheets are original educational approximations",
         "alignedTo": "public/models/skeleton.glb",
         "inclusionRules": INCLUSION_RULES,
         "gaps": GAPS,
@@ -172,13 +175,14 @@ def main() -> int:
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 
     payload = {
-        "version": 2,
+        "version": 3,
         "defaultVisible": False,
         "inclusionRules": INCLUSION_RULES,
         "gaps": GAPS,
         "syntheticDisclaimer": (
-            "Entries with source=synthetic-v2 are schematic regional deep-fascia "
-            "sleeves / one thoracolumbar sheet. They are not cadaver segmentations."
+            "Entries with source=synthetic-v2 are schematic open wrap sheets "
+            "(fascia lata, crural) plus one posterior thoracolumbar sheet. They "
+            "are not cadaver segmentations. Closed cylinder sleeves are not shipped."
         ),
         "count": len(catalog),
         "countBodyparts3d": n_bp3d,

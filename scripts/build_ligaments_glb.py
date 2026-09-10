@@ -178,10 +178,13 @@ INCLUSION_RULES = (
     "Included from BodyParts3D: named ligaments, interosseous membranes "
     "(syndesmoses) and flexor retinacula. "
     "Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, "
-    "trochleae, abstract parents. Crude capsule/stick synthetics (v1) are not "
-    "exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle "
-    "are schematic multi-fiber ribbons (source=synthetic-v2), not cadaver meshes. "
-    "Spinal stick ligaments and menisci are omitted (quality > quantity)."
+    "trochleae, abstract parents. Crude capsule/stick synthetics (v1) and "
+    "rectangular lofted ribbons are not exported. Missing major ligaments of "
+    "knee, hip, shoulder, elbow and ankle are schematic tapered fascicle bundles "
+    "(rounded cross-section, fan at attachments, thinner mid-substance; "
+    "source=synthetic-v2), not cadaver meshes. Annular ligament of the radius "
+    "is a torus. Spinal stick ligaments and menisci are omitted "
+    "(quality > quantity)."
 )
 
 
@@ -283,22 +286,23 @@ def main() -> int:
         "partCount": len(catalog),
         "countBodyparts3d": n_bp3d,
         "countSynthetic": n_synth,
-        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 ribbons are original educational approximations",
+        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 fascicle bundles are original educational approximations",
         "alignedTo": "public/models/skeleton.glb",
         "inclusionRules": INCLUSION_RULES,
     }
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 
     payload = {
-        "version": 3,
+        "version": 4,
         "defaultVisible": False,
         "inclusionRules": INCLUSION_RULES,
         "syntheticDisclaimer": (
-            "Entries with source=synthetic-v2 are schematic multi-fiber ribbons "
-            "between named landmarks. They are not segmented from cadaver imaging "
-            "and must not be treated as morphologically accurate. "
-            "BodyParts3D connective meshes (interosseous membranes, retinacula, "
-            "named ligaments) remain source=bodyparts3d."
+            "Entries with source=synthetic-v2 are schematic tapered fascicle "
+            "bundles (rounded lofted strands) between named landmarks. They are "
+            "not segmented from cadaver imaging and must not be treated as "
+            "morphologically accurate. BodyParts3D connective meshes "
+            "(interosseous membranes, retinacula, named ligaments) remain "
+            "source=bodyparts3d."
         ),
         "count": len(catalog),
         "countBodyparts3d": n_bp3d,

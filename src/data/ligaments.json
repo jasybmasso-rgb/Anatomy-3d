@@ -1,11 +1,11 @@
 {
-  "version": 3,
+  "version": 4,
   "defaultVisible": false,
-  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic multi-fiber ribbons (source=synthetic-v2), not cadaver meshes. Spinal stick ligaments and menisci are omitted (quality > quantity).",
-  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic multi-fiber ribbons between named landmarks. They are not segmented from cadaver imaging and must not be treated as morphologically accurate. BodyParts3D connective meshes (interosseous membranes, retinacula, named ligaments) remain source=bodyparts3d.",
-  "count": 60,
+  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) and rectangular lofted ribbons are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic tapered fascicle bundles (rounded cross-section, fan at attachments, thinner mid-substance; source=synthetic-v2), not cadaver meshes. Annular ligament of the radius is a torus. Spinal stick ligaments and menisci are omitted (quality > quantity).",
+  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic tapered fascicle bundles (rounded lofted strands) between named landmarks. They are not segmented from cadaver imaging and must not be treated as morphologically accurate. BodyParts3D connective meshes (interosseous membranes, retinacula, named ligaments) remain source=bodyparts3d.",
+  "count": 64,
   "countBodyparts3d": 18,
-  "countSynthetic": 42,
+  "countSynthetic": 46,
   "ligaments": [
     {
       "id": "plantaire-long-d",
@@ -355,15 +355,15 @@
       "nameLatin": "Ligamentum cruciatum anterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lca-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.10065,
-        -0.35606,
-        0.0489
+        -0.10108,
+        -0.35626,
+        0.04877
       ]
     },
     {
@@ -372,15 +372,15 @@
       "nameLatin": "Ligamentum cruciatum posterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lcp-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.07475,
-        -0.42847,
-        0.02529
+        -0.07519,
+        -0.42854,
+        0.02571
       ]
     },
     {
@@ -389,15 +389,15 @@
       "nameLatin": "Ligamentum collaterale tibiale",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "llim-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.04909,
-        -0.48083,
-        0.04921
+        -0.04935,
+        -0.48047,
+        0.04934
       ]
     },
     {
@@ -406,15 +406,15 @@
       "nameLatin": "Ligamentum collaterale fibulare",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lle-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.12834,
-        -0.2891,
-        0.02336
+        -0.12874,
+        -0.28912,
+        0.02338
       ]
     },
     {
@@ -423,15 +423,15 @@
       "nameLatin": "Ligamentum patellae",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "patellaire-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.08457,
-        -0.4988,
-        0.07046
+        -0.08527,
+        -0.49873,
+        0.07057
       ]
     },
     {
@@ -440,15 +440,15 @@
       "nameLatin": "Ligamentum iliofemorale (pars transversa)",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "ilio-femoral-sup-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.12363,
-        -0.01195,
-        0.0627
+        -0.12422,
+        -0.01176,
+        0.06292
       ]
     },
     {
@@ -457,15 +457,15 @@
       "nameLatin": "Ligamentum iliofemorale (pars descendens)",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "ilio-femoral-inf-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.11617,
-        -0.02305,
-        0.06072
+        -0.11665,
+        -0.02351,
+        0.061
       ]
     },
     {
@@ -474,15 +474,15 @@
       "nameLatin": "Ligamentum pubofemorale",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "pubo-femoral-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.05761,
-        -0.05045,
-        0.0513
+        -0.05764,
+        -0.05044,
+        0.0515
       ]
     },
     {
@@ -491,32 +491,66 @@
       "nameLatin": "Ligamentum ischiofemorale",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "ischio-femoral-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.09493,
-        -0.09206,
-        0.00592
+        -0.09481,
+        -0.09141,
+        0.00579
       ]
     },
     {
-      "id": "gleno-hum-d",
-      "name": "Complexe gléno-huméral droit",
-      "nameLatin": "Ligamenta glenohumeralia",
+      "id": "gleno-hum-sup-d",
+      "name": "Gléno-huméral supérieur droit",
+      "nameLatin": "Ligamentum glenohumerale superius",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
-      "sourceName": "gleno-hum-d",
+      "sourceName": "gleno-hum-sup-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.15145,
-        0.46984,
-        0.02583
+        -0.15137,
+        0.48618,
+        0.02794
+      ]
+    },
+    {
+      "id": "gleno-hum-moy-d",
+      "name": "Gléno-huméral moyen droit",
+      "nameLatin": "Ligamentum glenohumerale medium",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-moy-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.1514,
+        0.4703,
+        0.03332
+      ]
+    },
+    {
+      "id": "gleno-hum-inf-d",
+      "name": "Gléno-huméral inférieur droit",
+      "nameLatin": "Ligamentum glenohumerale inferius",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-inf-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.1513,
+        0.45876,
+        0.02689
       ]
     },
     {
@@ -525,15 +559,15 @@
       "nameLatin": "Ligamentum coracohumerale",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "coraco-humeral-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.14973,
-        0.47367,
-        0.0361
+        -0.14957,
+        0.47404,
+        0.03622
       ]
     },
     {
@@ -542,15 +576,15 @@
       "nameLatin": "Ligamentum coracoacromiale",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "coraco-acromial-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.14506,
-        0.47398,
-        0.03632
+        -0.14484,
+        0.47427,
+        0.03657
       ]
     },
     {
@@ -559,15 +593,15 @@
       "nameLatin": "Ligamentum acromioclaviculare",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "acromio-clav-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.14895,
-        0.48826,
-        0.02897
+        -0.14901,
+        0.48857,
+        0.02906
       ]
     },
     {
@@ -576,15 +610,15 @@
       "nameLatin": "Ligamenta trapezoidum et conoideum",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "coraco-clav-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.12699,
-        0.46976,
-        0.03932
+        -0.12731,
+        0.4699,
+        0.03949
       ]
     },
     {
@@ -593,15 +627,15 @@
       "nameLatin": "Ligamentum collaterale ulnare",
       "region": "coude",
       "joint": "coude",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lliu-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.17322,
-        0.3062,
-        0.02657
+        -0.17353,
+        0.30619,
+        0.02682
       ]
     },
     {
@@ -610,15 +644,15 @@
       "nameLatin": "Ligamentum collaterale radiale",
       "region": "coude",
       "joint": "coude",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "llir-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.22649,
-        0.17849,
-        0.0182
+        -0.22672,
+        0.17827,
+        0.01827
       ]
     },
     {
@@ -627,7 +661,7 @@
       "nameLatin": "Ligamentum anulare radii",
       "region": "coude",
       "joint": "coude",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "annulaire-radius-d",
       "fmaId": "",
@@ -644,15 +678,15 @@
       "nameLatin": "Ligamentum talofibulare anterius",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lfta-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.0835,
-        -0.87762,
-        0.03293
+        -0.08344,
+        -0.8779,
+        0.0331
       ]
     },
     {
@@ -661,15 +695,15 @@
       "nameLatin": "Ligamentum calcaneofibulare",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lfcal-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.08685,
-        -0.89011,
-        0.0168
+        -0.08709,
+        -0.89041,
+        0.01682
       ]
     },
     {
@@ -678,15 +712,15 @@
       "nameLatin": "Ligamentum talofibulare posterius",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lftp-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.0835,
-        -0.87945,
-        0.01412
+        -0.08346,
+        -0.8797,
+        0.01402
       ]
     },
     {
@@ -695,15 +729,15 @@
       "nameLatin": "Ligamentum deltoideum",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "deltoide-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.06281,
-        -0.87375,
-        0.04184
+        -0.0631,
+        -0.8735,
+        0.04197
       ]
     },
     {
@@ -712,15 +746,15 @@
       "nameLatin": "Ligamentum cruciatum anterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lca-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.10064,
-        -0.35634,
-        0.04913
+        0.10022,
+        -0.35648,
+        0.049
       ]
     },
     {
@@ -729,15 +763,15 @@
       "nameLatin": "Ligamentum cruciatum posterius",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lcp-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.07478,
-        -0.42855,
-        0.02553
+        0.07433,
+        -0.42874,
+        0.02595
       ]
     },
     {
@@ -746,15 +780,15 @@
       "nameLatin": "Ligamentum collaterale tibiale",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "llim-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.04902,
-        -0.48139,
-        0.04942
+        0.04843,
+        -0.48172,
+        0.04955
       ]
     },
     {
@@ -763,15 +797,15 @@
       "nameLatin": "Ligamentum collaterale fibulare",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lle-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.12942,
-        -0.28911,
-        0.02332
+        0.12941,
+        -0.28909,
+        0.02334
       ]
     },
     {
@@ -780,15 +814,15 @@
       "nameLatin": "Ligamentum patellae",
       "region": "genou",
       "joint": "genou",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "patellaire-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.08471,
-        -0.49866,
-        0.07096
+        0.08401,
+        -0.49872,
+        0.07108
       ]
     },
     {
@@ -797,15 +831,15 @@
       "nameLatin": "Ligamentum iliofemorale (pars transversa)",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "ilio-femoral-sup-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.12488,
-        -0.01106,
-        0.06463
+        0.12428,
+        -0.01079,
+        0.06485
       ]
     },
     {
@@ -814,15 +848,15 @@
       "nameLatin": "Ligamentum iliofemorale (pars descendens)",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "ilio-femoral-inf-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.11826,
-        -0.02134,
-        0.0631
+        0.11775,
+        -0.02162,
+        0.06339
       ]
     },
     {
@@ -831,15 +865,15 @@
       "nameLatin": "Ligamentum pubofemorale",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "pubo-femoral-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.05821,
-        -0.05005,
-        0.05012
+        0.05818,
+        -0.05055,
+        0.05032
       ]
     },
     {
@@ -848,32 +882,66 @@
       "nameLatin": "Ligamentum ischiofemorale",
       "region": "hanche",
       "joint": "hanche",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "ischio-femoral-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.09691,
-        -0.09185,
-        0.00718
+        0.09705,
+        -0.0921,
+        0.00705
       ]
     },
     {
-      "id": "gleno-hum-g",
-      "name": "Complexe gléno-huméral gauche",
-      "nameLatin": "Ligamenta glenohumeralia",
+      "id": "gleno-hum-sup-g",
+      "name": "Gléno-huméral supérieur gauche",
+      "nameLatin": "Ligamentum glenohumerale superius",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
-      "sourceName": "gleno-hum-g",
+      "sourceName": "gleno-hum-sup-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.15191,
-        0.46972,
-        0.0271
+        0.15199,
+        0.48562,
+        0.02921
+      ]
+    },
+    {
+      "id": "gleno-hum-moy-g",
+      "name": "Gléno-huméral moyen gauche",
+      "nameLatin": "Ligamentum glenohumerale medium",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-moy-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.15196,
+        0.46971,
+        0.03458
+      ]
+    },
+    {
+      "id": "gleno-hum-inf-g",
+      "name": "Gléno-huméral inférieur gauche",
+      "nameLatin": "Ligamentum glenohumerale inferius",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-inf-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.15189,
+        0.45771,
+        0.02815
       ]
     },
     {
@@ -882,15 +950,15 @@
       "nameLatin": "Ligamentum coracohumerale",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "coraco-humeral-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.14998,
-        0.47353,
-        0.03728
+        0.15014,
+        0.47357,
+        0.03739
       ]
     },
     {
@@ -899,15 +967,15 @@
       "nameLatin": "Ligamentum coracoacromiale",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "coraco-acromial-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.1457,
+        0.14593,
         0.47384,
-        0.03773
+        0.03798
       ]
     },
     {
@@ -916,15 +984,15 @@
       "nameLatin": "Ligamentum acromioclaviculare",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "acromio-clav-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.14908,
-        0.48819,
-        0.03035
+        0.14903,
+        0.48807,
+        0.03044
       ]
     },
     {
@@ -933,15 +1001,15 @@
       "nameLatin": "Ligamenta trapezoidum et conoideum",
       "region": "épaule",
       "joint": "épaule",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "coraco-clav-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.1268,
-        0.46975,
-        0.04045
+        0.12647,
+        0.46931,
+        0.04062
       ]
     },
     {
@@ -950,15 +1018,15 @@
       "nameLatin": "Ligamentum collaterale ulnare",
       "region": "coude",
       "joint": "coude",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lliu-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.17448,
-        0.3062,
-        0.0273
+        0.17398,
+        0.30599,
+        0.02755
       ]
     },
     {
@@ -967,15 +1035,15 @@
       "nameLatin": "Ligamentum collaterale radiale",
       "region": "coude",
       "joint": "coude",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "llir-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.22777,
-        0.17851,
-        0.01893
+        0.22773,
+        0.17858,
+        0.019
       ]
     },
     {
@@ -984,7 +1052,7 @@
       "nameLatin": "Ligamentum anulare radii",
       "region": "coude",
       "joint": "coude",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "annulaire-radius-g",
       "fmaId": "",
@@ -1001,15 +1069,15 @@
       "nameLatin": "Ligamentum talofibulare anterius",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lfta-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.08421,
-        -0.87757,
-        0.035
+        0.08431,
+        -0.87751,
+        0.03517
       ]
     },
     {
@@ -1018,15 +1086,15 @@
       "nameLatin": "Ligamentum calcaneofibulare",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lfcal-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.08768,
-        -0.89033,
-        0.01808
+        0.08775,
+        -0.89032,
+        0.01811
       ]
     },
     {
@@ -1035,15 +1103,15 @@
       "nameLatin": "Ligamentum talofibulare posterius",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "lftp-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.08421,
-        -0.87941,
-        0.01619
+        0.08427,
+        -0.87931,
+        0.01609
       ]
     },
     {
@@ -1052,15 +1120,15 @@
       "nameLatin": "Ligamentum deltoideum",
       "region": "cheville",
       "joint": "cheville",
-      "notes": "Schéma pédagogique (synthetic-v2) : faisceau de rubans loftés entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
       "source": "synthetic-v2",
       "sourceName": "deltoide-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.06326,
-        -0.87388,
-        0.04163
+        0.06278,
+        -0.87439,
+        0.04176
       ]
     }
   ]

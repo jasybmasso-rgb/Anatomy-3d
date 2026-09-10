@@ -79,7 +79,9 @@ export function LayerMenu({ layers, onChange }: LayerMenuProps) {
       </button>
       {open ? (
         <div className="layer-menu-panel" id={menuId} role="group" aria-label="Couches anatomiques">
-          <p className="layer-menu-note">Le squelette reste toujours visible. Sélection fine : à venir.</p>
+          <p className="layer-menu-note">
+            Le squelette (os et cartilage) reste toujours visible. Sélection fine : à venir.
+          </p>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (
               <li key={layer.id}>

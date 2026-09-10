@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 import * as THREE from "three";
 import type { Muscle } from "../types/muscle";
-import { createFiberMuscleMaterial, paintFiberVertexColors } from "./fiberMaterial";
+import { applyFiberUVs, createFiberMuscleMaterial } from "./fiberMaterial";
 
 export function MuscleMesh({ muscle }: { muscle: Muscle }) {
   const gltf = useGLTF("/models/muscles.glb");
@@ -19,7 +19,12 @@ export function MuscleMesh({ muscle }: { muscle: Muscle }) {
         if (!obj.geometry.getAttribute("normal")) {
           obj.geometry.computeVertexNormals();
         }
-        paintFiberVertexColors(obj.geometry, axis);
+        applyFiberUVs(obj.geometry, axis);
+        try {
+          obj.geometry.computeTangents();
+        } catch {
+          /* non-indexed or degenerate — skip anisotropy */
+        }
         obj.userData.pick = "muscle";
         obj.castShadow = true;
         obj.receiveShadow = false;

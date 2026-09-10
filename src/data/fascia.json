@@ -1,18 +1,19 @@
 {
-  "version": 2,
+  "version": 3,
   "defaultVisible": false,
-  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Investing-fascia / fascia-lata parents map to those same files and are not duplicated. Flexor retinacula of the wrist remain in ligaments.glb. Excluded: tensor fasciae latae (muscle), nasal septum, brain septa, skin, fat. BodyParts3D 4.0 has no dedicated thoracolumbar / crural / antebrachial fascia meshes. Those three regional sleeves plus one posterior thoracolumbar sheet are schematic (source=synthetic-v2). Palmar / plantar aponeuroses and linea alba sticks from v1 are omitted (quality > quantity).",
+  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Investing-fascia / fascia-lata parents map to those same files and are not duplicated. Flexor retinacula of the wrist remain in ligaments.glb. Excluded: tensor fasciae latae (muscle), nasal septum, brain septa, skin, fat. BodyParts3D 4.0 has no dedicated thoracolumbar / crural fascia meshes. Fascia lata and crural fascia are open wrap sheets (not cylinders) that follow the lateral / anterolateral limb contour (source=synthetic-v2). Thoracolumbar fascia is a posterior grid sheet. Antebrachial sleeves, palmar / plantar aponeuroses and linea alba from earlier versions are omitted (quality > quantity).",
   "gaps": [
     "fascia cervicale / nuchal",
     "rétinaculums de cheville (hors ligaments)",
     "clavipectoral / fascia pectoral",
     "septums intermusculaires",
-    "aponévroses palmaire et plantaire (omises : géométrie v1 insuffisante)"
+    "aponévroses palmaire et plantaire (omises : géométrie v1 insuffisante)",
+    "fascia antébrachial (omis : les manchons cylindriques n’étaient pas adéquats)"
   ],
-  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic regional deep-fascia sleeves / one thoracolumbar sheet. They are not cadaver segmentations.",
-  "count": 9,
+  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic open wrap sheets (fascia lata, crural) plus one posterior thoracolumbar sheet. They are not cadaver segmentations. Closed cylinder sleeves are not shipped.",
+  "count": 7,
   "countBodyparts3d": 2,
-  "countSynthetic": 7,
+  "countSynthetic": 5,
   "fascia": [
     {
       "id": "tractus-ilio-tibial-d",
@@ -55,15 +56,15 @@
       "name": "Fascia lata droit",
       "nameLatin": "Fascia lata",
       "region": "cuisse",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "notes": "Schéma pédagogique (synthetic-v2) : nappe fasciale mince (feuille ouverte qui épouse le contour du membre, bords irréguliers). Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
       "source": "synthetic-v2",
       "sourceName": "fascia-lata-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.14405,
-        -0.03343,
-        0.03586
+        -0.19551,
+        -0.01976,
+        0.03394
       ]
     },
     {
@@ -71,31 +72,15 @@
       "name": "Fascia crural droit",
       "nameLatin": "Fascia cruris",
       "region": "jambe",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "notes": "Schéma pédagogique (synthetic-v2) : nappe fasciale mince (feuille ouverte qui épouse le contour du membre, bords irréguliers). Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
       "source": "synthetic-v2",
       "sourceName": "fascia-crural-d",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        -0.09029,
-        -0.65704,
-        0.02143
-      ]
-    },
-    {
-      "id": "fascia-antebrachial-d",
-      "name": "Fascia antébrachial droit",
-      "nameLatin": "Fascia antebrachii",
-      "region": "avant-bras",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
-      "source": "synthetic-v2",
-      "sourceName": "fascia-antebrachial-d",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        -0.23115,
-        0.06228,
-        0.04289
+        -0.128,
+        -0.65862,
+        0.01182
       ]
     },
     {
@@ -103,15 +88,15 @@
       "name": "Fascia lata gauche",
       "nameLatin": "Fascia lata",
       "region": "cuisse",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "notes": "Schéma pédagogique (synthetic-v2) : nappe fasciale mince (feuille ouverte qui épouse le contour du membre, bords irréguliers). Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
       "source": "synthetic-v2",
       "sourceName": "fascia-lata-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.14587,
-        -0.03323,
-        0.03782
+        0.19736,
+        -0.02034,
+        0.04118
       ]
     },
     {
@@ -119,31 +104,15 @@
       "name": "Fascia crural gauche",
       "nameLatin": "Fascia cruris",
       "region": "jambe",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "notes": "Schéma pédagogique (synthetic-v2) : nappe fasciale mince (feuille ouverte qui épouse le contour du membre, bords irréguliers). Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
       "source": "synthetic-v2",
       "sourceName": "fascia-crural-g",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.09171,
-        -0.65705,
-        0.02184
-      ]
-    },
-    {
-      "id": "fascia-antebrachial-g",
-      "name": "Fascia antébrachial gauche",
-      "nameLatin": "Fascia antebrachii",
-      "region": "avant-bras",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
-      "source": "synthetic-v2",
-      "sourceName": "fascia-antebrachial-g",
-      "fmaId": "",
-      "fileIds": [],
-      "centroid": [
-        0.23297,
-        0.06233,
-        0.04491
+        0.12942,
+        -0.65808,
+        0.03165
       ]
     },
     {
@@ -151,15 +120,15 @@
       "name": "Fascia thoraco-lombaire (nappe postérieure)",
       "nameLatin": "Fascia thoracolumbalis",
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : manchon fascial mince ancré sur les repères. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
+      "notes": "Schéma pédagogique (synthetic-v2) : nappe fasciale mince (feuille ouverte qui épouse le contour du membre, bords irréguliers). Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BP3D.",
       "source": "synthetic-v2",
       "sourceName": "fascia-thoracolombaire",
       "fmaId": "",
       "fileIds": [],
       "centroid": [
-        0.00028,
-        0.13142,
-        -0.03999
+        0.0,
+        0.1313,
+        -0.0495
       ]
     }
   ]

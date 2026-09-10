@@ -47,11 +47,11 @@ Catalogue des pièces du `ligaments.glb` (même espace que le squelette). Toggle
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` / `joint` | Localisation. |
-| `source` | `bodyparts3d` ou `synthetic`. |
+| `source` | `bodyparts3d` ou `synthetic-v2`. |
 | `notes` | Inclusion / précision. Les synthétiques sont des approximations pédagogiques. |
 | `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
-BodyParts3D 4.0 n’expose pas les ligaments majeurs des articulations (LCA, ilio-fémoral, etc.). Ceux-ci sont **synthétisés** comme capsules / disques ancrés sur `landmarks.json`.
+BodyParts3D 4.0 n’expose pas les ligaments majeurs des articulations (LCA, ilio-fémoral, etc.). Ceux-ci sont **synthétisés** comme faisceaux de fascicules arrondis ancrés sur `landmarks.json`.
 
 ## `fascia.json`
 
@@ -62,11 +62,11 @@ Catalogue du `fascia.glb`. Toggle « Afficher les fascias » **off** par défaut
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` | Localisation. |
-| `source` | `bodyparts3d` ou `synthetic`. |
+| `source` | `bodyparts3d` ou `synthetic-v2`. |
 | `notes` | Inclusion / approximation. |
 | `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
-BP3D 4.0 n’a quasiment pas de nappes fasciales distinctes : les parents « investing fascia » et « fascia lata » se réduisent aux **tractus ilio-tibiaux** (FJ1423 / FJ1423M). Peau, graisse, TFL et septums nasaux / cérébraux exclus. Les rétinaculums du poignet restent dans `ligaments.json`. Les aponévroses plantaire / palmaire, le fascia thoraco-lombaire et la ligne blanche sont synthétiques. Lacunes documentées dans `gaps`.
+BP3D 4.0 n’a quasiment pas de nappes fasciales distinctes : les parents « investing fascia » et « fascia lata » se réduisent aux **tractus ilio-tibiaux** (FJ1423 / FJ1423M). Peau, graisse, TFL et septums nasaux / cérébraux exclus. Les rétinaculums du poignet restent dans `ligaments.json`. Fascia lata / crural : feuilles ouvertes schématiques. Fascia thoraco-lombaire : nappe postérieure. Fascia antébrachial et aponévroses palmaire / plantaire omis. Lacunes documentées dans `gaps`.
 
 La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id` (`src/lib/search.ts`).
 

@@ -16,7 +16,7 @@ function materialFor(source: string) {
     roughness: schematic ? 0.55 : 0.48,
     metalness: 0.02,
     transparent: true,
-    opacity: schematic ? 0.62 : 0.95,
+    opacity: schematic ? 0.78 : 0.95,
     depthTest: !schematic,
     depthWrite: false,
     side: THREE.DoubleSide,

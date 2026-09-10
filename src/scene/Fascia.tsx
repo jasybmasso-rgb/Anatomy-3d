@@ -7,13 +7,13 @@ import rawFascia from "../data/fascia.json";
 function materialFor(source: string) {
   const schematic = source.startsWith("synthetic");
   return new THREE.MeshPhysicalMaterial({
-    color: schematic ? "#8aa8bc" : "#7f9eb5",
+    color: schematic ? "#9bb6c8" : "#7f9eb5",
     emissive: "#1c3344",
-    emissiveIntensity: schematic ? 0.1 : 0.16,
-    roughness: 0.42,
+    emissiveIntensity: schematic ? 0.08 : 0.16,
+    roughness: 0.48,
     metalness: 0.02,
     transparent: true,
-    opacity: schematic ? 0.32 : 0.58,
+    opacity: schematic ? 0.38 : 0.58,
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,

@@ -118,6 +118,261 @@ def loft_ribbon(
     return mesh
 
 
+def loft_tube(
+    path: np.ndarray,
+    radii: Sequence[float] | np.ndarray,
+    radial: int = 8,
+    *,
+    caps: bool = False,
+) -> trimesh.Trimesh:
+    """Loft a rounded (circular) tube along a polyline with per-sample radius."""
+    pts = np.asarray(path, dtype=np.float64)
+    rad = np.asarray(radii, dtype=np.float64)
+    if len(pts) < 2:
+        raise ValueError("path too short")
+    if rad.shape[0] != len(pts):
+        rad = np.linspace(float(rad.flat[0]), float(rad.flat[-1]), len(pts))
+    tangents = np.gradient(pts, axis=0)
+    tangents /= np.clip(np.linalg.norm(tangents, axis=1, keepdims=True), 1e-9, None)
+    ref = np.array([0.0, 0.0, 1.0])
+    if abs(np.dot(tangents[len(tangents) // 2], ref)) > 0.85:
+        ref = np.array([1.0, 0.0, 0.0])
+    normals = np.zeros_like(pts)
+    binormals = np.zeros_like(pts)
+    normals[0] = np.cross(tangents[0], ref)
+    normals[0] /= max(np.linalg.norm(normals[0]), 1e-9)
+    binormals[0] = np.cross(tangents[0], normals[0])
+    for i in range(1, len(pts)):
+        n = normals[i - 1] - tangents[i] * np.dot(tangents[i], normals[i - 1])
+        n /= max(np.linalg.norm(n), 1e-9)
+        normals[i] = n
+        binormals[i] = np.cross(tangents[i], n)
+        binormals[i] /= max(np.linalg.norm(binormals[i]), 1e-9)
+    angles = np.linspace(0.0, 2.0 * math.pi, radial, endpoint=False)
+    verts = []
+    for p, n, b, r in zip(pts, normals, binormals, rad):
+        for ang in angles:
+            verts.append(p + r * (math.cos(ang) * n + math.sin(ang) * b))
+    verts = np.asarray(verts, dtype=np.float64)
+    faces = []
+    nseg = len(pts) - 1
+    for i in range(nseg):
+        for j in range(radial):
+            j2 = (j + 1) % radial
+            a = i * radial + j
+            b0 = i * radial + j2
+            c = (i + 1) * radial + j2
+            d = (i + 1) * radial + j
+            faces.append([a, b0, c])
+            faces.append([a, c, d])
+    if caps:
+        # triangle fans at ends
+        c0 = verts[:radial].mean(0)
+        c1 = verts[-radial:].mean(0)
+        verts = np.vstack([verts, c0, c1])
+        i0, i1 = len(verts) - 2, len(verts) - 1
+        last = nseg * radial
+        for j in range(radial):
+            j2 = (j + 1) % radial
+            faces.append([i0, j2, j])
+            faces.append([i1, last + j, last + j2])
+    mesh = trimesh.Trimesh(vertices=verts, faces=np.array(faces), process=True)
+    mesh.update_faces(mesh.nondegenerate_faces())
+    mesh.remove_unreferenced_vertices()
+    return mesh
+
+
+def _profile_thin_mid(t: np.ndarray, end: float, mid: float) -> np.ndarray:
+    belly = 4.0 * t * (1.0 - t)
+    return end * (1.0 - belly) + mid * belly
+
+
+def fascicle_bundle(
+    a: Sequence[float],
+    b: Sequence[float],
+    *,
+    sag: Sequence[float] | None = None,
+    n_fibers: int = 7,
+    radius_end: float = 0.0022,
+    radius_mid: float = 0.00135,
+    spread_end: float = 0.0065,
+    spread_mid: float = 0.0024,
+    samples: int = 20,
+    radial: int = 8,
+) -> trimesh.Trimesh:
+    """Tapered rounded fascicles along a Bézier — fan at attachments, thin mid-substance."""
+    pa = np.asarray(a, dtype=np.float64)
+    pb = np.asarray(b, dtype=np.float64)
+    mid = (pa + pb) / 2.0
+    if sag is None:
+        length = float(np.linalg.norm(pb - pa))
+        sag_v = np.array([0.0, -0.08 * length, -0.04 * length]) if length > 1e-6 else np.zeros(3)
+    else:
+        sag_v = np.asarray(sag, dtype=np.float64)
+    c1 = pa * 0.58 + mid * 0.42 + sag_v * 0.4
+    c2 = pb * 0.58 + mid * 0.42 + sag_v * 0.4
+    center = bezier_cubic(pa, c1, c2, pb, samples)
+    tangents = np.gradient(center, axis=0)
+    tangents /= np.clip(np.linalg.norm(tangents, axis=1, keepdims=True), 1e-9, None)
+    ref = np.array([0.0, 0.0, 1.0])
+    if abs(np.dot(tangents[len(tangents) // 2], ref)) > 0.9:
+        ref = np.array([1.0, 0.0, 0.0])
+    side = np.cross(tangents[len(tangents) // 2], ref)
+    side /= max(np.linalg.norm(side), 1e-9)
+    nrm = np.cross(side, tangents[len(tangents) // 2])
+    nrm /= max(np.linalg.norm(nrm), 1e-9)
+
+    ts = np.linspace(0.0, 1.0, samples)
+    spread = _profile_thin_mid(ts, spread_end, spread_mid)
+    radii = _profile_thin_mid(ts, radius_end, radius_mid)
+    parts: list[trimesh.Trimesh] = []
+    n_fibers = max(3, int(n_fibers))
+    for i in range(n_fibers):
+        ang = (2.0 * math.pi * i) / n_fibers + 0.11 * i
+        # slightly elliptical packing
+        pack = np.cos(ang) * side * 1.05 + np.sin(ang) * nrm * 0.72
+        fiber_sag = nrm * (0.0012 * math.sin(i * 1.7)) + side * (0.0008 * math.cos(i * 1.3))
+        path = center + pack * spread[:, None] + fiber_sag
+        r = radii * (0.86 + 0.14 * (0.5 + 0.5 * math.sin(i * 2.1)))
+        parts.append(loft_tube(path, r, radial=radial, caps=False))
+    merged = trimesh.util.concatenate(parts)
+    merged.merge_vertices()
+    return merged
+
+
+def wrap_panel(
+    a: Sequence[float],
+    b: Sequence[float],
+    *,
+    radius_a: float,
+    radius_b: float,
+    theta0: float,
+    theta1: float,
+    oval: tuple[float, float] = (1.0, 0.78),
+    length_samples: int = 16,
+    theta_samples: int = 18,
+    thickness: float = 0.0017,
+    lateral: np.ndarray | None = None,
+) -> trimesh.Trimesh:
+    """Open wrap sheet (not a closed cylinder) with slightly irregular borders."""
+    pa = np.asarray(a, dtype=np.float64)
+    pb = np.asarray(b, dtype=np.float64)
+    axis = pb - pa
+    length = float(np.linalg.norm(axis))
+    if length < 1e-6:
+        raise ValueError("degenerate wrap")
+    z = axis / length
+    if lateral is None:
+        helper = np.array([1.0, 0.0, 0.0]) if abs(z[0]) < 0.85 else np.array([0.0, 0.0, 1.0])
+        lat = np.cross(helper, z)
+        lat /= max(np.linalg.norm(lat), 1e-9)
+    else:
+        lat = np.asarray(lateral, dtype=np.float64)
+        lat = lat - z * np.dot(lat, z)
+        lat /= max(np.linalg.norm(lat), 1e-9)
+    ant = np.cross(z, lat)
+    ant /= max(np.linalg.norm(ant), 1e-9)
+
+    verts_a = []
+    verts_b = []
+    for i in range(length_samples):
+        t = i / (length_samples - 1)
+        center = pa * (1.0 - t) + pb * t
+        radius = radius_a * (1.0 - t) + radius_b * t
+        radius *= 1.0 + 0.045 * math.sin(t * 7.3)
+        # slightly narrower angular span at the ends
+        pinch = 0.1 * (1.0 - 4.0 * t * (1.0 - t))
+        ta = theta0 + pinch + 0.06 * math.sin(t * 9.0)
+        tb = theta1 - pinch + 0.05 * math.cos(t * 8.0)
+        for j in range(theta_samples):
+            s = j / (theta_samples - 1)
+            th = ta * (1.0 - s) + tb * s
+            # scalloped free edges
+            edge = min(s, 1.0 - s)
+            scallop = 1.0 - 0.08 * (1.0 - smooth_edge(edge)) * abs(math.sin(t * 11.0 + s * 4.0))
+            rr = radius * scallop
+            offset = (oval[0] * math.cos(th) * lat + oval[1] * math.sin(th) * ant) * rr
+            p = center + offset
+            n = offset / max(np.linalg.norm(offset), 1e-9)
+            verts_a.append(p + n * (thickness * 0.5))
+            verts_b.append(p - n * (thickness * 0.5))
+
+    def _grid_faces(base: int) -> list[list[int]]:
+        faces = []
+        for i in range(length_samples - 1):
+            for j in range(theta_samples - 1):
+                a0 = base + i * theta_samples + j
+                b0 = a0 + 1
+                c0 = base + (i + 1) * theta_samples + j + 1
+                d0 = c0 - 1
+                faces.append([a0, b0, c0])
+                faces.append([a0, c0, d0])
+        return faces
+
+    n_outer = length_samples * theta_samples
+    verts = np.vstack([np.asarray(verts_a), np.asarray(verts_b)])
+    faces = _grid_faces(0) + [[x + n_outer, z + n_outer, y + n_outer] for x, y, z in _grid_faces(0)]
+    # stitch the two open long edges
+    for i in range(length_samples - 1):
+        for edge_j in (0, theta_samples - 1):
+            a0 = i * theta_samples + edge_j
+            b0 = (i + 1) * theta_samples + edge_j
+            c0 = b0 + n_outer
+            d0 = a0 + n_outer
+            if edge_j == 0:
+                faces.append([a0, b0, c0])
+                faces.append([a0, c0, d0])
+            else:
+                faces.append([a0, c0, b0])
+                faces.append([a0, d0, c0])
+    mesh = trimesh.Trimesh(vertices=verts, faces=np.array(faces), process=True)
+    mesh.update_faces(mesh.nondegenerate_faces())
+    mesh.remove_unreferenced_vertices()
+    return mesh
+
+
+def smooth_edge(x: float) -> float:
+    x = min(max(x, 0.0), 1.0)
+    return x * x * (3.0 - 2.0 * x)
+
+
+def grid_sheet(
+    cols: Sequence[Sequence[Sequence[float]]],
+    thickness: float = 0.0022,
+) -> trimesh.Trimesh:
+    """Thin sheet from a (rows x cols) grid of points, offset along estimated normals."""
+    grid = np.asarray(cols, dtype=np.float64)
+    rows, cols_n = grid.shape[:2]
+    if rows < 2 or cols_n < 2:
+        raise ValueError("grid too small")
+    normals = np.zeros_like(grid)
+    for i in range(rows):
+        for j in range(cols_n):
+            du = grid[min(i + 1, rows - 1), j] - grid[max(i - 1, 0), j]
+            dv = grid[i, min(j + 1, cols_n - 1)] - grid[i, max(j - 1, 0)]
+            n = np.cross(du, dv)
+            ln = np.linalg.norm(n)
+            normals[i, j] = n / ln if ln > 1e-9 else np.array([0.0, 0.0, 1.0])
+    outer = (grid + normals * (thickness * 0.5)).reshape(-1, 3)
+    inner = (grid - normals * (thickness * 0.5)).reshape(-1, 3)
+    verts = np.vstack([outer, inner])
+    faces = []
+
+    def idx(i, j, layer):
+        return layer * rows * cols_n + i * cols_n + j
+
+    for i in range(rows - 1):
+        for j in range(cols_n - 1):
+            a, b, c, d = idx(i, j, 0), idx(i, j + 1, 0), idx(i + 1, j + 1, 0), idx(i + 1, j, 0)
+            faces += [[a, b, c], [a, c, d]]
+            a, b, c, d = idx(i, j, 1), idx(i + 1, j, 1), idx(i + 1, j + 1, 1), idx(i, j + 1, 1)
+            faces += [[a, b, c], [a, c, d]]
+    mesh = trimesh.Trimesh(vertices=verts, faces=np.array(faces), process=True)
+    mesh.update_faces(mesh.nondegenerate_faces())
+    mesh.remove_unreferenced_vertices()
+    return mesh
+
+
 def fiber_bundle(
     a: Sequence[float],
     b: Sequence[float],

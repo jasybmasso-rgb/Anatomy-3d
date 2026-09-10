@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Filter BodyParts3D bone OBJs, merge to a web GLB, emit landmarks.json.
+"""Filter BodyParts3D bone + cartilage OBJs, merge to a web GLB, emit landmarks.json.
+
+Cartilage (costal, intervertebral discs, laryngeal, nasal) is a second scene
+node in skeleton.glb — always visible with bone, not a Couches category.
+Landmarks are derived from bone meshes only. Same worldMatrix for both.
 
 Source: BodyParts3D / Anatomography (DBCLS), CC BY-SA 2.1 Japan.
 """
@@ -59,6 +63,27 @@ EXCLUDE_SUBSTR = (
     "set of",
     "zone of",
 )
+
+COSTAL_LEAF_RE = re.compile(
+    r"^(left|right) (first|second|third|fourth|fifth|sixth|seventh) costal cartilage$"
+)
+IVD_RE = re.compile(r"^intervertebral disk of ")
+CARTILAGE_EXACT = {
+    "thyroid cartilage",
+    "cricoid cartilage",
+    "epiglottis",
+    "right arytenoid cartilage",
+    "left arytenoid cartilage",
+    "right corniculate cartilage",
+    "left corniculate cartilage",
+    "right cuneiform cartilage",
+    "left cuneiform cartilage",
+    "septal nasal cartilage",
+    "right major alar cartilage",
+    "left major alar cartilage",
+    "right lateral nasal cartilage",
+    "left lateral nasal cartilage",
+}
 
 ABSTRACT_NAMES = {
     "bone organ",
@@ -167,6 +192,47 @@ def bone_concept_ids(parts: list[list[str]], inc: list[list[str]]) -> dict[str, 
         if name.lower() in extras:
             out[cid] = (id_to_bp.get(cid, ""), name)
     return out
+
+
+def is_cartilage_part(name: str) -> bool:
+    low = name.lower().strip()
+    return bool(COSTAL_LEAF_RE.match(low) or IVD_RE.match(low) or low in CARTILAGE_EXACT)
+
+
+def cartilage_file_records(
+    parts: list[list[str]],
+    element_map: dict[str, list[str]],
+) -> list[dict]:
+    """Unique BP3D cartilage meshes (costal, IV discs, laryngeal, nasal).
+
+    Parents such as 'costal cartilage' / 'articular disk of symphysis' share
+    child FJ files and are skipped. No articular hyaline or menisci exist in
+    BodyParts3D 4.0.
+    """
+    seen_files: set[str] = set()
+    records: list[dict] = []
+    for row in parts:
+        if len(row) < 3:
+            continue
+        cid, name = row[0], row[2]
+        if not is_cartilage_part(name):
+            continue
+        for file_id in element_map.get(cid, []):
+            if file_id in seen_files:
+                continue
+            seen_files.add(file_id)
+            records.append({"fmaId": cid, "name": name, "fileId": file_id})
+    # Parent "intervertebral disk" holds one leftover FJ not named "disk of …".
+    for row in parts:
+        if len(row) < 3 or row[2].lower() != "intervertebral disk":
+            continue
+        cid = row[0]
+        for file_id in element_map.get(cid, []):
+            if file_id in seen_files:
+                continue
+            seen_files.add(file_id)
+            records.append({"fmaId": cid, "name": "intervertebral disk", "fileId": file_id})
+    return records
 
 
 def find_obj_map(extract_dir: Path) -> dict[str, Path]:
@@ -470,30 +536,71 @@ def main() -> int:
         print("too few bones; abort", file=sys.stderr)
         return 1
 
+    cart_recs = cartilage_file_records(parts, element_map)
+    cartilage_meshes: list[trimesh.Trimesh] = []
+    cart_missing = 0
+    for rec in cart_recs:
+        path = obj_map.get(rec["fileId"]) or obj_map.get(rec["fileId"].upper())
+        if path is None:
+            cart_missing += 1
+            continue
+        mesh = load_mesh(path)
+        if mesh is None:
+            cart_missing += 1
+            continue
+        cartilage_meshes.append(mesh)
+    print(
+        f"loaded cartilage meshes: {len(cartilage_meshes)} "
+        f"({len(cart_recs)} unique files, missing {cart_missing})",
+        flush=True,
+    )
+
     items, meta = normalize_meshes(items)
-    combined = trimesh.util.concatenate([m for _c, _n, m in items])
-    combined.visual.vertex_colors = [232, 220, 200, 255]
+    world = np.array(meta["worldMatrix"], dtype=float)
+    for mesh in cartilage_meshes:
+        mesh.apply_transform(world)
+
+    bones_combined = trimesh.util.concatenate([m for _c, _n, m in items])
+    bones_combined.visual.vertex_colors = [232, 220, 200, 255]
+    _ = bones_combined.vertex_normals
+
+    cartilage_combined = None
+    if cartilage_meshes:
+        cartilage_combined = trimesh.util.concatenate(cartilage_meshes)
+        cartilage_combined.visual.vertex_colors = [185, 212, 228, 190]
+        _ = cartilage_combined.vertex_normals
+
+    scene = trimesh.Scene()
+    scene.add_geometry(bones_combined, node_name="bones", geom_name="bones")
+    if cartilage_combined is not None:
+        scene.add_geometry(cartilage_combined, node_name="cartilage", geom_name="cartilage")
 
     OUT_GLB.parent.mkdir(parents=True, exist_ok=True)
-    _ = combined.vertex_normals
-    OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
+    OUT_GLB.write_bytes(export_glb(scene, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
     if size_mb > MAX_GLB_MIB:
-        target_faces = max(80_000, int(len(combined.faces) * MAX_GLB_MIB / size_mb))
-        print(f"decimate {len(combined.faces)} faces -> ~{target_faces} ({size_mb:.1f} MiB)", flush=True)
+        target_faces = max(80_000, int(len(bones_combined.faces) * MAX_GLB_MIB / size_mb))
+        print(f"decimate bones {len(bones_combined.faces)} faces -> ~{target_faces} ({size_mb:.1f} MiB)", flush=True)
         try:
-            simplified = combined.simplify_quadric_decimation(face_count=target_faces)
+            simplified = bones_combined.simplify_quadric_decimation(face_count=target_faces)
             if isinstance(simplified, trimesh.Trimesh) and len(simplified.faces) > 1000:
-                combined = simplified
-                combined.visual.vertex_colors = [232, 220, 200, 255]
-                _ = combined.vertex_normals
-                OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
-                meta["decimatedFaces"] = int(len(combined.faces))
+                bones_combined = simplified
+                bones_combined.visual.vertex_colors = [232, 220, 200, 255]
+                _ = bones_combined.vertex_normals
+                scene = trimesh.Scene()
+                scene.add_geometry(bones_combined, node_name="bones", geom_name="bones")
+                if cartilage_combined is not None:
+                    scene.add_geometry(cartilage_combined, node_name="cartilage", geom_name="cartilage")
+                OUT_GLB.write_bytes(export_glb(scene, include_normals=True))
+                meta["decimatedFaces"] = int(len(bones_combined.faces))
         except Exception as exc:  # noqa: BLE001
             print(f"decimation skipped: {exc}", flush=True)
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
     meta["glbBytes"] = OUT_GLB.stat().st_size
     meta["glbMiB"] = round(size_mb, 2)
+    meta["cartilageCount"] = len(cartilage_meshes)
+    meta["cartilageConcepts"] = sorted({r["name"] for r in cart_recs})
+    meta["cartilageFiles"] = [r["fileId"] for r in cart_recs]
     meta["sourceZip"] = ZIP_URL
     meta["license"] = "CC BY-SA 2.1 Japan"
     meta["attribution"] = (
@@ -521,7 +628,11 @@ def main() -> int:
         "landmarks": landmarks,
     }
     OUT_LANDMARKS.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(landmarks)} landmarks", flush=True)
+    print(
+        f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(landmarks)} landmarks, "
+        f"{len(cartilage_meshes)} cartilage meshes",
+        flush=True,
+    )
     return 0
 
 
