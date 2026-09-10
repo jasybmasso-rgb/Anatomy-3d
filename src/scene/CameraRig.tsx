@@ -57,24 +57,34 @@ function firstHit(
   return null;
 }
 
-/** Prefer the mesh under the cursor; otherwise the nearest bone in a screen-space spiral. */
+/** Closest pickable hit to the camera among rays in a screen-space spiral around the pointer. */
 function pickNearby(
   raycaster: THREE.Raycaster,
   pointer: THREE.Vector2,
   camera: THREE.Camera,
   scene: THREE.Scene,
 ): THREE.Vector3 | null {
+  let bestPoint: THREE.Vector3 | null = null;
+  let bestDistance = Number.POSITIVE_INFINITY;
   for (const radius of SAMPLE_RINGS) {
     const count = radius === 0 ? 1 : SAMPLE_DIRS;
     for (let i = 0; i < count; i += 1) {
       const angle = (i / count) * Math.PI * 2;
       _ndc.set(pointer.x + Math.cos(angle) * radius, pointer.y + Math.sin(angle) * radius);
-      if (Math.abs(_ndc.x) > 1.2 || Math.abs(_ndc.y) > 1.2) continue;
-      const hit = firstHit(raycaster, _ndc, camera, scene);
-      if (hit) return hit;
+      if (Math.abs(_ndc.x) > 1.15 || Math.abs(_ndc.y) > 1.15) continue;
+      raycaster.setFromCamera(_ndc, camera);
+      const hits = raycaster.intersectObjects(scene.children, true);
+      for (const hit of hits) {
+        if (!isPickableMesh(hit.object)) continue;
+        if (hit.distance < bestDistance) {
+          bestDistance = hit.distance;
+          bestPoint = hit.point.clone();
+        }
+        break;
+      }
     }
   }
-  return null;
+  return bestPoint;
 }
 
 function pointerFromEvent(event: MouseEvent, element: HTMLElement, out: THREE.Vector2) {
