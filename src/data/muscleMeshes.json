@@ -1,0 +1,5612 @@
+{
+  "version": 2,
+  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices.",
+  "count": 153,
+  "countBodyparts3d": 151,
+  "countSynthetic": 2,
+  "muscles": [
+    {
+      "id": "abducteur-de-l-hallux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right abductor hallucis",
+        "left abductor hallucis"
+      ],
+      "fmaIds": [
+        "FMA37459",
+        "FMA37460"
+      ],
+      "fileIds": [
+        "FJ1400",
+        "FJ1400M"
+      ],
+      "centroid": [
+        0.0,
+        -0.91171,
+        0.08609
+      ],
+      "focus": {
+        "position": [
+          -0.07247,
+          -0.91172,
+          0.08584
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.21351,
+        -0.0634,
+        0.97488
+      ],
+      "vertexCount": 1946,
+      "faceCount": 2136
+    },
+    {
+      "id": "abducteur-du-petit-doigt",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "abductor digiti minimi of right hand",
+        "abductor digiti minimi of left hand"
+      ],
+      "fmaIds": [
+        "FMA37396",
+        "FMA37397"
+      ],
+      "fileIds": [
+        "FJ1466",
+        "FJ1466M"
+      ],
+      "centroid": [
+        -0.00087,
+        -0.10304,
+        0.09703
+      ],
+      "focus": {
+        "position": [
+          -0.22717,
+          -0.103,
+          0.09604
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.15012,
+        0.97174,
+        -0.18216
+      ],
+      "vertexCount": 1245,
+      "faceCount": 1016
+    },
+    {
+      "id": "abducteur-du-petit-orteil",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "abductor digiti minimi of right foot",
+        "abductor digiti minimi of left foot"
+      ],
+      "fmaIds": [
+        "FMA37463",
+        "FMA37464"
+      ],
+      "fileIds": [
+        "FJ1390",
+        "FJ1390M"
+      ],
+      "centroid": [
+        0.00028,
+        -0.9192,
+        0.04299
+      ],
+      "focus": {
+        "position": [
+          -0.10123,
+          -0.9192,
+          0.04256
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.65268,
+        0.02486,
+        -0.75723
+      ],
+      "vertexCount": 2984,
+      "faceCount": 2552
+    },
+    {
+      "id": "adducteur-de-l-hallux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "oblique head of left adductor hallucis",
+        "oblique head of right adductor hallucis",
+        "transverse head of right adductor hallucis",
+        "transverse head of left adductor hallucis"
+      ],
+      "fmaIds": [
+        "FMA46019",
+        "FMA46018",
+        "FMA46020",
+        "FMA46021"
+      ],
+      "fileIds": [
+        "FJ1398",
+        "FJ1398M",
+        "FJ1445",
+        "FJ1445M"
+      ],
+      "centroid": [
+        1e-05,
+        -0.91275,
+        0.10447
+      ],
+      "focus": {
+        "position": [
+          -0.11042,
+          -0.91275,
+          0.104
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.21009,
+        0.3494,
+        -0.91312
+      ],
+      "vertexCount": 4566,
+      "faceCount": 3744
+    },
+    {
+      "id": "adducteur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "oblique head of right adductor pollicis",
+        "transverse head of right adductor pollicis",
+        "transverse head of left adductor pollicis",
+        "oblique head of left adductor pollicis"
+      ],
+      "fmaIds": [
+        "FMA46121",
+        "FMA46123",
+        "FMA46124",
+        "FMA46122"
+      ],
+      "fileIds": [
+        "FJ1481",
+        "FJ1481M",
+        "FJ1515",
+        "FJ1515M"
+      ],
+      "centroid": [
+        -2e-05,
+        -0.09121,
+        0.08925
+      ],
+      "focus": {
+        "position": [
+          -0.27244,
+          -0.0912,
+          0.08807
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.50027,
+        0.84988,
+        0.16564
+      ],
+      "vertexCount": 2757,
+      "faceCount": 2824
+    },
+    {
+      "id": "ancone",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right anconeus",
+        "left anconeus"
+      ],
+      "fmaIds": [
+        "FMA37705",
+        "FMA37706"
+      ],
+      "fileIds": [
+        "FJ1485",
+        "FJ1485M"
+      ],
+      "centroid": [
+        0.00052,
+        0.14945,
+        0.00956
+      ],
+      "focus": {
+        "position": [
+          -0.21708,
+          0.14945,
+          0.00863
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.07297,
+        0.98007,
+        -0.18477
+      ],
+      "vertexCount": 2211,
+      "faceCount": 2556
+    },
+    {
+      "id": "biceps-brachial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "long head of left biceps brachii",
+        "short head of right biceps brachii",
+        "long head of right biceps brachii",
+        "short head of left biceps brachii"
+      ],
+      "fmaIds": [
+        "FMA37687",
+        "FMA37684",
+        "FMA37686",
+        "FMA37685"
+      ],
+      "fileIds": [
+        "FJ1478",
+        "FJ1478M",
+        "FJ1512",
+        "FJ1512M"
+      ],
+      "centroid": [
+        -0.00019,
+        0.30982,
+        0.04597
+      ],
+      "focus": {
+        "position": [
+          -0.18687,
+          0.30933,
+          0.04515
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.21734,
+        0.97578,
+        0.02497
+      ],
+      "vertexCount": 5574,
+      "faceCount": 6564
+    },
+    {
+      "id": "biceps-femoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "long head of right biceps femoris",
+        "short head of right biceps femoris",
+        "short head of left biceps femoris",
+        "long head of left biceps femoris"
+      ],
+      "fmaIds": [
+        "FMA45888",
+        "FMA45891",
+        "FMA45892",
+        "FMA45889"
+      ],
+      "fileIds": [
+        "FJ1395",
+        "FJ1395M",
+        "FJ1444",
+        "FJ1444M"
+      ],
+      "centroid": [
+        0.00201,
+        -0.33164,
+        0.01088
+      ],
+      "focus": {
+        "position": [
+          -0.09638,
+          -0.33507,
+          0.01084
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.09715,
+        0.99403,
+        -0.04973
+      ],
+      "vertexCount": 4825,
+      "faceCount": 8999
+    },
+    {
+      "id": "brachial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left brachialis",
+        "right brachialis"
+      ],
+      "fmaIds": [
+        "FMA37669",
+        "FMA37668"
+      ],
+      "fileIds": [
+        "FJ1486",
+        "FJ1486M"
+      ],
+      "centroid": [
+        -0.00046,
+        0.23973,
+        0.03194
+      ],
+      "focus": {
+        "position": [
+          -0.20667,
+          0.23988,
+          0.03108
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.06168,
+        0.99803,
+        -0.01128
+      ],
+      "vertexCount": 2520,
+      "faceCount": 3492
+    },
+    {
+      "id": "brachio-radial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left brachioradialis",
+        "right brachioradialis"
+      ],
+      "fmaIds": [
+        "FMA38487",
+        "FMA38486"
+      ],
+      "fileIds": [
+        "FJ1487",
+        "FJ1487M"
+      ],
+      "centroid": [
+        -0.0131,
+        0.12724,
+        0.04632
+      ],
+      "focus": {
+        "position": [
+          -0.24927,
+          0.12423,
+          0.04564
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.16835,
+        0.97113,
+        -0.16904
+      ],
+      "vertexCount": 4641,
+      "faceCount": 8999
+    },
+    {
+      "id": "carre-femoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right quadratus femoris",
+        "left quadratus femoris"
+      ],
+      "fmaIds": [
+        "FMA22338",
+        "FMA22339"
+      ],
+      "fileIds": [
+        "FJ1432",
+        "FJ1432M"
+      ],
+      "centroid": [
+        0.00031,
+        -0.09093,
+        0.00611
+      ],
+      "focus": {
+        "position": [
+          -0.10391,
+          -0.09093,
+          0.00566
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.22324,
+        0.94671,
+        -0.23217
+      ],
+      "vertexCount": 2028,
+      "faceCount": 2392
+    },
+    {
+      "id": "carre-plantaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left flexor accessorius",
+        "right flexor accessorius"
+      ],
+      "fmaIds": [
+        "FMA37466",
+        "FMA37465"
+      ],
+      "fileIds": [
+        "FJ1412",
+        "FJ1412M"
+      ],
+      "centroid": [
+        0.00025,
+        -0.91331,
+        0.04829
+      ],
+      "focus": {
+        "position": [
+          -0.08709,
+          -0.91331,
+          0.04792
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.5101,
+        0.04228,
+        0.85908
+      ],
+      "vertexCount": 1436,
+      "faceCount": 1684
+    },
+    {
+      "id": "carre-pronateur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right pronator quadratus",
+        "left pronator quadratus"
+      ],
+      "fmaIds": [
+        "FMA38454",
+        "FMA38455"
+      ],
+      "fileIds": [
+        "FJ1503",
+        "FJ1503M"
+      ],
+      "centroid": [
+        0.00027,
+        -0.00564,
+        0.06617
+      ],
+      "focus": {
+        "position": [
+          -0.23661,
+          -0.00565,
+          0.06516
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.68244,
+        0.66711,
+        -0.29874
+      ],
+      "vertexCount": 4516,
+      "faceCount": 3676
+    },
+    {
+      "id": "coccygien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left coccygeus",
+        "right coccygeus"
+      ],
+      "fmaIds": [
+        "FMA46444",
+        "FMA46443"
+      ],
+      "fileIds": [
+        "FJ1449M",
+        "FJ2542",
+        "FJ2547"
+      ],
+      "centroid": [
+        0.00756,
+        -0.04554,
+        -0.0249
+      ],
+      "focus": {
+        "position": [
+          -0.02172,
+          -0.0458,
+          -0.02476
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.27868,
+        0.91104,
+        -0.30387
+      ],
+      "vertexCount": 4719,
+      "faceCount": 6256
+    },
+    {
+      "id": "coraco-brachial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right coracobrachialis",
+        "left coracobrachialis"
+      ],
+      "fmaIds": [
+        "FMA37665",
+        "FMA37666"
+      ],
+      "fileIds": [
+        "FJ1488",
+        "FJ1488M"
+      ],
+      "centroid": [
+        -0.00015,
+        0.39204,
+        0.04351
+      ],
+      "focus": {
+        "position": [
+          -0.15783,
+          0.39187,
+          0.0428
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.33395,
+        0.91745,
+        0.21626
+      ],
+      "vertexCount": 900,
+      "faceCount": 888
+    },
+    {
+      "id": "court-abducteur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right abductor pollicis brevis",
+        "left abductor pollicis brevis"
+      ],
+      "fmaIds": [
+        "FMA37386",
+        "FMA37387"
+      ],
+      "fileIds": [
+        "FJ1483",
+        "FJ1483M"
+      ],
+      "centroid": [
+        -0.00031,
+        -0.06706,
+        0.09554
+      ],
+      "focus": {
+        "position": [
+          -0.2763,
+          -0.06705,
+          0.09434
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.23301,
+        0.69124,
+        0.68403
+      ],
+      "vertexCount": 1424,
+      "faceCount": 1488
+    },
+    {
+      "id": "court-adducteur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right adductor brevis",
+        "left adductor brevis"
+      ],
+      "fmaIds": [
+        "FMA22452",
+        "FMA22454"
+      ],
+      "fileIds": [
+        "FJ1401",
+        "FJ1401M"
+      ],
+      "centroid": [
+        0.00015,
+        -0.17185,
+        0.05103
+      ],
+      "focus": {
+        "position": [
+          -0.08023,
+          -0.17184,
+          0.05067
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.36024,
+        0.91175,
+        0.19734
+      ],
+      "vertexCount": 2180,
+      "faceCount": 2928
+    },
+    {
+      "id": "court-extenseur-de-l-hallux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left extensor hallucis brevis",
+        "right extensor hallucis brevis"
+      ],
+      "fmaIds": [
+        "FMA51145",
+        "FMA51144"
+      ],
+      "fileIds": [
+        "FJ1407",
+        "FJ1407M"
+      ],
+      "centroid": [
+        8e-05,
+        -0.89286,
+        0.0968
+      ],
+      "focus": {
+        "position": [
+          -0.09586,
+          -0.89286,
+          0.09641
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.03748,
+        0.24076,
+        -0.96986
+      ],
+      "vertexCount": 2513,
+      "faceCount": 2460
+    },
+    {
+      "id": "court-extenseur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right extensor pollicis brevis",
+        "left extensor pollicis brevis"
+      ],
+      "fmaIds": [
+        "FMA38519",
+        "FMA38520"
+      ],
+      "fileIds": [
+        "FJ1494",
+        "FJ1494M"
+      ],
+      "centroid": [
+        0.00015,
+        -0.03759,
+        0.07121
+      ],
+      "focus": {
+        "position": [
+          -0.27043,
+          -0.03759,
+          0.07004
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.48195,
+        0.80673,
+        -0.34192
+      ],
+      "vertexCount": 1692,
+      "faceCount": 1996
+    },
+    {
+      "id": "court-extenseur-radial-du-carpe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left extensor carpi radialis brevis",
+        "right extensor carpi radialis brevis"
+      ],
+      "fmaIds": [
+        "FMA38499",
+        "FMA38498"
+      ],
+      "fileIds": [
+        "FJ1489",
+        "FJ1489M"
+      ],
+      "centroid": [
+        0.0003,
+        0.06721,
+        0.03695
+      ],
+      "focus": {
+        "position": [
+          -0.25139,
+          0.06721,
+          0.03587
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.12298,
+        0.97052,
+        -0.2073
+      ],
+      "vertexCount": 3128,
+      "faceCount": 4196
+    },
+    {
+      "id": "court-fibulaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left fibularis brevis",
+        "right fibularis brevis"
+      ],
+      "fmaIds": [
+        "FMA22555",
+        "FMA22554"
+      ],
+      "fileIds": [
+        "FJ1409",
+        "FJ1409M"
+      ],
+      "centroid": [
+        0.00038,
+        -0.79674,
+        0.01802
+      ],
+      "focus": {
+        "position": [
+          -0.0983,
+          -0.79674,
+          0.0176
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.00985,
+        0.994,
+        -0.10893
+      ],
+      "vertexCount": 3210,
+      "faceCount": 3532
+    },
+    {
+      "id": "court-flechisseur-de-l-hallux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "medial head of left flexor hallucis brevis",
+        "lateral head of right flexor hallucis brevis",
+        "medial head of right flexor hallucis brevis",
+        "lateral head of left flexor hallucis brevis"
+      ],
+      "fmaIds": [
+        "FMA45972",
+        "FMA45973",
+        "FMA45971",
+        "FMA45974"
+      ],
+      "fileIds": [
+        "FJ1393",
+        "FJ1393M",
+        "FJ1396",
+        "FJ1396M"
+      ],
+      "centroid": [
+        4e-05,
+        -0.9079,
+        0.10341
+      ],
+      "focus": {
+        "position": [
+          -0.08299,
+          -0.9079,
+          0.10305
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.34872,
+        0.37163,
+        -0.8604
+      ],
+      "vertexCount": 6826,
+      "faceCount": 5468
+    },
+    {
+      "id": "court-flechisseur-des-orteils",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right flexor digitorum brevis",
+        "left flexor digitorum brevis"
+      ],
+      "fmaIds": [
+        "FMA37461",
+        "FMA37462"
+      ],
+      "fileIds": [
+        "FJ1413",
+        "FJ1413M"
+      ],
+      "centroid": [
+        0.00031,
+        -0.92494,
+        0.10104
+      ],
+      "focus": {
+        "position": [
+          -0.11432,
+          -0.92494,
+          0.10047
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.47509,
+        0.02129,
+        -0.87968
+      ],
+      "vertexCount": 4947,
+      "faceCount": 4872
+    },
+    {
+      "id": "court-flechisseur-du-petit-doigt",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "flexor digiti minimi brevis of left hand",
+        "flexor digiti minimi brevis of right hand"
+      ],
+      "fmaIds": [
+        "FMA37399",
+        "FMA37398"
+      ],
+      "fileIds": [
+        "FJ1470",
+        "FJ1470M"
+      ],
+      "centroid": [
+        4e-05,
+        -0.10555,
+        0.09822
+      ],
+      "focus": {
+        "position": [
+          -0.23182,
+          -0.10555,
+          0.09723
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.23656,
+        0.94357,
+        -0.23178
+      ],
+      "vertexCount": 624,
+      "faceCount": 656
+    },
+    {
+      "id": "court-flechisseur-du-petit-orteil",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "flexor digiti minimi brevis of right foot",
+        "flexor digiti minimi brevis of left foot"
+      ],
+      "fmaIds": [
+        "FMA37471",
+        "FMA37472"
+      ],
+      "fileIds": [
+        "FJ1391",
+        "FJ1391M"
+      ],
+      "centroid": [
+        0.00019,
+        -0.92029,
+        0.08101
+      ],
+      "focus": {
+        "position": [
+          -0.1294,
+          -0.92029,
+          0.08046
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.58237,
+        0.18144,
+        -0.79242
+      ],
+      "vertexCount": 1641,
+      "faceCount": 1572
+    },
+    {
+      "id": "court-flechisseur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "superficial head of right flexor pollicis brevis",
+        "superficial head of left flexor pollicis brevis",
+        "left flexor pollicis brevis",
+        "right flexor pollicis brevis"
+      ],
+      "fmaIds": [
+        "FMA65198",
+        "FMA65199",
+        "FMA37389",
+        "FMA37388"
+      ],
+      "fileIds": [
+        "FJ1469",
+        "FJ1469M",
+        "FJ1514",
+        "FJ1514M"
+      ],
+      "centroid": [
+        5e-05,
+        -0.07448,
+        0.09449
+      ],
+      "focus": {
+        "position": [
+          -0.26892,
+          -0.07448,
+          0.09334
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.41171,
+        0.04918,
+        0.90999
+      ],
+      "vertexCount": 3378,
+      "faceCount": 2880
+    },
+    {
+      "id": "deltoide",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "acromial part of left deltoid",
+        "clavicular part of left deltoid",
+        "spinal part of right deltoid",
+        "spinal part of left deltoid",
+        "clavicular part of right deltoid",
+        "acromial part of right deltoid"
+      ],
+      "fmaIds": [
+        "FMA34683",
+        "FMA34681",
+        "FMA34684",
+        "FMA34685",
+        "FMA34680",
+        "FMA34682"
+      ],
+      "fileIds": [
+        "FJ1467",
+        "FJ1467M",
+        "FJ1468",
+        "FJ1468M",
+        "FJ1513",
+        "FJ1513M"
+      ],
+      "centroid": [
+        -0.00331,
+        0.4381,
+        0.02414
+      ],
+      "focus": {
+        "position": [
+          -0.16049,
+          0.43894,
+          0.02567
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.6521,
+        0.75515,
+        -0.06714
+      ],
+      "vertexCount": 4883,
+      "faceCount": 8999
+    },
+    {
+      "id": "dentele-anterieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right serratus anterior",
+        "left serratus anterior"
+      ],
+      "fmaIds": [
+        "FMA13398",
+        "FMA13399"
+      ],
+      "fileIds": [
+        "FJ1459",
+        "FJ1459M"
+      ],
+      "centroid": [
+        0.00459,
+        0.3738,
+        0.02673
+      ],
+      "focus": {
+        "position": [
+          -0.1042,
+          0.37206,
+          0.02735
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.28761,
+        0.9324,
+        -0.21887
+      ],
+      "vertexCount": 5866,
+      "faceCount": 8999
+    },
+    {
+      "id": "dentele-posterieur-inferieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left serratus posterior inferior",
+        "right serratus posterior inferior"
+      ],
+      "fmaIds": [
+        "FMA13406",
+        "FMA13405"
+      ],
+      "fileIds": [
+        "FJ1541",
+        "FJ1541M"
+      ],
+      "centroid": [
+        -0.00454,
+        0.18295,
+        -0.01989
+      ],
+      "focus": {
+        "position": [
+          -0.03981,
+          0.18382,
+          -0.02059
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.62935,
+        0.77552,
+        -0.04994
+      ],
+      "vertexCount": 5720,
+      "faceCount": 9000
+    },
+    {
+      "id": "dentele-posterieur-superieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right serratus posterior superior",
+        "left serratus posterior superior"
+      ],
+      "fmaIds": [
+        "FMA13403",
+        "FMA13404"
+      ],
+      "fileIds": [
+        "FJ1542",
+        "FJ1542M"
+      ],
+      "centroid": [
+        0.00455,
+        0.46673,
+        -0.01278
+      ],
+      "focus": {
+        "position": [
+          -0.04898,
+          0.46355,
+          -0.01195
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.42142,
+        0.60756,
+        0.67326
+      ],
+      "vertexCount": 5462,
+      "faceCount": 9000
+    },
+    {
+      "id": "deuxieme-interosseux-plantaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "second plantar interosseous of left foot",
+        "second plantar interosseous of right foot"
+      ],
+      "fmaIds": [
+        "FMA37744",
+        "FMA37743"
+      ],
+      "fileIds": [
+        "FJ1386",
+        "FJ1386M"
+      ],
+      "centroid": [
+        1e-05,
+        -0.90929,
+        0.10462
+      ],
+      "focus": {
+        "position": [
+          -0.12267,
+          -0.90929,
+          0.10409
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.42865,
+        0.33286,
+        -0.83992
+      ],
+      "vertexCount": 1044,
+      "faceCount": 1264
+    },
+    {
+      "id": "deuxieme-lombrical-du-pied",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "second lumbrical of left foot",
+        "second lumbrical of right foot"
+      ],
+      "fmaIds": [
+        "FMA37720",
+        "FMA37719"
+      ],
+      "fileIds": [
+        "FJ1385",
+        "FJ1385M"
+      ],
+      "centroid": [
+        -0.0,
+        -0.91813,
+        0.10784
+      ],
+      "focus": {
+        "position": [
+          -0.10694,
+          -0.91813,
+          0.10738
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.52046,
+        0.14195,
+        -0.842
+      ],
+      "vertexCount": 532,
+      "faceCount": 532
+    },
+    {
+      "id": "diaphragme",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "diaphragm"
+      ],
+      "fmaIds": [
+        "FMA13295"
+      ],
+      "fileIds": [
+        "FJ3131"
+      ],
+      "centroid": [
+        0.00883,
+        0.24924,
+        0.06131
+      ],
+      "focus": {
+        "position": [
+          -0.0598,
+          0.25158,
+          0.06353
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.00807,
+        0.96292,
+        0.26968
+      ],
+      "vertexCount": 4737,
+      "faceCount": 9000
+    },
+    {
+      "id": "digastrique",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right digastric",
+        "left digastric"
+      ],
+      "fmaIds": [
+        "FMA46292",
+        "FMA46293"
+      ],
+      "fileIds": [
+        "FJ1555",
+        "FJ1556",
+        "FJ1560",
+        "FJ1578",
+        "FJ1579"
+      ],
+      "centroid": [
+        -0.0011,
+        0.59713,
+        0.05887
+      ],
+      "focus": {
+        "position": [
+          -0.03341,
+          0.60008,
+          0.05664
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.42341,
+        0.58784,
+        -0.68932
+      ],
+      "vertexCount": 4146,
+      "faceCount": 6236
+    },
+    {
+      "id": "droit-abdomen",
+      "source": "synthetic",
+      "sourceNames": [
+        "droit-abdomen"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.00016,
+        0.17934,
+        0.1387
+      ],
+      "focus": {
+        "position": [
+          -0.02182,
+          0.17934,
+          0.1387
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.04304,
+        0.92503,
+        0.37745
+      ],
+      "vertexCount": 396,
+      "faceCount": 760,
+      "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+    },
+    {
+      "id": "droit-anterieur-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left rectus capitis anterior",
+        "right rectus capitis anterior"
+      ],
+      "fmaIds": [
+        "FMA46314",
+        "FMA46313"
+      ],
+      "fileIds": [
+        "FJ1566",
+        "FJ1588"
+      ],
+      "centroid": [
+        -0.00177,
+        0.61496,
+        0.03899
+      ],
+      "focus": {
+        "position": [
+          -0.0178,
+          0.61442,
+          0.0389
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.67874,
+        0.73012,
+        0.07901
+      ],
+      "vertexCount": 1396,
+      "faceCount": 1620
+    },
+    {
+      "id": "droit-femoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left rectus femoris",
+        "right rectus femoris"
+      ],
+      "fmaIds": [
+        "FMA38929",
+        "FMA38928"
+      ],
+      "fileIds": [
+        "FJ1433",
+        "FJ1433M"
+      ],
+      "centroid": [
+        -0.01688,
+        -0.24876,
+        0.07479
+      ],
+      "focus": {
+        "position": [
+          -0.10514,
+          -0.24844,
+          0.07466
+        ],
+        "distance": 0.665
+      },
+      "fiberAxis": [
+        -0.07871,
+        0.99653,
+        -0.02717
+      ],
+      "vertexCount": 4642,
+      "faceCount": 9000
+    },
+    {
+      "id": "droit-lateral-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left rectus capitis lateralis",
+        "right rectus capitis lateralis"
+      ],
+      "fmaIds": [
+        "FMA46318",
+        "FMA46317"
+      ],
+      "fileIds": [
+        "FJ1569",
+        "FJ1591"
+      ],
+      "centroid": [
+        0.00082,
+        0.61383,
+        0.02826
+      ],
+      "focus": {
+        "position": [
+          -0.0357,
+          0.6142,
+          0.02834
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.2257,
+        0.84818,
+        -0.47922
+      ],
+      "vertexCount": 1151,
+      "faceCount": 1394
+    },
+    {
+      "id": "elevateur-de-la-scapula",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right levator scapulae",
+        "left levator scapulae"
+      ],
+      "fmaIds": [
+        "FMA32540",
+        "FMA32541"
+      ],
+      "fileIds": [
+        "FJ1532",
+        "FJ1532M"
+      ],
+      "centroid": [
+        0.00229,
+        0.52031,
+        0.00747
+      ],
+      "focus": {
+        "position": [
+          -0.04431,
+          0.52171,
+          0.0079
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.27004,
+        0.87039,
+        0.41171
+      ],
+      "vertexCount": 4606,
+      "faceCount": 9000
+    },
+    {
+      "id": "epineux-du-thorax",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right spinalis thoracis",
+        "left spinalis thoracis"
+      ],
+      "fmaIds": [
+        "FMA22779",
+        "FMA22780"
+      ],
+      "fileIds": [
+        "FJ1544",
+        "FJ1544M"
+      ],
+      "centroid": [
+        0.00094,
+        0.30224,
+        -0.02956
+      ],
+      "focus": {
+        "position": [
+          -0.00426,
+          0.30367,
+          -0.0297
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.00025,
+        0.99434,
+        -0.10621
+      ],
+      "vertexCount": 5716,
+      "faceCount": 8999
+    },
+    {
+      "id": "extenseur-de-l-index",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right extensor indicis",
+        "left extensor indicis"
+      ],
+      "fmaIds": [
+        "FMA38525",
+        "FMA38526"
+      ],
+      "fileIds": [
+        "FJ1493",
+        "FJ1493M"
+      ],
+      "centroid": [
+        0.00048,
+        -0.06486,
+        0.07418
+      ],
+      "focus": {
+        "position": [
+          -0.257,
+          -0.06495,
+          0.0731
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.34078,
+        0.89348,
+        -0.29249
+      ],
+      "vertexCount": 1382,
+      "faceCount": 1440
+    },
+    {
+      "id": "extenseur-des-doigts",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right extensor digitorum",
+        "left extensor digitorum"
+      ],
+      "fmaIds": [
+        "FMA38501",
+        "FMA38502"
+      ],
+      "fileIds": [
+        "FJ1492",
+        "FJ1492M"
+      ],
+      "centroid": [
+        -4e-05,
+        -0.07171,
+        0.07259
+      ],
+      "focus": {
+        "position": [
+          -0.25517,
+          -0.07164,
+          0.07148
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.09218,
+        0.94979,
+        -0.29901
+      ],
+      "vertexCount": 6705,
+      "faceCount": 8588
+    },
+    {
+      "id": "extenseur-du-petit-doigt",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right extensor digiti minimi",
+        "left extensor digiti minimi"
+      ],
+      "fmaIds": [
+        "FMA38504",
+        "FMA38505"
+      ],
+      "fileIds": [
+        "FJ1491",
+        "FJ1491M"
+      ],
+      "centroid": [
+        0.00061,
+        0.0236,
+        0.04477
+      ],
+      "focus": {
+        "position": [
+          -0.23466,
+          0.02336,
+          0.04381
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.01355,
+        0.96689,
+        -0.25483
+      ],
+      "vertexCount": 2031,
+      "faceCount": 2868
+    },
+    {
+      "id": "extenseur-long-de-l-hallux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left extensor hallucis longus",
+        "right extensor hallucis longus"
+      ],
+      "fmaIds": [
+        "FMA22547",
+        "FMA22546"
+      ],
+      "fileIds": [
+        "FJ1408",
+        "FJ1408M"
+      ],
+      "centroid": [
+        7e-05,
+        -0.7834,
+        0.05728
+      ],
+      "focus": {
+        "position": [
+          -0.09523,
+          -0.78331,
+          0.05684
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.01784,
+        0.88489,
+        -0.46545
+      ],
+      "vertexCount": 2772,
+      "faceCount": 3336
+    },
+    {
+      "id": "extenseur-long-des-orteils",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left extensor digitorum longus",
+        "right extensor digitorum longus"
+      ],
+      "fmaIds": [
+        "FMA22549",
+        "FMA22548"
+      ],
+      "fileIds": [
+        "FJ1406",
+        "FJ1406M"
+      ],
+      "centroid": [
+        -0.00036,
+        -0.76384,
+        0.07373
+      ],
+      "focus": {
+        "position": [
+          -0.11671,
+          -0.76354,
+          0.07296
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.07476,
+        0.96205,
+        -0.26243
+      ],
+      "vertexCount": 4572,
+      "faceCount": 9000
+    },
+    {
+      "id": "extenseur-ulnaire-du-carpe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right extensor carpi ulnaris",
+        "left extensor carpi ulnaris"
+      ],
+      "fmaIds": [
+        "FMA38507",
+        "FMA38508"
+      ],
+      "fileIds": [
+        "FJ1472",
+        "FJ1472M",
+        "FJ1517",
+        "FJ1517M"
+      ],
+      "centroid": [
+        0.00055,
+        0.0338,
+        0.04311
+      ],
+      "focus": {
+        "position": [
+          -0.2263,
+          0.03378,
+          0.04214
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.05283,
+        0.96288,
+        -0.26472
+      ],
+      "vertexCount": 8188,
+      "faceCount": 6788
+    },
+    {
+      "id": "flechisseur-long-de-l-hallux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right flexor hallucis longus",
+        "left flexor hallucis longus"
+      ],
+      "fmaIds": [
+        "FMA65014",
+        "FMA65015"
+      ],
+      "fileIds": [
+        "FJ1415",
+        "FJ1415M"
+      ],
+      "centroid": [
+        0.00026,
+        -0.78322,
+        0.04712
+      ],
+      "focus": {
+        "position": [
+          -0.0896,
+          -0.78322,
+          0.04673
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.02626,
+        0.92112,
+        -0.38839
+      ],
+      "vertexCount": 3694,
+      "faceCount": 5516
+    },
+    {
+      "id": "flechisseur-long-des-orteils",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left flexor digitorum longus",
+        "right flexor digitorum longus"
+      ],
+      "fmaIds": [
+        "FMA65017",
+        "FMA65016"
+      ],
+      "fileIds": [
+        "FJ1414",
+        "FJ1414M"
+      ],
+      "centroid": [
+        0.00016,
+        -0.8395,
+        0.07805
+      ],
+      "focus": {
+        "position": [
+          -0.09778,
+          -0.83947,
+          0.07763
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.21057,
+        0.90679,
+        -0.36524
+      ],
+      "vertexCount": 6076,
+      "faceCount": 8008
+    },
+    {
+      "id": "flechisseur-profond-des-doigts",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right flexor digitorum profundus",
+        "left flexor digitorum profundus"
+      ],
+      "fmaIds": [
+        "FMA38479",
+        "FMA38480"
+      ],
+      "fileIds": [
+        "FJ1497",
+        "FJ1497M"
+      ],
+      "centroid": [
+        0.00945,
+        -0.0438,
+        0.08167
+      ],
+      "focus": {
+        "position": [
+          -0.24416,
+          -0.0463,
+          0.08125
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.14173,
+        0.95231,
+        -0.27022
+      ],
+      "vertexCount": 4672,
+      "faceCount": 9000
+    },
+    {
+      "id": "flechisseur-radial-du-carpe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left flexor carpi radialis",
+        "right flexor carpi radialis"
+      ],
+      "fmaIds": [
+        "FMA38461",
+        "FMA38460"
+      ],
+      "fileIds": [
+        "FJ1496",
+        "FJ1496M"
+      ],
+      "centroid": [
+        0.00018,
+        0.07046,
+        0.0654
+      ],
+      "focus": {
+        "position": [
+          -0.22308,
+          0.07046,
+          0.06444
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.27702,
+        0.9408,
+        -0.19532
+      ],
+      "vertexCount": 1638,
+      "faceCount": 2296
+    },
+    {
+      "id": "flechisseur-superficiel-des-doigts",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right flexor digitorum superficialis",
+        "left flexor digitorum superficialis"
+      ],
+      "fmaIds": [
+        "FMA38470",
+        "FMA38471"
+      ],
+      "fileIds": [
+        "FJ1475",
+        "FJ1475M",
+        "FJ1499",
+        "FJ1499M"
+      ],
+      "centroid": [
+        0.01807,
+        -0.0157,
+        0.07804
+      ],
+      "focus": {
+        "position": [
+          -0.23366,
+          -0.01196,
+          0.07605
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.19447,
+        0.95261,
+        -0.23392
+      ],
+      "vertexCount": 5789,
+      "faceCount": 9000
+    },
+    {
+      "id": "flechisseur-ulnaire-du-carpe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "ulnar head of left flexor carpi ulnaris",
+        "humeral head of left flexor carpi ulnaris",
+        "ulnar head of right flexor carpi ulnaris",
+        "humeral head of right flexor carpi ulnaris"
+      ],
+      "fmaIds": [
+        "FMA38620",
+        "FMA38618",
+        "FMA38619",
+        "FMA38617"
+      ],
+      "fileIds": [
+        "FJ1473",
+        "FJ1473M",
+        "FJ1518",
+        "FJ1518M"
+      ],
+      "centroid": [
+        0.00022,
+        0.06221,
+        0.04645
+      ],
+      "focus": {
+        "position": [
+          -0.20524,
+          0.06213,
+          0.0456
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.20714,
+        0.94491,
+        -0.25346
+      ],
+      "vertexCount": 7201,
+      "faceCount": 8388
+    },
+    {
+      "id": "gastrocnemien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "lateral head of right gastrocnemius",
+        "medial head of right gastrocnemius",
+        "medial head of left gastrocnemius",
+        "lateral head of left gastrocnemius"
+      ],
+      "fmaIds": [
+        "FMA45960",
+        "FMA45957",
+        "FMA45958",
+        "FMA45961"
+      ],
+      "fileIds": [
+        "FJ1394",
+        "FJ1394M",
+        "FJ1397",
+        "FJ1397M"
+      ],
+      "centroid": [
+        0.00329,
+        -0.56352,
+        0.00316
+      ],
+      "focus": {
+        "position": [
+          -0.06875,
+          -0.56611,
+          0.00266
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.05168,
+        0.99363,
+        0.10016
+      ],
+      "vertexCount": 4814,
+      "faceCount": 9000
+    },
+    {
+      "id": "genio-hyoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right geniohyoid",
+        "left geniohyoid"
+      ],
+      "fmaIds": [
+        "FMA46326",
+        "FMA46327"
+      ],
+      "fileIds": [
+        "FJ1559",
+        "FJ1580"
+      ],
+      "centroid": [
+        -0.00063,
+        0.56629,
+        0.09226
+      ],
+      "focus": {
+        "position": [
+          -0.00345,
+          0.56624,
+          0.09201
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.05733,
+        0.30993,
+        0.94903
+      ],
+      "vertexCount": 827,
+      "faceCount": 1460
+    },
+    {
+      "id": "gracile",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left gracilis",
+        "right gracilis"
+      ],
+      "fmaIds": [
+        "FMA43884",
+        "FMA43883"
+      ],
+      "fileIds": [
+        "FJ1421",
+        "FJ1421M"
+      ],
+      "centroid": [
+        0.0002,
+        -0.32839,
+        0.05466
+      ],
+      "focus": {
+        "position": [
+          -0.03376,
+          -0.32851,
+          0.05451
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.08507,
+        0.99582,
+        0.03324
+      ],
+      "vertexCount": 4171,
+      "faceCount": 6344
+    },
+    {
+      "id": "grand-adducteur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right adductor magnus",
+        "left adductor magnus"
+      ],
+      "fmaIds": [
+        "FMA22459",
+        "FMA22460"
+      ],
+      "fileIds": [
+        "FJ1403",
+        "FJ1403M"
+      ],
+      "centroid": [
+        0.00496,
+        -0.27345,
+        0.03859
+      ],
+      "focus": {
+        "position": [
+          -0.06693,
+          -0.27484,
+          0.03799
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.01975,
+        0.99959,
+        -0.0206
+      ],
+      "vertexCount": 5208,
+      "faceCount": 8999
+    },
+    {
+      "id": "grand-dorsal",
+      "source": "synthetic",
+      "sourceNames": [
+        "grand-dorsal"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.00098,
+        0.11619,
+        -0.03079
+      ],
+      "focus": {
+        "position": [
+          -0.16247,
+          0.11606,
+          -0.03166
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.69352,
+        0.70069,
+        0.16753
+      ],
+      "vertexCount": 960,
+      "faceCount": 1800,
+      "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+    },
+    {
+      "id": "grand-droit-posterieur-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right rectus capitis posterior major",
+        "left rectus capitis posterior major"
+      ],
+      "fmaIds": [
+        "FMA32530",
+        "FMA32531"
+      ],
+      "fileIds": [
+        "FJ1567",
+        "FJ1589"
+      ],
+      "centroid": [
+        -0.0009,
+        0.60553,
+        -0.00681
+      ],
+      "focus": {
+        "position": [
+          -0.02125,
+          0.60803,
+          -0.00676
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.57728,
+        0.81087,
+        -0.09612
+      ],
+      "vertexCount": 2112,
+      "faceCount": 3138
+    },
+    {
+      "id": "grand-fessier",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left gluteus maximus",
+        "right gluteus maximus"
+      ],
+      "fmaIds": [
+        "FMA22329",
+        "FMA22328"
+      ],
+      "fileIds": [
+        "FJ1418",
+        "FJ1418M"
+      ],
+      "centroid": [
+        0.00051,
+        -0.05299,
+        -0.01207
+      ],
+      "focus": {
+        "position": [
+          -0.08736,
+          -0.05277,
+          -0.01213
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.46879,
+        0.85102,
+        -0.23665
+      ],
+      "vertexCount": 4106,
+      "faceCount": 4752
+    },
+    {
+      "id": "grand-pectoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "abdominal part of right pectoralis major",
+        "clavicular part of left pectoralis major",
+        "abdominal part of left pectoralis major",
+        "sternocostal part of right pectoralis major",
+        "sternocostal part of left pectoralis major",
+        "clavicular part of right pectoralis major"
+      ],
+      "fmaIds": [
+        "FMA45874",
+        "FMA34691",
+        "FMA45875",
+        "FMA79979",
+        "FMA79980",
+        "FMA34690"
+      ],
+      "fileIds": [
+        "FJ1446",
+        "FJ1446M",
+        "FJ1447",
+        "FJ1447M",
+        "FJ1464",
+        "FJ1464M"
+      ],
+      "centroid": [
+        0.00049,
+        0.38214,
+        0.11196
+      ],
+      "focus": {
+        "position": [
+          -0.09266,
+          0.38198,
+          0.11178
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.45981,
+        0.34881,
+        0.81664
+      ],
+      "vertexCount": 6054,
+      "faceCount": 8999
+    },
+    {
+      "id": "grand-rhomboide",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left rhomboid major",
+        "right rhomboid major"
+      ],
+      "fmaIds": [
+        "FMA13382",
+        "FMA13381"
+      ],
+      "fileIds": [
+        "FJ1536",
+        "FJ1536M"
+      ],
+      "centroid": [
+        -0.00024,
+        0.4226,
+        -0.03817
+      ],
+      "focus": {
+        "position": [
+          -0.03359,
+          0.41925,
+          -0.03873
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.49532,
+        0.86476,
+        0.0827
+      ],
+      "vertexCount": 5415,
+      "faceCount": 9000
+    },
+    {
+      "id": "grand-rond",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left teres major",
+        "right teres major"
+      ],
+      "fmaIds": [
+        "FMA32552",
+        "FMA32551"
+      ],
+      "fileIds": [
+        "FJ1507",
+        "FJ1507M"
+      ],
+      "centroid": [
+        0.00101,
+        0.37272,
+        -0.00296
+      ],
+      "focus": {
+        "position": [
+          -0.13125,
+          0.37272,
+          -0.00356
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.57025,
+        0.59082,
+        0.57074
+      ],
+      "vertexCount": 2096,
+      "faceCount": 2084
+    },
+    {
+      "id": "ilio-coccygien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left iliococcygeus",
+        "right iliococcygeus"
+      ],
+      "fmaIds": [
+        "FMA45859",
+        "FMA45858"
+      ],
+      "fileIds": [
+        "FJ1453M",
+        "FJ2544",
+        "FJ2549"
+      ],
+      "centroid": [
+        0.00813,
+        -0.06469,
+        -0.0009
+      ],
+      "focus": {
+        "position": [
+          -0.02983,
+          -0.06528,
+          -0.00172
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.46392,
+        0.20021,
+        0.86296
+      ],
+      "vertexCount": 4995,
+      "faceCount": 9000
+    },
+    {
+      "id": "iliocostal-cervical",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right iliocostalis cervicis",
+        "left iliocostalis cervicis"
+      ],
+      "fmaIds": [
+        "FMA22744",
+        "FMA22745"
+      ],
+      "fileIds": [
+        "FJ1526",
+        "FJ1526M"
+      ],
+      "centroid": [
+        0.00059,
+        0.47182,
+        -0.00266
+      ],
+      "focus": {
+        "position": [
+          -0.05155,
+          0.47181,
+          -0.00288
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.24309,
+        0.88124,
+        0.40536
+      ],
+      "vertexCount": 4640,
+      "faceCount": 6144
+    },
+    {
+      "id": "iliocostal-lombaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right iliocostalis lumborum",
+        "left iliocostalis lumborum"
+      ],
+      "fmaIds": [
+        "FMA22740",
+        "FMA22741"
+      ],
+      "fileIds": [
+        "FJ1527",
+        "FJ1527M"
+      ],
+      "centroid": [
+        0.00259,
+        0.14044,
+        -0.03088
+      ],
+      "focus": {
+        "position": [
+          -0.0516,
+          0.14613,
+          -0.03081
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.21309,
+        0.9769,
+        0.0159
+      ],
+      "vertexCount": 5936,
+      "faceCount": 9000
+    },
+    {
+      "id": "iliocostal-thoracique",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right iliocostalis thoracis",
+        "left iliocostalis thoracis"
+      ],
+      "fmaIds": [
+        "FMA22742",
+        "FMA22743"
+      ],
+      "fileIds": [
+        "FJ1528",
+        "FJ1528M"
+      ],
+      "centroid": [
+        0.01173,
+        0.35129,
+        -0.02258
+      ],
+      "focus": {
+        "position": [
+          -0.06868,
+          0.35109,
+          -0.02269
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.01977,
+        0.99338,
+        0.11315
+      ],
+      "vertexCount": 5314,
+      "faceCount": 9000
+    },
+    {
+      "id": "iliopsoas",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right psoas major",
+        "left psoas major",
+        "right iliacus",
+        "left iliacus"
+      ],
+      "fmaIds": [
+        "FMA22342",
+        "FMA22343",
+        "FMA22322",
+        "FMA22323"
+      ],
+      "fileIds": [
+        "FJ1422",
+        "FJ1422M",
+        "FJ1431",
+        "FJ1431M"
+      ],
+      "centroid": [
+        0.00405,
+        0.06209,
+        0.04051
+      ],
+      "focus": {
+        "position": [
+          -0.0646,
+          0.06191,
+          0.04022
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.25252,
+        0.96719,
+        -0.02797
+      ],
+      "vertexCount": 5697,
+      "faceCount": 9000
+    },
+    {
+      "id": "infra-epineux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right infraspinatus muscle",
+        "left infraspinatus muscle"
+      ],
+      "fmaIds": [
+        "FMA32547",
+        "FMA32548"
+      ],
+      "fileIds": [
+        "FJ1500",
+        "FJ1500M"
+      ],
+      "centroid": [
+        -0.00027,
+        0.4275,
+        -0.00464
+      ],
+      "focus": {
+        "position": [
+          -0.13164,
+          0.42768,
+          -0.00506
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.57393,
+        0.81393,
+        -0.09008
+      ],
+      "vertexCount": 1481,
+      "faceCount": 1732
+    },
+    {
+      "id": "inter-epineux-thoraciques",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right interspinalis thoracis",
+        "left interspinalis thoracis"
+      ],
+      "fmaIds": [
+        "FMA22890",
+        "FMA22891"
+      ],
+      "fileIds": [
+        "FJ1551",
+        "FJ1551M"
+      ],
+      "centroid": [
+        0.00058,
+        0.46588,
+        -0.02877
+      ],
+      "focus": {
+        "position": [
+          -0.0019,
+          0.46545,
+          -0.02896
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.02723,
+        0.94403,
+        0.32872
+      ],
+      "vertexCount": 851,
+      "faceCount": 820
+    },
+    {
+      "id": "intercostaux-externes",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "external intercostal muscle"
+      ],
+      "fmaIds": [
+        "FMA9756"
+      ],
+      "fileIds": [
+        "FJ1451",
+        "FJ1451M"
+      ],
+      "centroid": [
+        0.00044,
+        0.34162,
+        0.02929
+      ],
+      "focus": {
+        "position": [
+          -0.09351,
+          0.34165,
+          0.02942
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.15433,
+        0.98744,
+        -0.03382
+      ],
+      "vertexCount": 17877,
+      "faceCount": 22811
+    },
+    {
+      "id": "intercostaux-internes",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "internal intercostal muscle"
+      ],
+      "fmaIds": [
+        "FMA9757"
+      ],
+      "fileIds": [
+        "FJ1455",
+        "FJ1455M"
+      ],
+      "centroid": [
+        0.00021,
+        0.30825,
+        0.05478
+      ],
+      "focus": {
+        "position": [
+          -0.09962,
+          0.3083,
+          0.05417
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.0423,
+        0.99749,
+        0.0568
+      ],
+      "vertexCount": 12852,
+      "faceCount": 16725
+    },
+    {
+      "id": "intercostaux-intimes",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "innermost intercostal muscle"
+      ],
+      "fmaIds": [
+        "FMA9758"
+      ],
+      "fileIds": [
+        "FJ1454",
+        "FJ1454M"
+      ],
+      "centroid": [
+        0.00054,
+        0.30086,
+        0.04063
+      ],
+      "focus": {
+        "position": [
+          -0.1073,
+          0.30088,
+          0.04024
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.08161,
+        0.99666,
+        0.00352
+      ],
+      "vertexCount": 16518,
+      "faceCount": 22185
+    },
+    {
+      "id": "intertransversaire-lombaire-lateral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "lateral lumbar intertransversarius"
+      ],
+      "fmaIds": [
+        "FMA22850"
+      ],
+      "fileIds": [
+        "FJ1547",
+        "FJ1547M"
+      ],
+      "centroid": [
+        0.00039,
+        0.1542,
+        0.01641
+      ],
+      "focus": {
+        "position": [
+          -0.03144,
+          0.15422,
+          0.01627
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.11975,
+        0.9864,
+        -0.1126
+      ],
+      "vertexCount": 3256,
+      "faceCount": 2724
+    },
+    {
+      "id": "intertransversaire-lombaire-medial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "medial lumbar intertransversarius"
+      ],
+      "fmaIds": [
+        "FMA22851"
+      ],
+      "fileIds": [
+        "FJ1548",
+        "FJ1548M"
+      ],
+      "centroid": [
+        0.00033,
+        0.13302,
+        0.02171
+      ],
+      "focus": {
+        "position": [
+          -0.03281,
+          0.13306,
+          0.02157
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.1168,
+        0.9929,
+        -0.02251
+      ],
+      "vertexCount": 2829,
+      "faceCount": 3472
+    },
+    {
+      "id": "jumeau-inferieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left gemellus inferior",
+        "right gemellus inferior"
+      ],
+      "fmaIds": [
+        "FMA22337",
+        "FMA22336"
+      ],
+      "fileIds": [
+        "FJ1416",
+        "FJ1416M"
+      ],
+      "centroid": [
+        0.00047,
+        -0.0698,
+        -0.00211
+      ],
+      "focus": {
+        "position": [
+          -0.07676,
+          -0.0698,
+          -0.00244
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.31577,
+        0.92751,
+        0.20006
+      ],
+      "vertexCount": 1006,
+      "faceCount": 1284
+    },
+    {
+      "id": "jumeau-superieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right gemellus superior",
+        "left gemellus superior"
+      ],
+      "fmaIds": [
+        "FMA22334",
+        "FMA22335"
+      ],
+      "fileIds": [
+        "FJ1417",
+        "FJ1417M"
+      ],
+      "centroid": [
+        0.00067,
+        -0.04889,
+        0.00304
+      ],
+      "focus": {
+        "position": [
+          -0.07158,
+          -0.04888,
+          0.00268
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.33053,
+        0.38893,
+        0.85993
+      ],
+      "vertexCount": 1052,
+      "faceCount": 804
+    },
+    {
+      "id": "long-abducteur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right abductor pollicis longus",
+        "left abductor pollicis longus"
+      ],
+      "fmaIds": [
+        "FMA38516",
+        "FMA38517"
+      ],
+      "fileIds": [
+        "FJ1484",
+        "FJ1484M"
+      ],
+      "centroid": [
+        0.00022,
+        0.01627,
+        0.052
+      ],
+      "focus": {
+        "position": [
+          -0.25441,
+          0.01618,
+          0.05093
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.30932,
+        0.91032,
+        -0.27502
+      ],
+      "vertexCount": 2878,
+      "faceCount": 3748
+    },
+    {
+      "id": "long-adducteur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right adductor longus",
+        "left adductor longus"
+      ],
+      "fmaIds": [
+        "FMA22456",
+        "FMA22457"
+      ],
+      "fileIds": [
+        "FJ1402",
+        "FJ1402M"
+      ],
+      "centroid": [
+        0.00017,
+        -0.21186,
+        0.06713
+      ],
+      "focus": {
+        "position": [
+          -0.06074,
+          -0.21186,
+          0.06687
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.214,
+        0.96726,
+        0.13645
+      ],
+      "vertexCount": 3072,
+      "faceCount": 5232
+    },
+    {
+      "id": "long-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left longus capitis",
+        "right longus capitis"
+      ],
+      "fmaIds": [
+        "FMA46310",
+        "FMA46309"
+      ],
+      "fileIds": [
+        "FJ1561",
+        "FJ1582"
+      ],
+      "centroid": [
+        -0.00107,
+        0.57481,
+        0.04463
+      ],
+      "focus": {
+        "position": [
+          -0.01786,
+          0.57542,
+          0.04459
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.18042,
+        0.98186,
+        0.05826
+      ],
+      "vertexCount": 4789,
+      "faceCount": 7854
+    },
+    {
+      "id": "long-du-cou",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "inferior oblique part of left longus colli",
+        "superior oblique part of left longus colli",
+        "vertical intermediate part of left longus colli"
+      ],
+      "fmaIds": [
+        "FMA46288",
+        "FMA46284",
+        "FMA46286"
+      ],
+      "fileIds": [
+        "FJ1557",
+        "FJ1600",
+        "FJ1601"
+      ],
+      "centroid": [
+        0.01009,
+        0.54026,
+        0.04099
+      ],
+      "focus": {
+        "position": [
+          -0.00011,
+          0.60482,
+          0.04455
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.01522,
+        0.99939,
+        -0.0313
+      ],
+      "vertexCount": 4516,
+      "faceCount": 7162
+    },
+    {
+      "id": "long-extenseur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right extensor pollicis longus",
+        "left extensor pollicis longus"
+      ],
+      "fmaIds": [
+        "FMA38522",
+        "FMA38523"
+      ],
+      "fileIds": [
+        "FJ1495",
+        "FJ1495M"
+      ],
+      "centroid": [
+        0.00019,
+        -0.04582,
+        0.07654
+      ],
+      "focus": {
+        "position": [
+          -0.27089,
+          -0.04593,
+          0.07542
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.45911,
+        0.81367,
+        -0.35659
+      ],
+      "vertexCount": 2355,
+      "faceCount": 2652
+    },
+    {
+      "id": "long-extenseur-radial-du-carpe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left extensor carpi radialis longus",
+        "right extensor carpi radialis longus"
+      ],
+      "fmaIds": [
+        "FMA38496",
+        "FMA38495"
+      ],
+      "fileIds": [
+        "FJ1490",
+        "FJ1490M"
+      ],
+      "centroid": [
+        0.00072,
+        0.09569,
+        0.03736
+      ],
+      "focus": {
+        "position": [
+          -0.25389,
+          0.0956,
+          0.03628
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.13681,
+        0.97121,
+        -0.19503
+      ],
+      "vertexCount": 3396,
+      "faceCount": 4948
+    },
+    {
+      "id": "long-fibulaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right fibularis longus",
+        "left fibularis longus"
+      ],
+      "fmaIds": [
+        "FMA22552",
+        "FMA22553"
+      ],
+      "fileIds": [
+        "FJ1410",
+        "FJ1410M"
+      ],
+      "centroid": [
+        0.00038,
+        -0.73416,
+        0.02392
+      ],
+      "focus": {
+        "position": [
+          -0.10196,
+          -0.73427,
+          0.02349
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.06348,
+        0.99027,
+        -0.1238
+      ],
+      "vertexCount": 5893,
+      "faceCount": 7720
+    },
+    {
+      "id": "long-flechisseur-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left flexor pollicis longus",
+        "right flexor pollicis longus"
+      ],
+      "fmaIds": [
+        "FMA38484",
+        "FMA38482"
+      ],
+      "fileIds": [
+        "FJ1498",
+        "FJ1498M"
+      ],
+      "centroid": [
+        0.00037,
+        -0.01138,
+        0.0719
+      ],
+      "focus": {
+        "position": [
+          -0.26974,
+          -0.01141,
+          0.07075
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.27688,
+        0.89516,
+        -0.34933
+      ],
+      "vertexCount": 3563,
+      "faceCount": 2884
+    },
+    {
+      "id": "long-palmaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right palmaris longus",
+        "left palmaris longus"
+      ],
+      "fmaIds": [
+        "FMA38463",
+        "FMA38464"
+      ],
+      "fileIds": [
+        "FJ1502",
+        "FJ1502M"
+      ],
+      "centroid": [
+        0.0093,
+        -0.03428,
+        0.08594
+      ],
+      "focus": {
+        "position": [
+          -0.2389,
+          -0.03192,
+          0.08441
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.24636,
+        0.95061,
+        -0.18879
+      ],
+      "vertexCount": 4750,
+      "faceCount": 8999
+    },
+    {
+      "id": "longissimus-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right longissimus capitis",
+        "left longissimus capitis"
+      ],
+      "fmaIds": [
+        "FMA22754",
+        "FMA22756"
+      ],
+      "fileIds": [
+        "FJ1533",
+        "FJ1533M"
+      ],
+      "centroid": [
+        0.00041,
+        0.55119,
+        0.02259
+      ],
+      "focus": {
+        "position": [
+          -0.03488,
+          0.55117,
+          0.02246
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.17408,
+        0.97542,
+        0.1351
+      ],
+      "vertexCount": 3645,
+      "faceCount": 4520
+    },
+    {
+      "id": "longissimus-du-cou",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left longissimus cervicis",
+        "right longissimus cervicis"
+      ],
+      "fmaIds": [
+        "FMA22758",
+        "FMA22757"
+      ],
+      "fileIds": [
+        "FJ1534",
+        "FJ1534M"
+      ],
+      "centroid": [
+        0.00046,
+        0.49602,
+        0.00668
+      ],
+      "focus": {
+        "position": [
+          -0.02965,
+          0.49608,
+          0.00658
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.03561,
+        0.92677,
+        0.37394
+      ],
+      "vertexCount": 4655,
+      "faceCount": 5632
+    },
+    {
+      "id": "longissimus-du-thorax",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left longissimus thoracis",
+        "right longissimus thoracis"
+      ],
+      "fmaIds": [
+        "FMA22753",
+        "FMA22751"
+      ],
+      "fileIds": [
+        "FJ1535",
+        "FJ1535M"
+      ],
+      "centroid": [
+        -0.00076,
+        0.26579,
+        -0.0166
+      ],
+      "focus": {
+        "position": [
+          -0.03289,
+          0.26716,
+          -0.01703
+        ],
+        "distance": 0.621
+      },
+      "fiberAxis": [
+        -0.08304,
+        0.99652,
+        -0.0075
+      ],
+      "vertexCount": 7447,
+      "faceCount": 9000
+    },
+    {
+      "id": "moyen-fessier",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right gluteus medius",
+        "left gluteus medius"
+      ],
+      "fmaIds": [
+        "FMA22330",
+        "FMA22331"
+      ],
+      "fileIds": [
+        "FJ1419",
+        "FJ1419M"
+      ],
+      "centroid": [
+        0.00029,
+        0.01535,
+        0.01135
+      ],
+      "focus": {
+        "position": [
+          -0.1127,
+          0.01534,
+          0.01088
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.25095,
+        0.96753,
+        0.03001
+      ],
+      "vertexCount": 4620,
+      "faceCount": 6712
+    },
+    {
+      "id": "mylo-hyoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left mylohyoid",
+        "right mylohyoid"
+      ],
+      "fmaIds": [
+        "FMA46322",
+        "FMA46321"
+      ],
+      "fileIds": [
+        "FJ1562",
+        "FJ1583"
+      ],
+      "centroid": [
+        -0.00086,
+        0.57333,
+        0.09576
+      ],
+      "focus": {
+        "position": [
+          -0.00728,
+          0.57293,
+          0.09656
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.4835,
+        0.30377,
+        -0.82095
+      ],
+      "vertexCount": 2524,
+      "faceCount": 3894
+    },
+    {
+      "id": "oblique-externe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right external oblique",
+        "left external oblique"
+      ],
+      "fmaIds": [
+        "FMA13336",
+        "FMA13337"
+      ],
+      "fileIds": [
+        "FJ1452",
+        "FJ1452M"
+      ],
+      "centroid": [
+        0.0007,
+        0.13056,
+        0.13427
+      ],
+      "focus": {
+        "position": [
+          -0.05131,
+          0.13029,
+          0.13463
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.08391,
+        0.99568,
+        0.03982
+      ],
+      "vertexCount": 5791,
+      "faceCount": 9000
+    },
+    {
+      "id": "oblique-inferieur-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left obliquus capitis inferior",
+        "right obliquus capitis inferior"
+      ],
+      "fmaIds": [
+        "FMA32537",
+        "FMA32536"
+      ],
+      "fileIds": [
+        "FJ1563",
+        "FJ1584"
+      ],
+      "centroid": [
+        0.00118,
+        0.58906,
+        0.01021
+      ],
+      "focus": {
+        "position": [
+          -0.01981,
+          0.58911,
+          0.00998
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.05895,
+        0.78003,
+        -0.62297
+      ],
+      "vertexCount": 1395,
+      "faceCount": 2076
+    },
+    {
+      "id": "oblique-superieur-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right obliquus capitis superior",
+        "left obliquus capitis superior"
+      ],
+      "fmaIds": [
+        "FMA32534",
+        "FMA32535"
+      ],
+      "fileIds": [
+        "FJ1564",
+        "FJ1585"
+      ],
+      "centroid": [
+        -0.00105,
+        0.6213,
+        -0.00296
+      ],
+      "focus": {
+        "position": [
+          -0.0381,
+          0.6216,
+          -0.00348
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.13038,
+        0.39485,
+        -0.90945
+      ],
+      "vertexCount": 3023,
+      "faceCount": 2828
+    },
+    {
+      "id": "obturateur-externe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right obturator externus",
+        "left obturator externus"
+      ],
+      "fmaIds": [
+        "FMA22326",
+        "FMA22327"
+      ],
+      "fileIds": [
+        "FJ1425",
+        "FJ1425M"
+      ],
+      "centroid": [
+        0.00032,
+        -0.08023,
+        0.03329
+      ],
+      "focus": {
+        "position": [
+          -0.05932,
+          -0.08023,
+          0.03304
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.27716,
+        0.44576,
+        0.85116
+      ],
+      "vertexCount": 1430,
+      "faceCount": 1568
+    },
+    {
+      "id": "obturateur-interne",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right obturator internus",
+        "left obturator internus"
+      ],
+      "fmaIds": [
+        "FMA22324",
+        "FMA22325"
+      ],
+      "fileIds": [
+        "FJ1426",
+        "FJ1426M"
+      ],
+      "centroid": [
+        0.00034,
+        -0.0607,
+        0.03179
+      ],
+      "focus": {
+        "position": [
+          -0.04933,
+          -0.06071,
+          0.03158
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.62151,
+        0.02343,
+        0.78306
+      ],
+      "vertexCount": 3767,
+      "faceCount": 4932
+    },
+    {
+      "id": "omo-hyoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right omohyoid",
+        "left omohyoid"
+      ],
+      "fmaIds": [
+        "FMA13348",
+        "FMA13349"
+      ],
+      "fileIds": [
+        "FJ1565",
+        "FJ1586"
+      ],
+      "centroid": [
+        0.00952,
+        0.49832,
+        0.03369
+      ],
+      "focus": {
+        "position": [
+          -0.06058,
+          0.49935,
+          0.03401
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.20442,
+        0.78507,
+        -0.5847
+      ],
+      "vertexCount": 4675,
+      "faceCount": 9000
+    },
+    {
+      "id": "opposant-du-petit-doigt",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "opponens digiti minimi of right hand",
+        "opponens digiti minimi of left hand"
+      ],
+      "fmaIds": [
+        "FMA37400",
+        "FMA37401"
+      ],
+      "fileIds": [
+        "FJ1482",
+        "FJ1482M"
+      ],
+      "centroid": [
+        -0.0003,
+        -0.10593,
+        0.09253
+      ],
+      "focus": {
+        "position": [
+          -0.23077,
+          -0.10594,
+          0.09154
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.30848,
+        0.94339,
+        -0.12189
+      ],
+      "vertexCount": 1250,
+      "faceCount": 968
+    },
+    {
+      "id": "opposant-du-petit-orteil",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "opponens digiti minimi of left foot",
+        "opponens digiti minimi of right foot"
+      ],
+      "fmaIds": [
+        "FMA86035",
+        "FMA86034"
+      ],
+      "fileIds": [
+        "FJ1399",
+        "FJ1399M"
+      ],
+      "centroid": [
+        0.00017,
+        -0.91566,
+        0.06785
+      ],
+      "focus": {
+        "position": [
+          -0.12026,
+          -0.91566,
+          0.06733
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.61398,
+        0.17203,
+        -0.77034
+      ],
+      "vertexCount": 534,
+      "faceCount": 400
+    },
+    {
+      "id": "opposant-du-pouce",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right opponens pollicis",
+        "left opponens pollicis"
+      ],
+      "fmaIds": [
+        "FMA37390",
+        "FMA37391"
+      ],
+      "fileIds": [
+        "FJ1501",
+        "FJ1501M"
+      ],
+      "centroid": [
+        5e-05,
+        -0.072,
+        0.096
+      ],
+      "focus": {
+        "position": [
+          -0.28215,
+          -0.072,
+          0.09478
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.54441,
+        0.68356,
+        -0.48618
+      ],
+      "vertexCount": 2030,
+      "faceCount": 1912
+    },
+    {
+      "id": "peaucier-du-cou",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right platysma",
+        "left platysma"
+      ],
+      "fmaIds": [
+        "FMA45739",
+        "FMA45740"
+      ],
+      "fileIds": [
+        "FJ1558",
+        "FJ1587"
+      ],
+      "centroid": [
+        0.00715,
+        0.51842,
+        0.07455
+      ],
+      "focus": {
+        "position": [
+          -0.0399,
+          0.52011,
+          0.07583
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.6148,
+        0.63352,
+        0.46975
+      ],
+      "vertexCount": 4915,
+      "faceCount": 9000
+    },
+    {
+      "id": "pectine",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left pectineus",
+        "right pectineus"
+      ],
+      "fmaIds": [
+        "FMA22451",
+        "FMA22450"
+      ],
+      "fileIds": [
+        "FJ1427",
+        "FJ1427M"
+      ],
+      "centroid": [
+        0.00017,
+        -0.09897,
+        0.06809
+      ],
+      "focus": {
+        "position": [
+          -0.06008,
+          -0.09897,
+          0.06783
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.42097,
+        0.87099,
+        0.25328
+      ],
+      "vertexCount": 1926,
+      "faceCount": 2760
+    },
+    {
+      "id": "petit-adducteur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right adductor minimus",
+        "left adductor minimus"
+      ],
+      "fmaIds": [
+        "FMA43886",
+        "FMA43887"
+      ],
+      "fileIds": [
+        "FJ1404",
+        "FJ1404M"
+      ],
+      "centroid": [
+        0.0002,
+        -0.16464,
+        0.03832
+      ],
+      "focus": {
+        "position": [
+          -0.08812,
+          -0.16466,
+          0.03794
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.57392,
+        0.78025,
+        0.24865
+      ],
+      "vertexCount": 3197,
+      "faceCount": 3916
+    },
+    {
+      "id": "petit-droit-posterieur-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left rectus capitis posterior minor",
+        "right rectus capitis posterior minor"
+      ],
+      "fmaIds": [
+        "FMA32533",
+        "FMA32532"
+      ],
+      "fileIds": [
+        "FJ1568",
+        "FJ1590"
+      ],
+      "centroid": [
+        0.0001,
+        0.61841,
+        -0.01637
+      ],
+      "focus": {
+        "position": [
+          -0.01125,
+          0.61872,
+          -0.01672
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.34891,
+        0.66951,
+        -0.65576
+      ],
+      "vertexCount": 1430,
+      "faceCount": 1746
+    },
+    {
+      "id": "petit-fessier",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left gluteus minimus",
+        "right gluteus minimus"
+      ],
+      "fmaIds": [
+        "FMA22333",
+        "FMA22332"
+      ],
+      "fileIds": [
+        "FJ1420",
+        "FJ1420M"
+      ],
+      "centroid": [
+        0.00035,
+        0.00059,
+        0.0263
+      ],
+      "focus": {
+        "position": [
+          -0.11231,
+          0.00059,
+          0.02581
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.33499,
+        0.94214,
+        0.01202
+      ],
+      "vertexCount": 6132,
+      "faceCount": 8416
+    },
+    {
+      "id": "petit-pectoral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right pectoralis minor",
+        "left pectoralis minor"
+      ],
+      "fmaIds": [
+        "FMA13375",
+        "FMA13376"
+      ],
+      "fileIds": [
+        "FJ1456",
+        "FJ1456M"
+      ],
+      "centroid": [
+        0.00611,
+        0.38975,
+        0.09664
+      ],
+      "focus": {
+        "position": [
+          -0.10332,
+          0.38984,
+          0.09562
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.1195,
+        0.8507,
+        -0.51188
+      ],
+      "vertexCount": 5573,
+      "faceCount": 9000
+    },
+    {
+      "id": "petit-rhomboide",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right rhomboid minor",
+        "left rhomboid minor"
+      ],
+      "fmaIds": [
+        "FMA13383",
+        "FMA13384"
+      ],
+      "fileIds": [
+        "FJ1537",
+        "FJ1537M"
+      ],
+      "centroid": [
+        0.00057,
+        0.47174,
+        -0.02716
+      ],
+      "focus": {
+        "position": [
+          -0.03007,
+          0.4712,
+          -0.02748
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.54707,
+        0.82495,
+        0.14205
+      ],
+      "vertexCount": 3011,
+      "faceCount": 4412
+    },
+    {
+      "id": "petit-rond",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right teres minor",
+        "left teres minor"
+      ],
+      "fmaIds": [
+        "FMA32553",
+        "FMA32554"
+      ],
+      "fileIds": [
+        "FJ1508",
+        "FJ1508M"
+      ],
+      "centroid": [
+        0.00023,
+        0.40825,
+        -0.00233
+      ],
+      "focus": {
+        "position": [
+          -0.14259,
+          0.40829,
+          -0.00291
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.62372,
+        0.65886,
+        0.42056
+      ],
+      "vertexCount": 783,
+      "faceCount": 1012
+    },
+    {
+      "id": "piriforme",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right piriformis",
+        "left piriformis"
+      ],
+      "fmaIds": [
+        "FMA22340",
+        "FMA22341"
+      ],
+      "fileIds": [
+        "FJ1428",
+        "FJ1428M"
+      ],
+      "centroid": [
+        0.0003,
+        -0.0204,
+        -0.00143
+      ],
+      "focus": {
+        "position": [
+          -0.06813,
+          -0.02044,
+          -0.00169
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.18871,
+        0.76942,
+        0.61023
+      ],
+      "vertexCount": 1594,
+      "faceCount": 2184
+    },
+    {
+      "id": "plantaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left plantaris",
+        "right plantaris"
+      ],
+      "fmaIds": [
+        "FMA22561",
+        "FMA22560"
+      ],
+      "fileIds": [
+        "FJ1429",
+        "FJ1429M"
+      ],
+      "centroid": [
+        0.00041,
+        -0.60722,
+        0.01218
+      ],
+      "focus": {
+        "position": [
+          -0.0673,
+          -0.60722,
+          0.01189
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.11056,
+        0.9922,
+        0.05766
+      ],
+      "vertexCount": 2932,
+      "faceCount": 5024
+    },
+    {
+      "id": "poplite",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right popliteus",
+        "left popliteus"
+      ],
+      "fmaIds": [
+        "FMA22591",
+        "FMA22592"
+      ],
+      "fileIds": [
+        "FJ1430",
+        "FJ1430M"
+      ],
+      "centroid": [
+        0.0004,
+        -0.52655,
+        0.02933
+      ],
+      "focus": {
+        "position": [
+          -0.07824,
+          -0.52655,
+          0.02899
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.34572,
+        0.90973,
+        -0.22994
+      ],
+      "vertexCount": 1177,
+      "faceCount": 1716
+    },
+    {
+      "id": "premier-interosseux-plantaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "first plantar interosseous of left foot",
+        "first plantar interosseous of right foot"
+      ],
+      "fmaIds": [
+        "FMA37746",
+        "FMA37745"
+      ],
+      "fileIds": [
+        "FJ1384",
+        "FJ1384M"
+      ],
+      "centroid": [
+        -0.00024,
+        -0.90708,
+        0.11301
+      ],
+      "focus": {
+        "position": [
+          -0.1154,
+          -0.90709,
+          0.11252
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.37232,
+        0.39922,
+        -0.83786
+      ],
+      "vertexCount": 1124,
+      "faceCount": 1348
+    },
+    {
+      "id": "premier-lombrical-du-pied",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "first lumbrical of left foot",
+        "first lumbrical of right foot"
+      ],
+      "fmaIds": [
+        "FMA37718",
+        "FMA37717"
+      ],
+      "fileIds": [
+        "FJ1383",
+        "FJ1383M"
+      ],
+      "centroid": [
+        6e-05,
+        -0.91319,
+        0.09244
+      ],
+      "focus": {
+        "position": [
+          -0.09058,
+          -0.91319,
+          0.09205
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.36393,
+        0.18007,
+        -0.91386
+      ],
+      "vertexCount": 1676,
+      "faceCount": 1292
+    },
+    {
+      "id": "pubo-coccygien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left pubococcygeus",
+        "right pubococcygeus"
+      ],
+      "fmaIds": [
+        "FMA45855",
+        "FMA45854"
+      ],
+      "fileIds": [
+        "FJ1457M",
+        "FJ2545",
+        "FJ2550"
+      ],
+      "centroid": [
+        0.00648,
+        -0.0735,
+        0.00822
+      ],
+      "focus": {
+        "position": [
+          -0.0182,
+          -0.07339,
+          0.00719
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.12926,
+        0.16727,
+        -0.9774
+      ],
+      "vertexCount": 5090,
+      "faceCount": 9000
+    },
+    {
+      "id": "pubo-rectal",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left puborectalis",
+        "right puborectalis"
+      ],
+      "fmaIds": [
+        "FMA45857",
+        "FMA45856"
+      ],
+      "fileIds": [
+        "FJ1458M",
+        "FJ2546",
+        "FJ2551"
+      ],
+      "centroid": [
+        0.00611,
+        -0.08171,
+        0.02614
+      ],
+      "focus": {
+        "position": [
+          -0.01745,
+          -0.08235,
+          0.02561
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.1226,
+        -0.12714,
+        -0.98428
+      ],
+      "vertexCount": 5057,
+      "faceCount": 9000
+    },
+    {
+      "id": "quatrieme-lombrical-du-pied",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "fourth lumbrical of right foot",
+        "fourth lumbrical of left foot"
+      ],
+      "fmaIds": [
+        "FMA37483",
+        "FMA37484"
+      ],
+      "fileIds": [
+        "FJ1389",
+        "FJ1389M"
+      ],
+      "centroid": [
+        6e-05,
+        -0.91998,
+        0.09224
+      ],
+      "focus": {
+        "position": [
+          -0.1213,
+          -0.91998,
+          0.09172
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.52481,
+        0.45574,
+        0.71894
+      ],
+      "vertexCount": 820,
+      "faceCount": 656
+    },
+    {
+      "id": "rond-pronateur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "humeral head of right pronator teres",
+        "ulnar head of right pronator teres",
+        "humeral head of left pronator teres",
+        "ulnar head of left pronator teres"
+      ],
+      "fmaIds": [
+        "FMA38560",
+        "FMA38562",
+        "FMA38561",
+        "FMA38563"
+      ],
+      "fileIds": [
+        "FJ1474",
+        "FJ1474M",
+        "FJ1516",
+        "FJ1516M"
+      ],
+      "centroid": [
+        0.00079,
+        0.11262,
+        0.04554
+      ],
+      "focus": {
+        "position": [
+          -0.23579,
+          0.11257,
+          0.04452
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.45224,
+        0.88934,
+        -0.06747
+      ],
+      "vertexCount": 4769,
+      "faceCount": 5772
+    },
+    {
+      "id": "rotateurs-cervicaux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left cervical rotator",
+        "right cervical rotator"
+      ],
+      "fmaIds": [
+        "FMA81753",
+        "FMA81752"
+      ],
+      "fileIds": [
+        "FJ1524",
+        "FJ1524M"
+      ],
+      "centroid": [
+        0.00039,
+        0.55754,
+        0.01405
+      ],
+      "focus": {
+        "position": [
+          -0.01007,
+          0.55703,
+          0.01411
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.08952,
+        0.98697,
+        -0.13368
+      ],
+      "vertexCount": 9088,
+      "faceCount": 7068
+    },
+    {
+      "id": "rotateurs-lombaires",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right lumbar rotator",
+        "left lumbar rotator"
+      ],
+      "fmaIds": [
+        "FMA23089",
+        "FMA23090"
+      ],
+      "fileIds": [
+        "FJ1522",
+        "FJ1522M"
+      ],
+      "centroid": [
+        0.00088,
+        0.15256,
+        0.0125
+      ],
+      "focus": {
+        "position": [
+          -0.01674,
+          0.15165,
+          0.01264
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.1042,
+        0.99001,
+        -0.09504
+      ],
+      "vertexCount": 4660,
+      "faceCount": 9000
+    },
+    {
+      "id": "rotateurs-thoraciques",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "thoracic rotator"
+      ],
+      "fmaIds": [
+        "FMA23083"
+      ],
+      "fileIds": [
+        "FJ1525",
+        "FJ1525M"
+      ],
+      "centroid": [
+        0.00086,
+        0.37816,
+        -0.01329
+      ],
+      "focus": {
+        "position": [
+          -0.01165,
+          0.38082,
+          -0.0134
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.00247,
+        0.99831,
+        0.05801
+      ],
+      "vertexCount": 7583,
+      "faceCount": 9000
+    },
+    {
+      "id": "sartorius",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right sartorius",
+        "left sartorius"
+      ],
+      "fmaIds": [
+        "FMA22354",
+        "FMA22355"
+      ],
+      "fileIds": [
+        "FJ1434",
+        "FJ1434M"
+      ],
+      "centroid": [
+        0.0002,
+        -0.25465,
+        0.07611
+      ],
+      "focus": {
+        "position": [
+          -0.07519,
+          -0.25477,
+          0.07578
+        ],
+        "distance": 0.749
+      },
+      "fiberAxis": [
+        -0.12711,
+        0.99106,
+        0.0405
+      ],
+      "vertexCount": 5263,
+      "faceCount": 6888
+    },
+    {
+      "id": "scalene-anterieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right scalenus anterior",
+        "left scalenus anterior"
+      ],
+      "fmaIds": [
+        "FMA13392",
+        "FMA13393"
+      ],
+      "fileIds": [
+        "FJ1570",
+        "FJ1592"
+      ],
+      "centroid": [
+        -0.00063,
+        0.51982,
+        0.04396
+      ],
+      "focus": {
+        "position": [
+          -0.03321,
+          0.51995,
+          0.04381
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.3333,
+        0.92844,
+        -0.16404
+      ],
+      "vertexCount": 3370,
+      "faceCount": 5228
+    },
+    {
+      "id": "scalene-moyen",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left scalenus medius",
+        "right scalenus medius"
+      ],
+      "fmaIds": [
+        "FMA13391",
+        "FMA13390"
+      ],
+      "fileIds": [
+        "FJ1571",
+        "FJ1593"
+      ],
+      "centroid": [
+        -0.00072,
+        0.52883,
+        0.03504
+      ],
+      "focus": {
+        "position": [
+          -0.03519,
+          0.52914,
+          0.03492
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.26698,
+        0.96303,
+        -0.03603
+      ],
+      "vertexCount": 5984,
+      "faceCount": 8176
+    },
+    {
+      "id": "scalene-posterieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right scalenus posterior",
+        "left scalenus posterior"
+      ],
+      "fmaIds": [
+        "FMA13388",
+        "FMA13389"
+      ],
+      "fileIds": [
+        "FJ1572",
+        "FJ1594"
+      ],
+      "centroid": [
+        -0.00159,
+        0.50642,
+        0.02724
+      ],
+      "focus": {
+        "position": [
+          -0.04775,
+          0.50589,
+          0.02688
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.6144,
+        0.74616,
+        0.25643
+      ],
+      "vertexCount": 3899,
+      "faceCount": 5534
+    },
+    {
+      "id": "semi-epineux-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right semispinalis capitis",
+        "left semispinalis capitis"
+      ],
+      "fmaIds": [
+        "FMA22876",
+        "FMA22877"
+      ],
+      "fileIds": [
+        "FJ1538",
+        "FJ1538M"
+      ],
+      "centroid": [
+        0.00051,
+        0.60713,
+        -0.01047
+      ],
+      "focus": {
+        "position": [
+          -0.0254,
+          0.60702,
+          -0.01054
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.03772,
+        0.89859,
+        -0.43717
+      ],
+      "vertexCount": 5480,
+      "faceCount": 3824
+    },
+    {
+      "id": "semi-epineux-du-cou",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left semispinalis cervicis",
+        "right semispinalis cervicis"
+      ],
+      "fmaIds": [
+        "FMA22875",
+        "FMA22874"
+      ],
+      "fileIds": [
+        "FJ1539",
+        "FJ1539M"
+      ],
+      "centroid": [
+        0.00044,
+        0.50027,
+        -0.00239
+      ],
+      "focus": {
+        "position": [
+          -0.01503,
+          0.50007,
+          -0.0025
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.17373,
+        0.95354,
+        0.24615
+      ],
+      "vertexCount": 6107,
+      "faceCount": 6812
+    },
+    {
+      "id": "semi-epineux-du-thorax",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left semispinalis thoracis",
+        "right semispinalis thoracis"
+      ],
+      "fmaIds": [
+        "FMA22873",
+        "FMA22872"
+      ],
+      "fileIds": [
+        "FJ1540",
+        "FJ1540M"
+      ],
+      "centroid": [
+        -0.00077,
+        0.36299,
+        -0.02665
+      ],
+      "focus": {
+        "position": [
+          -0.01437,
+          0.36222,
+          -0.02675
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.05834,
+        0.99548,
+        -0.07496
+      ],
+      "vertexCount": 4769,
+      "faceCount": 9000
+    },
+    {
+      "id": "semi-membraneux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left semimembranosus",
+        "right semimembranosus"
+      ],
+      "fmaIds": [
+        "FMA22449",
+        "FMA22448"
+      ],
+      "fileIds": [
+        "FJ1435",
+        "FJ1435M"
+      ],
+      "centroid": [
+        -0.00111,
+        -0.32179,
+        0.01964
+      ],
+      "focus": {
+        "position": [
+          -0.04015,
+          -0.3237,
+          0.01956
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.01288,
+        0.99849,
+        -0.05347
+      ],
+      "vertexCount": 4512,
+      "faceCount": 8999
+    },
+    {
+      "id": "semi-tendineux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right semitendinosus",
+        "left semitendinosus"
+      ],
+      "fmaIds": [
+        "FMA22358",
+        "FMA22359"
+      ],
+      "fileIds": [
+        "FJ1436",
+        "FJ1436M"
+      ],
+      "centroid": [
+        0.00033,
+        -0.35826,
+        0.01676
+      ],
+      "focus": {
+        "position": [
+          -0.04977,
+          -0.35843,
+          0.01658
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.01948,
+        0.99409,
+        -0.10678
+      ],
+      "vertexCount": 3619,
+      "faceCount": 5424
+    },
+    {
+      "id": "soleaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left soleus",
+        "right soleus"
+      ],
+      "fmaIds": [
+        "FMA22559",
+        "FMA22558"
+      ],
+      "fileIds": [
+        "FJ1437",
+        "FJ1437M"
+      ],
+      "centroid": [
+        0.0004,
+        -0.63161,
+        0.01354
+      ],
+      "focus": {
+        "position": [
+          -0.08007,
+          -0.63161,
+          0.01319
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.15009,
+        0.98788,
+        0.03958
+      ],
+      "vertexCount": 5348,
+      "faceCount": 8836
+    },
+    {
+      "id": "sphincter-anal-externe",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "external anal sphincter"
+      ],
+      "fmaIds": [
+        "FMA21930"
+      ],
+      "fileIds": [
+        "FJ1450",
+        "FJ1450M",
+        "FJ2543",
+        "FJ2548"
+      ],
+      "centroid": [
+        0.00046,
+        -0.09678,
+        -0.01544
+      ],
+      "focus": {
+        "position": [
+          -0.00685,
+          -0.09675,
+          -0.01544
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.04238,
+        0.70716,
+        -0.70578
+      ],
+      "vertexCount": 990,
+      "faceCount": 1468
+    },
+    {
+      "id": "splenius-de-la-tete",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right splenius capitis",
+        "left splenius capitis"
+      ],
+      "fmaIds": [
+        "FMA22728",
+        "FMA22729"
+      ],
+      "fileIds": [
+        "FJ1545",
+        "FJ1545M"
+      ],
+      "centroid": [
+        0.00319,
+        0.5314,
+        -0.00911
+      ],
+      "focus": {
+        "position": [
+          -0.01837,
+          0.53336,
+          -0.00873
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.26009,
+        0.92153,
+        0.28834
+      ],
+      "vertexCount": 5035,
+      "faceCount": 9000
+    },
+    {
+      "id": "splenius-du-cou",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left splenius cervicis",
+        "right splenius cervicis"
+      ],
+      "fmaIds": [
+        "FMA22727",
+        "FMA22726"
+      ],
+      "fileIds": [
+        "FJ1546",
+        "FJ1546M"
+      ],
+      "centroid": [
+        0.00037,
+        0.44534,
+        -0.02596
+      ],
+      "focus": {
+        "position": [
+          -0.01395,
+          0.44815,
+          -0.02491
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.13824,
+        0.92693,
+        0.34883
+      ],
+      "vertexCount": 5049,
+      "faceCount": 8999
+    },
+    {
+      "id": "sterno-cleido-mastoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right sternocleidomastoid",
+        "left sternocleidomastoid"
+      ],
+      "fmaIds": [
+        "FMA13408",
+        "FMA13409"
+      ],
+      "fileIds": [
+        "FJ1573",
+        "FJ1595"
+      ],
+      "centroid": [
+        0.00016,
+        0.53423,
+        0.06125
+      ],
+      "focus": {
+        "position": [
+          -0.03984,
+          0.53804,
+          0.05891
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.16922,
+        0.87856,
+        -0.44665
+      ],
+      "vertexCount": 5255,
+      "faceCount": 8999
+    },
+    {
+      "id": "sterno-hyoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left sternohyoid",
+        "right sternohyoid"
+      ],
+      "fmaIds": [
+        "FMA13347",
+        "FMA13346"
+      ],
+      "fileIds": [
+        "FJ1574",
+        "FJ1596"
+      ],
+      "centroid": [
+        -0.00072,
+        0.49927,
+        0.07753
+      ],
+      "focus": {
+        "position": [
+          -0.01303,
+          0.49862,
+          0.0776
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.04233,
+        0.99548,
+        -0.08505
+      ],
+      "vertexCount": 3723,
+      "faceCount": 6194
+    },
+    {
+      "id": "sterno-thyroidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left sternothyroid",
+        "right sternothyroid"
+      ],
+      "fmaIds": [
+        "FMA13351",
+        "FMA13350"
+      ],
+      "fileIds": [
+        "FJ1575",
+        "FJ1597"
+      ],
+      "centroid": [
+        -0.00062,
+        0.48224,
+        0.07414
+      ],
+      "focus": {
+        "position": [
+          -0.01413,
+          0.48243,
+          0.07392
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.03009,
+        0.95354,
+        -0.29977
+      ],
+      "vertexCount": 3154,
+      "faceCount": 5198
+    },
+    {
+      "id": "stylo-hyoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left stylohyoid",
+        "right stylohyoid"
+      ],
+      "fmaIds": [
+        "FMA45827",
+        "FMA45826"
+      ],
+      "fileIds": [
+        "FJ1576",
+        "FJ1598"
+      ],
+      "centroid": [
+        -8e-05,
+        0.58702,
+        0.06647
+      ],
+      "focus": {
+        "position": [
+          -0.02362,
+          0.58795,
+          0.06579
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.37089,
+        0.76884,
+        -0.52088
+      ],
+      "vertexCount": 1752,
+      "faceCount": 2484
+    },
+    {
+      "id": "subclavier",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left subclavius",
+        "right subclavius"
+      ],
+      "fmaIds": [
+        "FMA13411",
+        "FMA13412"
+      ],
+      "fileIds": [
+        "FJ1460",
+        "FJ1460M"
+      ],
+      "centroid": [
+        0.0002,
+        0.46159,
+        0.07076
+      ],
+      "focus": {
+        "position": [
+          -0.06423,
+          0.46161,
+          0.07045
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.63698,
+        -0.10403,
+        -0.76383
+      ],
+      "vertexCount": 2313,
+      "faceCount": 3280
+    },
+    {
+      "id": "subscapulaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right subscapularis",
+        "left subscapularis"
+      ],
+      "fmaIds": [
+        "FMA13414",
+        "FMA13415"
+      ],
+      "fileIds": [
+        "FJ1504",
+        "FJ1504M"
+      ],
+      "centroid": [
+        0.00033,
+        0.4015,
+        -0.01488
+      ],
+      "focus": {
+        "position": [
+          -0.08888,
+          0.40136,
+          -0.01536
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.54177,
+        0.59514,
+        0.59354
+      ],
+      "vertexCount": 5534,
+      "faceCount": 4184
+    },
+    {
+      "id": "supinateur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left supinator",
+        "right supinator"
+      ],
+      "fmaIds": [
+        "FMA38514",
+        "FMA38513"
+      ],
+      "fileIds": [
+        "FJ1505",
+        "FJ1505M"
+      ],
+      "centroid": [
+        0.00086,
+        0.12714,
+        0.03278
+      ],
+      "focus": {
+        "position": [
+          -0.23875,
+          0.12714,
+          0.03176
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.18037,
+        0.96059,
+        -0.21151
+      ],
+      "vertexCount": 4747,
+      "faceCount": 6220
+    },
+    {
+      "id": "supra-epineux",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right supraspinatus",
+        "left supraspinatus"
+      ],
+      "fmaIds": [
+        "FMA32544",
+        "FMA32545"
+      ],
+      "fileIds": [
+        "FJ1506",
+        "FJ1506M"
+      ],
+      "centroid": [
+        0.00032,
+        0.45921,
+        0.01344
+      ],
+      "focus": {
+        "position": [
+          -0.13592,
+          0.45923,
+          0.01287
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.16858,
+        0.97833,
+        0.12019
+      ],
+      "vertexCount": 1685,
+      "faceCount": 1756
+    },
+    {
+      "id": "tenseur-du-fascia-lata",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left tensor fasciae latae",
+        "right tensor fasciae latae"
+      ],
+      "fmaIds": [
+        "FMA22426",
+        "FMA22425"
+      ],
+      "fileIds": [
+        "FJ1438",
+        "FJ1438M"
+      ],
+      "centroid": [
+        0.00018,
+        -0.03163,
+        0.06467
+      ],
+      "focus": {
+        "position": [
+          -0.14646,
+          -0.03163,
+          0.06404
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.12933,
+        0.98538,
+        0.11092
+      ],
+      "vertexCount": 2174,
+      "faceCount": 2508
+    },
+    {
+      "id": "thyro-hyoidien",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right thyrohyoid",
+        "left thyrohyoid"
+      ],
+      "fmaIds": [
+        "FMA13352",
+        "FMA13353"
+      ],
+      "fileIds": [
+        "FJ1577",
+        "FJ1599"
+      ],
+      "centroid": [
+        -0.00095,
+        0.55109,
+        0.06463
+      ],
+      "focus": {
+        "position": [
+          -0.01465,
+          0.55059,
+          0.06412
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.01096,
+        0.8377,
+        0.54603
+      ],
+      "vertexCount": 2030,
+      "faceCount": 2886
+    },
+    {
+      "id": "tibial-anterieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left tibialis anterior",
+        "right tibialis anterior"
+      ],
+      "fmaIds": [
+        "FMA22545",
+        "FMA22544"
+      ],
+      "fileIds": [
+        "FJ1439",
+        "FJ1439M"
+      ],
+      "centroid": [
+        0.0002,
+        -0.75881,
+        0.06926
+      ],
+      "focus": {
+        "position": [
+          -0.08575,
+          -0.75875,
+          0.06887
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.08377,
+        0.98734,
+        -0.13467
+      ],
+      "vertexCount": 4410,
+      "faceCount": 5020
+    },
+    {
+      "id": "tibial-posterieur",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right tibialis posterior",
+        "left tibialis posterior"
+      ],
+      "fmaIds": [
+        "FMA65018",
+        "FMA65019"
+      ],
+      "fileIds": [
+        "FJ1440",
+        "FJ1440M"
+      ],
+      "centroid": [
+        0.00535,
+        -0.78938,
+        0.049
+      ],
+      "focus": {
+        "position": [
+          -0.07772,
+          -0.79314,
+          0.04984
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.07693,
+        0.98705,
+        -0.14078
+      ],
+      "vertexCount": 4730,
+      "faceCount": 9000
+    },
+    {
+      "id": "transverse-du-thorax",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left transversus thoracis",
+        "right transversus thoracis"
+      ],
+      "fmaIds": [
+        "FMA9762",
+        "FMA9761"
+      ],
+      "fileIds": [
+        "FJ1461",
+        "FJ1461M"
+      ],
+      "centroid": [
+        -0.00014,
+        0.3495,
+        0.14325
+      ],
+      "focus": {
+        "position": [
+          -0.02995,
+          0.34948,
+          0.14313
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.03678,
+        0.95005,
+        -0.30992
+      ],
+      "vertexCount": 9494,
+      "faceCount": 8376
+    },
+    {
+      "id": "trapeze",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "transverse part of left trapezius",
+        "transverse part of right trapezius",
+        "ascending part of right trapezius",
+        "ascending part of left trapezius",
+        "descending part of right trapezius",
+        "descending part of left trapezius"
+      ],
+      "fmaIds": [
+        "FMA33585",
+        "FMA33584",
+        "FMA33581",
+        "FMA33583",
+        "FMA33586",
+        "FMA33587"
+      ],
+      "fileIds": [
+        "FJ1520",
+        "FJ1520M",
+        "FJ1521",
+        "FJ1521M",
+        "FJ1554",
+        "FJ1554M"
+      ],
+      "centroid": [
+        0.00117,
+        0.45886,
+        -0.02408
+      ],
+      "focus": {
+        "position": [
+          -0.04555,
+          0.46389,
+          -0.02236
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.08189,
+        0.99185,
+        0.09757
+      ],
+      "vertexCount": 6792,
+      "faceCount": 8999
+    },
+    {
+      "id": "triceps-brachial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "long head of left triceps brachii",
+        "lateral head of left triceps brachii",
+        "long head of right triceps brachii",
+        "lateral head of right triceps brachii",
+        "medial head of left triceps brachii",
+        "medial head of right triceps brachii"
+      ],
+      "fmaIds": [
+        "FMA37700",
+        "FMA37698",
+        "FMA37699",
+        "FMA37697",
+        "FMA37696",
+        "FMA37695"
+      ],
+      "fileIds": [
+        "FJ1477",
+        "FJ1477M",
+        "FJ1479",
+        "FJ1479M",
+        "FJ1480",
+        "FJ1480M"
+      ],
+      "centroid": [
+        -0.01564,
+        0.28388,
+        0.00285
+      ],
+      "focus": {
+        "position": [
+          -0.19466,
+          0.2836,
+          0.00198
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.17965,
+        0.9835,
+        0.02123
+      ],
+      "vertexCount": 4673,
+      "faceCount": 9000
+    },
+    {
+      "id": "troisieme-fibulaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left fibularis tertius",
+        "right fibularis tertius"
+      ],
+      "fmaIds": [
+        "FMA22551",
+        "FMA22550"
+      ],
+      "fileIds": [
+        "FJ1411",
+        "FJ1411M"
+      ],
+      "centroid": [
+        0.00021,
+        -0.86339,
+        0.04279
+      ],
+      "focus": {
+        "position": [
+          -0.10558,
+          -0.86339,
+          0.04234
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.1737,
+        0.9514,
+        -0.25429
+      ],
+      "vertexCount": 2974,
+      "faceCount": 2832
+    },
+    {
+      "id": "troisieme-interosseux-plantaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "third plantar interosseous of left foot",
+        "third plantar interosseous of right foot"
+      ],
+      "fmaIds": [
+        "FMA37742",
+        "FMA37741"
+      ],
+      "fileIds": [
+        "FJ1388",
+        "FJ1388M"
+      ],
+      "centroid": [
+        -0.00016,
+        -0.91526,
+        0.09423
+      ],
+      "focus": {
+        "position": [
+          -0.13073,
+          -0.91525,
+          0.09366
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.61739,
+        0.19871,
+        -0.76114
+      ],
+      "vertexCount": 1813,
+      "faceCount": 1544
+    },
+    {
+      "id": "troisieme-lombrical-du-pied",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "third lumbrical of left foot",
+        "third lumbrical of right foot"
+      ],
+      "fmaIds": [
+        "FMA37486",
+        "FMA37485"
+      ],
+      "fileIds": [
+        "FJ1387",
+        "FJ1387M"
+      ],
+      "centroid": [
+        0.00044,
+        -0.91715,
+        0.095
+      ],
+      "focus": {
+        "position": [
+          -0.11089,
+          -0.91717,
+          0.09457
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.59692,
+        0.14047,
+        -0.78991
+      ],
+      "vertexCount": 1020,
+      "faceCount": 736
+    },
+    {
+      "id": "vaste-intermediaire",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right vastus intermedius",
+        "left vastus intermedius"
+      ],
+      "fmaIds": [
+        "FMA38934",
+        "FMA38935"
+      ],
+      "fileIds": [
+        "FJ1441",
+        "FJ1441M"
+      ],
+      "centroid": [
+        0.00012,
+        -0.3154,
+        0.06408
+      ],
+      "focus": {
+        "position": [
+          -0.10432,
+          -0.31554,
+          0.06363
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.09009,
+        0.9942,
+        -0.05877
+      ],
+      "vertexCount": 5492,
+      "faceCount": 8520
+    },
+    {
+      "id": "vaste-lateral",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right vastus lateralis",
+        "left vastus lateralis"
+      ],
+      "fmaIds": [
+        "FMA38930",
+        "FMA38931"
+      ],
+      "fileIds": [
+        "FJ1442",
+        "FJ1442M"
+      ],
+      "centroid": [
+        0.00261,
+        -0.32267,
+        0.05709
+      ],
+      "focus": {
+        "position": [
+          -0.1222,
+          -0.32031,
+          0.05678
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.08206,
+        0.99472,
+        -0.06169
+      ],
+      "vertexCount": 4806,
+      "faceCount": 9000
+    },
+    {
+      "id": "vaste-medial",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left vastus medialis",
+        "right vastus medialis"
+      ],
+      "fmaIds": [
+        "FMA38933",
+        "FMA38932"
+      ],
+      "fileIds": [
+        "FJ1443",
+        "FJ1443M"
+      ],
+      "centroid": [
+        -0.00043,
+        -0.33867,
+        0.07553
+      ],
+      "focus": {
+        "position": [
+          -0.07327,
+          -0.33764,
+          0.07511
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.08889,
+        0.99592,
+        -0.01557
+      ],
+      "vertexCount": 4534,
+      "faceCount": 8999
+    }
+  ]
+}

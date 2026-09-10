@@ -1,0 +1,4698 @@
+[
+  {
+    "id": "abducteur-de-l-hallux",
+    "name": "Abducteur de l’hallux",
+    "nameLatin": "Musculus abductor hallucis",
+    "aliases": [
+      "abducteur du I"
+    ],
+    "region": "pied",
+    "origin": "Tubérosité calcanéenne médiale, rétinaculum, aponévrose.",
+    "insertion": "Phalange proximale de l’hallux (côté médial) et sésamoïde.",
+    "actions": [
+      "Abduction et flexion de l’hallux"
+    ],
+    "focus": {
+      "position": [
+        -0.07247,
+        -0.91172,
+        0.08584
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.21351,
+      -0.0634,
+      0.97488
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "abducteur-du-petit-doigt",
+    "name": "Abducteur du petit doigt",
+    "nameLatin": "Musculus abductor digiti minimi manus",
+    "aliases": [
+      "abducteur du V"
+    ],
+    "region": "main",
+    "origin": "Pisiforme et tendon du fléchisseur ulnaire du carpe.",
+    "insertion": "Phalange proximale du 5e doigt (côté ulnaire).",
+    "actions": [
+      "Abduction du petit doigt"
+    ],
+    "focus": {
+      "position": [
+        -0.22717,
+        -0.103,
+        0.09604
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.15012,
+      0.97174,
+      -0.18216
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "abducteur-du-petit-orteil",
+    "name": "Abducteur du petit orteil",
+    "nameLatin": "Musculus abductor digiti minimi pedis",
+    "aliases": [
+      "abducteur du V pied"
+    ],
+    "region": "pied",
+    "origin": "Tubérosité calcanéenne latérale et aponévrose.",
+    "insertion": "Phalange proximale du 5e orteil.",
+    "actions": [
+      "Abduction et flexion du 5e orteil"
+    ],
+    "focus": {
+      "position": [
+        -0.10123,
+        -0.9192,
+        0.04256
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.65268,
+      0.02486,
+      -0.75723
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "adducteur-de-l-hallux",
+    "name": "Adducteur de l’hallux",
+    "nameLatin": "Musculus adductor hallucis",
+    "aliases": [
+      "adducteur du I pied"
+    ],
+    "region": "pied",
+    "origin": "Chef oblique : bases M2–M4. Chef transverse : ligaments métatarsiens plantaires.",
+    "insertion": "Sésamoïde latéral et phalange proximale de l’hallux.",
+    "actions": [
+      "Adduction de l’hallux"
+    ],
+    "secondaryActions": [
+      "Soutien de la voûte transversale (chef transverse)"
+    ],
+    "heads": [
+      {
+        "name": "Chef oblique",
+        "origin": "Bases des métatarsiens 2–4.",
+        "insertion": "Sésamoïde latéral / P1 hallux."
+      },
+      {
+        "name": "Chef transverse",
+        "origin": "Capsules MP 3–5 / ligaments profonds.",
+        "insertion": "Sésamoïde latéral / P1 hallux."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.11042,
+        -0.91275,
+        0.104
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.21009,
+      0.3494,
+      -0.91312
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "adducteur-du-pouce",
+    "name": "Adducteur du pouce",
+    "nameLatin": "Musculus adductor pollicis",
+    "aliases": [
+      "adducteur du I"
+    ],
+    "region": "main",
+    "origin": "Chef oblique : capitatum et bases des 2e–3e métacarpiens. Chef transverse : 3e métacarpien.",
+    "insertion": "Phalange proximale du pouce (côté ulnaire) et sésamoïde.",
+    "actions": [
+      "Adduction du pouce"
+    ],
+    "heads": [
+      {
+        "name": "Chef oblique",
+        "origin": "Capitatum et bases M2–M3.",
+        "insertion": "Phalange proximale du pouce."
+      },
+      {
+        "name": "Chef transverse",
+        "origin": "3e métacarpien.",
+        "insertion": "Phalange proximale du pouce."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.27244,
+        -0.0912,
+        0.08807
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.50027,
+      0.84988,
+      0.16564
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "ancone",
+    "name": "Anconé",
+    "nameLatin": "Musculus anconeus",
+    "aliases": [
+      "anconeus"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle latéral de l’humérus.",
+    "insertion": "Olécrane et face postérieure de l’ulna proximal.",
+    "actions": [
+      "Extension du coude"
+    ],
+    "secondaryActions": [
+      "Stabilisation ulnaire / abduction de l’ulna en pronation"
+    ],
+    "focus": {
+      "position": [
+        -0.21708,
+        0.14945,
+        0.00863
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.07297,
+      0.98007,
+      -0.18477
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "biceps-brachial",
+    "name": "Biceps brachial",
+    "nameLatin": "Musculus biceps brachii",
+    "aliases": [
+      "biceps",
+      "biceps du bras",
+      "biceps brachii"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Chef long : tubercule supra-glénoïdien de la scapula. Chef court : processus coracoïde.",
+    "insertion": "Tubérosité du radius et aponévrose bicipitale (lacertus fibrosus) vers le fascia antébrachial.",
+    "actions": [
+      "Flexion du coude",
+      "Supination de l’avant-bras"
+    ],
+    "secondaryActions": [
+      "Flexion accessoire de l’épaule (surtout chef court)"
+    ],
+    "heads": [
+      {
+        "name": "Chef long",
+        "origin": "Tubercule supra-glénoïdien de la scapula (labrum adjacent).",
+        "insertion": "Tubérosité radiale et aponévrose bicipitale."
+      },
+      {
+        "name": "Chef court",
+        "origin": "Processus coracoïde de la scapula.",
+        "insertion": "Tubérosité radiale et aponévrose bicipitale."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.18687,
+        0.30933,
+        0.04515
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.21734,
+      0.97578,
+      0.02497
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "biceps-femoral",
+    "name": "Biceps fémoral",
+    "nameLatin": "Musculus biceps femoris",
+    "aliases": [
+      "biceps crural",
+      "biceps femoris"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Chef long : tubérosité ischiatique. Chef court : lèvre latérale de la ligne âpre.",
+    "insertion": "Tête de la fibula (et condyle tibial latéral adjacent).",
+    "actions": [
+      "Flexion du genou",
+      "Rotation latérale de jambe genou fléchi"
+    ],
+    "secondaryActions": [
+      "Extension de hanche (chef long)"
+    ],
+    "heads": [
+      {
+        "name": "Chef long",
+        "origin": "Tubérosité ischiatique (tendon commun avec le semi-tendineux).",
+        "insertion": "Tête de la fibula."
+      },
+      {
+        "name": "Chef court",
+        "origin": "Lèvre latérale de la ligne âpre et septum intermusculaire latéral.",
+        "insertion": "Tête de la fibula."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.09638,
+        -0.33507,
+        0.01084
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.09715,
+      0.99403,
+      -0.04973
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "brachial",
+    "name": "Brachial",
+    "nameLatin": "Musculus brachialis",
+    "aliases": [
+      "brachial antérieur"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Face antérieure de la moitié distale de l’humérus.",
+    "insertion": "Tubérosité ulnaire (processus coronoïde).",
+    "actions": [
+      "Flexion du coude (principal fléchisseur, avant-bras en pronation ou supination)"
+    ],
+    "focus": {
+      "position": [
+        -0.20667,
+        0.23988,
+        0.03108
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.06168,
+      0.99803,
+      -0.01128
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "brachio-radial",
+    "name": "Brachio-radial",
+    "nameLatin": "Musculus brachioradialis",
+    "aliases": [
+      "long supinateur"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Crête supra-condylaire latérale de l’humérus.",
+    "insertion": "Processus styloïde du radius.",
+    "actions": [
+      "Flexion du coude"
+    ],
+    "secondaryActions": [
+      "Ramène l’avant-bras en position neutre (semi-pronation)"
+    ],
+    "focus": {
+      "position": [
+        -0.24927,
+        0.12423,
+        0.04564
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.16835,
+      0.97113,
+      -0.16904
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "carre-femoral",
+    "name": "Carré fémoral",
+    "nameLatin": "Musculus quadratus femoris",
+    "aliases": [
+      "carré crural"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Bord latéral de la tubérosité ischiatique.",
+    "insertion": "Crête intertrochantérique.",
+    "actions": [
+      "Rotation latérale de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.10391,
+        -0.09093,
+        0.00566
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.22324,
+      0.94671,
+      -0.23217
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "carre-plantaire",
+    "name": "Carré plantaire",
+    "nameLatin": "Musculus quadratus plantae",
+    "aliases": [
+      "flexor accessorius"
+    ],
+    "region": "pied",
+    "origin": "Calcanéus (deux chefs médial et latéral).",
+    "insertion": "Tendon du fléchisseur long des orteils.",
+    "actions": [
+      "Corrige la traction du FDL (flexion axiale des orteils)"
+    ],
+    "focus": {
+      "position": [
+        -0.08709,
+        -0.91331,
+        0.04792
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.5101,
+      0.04228,
+      0.85908
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "carre-pronateur",
+    "name": "Carré pronateur",
+    "nameLatin": "Musculus pronator quadratus",
+    "aliases": [
+      "pronator quadratus"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Quart distal de la face antérieure de l’ulna.",
+    "insertion": "Quart distal de la face antérieure du radius.",
+    "actions": [
+      "Pronation de l’avant-bras"
+    ],
+    "secondaryActions": [
+      "Stabilisation de la syndesmose radio-ulnaire distale"
+    ],
+    "focus": {
+      "position": [
+        -0.23661,
+        -0.00565,
+        0.06516
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.68244,
+      0.66711,
+      -0.29874
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "coccygien",
+    "name": "Coccygien",
+    "nameLatin": "Musculus coccygeus",
+    "aliases": [
+      "ischio-coccygien"
+    ],
+    "region": "périnée",
+    "origin": "Épine ischiatique et ligament sacro-épineux.",
+    "insertion": "Bord latéral du coccyx / sacrum inférieur.",
+    "actions": [
+      "Soutien du plancher pelvien",
+      "Tire le coccyx en avant"
+    ],
+    "focus": {
+      "position": [
+        -0.02172,
+        -0.0458,
+        -0.02476
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.27868,
+      0.91104,
+      -0.30387
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "coraco-brachial",
+    "name": "Coraco-brachial",
+    "nameLatin": "Musculus coracobrachialis",
+    "aliases": [
+      "coracobrachialis"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Processus coracoïde.",
+    "insertion": "Face médiale du tiers moyen de l’humérus.",
+    "actions": [
+      "Flexion et adduction de l’épaule"
+    ],
+    "focus": {
+      "position": [
+        -0.15783,
+        0.39187,
+        0.0428
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.33395,
+      0.91745,
+      0.21626
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-abducteur-du-pouce",
+    "name": "Court abducteur du pouce",
+    "nameLatin": "Musculus abductor pollicis brevis",
+    "aliases": [
+      "APB"
+    ],
+    "region": "main",
+    "origin": "Rétinaculum des fléchisseurs, scaphoïde et trapèze.",
+    "insertion": "Phalange proximale du pouce (côté radial) et expansion dorsale.",
+    "actions": [
+      "Abduction du pouce"
+    ],
+    "secondaryActions": [
+      "Opposition accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.2763,
+        -0.06705,
+        0.09434
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.23301,
+      0.69124,
+      0.68403
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-adducteur",
+    "name": "Court adducteur",
+    "nameLatin": "Musculus adductor brevis",
+    "aliases": [
+      "adductor brevis"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Branche inférieure du pubis.",
+    "insertion": "Ligne pectinéale et ligne âpre (haute).",
+    "actions": [
+      "Adduction de hanche"
+    ],
+    "secondaryActions": [
+      "Flexion accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.08023,
+        -0.17184,
+        0.05067
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.36024,
+      0.91175,
+      0.19734
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-extenseur-de-l-hallux",
+    "name": "Court extenseur de l’hallux",
+    "nameLatin": "Musculus extensor hallucis brevis",
+    "aliases": [
+      "EHB"
+    ],
+    "region": "pied",
+    "origin": "Calcanéus dorsal / sinus du tarse.",
+    "insertion": "Phalange proximale de l’hallux.",
+    "actions": [
+      "Extension de la MP de l’hallux"
+    ],
+    "focus": {
+      "position": [
+        -0.09586,
+        -0.89286,
+        0.09641
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.03748,
+      0.24076,
+      -0.96986
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-extenseur-du-pouce",
+    "name": "Court extenseur du pouce",
+    "nameLatin": "Musculus extensor pollicis brevis",
+    "aliases": [
+      "EPB"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Radius et membrane interosseuse.",
+    "insertion": "Base de la phalange proximale du pouce.",
+    "actions": [
+      "Extension de la MP du pouce"
+    ],
+    "focus": {
+      "position": [
+        -0.27043,
+        -0.03759,
+        0.07004
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.48195,
+      0.80673,
+      -0.34192
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-extenseur-radial-du-carpe",
+    "name": "Court extenseur radial du carpe",
+    "nameLatin": "Musculus extensor carpi radialis brevis",
+    "aliases": [
+      "deuxième radial"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle latéral (tendon commun des extenseurs).",
+    "insertion": "Base dorsale du 3e métacarpien.",
+    "actions": [
+      "Extension du poignet"
+    ],
+    "secondaryActions": [
+      "Abduction radiale accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.25139,
+        0.06721,
+        0.03587
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.12298,
+      0.97052,
+      -0.2073
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-fibulaire",
+    "name": "Court fibulaire",
+    "nameLatin": "Musculus fibularis brevis",
+    "aliases": [
+      "court péronier"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face latérale de la fibula (2/3 inférieurs).",
+    "insertion": "Tubérosité du 5e métatarsien.",
+    "actions": [
+      "Éversion du pied"
+    ],
+    "focus": {
+      "position": [
+        -0.0983,
+        -0.79674,
+        0.0176
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.00985,
+      0.994,
+      -0.10893
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-flechisseur-de-l-hallux",
+    "name": "Court fléchisseur de l’hallux",
+    "nameLatin": "Musculus flexor hallucis brevis",
+    "aliases": [
+      "FHB"
+    ],
+    "region": "pied",
+    "origin": "Chef médial et latéral : cuboïde / cunéiformes / tibialis posterior.",
+    "insertion": "Phalange proximale de l’hallux (sésamoïdes).",
+    "actions": [
+      "Flexion de la MP de l’hallux"
+    ],
+    "heads": [
+      {
+        "name": "Chef médial",
+        "origin": "Cuboïde / cunéiforme médial.",
+        "insertion": "Sésamoïde médial et phalange proximale."
+      },
+      {
+        "name": "Chef latéral",
+        "origin": "Cuboïde / ligaments plantaires.",
+        "insertion": "Sésamoïde latéral et phalange proximale."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.08299,
+        -0.9079,
+        0.10305
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.34872,
+      0.37163,
+      -0.8604
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-flechisseur-des-orteils",
+    "name": "Court fléchisseur des orteils",
+    "nameLatin": "Musculus flexor digitorum brevis",
+    "aliases": [
+      "FDB"
+    ],
+    "region": "pied",
+    "origin": "Tubérosité calcanéenne et aponévrose plantaire.",
+    "insertion": "Phalanges moyennes des orteils 2–5.",
+    "actions": [
+      "Flexion des IPP des orteils 2–5"
+    ],
+    "focus": {
+      "position": [
+        -0.11432,
+        -0.92494,
+        0.10047
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.47509,
+      0.02129,
+      -0.87968
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-flechisseur-du-petit-doigt",
+    "name": "Court fléchisseur du petit doigt",
+    "nameLatin": "Musculus flexor digiti minimi brevis manus",
+    "aliases": [
+      "fléchisseur du V"
+    ],
+    "region": "main",
+    "origin": "Hamulus de l’hamatum et rétinaculum.",
+    "insertion": "Phalange proximale du 5e doigt.",
+    "actions": [
+      "Flexion de la MP du petit doigt"
+    ],
+    "focus": {
+      "position": [
+        -0.23182,
+        -0.10555,
+        0.09723
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.23656,
+      0.94357,
+      -0.23178
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-flechisseur-du-petit-orteil",
+    "name": "Court fléchisseur du petit orteil",
+    "nameLatin": "Musculus flexor digiti minimi brevis pedis",
+    "aliases": [
+      "fléchisseur du V pied"
+    ],
+    "region": "pied",
+    "origin": "Base du 5e métatarsien et ligament plantaire long.",
+    "insertion": "Phalange proximale du 5e orteil.",
+    "actions": [
+      "Flexion de la MP du 5e orteil"
+    ],
+    "focus": {
+      "position": [
+        -0.1294,
+        -0.92029,
+        0.08046
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.58237,
+      0.18144,
+      -0.79242
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "court-flechisseur-du-pouce",
+    "name": "Court fléchisseur du pouce",
+    "nameLatin": "Musculus flexor pollicis brevis",
+    "aliases": [
+      "FPB"
+    ],
+    "region": "main",
+    "origin": "Rétinaculum des fléchisseurs et trapèze (superficiel) ; trapézoïde / capitatum (profond).",
+    "insertion": "Phalange proximale du pouce.",
+    "actions": [
+      "Flexion de la MP du pouce"
+    ],
+    "focus": {
+      "position": [
+        -0.26892,
+        -0.07448,
+        0.09334
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.41171,
+      0.04918,
+      0.90999
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "deltoide",
+    "name": "Deltoïde",
+    "nameLatin": "Musculus deltoideus",
+    "aliases": [
+      "deltoide",
+      "deltoid"
+    ],
+    "region": "épaule",
+    "origin": "Tiers latéral de la clavicule, bord latéral de l’acromion et épine de la scapula.",
+    "insertion": "Tubérosité deltoïdienne de l’humérus.",
+    "actions": [
+      "Abduction du bras (faisceau moyen / acromial)"
+    ],
+    "secondaryActions": [
+      "Flexion et rotation médiale (faisceau claviculaire)",
+      "Extension et rotation latérale (faisceau spinal)"
+    ],
+    "heads": [
+      {
+        "name": "Faisceau claviculaire",
+        "origin": "Tiers latéral du bord antérieur de la clavicule.",
+        "insertion": "Tubérosité deltoïdienne."
+      },
+      {
+        "name": "Faisceau acromial",
+        "origin": "Bord latéral de l’acromion.",
+        "insertion": "Tubérosité deltoïdienne."
+      },
+      {
+        "name": "Faisceau spinal",
+        "origin": "Épine de la scapula.",
+        "insertion": "Tubérosité deltoïdienne."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.16049,
+        0.43894,
+        0.02567
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.6521,
+      0.75515,
+      -0.06714
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "dentele-anterieur",
+    "name": "Dentelé antérieur",
+    "nameLatin": "Musculus serratus anterior",
+    "aliases": [
+      "grand dentelé"
+    ],
+    "region": "tronc",
+    "origin": "Face externe des côtes 1–8/9.",
+    "insertion": "Bord médial de la scapula (face antérieure).",
+    "actions": [
+      "Diduction / antépulsion de la scapula",
+      "Rotation supérieure (fibres inférieures)"
+    ],
+    "secondaryActions": [
+      "Maintien de la scapula contre le thorax"
+    ],
+    "focus": {
+      "position": [
+        -0.1042,
+        0.37206,
+        0.02735
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.28761,
+      0.9324,
+      -0.21887
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "dentele-posterieur-inferieur",
+    "name": "Dentelé postérieur inférieur",
+    "nameLatin": "Musculus serratus posterior inferior",
+    "aliases": [
+      "SPI"
+    ],
+    "region": "dos",
+    "origin": "Épineuses T11–L2.",
+    "insertion": "Côtes 9–12.",
+    "actions": [
+      "Abaisse les côtes inférieures"
+    ],
+    "secondaryActions": [
+      "Stabilise la charnière thoraco-lombaire"
+    ],
+    "focus": {
+      "position": [
+        -0.03981,
+        0.18382,
+        -0.02059
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.62935,
+      0.77552,
+      -0.04994
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "dentele-posterieur-superieur",
+    "name": "Dentelé postérieur supérieur",
+    "nameLatin": "Musculus serratus posterior superior",
+    "aliases": [
+      "SPS"
+    ],
+    "region": "dos",
+    "origin": "Épineuses C7–T3.",
+    "insertion": "Côtes 2–5.",
+    "actions": [
+      "Élève les côtes (inspirateur accessoire)"
+    ],
+    "focus": {
+      "position": [
+        -0.04898,
+        0.46355,
+        -0.01195
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.42142,
+      0.60756,
+      0.67326
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "deuxieme-interosseux-plantaire",
+    "name": "Deuxième interosseux plantaire",
+    "nameLatin": "Musculus interosseus plantaris II",
+    "aliases": [
+      "interosseux plantaire 2"
+    ],
+    "region": "pied",
+    "origin": "Métatarsien 4 (face médiale).",
+    "insertion": "Phalange proximale de l’orteil 4.",
+    "actions": [
+      "Adduction de l’orteil 4"
+    ],
+    "focus": {
+      "position": [
+        -0.12267,
+        -0.90929,
+        0.10409
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.42865,
+      0.33286,
+      -0.83992
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "deuxieme-lombrical-du-pied",
+    "name": "Deuxième lombrical du pied",
+    "nameLatin": "Musculus lumbricalis II pedis",
+    "aliases": [
+      "lombrical 2 pied"
+    ],
+    "region": "pied",
+    "origin": "Tendons FDL adjacents (orteils 2–3).",
+    "insertion": "Expansion dorsale de l’orteil 3.",
+    "actions": [
+      "Flexion MP et extension IP de l’orteil 3"
+    ],
+    "focus": {
+      "position": [
+        -0.10694,
+        -0.91813,
+        0.10738
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.52046,
+      0.14195,
+      -0.842
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "diaphragme",
+    "name": "Diaphragme",
+    "nameLatin": "Diaphragma",
+    "aliases": [
+      "diaphragme"
+    ],
+    "region": "tronc",
+    "origin": "Xiphoïde, cartilages 7–12, arcade du psoas / carré des lombes, piliers L1–L3.",
+    "insertion": "Centre phrénique.",
+    "actions": [
+      "Inspiration principale (abaissement du centre phrénique)"
+    ],
+    "secondaryActions": [
+      "Rôle de continence / presse abdominale"
+    ],
+    "focus": {
+      "position": [
+        -0.0598,
+        0.25158,
+        0.06353
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.00807,
+      0.96292,
+      0.26968
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "digastrique",
+    "name": "Digastrique",
+    "nameLatin": "Musculus digastricus",
+    "aliases": [
+      "digastrique"
+    ],
+    "region": "cou",
+    "origin": "Ventre postérieur : mastoïde / incisure. Ventre antérieur : fosse digastrique mandibulaire.",
+    "insertion": "Os hyoïde via une poulie tendineuse.",
+    "actions": [
+      "Élève l’hyoïde",
+      "Abaisse la mandibule (hyoïde fixé)"
+    ],
+    "focus": {
+      "position": [
+        -0.03341,
+        0.60008,
+        0.05664
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.42341,
+      0.58784,
+      -0.68932
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "droit-anterieur-de-la-tete",
+    "name": "Droit antérieur de la tête",
+    "nameLatin": "Musculus rectus capitis anterior",
+    "aliases": [
+      "rectus capitis anterior"
+    ],
+    "region": "cou",
+    "origin": "Masse latérale de l’atlas.",
+    "insertion": "Occipital (en avant du condyle).",
+    "actions": [
+      "Flexion atlanto-occipitale"
+    ],
+    "focus": {
+      "position": [
+        -0.0178,
+        0.61442,
+        0.0389
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.67874,
+      0.73012,
+      0.07901
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "droit-abdomen",
+    "name": "Droit de l’abdomen",
+    "nameLatin": "Musculus rectus abdominis",
+    "aliases": [
+      "grands droits",
+      "abdos"
+    ],
+    "region": "tronc",
+    "origin": "Crête et symphyse pubiennes.",
+    "insertion": "Processus xiphoïde et cartilages costaux 5–7.",
+    "actions": [
+      "Flexion du tronc"
+    ],
+    "secondaryActions": [
+      "Rétroversion du bassin",
+      "Expiration forcée"
+    ],
+    "focus": {
+      "position": [
+        -0.02182,
+        0.17934,
+        0.1387
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.04304,
+      0.92503,
+      0.37745
+    ],
+    "meshSource": "synthetic"
+  },
+  {
+    "id": "droit-femoral",
+    "name": "Droit fémoral",
+    "nameLatin": "Musculus rectus femoris",
+    "aliases": [
+      "droit antérieur",
+      "rectus femoris"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Épine iliaque antéro-inférieure et sillon supra-acétabulaire.",
+    "insertion": "Base de la patella puis tubérosité tibiale via le ligament patellaire.",
+    "actions": [
+      "Extension du genou"
+    ],
+    "secondaryActions": [
+      "Flexion de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.10514,
+        -0.24844,
+        0.07466
+      ],
+      "distance": 0.665
+    },
+    "fiberAxis": [
+      -0.07871,
+      0.99653,
+      -0.02717
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "droit-lateral-de-la-tete",
+    "name": "Droit latéral de la tête",
+    "nameLatin": "Musculus rectus capitis lateralis",
+    "aliases": [
+      "rectus capitis lateralis"
+    ],
+    "region": "cou",
+    "origin": "Processus transverse de l’atlas.",
+    "insertion": "Processus jugulaire de l’occipital.",
+    "actions": [
+      "Inclinaison atlanto-occipitale"
+    ],
+    "focus": {
+      "position": [
+        -0.0357,
+        0.6142,
+        0.02834
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.2257,
+      0.84818,
+      -0.47922
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "extenseur-de-l-index",
+    "name": "Extenseur de l’index",
+    "nameLatin": "Musculus extensor indicis",
+    "aliases": [
+      "extenseur propre de l’index"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Face postérieure de l’ulna et membrane interosseuse.",
+    "insertion": "Expansion dorsale de l’index.",
+    "actions": [
+      "Extension de l’index"
+    ],
+    "secondaryActions": [
+      "Adduction de l’index / extension du poignet"
+    ],
+    "focus": {
+      "position": [
+        -0.257,
+        -0.06495,
+        0.0731
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.34078,
+      0.89348,
+      -0.29249
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "extenseur-des-doigts",
+    "name": "Extenseur des doigts",
+    "nameLatin": "Musculus extensor digitorum",
+    "aliases": [
+      "extenseur commun"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle latéral.",
+    "insertion": "Expansions dorsales des doigts 2–5.",
+    "actions": [
+      "Extension des MP des doigts 2–5"
+    ],
+    "secondaryActions": [
+      "Extension du poignet"
+    ],
+    "focus": {
+      "position": [
+        -0.25517,
+        -0.07164,
+        0.07148
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.09218,
+      0.94979,
+      -0.29901
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "extenseur-du-petit-doigt",
+    "name": "Extenseur du petit doigt",
+    "nameLatin": "Musculus extensor digiti minimi",
+    "aliases": [
+      "extenseur propre du 5e"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle latéral.",
+    "insertion": "Expansion dorsale du 5e doigt.",
+    "actions": [
+      "Extension du petit doigt"
+    ],
+    "focus": {
+      "position": [
+        -0.23466,
+        0.02336,
+        0.04381
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.01355,
+      0.96689,
+      -0.25483
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "extenseur-long-de-l-hallux",
+    "name": "Extenseur long de l’hallux",
+    "nameLatin": "Musculus extensor hallucis longus",
+    "aliases": [
+      "EHL"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Fibula et membrane interosseuse.",
+    "insertion": "Base de la phalange distale de l’hallux.",
+    "actions": [
+      "Extension de l’hallux",
+      "Flexion dorsale accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.09523,
+        -0.78331,
+        0.05684
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.01784,
+      0.88489,
+      -0.46545
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "extenseur-long-des-orteils",
+    "name": "Extenseur long des orteils",
+    "nameLatin": "Musculus extensor digitorum longus",
+    "aliases": [
+      "EDL"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Condyle tibial latéral, fibula et membrane interosseuse.",
+    "insertion": "Expansions dorsales des orteils 2–5.",
+    "actions": [
+      "Extension des orteils 2–5",
+      "Flexion dorsale de cheville"
+    ],
+    "focus": {
+      "position": [
+        -0.11671,
+        -0.76354,
+        0.07296
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.07476,
+      0.96205,
+      -0.26243
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "extenseur-ulnaire-du-carpe",
+    "name": "Extenseur ulnaire du carpe",
+    "nameLatin": "Musculus extensor carpi ulnaris",
+    "aliases": [
+      "cubital postérieur"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle latéral et bord postérieur de l’ulna.",
+    "insertion": "Base du 5e métacarpien.",
+    "actions": [
+      "Extension du poignet",
+      "Adduction ulnaire"
+    ],
+    "focus": {
+      "position": [
+        -0.2263,
+        0.03378,
+        0.04214
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.05283,
+      0.96288,
+      -0.26472
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "flechisseur-long-de-l-hallux",
+    "name": "Fléchisseur long de l’hallux",
+    "nameLatin": "Musculus flexor hallucis longus",
+    "aliases": [
+      "FHL"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face postérieure de la fibula.",
+    "insertion": "Phalange distale de l’hallux.",
+    "actions": [
+      "Flexion de l’hallux"
+    ],
+    "secondaryActions": [
+      "Soutien de la voûte médiale"
+    ],
+    "focus": {
+      "position": [
+        -0.0896,
+        -0.78322,
+        0.04673
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.02626,
+      0.92112,
+      -0.38839
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "flechisseur-long-des-orteils",
+    "name": "Fléchisseur long des orteils",
+    "nameLatin": "Musculus flexor digitorum longus",
+    "aliases": [
+      "FDL"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face postérieure du tibia.",
+    "insertion": "Phalanges distales des orteils 2–5.",
+    "actions": [
+      "Flexion des orteils 2–5",
+      "Flexion plantaire accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.09778,
+        -0.83947,
+        0.07763
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.21057,
+      0.90679,
+      -0.36524
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "flechisseur-profond-des-doigts",
+    "name": "Fléchisseur profond des doigts",
+    "nameLatin": "Musculus flexor digitorum profundus",
+    "aliases": [
+      "FDP"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Face antérieure de l’ulna et membrane interosseuse.",
+    "insertion": "Base des phalanges distales des doigts 2–5.",
+    "actions": [
+      "Flexion des IPD des doigts 2–5"
+    ],
+    "secondaryActions": [
+      "Flexion IPP / MP / poignet"
+    ],
+    "focus": {
+      "position": [
+        -0.24416,
+        -0.0463,
+        0.08125
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.14173,
+      0.95231,
+      -0.27022
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "flechisseur-radial-du-carpe",
+    "name": "Fléchisseur radial du carpe",
+    "nameLatin": "Musculus flexor carpi radialis",
+    "aliases": [
+      "grand palmaire"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle médial (tendon commun).",
+    "insertion": "Bases des 2e et 3e métacarpiens.",
+    "actions": [
+      "Flexion du poignet",
+      "Abduction radiale du poignet"
+    ],
+    "focus": {
+      "position": [
+        -0.22308,
+        0.07046,
+        0.06444
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.27702,
+      0.9408,
+      -0.19532
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "flechisseur-superficiel-des-doigts",
+    "name": "Fléchisseur superficiel des doigts",
+    "nameLatin": "Musculus flexor digitorum superficialis",
+    "aliases": [
+      "FDS"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle médial, processus coronoïde, bord antérieur du radius.",
+    "insertion": "Bords des phalanges moyennes des doigts 2–5.",
+    "actions": [
+      "Flexion des IPP des doigts 2–5"
+    ],
+    "secondaryActions": [
+      "Flexion des MP et du poignet"
+    ],
+    "focus": {
+      "position": [
+        -0.23366,
+        -0.01196,
+        0.07605
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.19447,
+      0.95261,
+      -0.23392
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "flechisseur-ulnaire-du-carpe",
+    "name": "Fléchisseur ulnaire du carpe",
+    "nameLatin": "Musculus flexor carpi ulnaris",
+    "aliases": [
+      "cubital antérieur"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Chef huméral : épicondyle médial. Chef ulnaire : olécrane et bord postérieur de l’ulna.",
+    "insertion": "Pisiforme, hamatum et 5e métacarpien.",
+    "actions": [
+      "Flexion du poignet",
+      "Adduction ulnaire du poignet"
+    ],
+    "heads": [
+      {
+        "name": "Chef huméral",
+        "origin": "Épicondyle médial.",
+        "insertion": "Pisiforme / hamatum / 5e métacarpien."
+      },
+      {
+        "name": "Chef ulnaire",
+        "origin": "Olécrane et bord postérieur de l’ulna.",
+        "insertion": "Pisiforme / hamatum / 5e métacarpien."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.20524,
+        0.06213,
+        0.0456
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.20714,
+      0.94491,
+      -0.25346
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "gastrocnemien",
+    "name": "Gastrocnémien",
+    "nameLatin": "Musculus gastrocnemius",
+    "aliases": [
+      "jumeaux",
+      "gastrocnemius"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Chef médial : condyle fémoral médial. Chef latéral : condyle fémoral latéral.",
+    "insertion": "Face postérieure du calcanéus via le tendon calcanéen.",
+    "actions": [
+      "Flexion plantaire de cheville"
+    ],
+    "secondaryActions": [
+      "Flexion du genou"
+    ],
+    "heads": [
+      {
+        "name": "Chef médial",
+        "origin": "Face postérieure du condyle fémoral médial.",
+        "insertion": "Tendon calcanéen."
+      },
+      {
+        "name": "Chef latéral",
+        "origin": "Face postérieure du condyle fémoral latéral.",
+        "insertion": "Tendon calcanéen."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.06875,
+        -0.56611,
+        0.00266
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.05168,
+      0.99363,
+      0.10016
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "gracile",
+    "name": "Gracile",
+    "nameLatin": "Musculus gracilis",
+    "aliases": [
+      "droit interne"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Corps du pubis / branche inférieure.",
+    "insertion": "Patte d’oie (tibia médial).",
+    "actions": [
+      "Adduction de hanche",
+      "Flexion du genou et rotation médiale de jambe"
+    ],
+    "focus": {
+      "position": [
+        -0.03376,
+        -0.32851,
+        0.05451
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.08507,
+      0.99582,
+      0.03324
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "grand-adducteur",
+    "name": "Grand adducteur",
+    "nameLatin": "Musculus adductor magnus",
+    "aliases": [
+      "adductor magnus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Branche ischio-pubienne et tubérosité ischiatique.",
+    "insertion": "Ligne âpre et tubercule de l’adducteur (hiatus).",
+    "actions": [
+      "Adduction de hanche"
+    ],
+    "secondaryActions": [
+      "Extension de hanche (portion ischio-condylaire)"
+    ],
+    "focus": {
+      "position": [
+        -0.06693,
+        -0.27484,
+        0.03799
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.01975,
+      0.99959,
+      -0.0206
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "grand-dorsal",
+    "name": "Grand dorsal",
+    "nameLatin": "Musculus latissimus dorsi",
+    "aliases": [
+      "latissimus",
+      "grand dorsal"
+    ],
+    "region": "dos",
+    "origin": "Épineuses T7–L5, fascia thoraco-lombaire, crête iliaque, côtes inférieures.",
+    "insertion": "Fond du sillon intertuberculaire de l’humérus.",
+    "actions": [
+      "Adduction, extension et rotation médiale du bras"
+    ],
+    "secondaryActions": [
+      "Abaissement de la scapula / inspirateur accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.16247,
+        0.11606,
+        -0.03166
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.69352,
+      0.70069,
+      0.16753
+    ],
+    "meshSource": "synthetic"
+  },
+  {
+    "id": "grand-droit-posterieur-de-la-tete",
+    "name": "Grand droit postérieur de la tête",
+    "nameLatin": "Musculus rectus capitis posterior major",
+    "aliases": [
+      "RCP major"
+    ],
+    "region": "cou",
+    "origin": "Épineuse de l’axis.",
+    "insertion": "Ligne nuchale inférieure (latéral).",
+    "actions": [
+      "Extension de la tête",
+      "Rotation homolatérale"
+    ],
+    "focus": {
+      "position": [
+        -0.02125,
+        0.60803,
+        -0.00676
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.57728,
+      0.81087,
+      -0.09612
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "grand-fessier",
+    "name": "Grand fessier",
+    "nameLatin": "Musculus gluteus maximus",
+    "aliases": [
+      "gluteus maximus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Aile iliaque (derrière la ligne glutéale postérieure), sacrum, coccyx, ligament sacro-tubéral.",
+    "insertion": "Tractus ilio-tibial et tubérosité glutéale du fémur.",
+    "actions": [
+      "Extension de hanche",
+      "Rotation latérale de hanche"
+    ],
+    "secondaryActions": [
+      "Stabilisation du genou via le TFL / tractus"
+    ],
+    "focus": {
+      "position": [
+        -0.08736,
+        -0.05277,
+        -0.01213
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.46879,
+      0.85102,
+      -0.23665
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "grand-pectoral",
+    "name": "Grand pectoral",
+    "nameLatin": "Musculus pectoralis major",
+    "aliases": [
+      "pectoralis major",
+      "pectoraux"
+    ],
+    "region": "tronc",
+    "origin": "Faisceau claviculaire : moitié médiale de la clavicule. Sterno-costal : sternum et cartilages costaux 1–6. Abdominal : gaine du droit.",
+    "insertion": "Lèvre latérale du sillon intertuberculaire de l’humérus (tendon en U).",
+    "actions": [
+      "Adduction et rotation médiale du bras"
+    ],
+    "secondaryActions": [
+      "Flexion (faisceau claviculaire)",
+      "Extension depuis une flexion (faisceau sterno-costal)"
+    ],
+    "heads": [
+      {
+        "name": "Faisceau claviculaire",
+        "origin": "Moitié médiale de la clavicule.",
+        "insertion": "Sillon intertuberculaire de l’humérus."
+      },
+      {
+        "name": "Faisceau sterno-costal",
+        "origin": "Sternum et cartilages costaux.",
+        "insertion": "Sillon intertuberculaire de l’humérus."
+      },
+      {
+        "name": "Faisceau abdominal",
+        "origin": "Gaine du muscle droit de l’abdomen.",
+        "insertion": "Sillon intertuberculaire de l’humérus."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.09266,
+        0.38198,
+        0.11178
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.45981,
+      0.34881,
+      0.81664
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "grand-rhomboide",
+    "name": "Grand rhomboïde",
+    "nameLatin": "Musculus rhomboideus major",
+    "aliases": [
+      "rhomboïde major"
+    ],
+    "region": "dos",
+    "origin": "Épineuses T2–T5.",
+    "insertion": "Bord médial de la scapula sous l’épine.",
+    "actions": [
+      "Rétraction et rotation inférieure de la scapula"
+    ],
+    "focus": {
+      "position": [
+        -0.03359,
+        0.41925,
+        -0.03873
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.49532,
+      0.86476,
+      0.0827
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "grand-rond",
+    "name": "Grand rond",
+    "nameLatin": "Musculus teres major",
+    "aliases": [
+      "teres major"
+    ],
+    "region": "épaule",
+    "origin": "Angle inférieur de la scapula.",
+    "insertion": "Lèvre médiale du sillon intertuberculaire.",
+    "actions": [
+      "Adduction, extension et rotation médiale du bras"
+    ],
+    "focus": {
+      "position": [
+        -0.13125,
+        0.37272,
+        -0.00356
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.57025,
+      0.59082,
+      0.57074
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "genio-hyoidien",
+    "name": "Génio-hyoïdien",
+    "nameLatin": "Musculus geniohyoideus",
+    "aliases": [
+      "geniohyoid"
+    ],
+    "region": "cou",
+    "origin": "Épine mentonnière inférieure.",
+    "insertion": "Corps de l’hyoïde.",
+    "actions": [
+      "Tire l’hyoïde en haut et en avant"
+    ],
+    "focus": {
+      "position": [
+        -0.00345,
+        0.56624,
+        0.09201
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.05733,
+      0.30993,
+      0.94903
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "ilio-coccygien",
+    "name": "Ilio-coccygien",
+    "nameLatin": "Musculus iliococcygeus",
+    "aliases": [
+      "iliococcygeus"
+    ],
+    "region": "périnée",
+    "origin": "Arc tendineux du muscle élévateur / épine ischiatique.",
+    "insertion": "Coccyx et raphé ano-coccygien.",
+    "actions": [
+      "Soutien des viscères pelviens"
+    ],
+    "focus": {
+      "position": [
+        -0.02983,
+        -0.06528,
+        -0.00172
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.46392,
+      0.20021,
+      0.86296
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "iliocostal-cervical",
+    "name": "Iliocostal cervical",
+    "nameLatin": "Musculus iliocostalis cervicis",
+    "aliases": [
+      "iliocostalis cervicis"
+    ],
+    "region": "cou",
+    "origin": "Côtes 3–6.",
+    "insertion": "Transverses C4–C6.",
+    "actions": [
+      "Extension et inclinaison homolatérale du rachis"
+    ],
+    "focus": {
+      "position": [
+        -0.05155,
+        0.47181,
+        -0.00288
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.24309,
+      0.88124,
+      0.40536
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "iliocostal-lombaire",
+    "name": "Iliocostal lombaire",
+    "nameLatin": "Musculus iliocostalis lumborum",
+    "aliases": [
+      "iliocostalis lumborum"
+    ],
+    "region": "dos",
+    "origin": "Sacrum, crête iliaque, fascia thoraco-lombaire.",
+    "insertion": "Angles des côtes inférieures.",
+    "actions": [
+      "Extension et inclinaison homolatérale lombaire"
+    ],
+    "focus": {
+      "position": [
+        -0.0516,
+        0.14613,
+        -0.03081
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.21309,
+      0.9769,
+      0.0159
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "iliocostal-thoracique",
+    "name": "Iliocostal thoracique",
+    "nameLatin": "Musculus iliocostalis thoracis",
+    "aliases": [
+      "iliocostalis thoracis"
+    ],
+    "region": "dos",
+    "origin": "Côtes inférieures.",
+    "insertion": "Angles des côtes supérieures.",
+    "actions": [
+      "Extension et inclinaison homolatérale du rachis thoracique"
+    ],
+    "focus": {
+      "position": [
+        -0.06868,
+        0.35109,
+        -0.02269
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.01977,
+      0.99338,
+      0.11315
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "iliopsoas",
+    "name": "Iliopsoas",
+    "nameLatin": "Musculus iliopsoas",
+    "aliases": [
+      "ilio-psoas",
+      "psoas-iliaque"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Psoas : flancs des vertèbres T12–L5 et disques, processus transverses lombaires. Iliaque : fosse iliaque.",
+    "insertion": "Petit trochanter du fémur (tendon commun).",
+    "actions": [
+      "Flexion de hanche"
+    ],
+    "secondaryActions": [
+      "Inclinaison du tronc (psoas)",
+      "Rotation latérale accessoire de hanche"
+    ],
+    "heads": [
+      {
+        "name": "Psoas major",
+        "origin": "Vertèbres T12–L5, disques et transverses lombaires.",
+        "insertion": "Petit trochanter."
+      },
+      {
+        "name": "Iliaque",
+        "origin": "Fosse iliaque et lèvre interne de la crête.",
+        "insertion": "Petit trochanter."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.0646,
+        0.06191,
+        0.04022
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.25252,
+      0.96719,
+      -0.02797
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "infra-epineux",
+    "name": "Infra-épineux",
+    "nameLatin": "Musculus infraspinatus",
+    "aliases": [
+      "sous-épineux"
+    ],
+    "region": "épaule",
+    "origin": "Fosse infra-épineuse.",
+    "insertion": "Facette moyenne du tubercule majeur.",
+    "actions": [
+      "Rotation latérale du bras"
+    ],
+    "secondaryActions": [
+      "Coaptation gléno-humérale"
+    ],
+    "focus": {
+      "position": [
+        -0.13164,
+        0.42768,
+        -0.00506
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.57393,
+      0.81393,
+      -0.09008
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "inter-epineux-thoraciques",
+    "name": "Inter-épineux thoraciques",
+    "nameLatin": "Musculi interspinales thoracis",
+    "aliases": [
+      "interspinalis thoracis"
+    ],
+    "region": "dos",
+    "origin": "Processus épineux thoraciques adjacents.",
+    "insertion": "Épineuse voisine.",
+    "actions": [
+      "Extension segmentaire",
+      "Proprioception / stabilisation"
+    ],
+    "focus": {
+      "position": [
+        -0.0019,
+        0.46545,
+        -0.02896
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.02723,
+      0.94403,
+      0.32872
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "intercostaux-externes",
+    "name": "Intercostaux externes",
+    "nameLatin": "Musculi intercostales externi",
+    "aliases": [
+      "intercostaux externes"
+    ],
+    "region": "tronc",
+    "origin": "Bord inférieur de la côte sus-jacente (tubercule → jonction chondro-costale).",
+    "insertion": "Bord supérieur de la côte sous-jacente.",
+    "actions": [
+      "Élève les côtes (inspiration)"
+    ],
+    "focus": {
+      "position": [
+        -0.09351,
+        0.34165,
+        0.02942
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.15433,
+      0.98744,
+      -0.03382
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "intercostaux-internes",
+    "name": "Intercostaux internes",
+    "nameLatin": "Musculi intercostales interni",
+    "aliases": [
+      "intercostaux internes"
+    ],
+    "region": "tronc",
+    "origin": "Bord inférieur de la côte (sternum → angle).",
+    "insertion": "Côte sous-jacente.",
+    "actions": [
+      "Abaisse les côtes (expiration)",
+      "Intercartilagineux : inspiration"
+    ],
+    "focus": {
+      "position": [
+        -0.09962,
+        0.3083,
+        0.05417
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.0423,
+      0.99749,
+      0.0568
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "intercostaux-intimes",
+    "name": "Intercostaux intimes",
+    "nameLatin": "Musculi intercostales intimi",
+    "aliases": [
+      "intercostaux intimes"
+    ],
+    "region": "tronc",
+    "origin": "Face interne des espaces intercostaux.",
+    "insertion": "Côte adjacente.",
+    "actions": [
+      "Expiration / rigidification de la paroi"
+    ],
+    "focus": {
+      "position": [
+        -0.1073,
+        0.30088,
+        0.04024
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.08161,
+      0.99666,
+      0.00352
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "intertransversaire-lombaire-lateral",
+    "name": "Intertransversaire lombaire latéral",
+    "nameLatin": "Musculus intertransversarius lateralis lumborum",
+    "aliases": [
+      "intertransversaire latéral"
+    ],
+    "region": "dos",
+    "origin": "Processus transverses lombaires adjacents (portion latérale).",
+    "insertion": "Transverse voisin.",
+    "actions": [
+      "Inclinaison homolatérale",
+      "Stabilisation"
+    ],
+    "focus": {
+      "position": [
+        -0.03144,
+        0.15422,
+        0.01627
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.11975,
+      0.9864,
+      -0.1126
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "intertransversaire-lombaire-medial",
+    "name": "Intertransversaire lombaire médial",
+    "nameLatin": "Musculus intertransversarius medialis lumborum",
+    "aliases": [
+      "intertransversaire médial"
+    ],
+    "region": "dos",
+    "origin": "Processus accessoires / mamillaires lombaires.",
+    "insertion": "Niveau adjacent.",
+    "actions": [
+      "Stabilisation segmentaire lombaire"
+    ],
+    "focus": {
+      "position": [
+        -0.03281,
+        0.13306,
+        0.02157
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.1168,
+      0.9929,
+      -0.02251
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "jumeau-inferieur",
+    "name": "Jumeau inférieur",
+    "nameLatin": "Musculus gemellus inferior",
+    "aliases": [
+      "gemellus inferior"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Tubérosité ischiatique.",
+    "insertion": "Tendon de l’obturateur interne.",
+    "actions": [
+      "Rotation latérale de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.07676,
+        -0.0698,
+        -0.00244
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.31577,
+      0.92751,
+      0.20006
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "jumeau-superieur",
+    "name": "Jumeau supérieur",
+    "nameLatin": "Musculus gemellus superior",
+    "aliases": [
+      "gemellus superior"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Épine ischiatique.",
+    "insertion": "Tendon de l’obturateur interne (grand trochanter).",
+    "actions": [
+      "Rotation latérale de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.07158,
+        -0.04888,
+        0.00268
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.33053,
+      0.38893,
+      0.85993
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-abducteur-du-pouce",
+    "name": "Long abducteur du pouce",
+    "nameLatin": "Musculus abductor pollicis longus",
+    "aliases": [
+      "APL"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Ulna, radius et membrane interosseuse.",
+    "insertion": "Base du 1er métacarpien.",
+    "actions": [
+      "Abduction et extension du 1er métacarpien"
+    ],
+    "focus": {
+      "position": [
+        -0.25441,
+        0.01618,
+        0.05093
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.30932,
+      0.91032,
+      -0.27502
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-adducteur",
+    "name": "Long adducteur",
+    "nameLatin": "Musculus adductor longus",
+    "aliases": [
+      "adductor longus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Corps du pubis sous la crête.",
+    "insertion": "Tiers moyen de la ligne âpre.",
+    "actions": [
+      "Adduction de hanche"
+    ],
+    "secondaryActions": [
+      "Flexion accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.06074,
+        -0.21186,
+        0.06687
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.214,
+      0.96726,
+      0.13645
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-de-la-tete",
+    "name": "Long de la tête",
+    "nameLatin": "Musculus longus capitis",
+    "aliases": [
+      "longus capitis"
+    ],
+    "region": "cou",
+    "origin": "Transverses C3–C6.",
+    "insertion": "Partie basale de l’occipital.",
+    "actions": [
+      "Flexion de la tête"
+    ],
+    "focus": {
+      "position": [
+        -0.01786,
+        0.57542,
+        0.04459
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.18042,
+      0.98186,
+      0.05826
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-du-cou",
+    "name": "Long du cou",
+    "nameLatin": "Musculus longus colli",
+    "aliases": [
+      "longus colli"
+    ],
+    "region": "cou",
+    "origin": "Corps vertébraux et transverses cervico-thoraciques (faisceaux supérieur, vertical, inférieur).",
+    "insertion": "Corps et transverses cervicaux (atlas / C2–C4 selon le faisceau).",
+    "actions": [
+      "Flexion du cou"
+    ],
+    "secondaryActions": [
+      "Inclinaison homolatérale"
+    ],
+    "heads": [
+      {
+        "name": "Faisceau oblique supérieur",
+        "origin": "Transverses C3–C5.",
+        "insertion": "Tubercule antérieur de l’atlas."
+      },
+      {
+        "name": "Faisceau vertical",
+        "origin": "Corps C5–T3.",
+        "insertion": "Corps C2–C4."
+      },
+      {
+        "name": "Faisceau oblique inférieur",
+        "origin": "Corps T1–T3.",
+        "insertion": "Transverses C5–C6."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.00011,
+        0.60482,
+        0.04455
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.01522,
+      0.99939,
+      -0.0313
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-extenseur-du-pouce",
+    "name": "Long extenseur du pouce",
+    "nameLatin": "Musculus extensor pollicis longus",
+    "aliases": [
+      "EPL"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Face postérieure de l’ulna et membrane interosseuse.",
+    "insertion": "Base de la phalange distale du pouce.",
+    "actions": [
+      "Extension de l’IP du pouce"
+    ],
+    "secondaryActions": [
+      "Extension / rétropulsion du 1er métacarpien"
+    ],
+    "focus": {
+      "position": [
+        -0.27089,
+        -0.04593,
+        0.07542
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.45911,
+      0.81367,
+      -0.35659
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-extenseur-radial-du-carpe",
+    "name": "Long extenseur radial du carpe",
+    "nameLatin": "Musculus extensor carpi radialis longus",
+    "aliases": [
+      "premier radial"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Crête supra-condylaire latérale.",
+    "insertion": "Base dorsale du 2e métacarpien.",
+    "actions": [
+      "Extension du poignet",
+      "Abduction radiale"
+    ],
+    "focus": {
+      "position": [
+        -0.25389,
+        0.0956,
+        0.03628
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.13681,
+      0.97121,
+      -0.19503
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-fibulaire",
+    "name": "Long fibulaire",
+    "nameLatin": "Musculus fibularis longus",
+    "aliases": [
+      "long péronier latéral"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Tête et face latérale de la fibula.",
+    "insertion": "Cunéiforme médial et base du 1er métatarsien (plante).",
+    "actions": [
+      "Éversion du pied",
+      "Flexion plantaire accessoire"
+    ],
+    "secondaryActions": [
+      "Soutien de la voûte transversale"
+    ],
+    "focus": {
+      "position": [
+        -0.10196,
+        -0.73427,
+        0.02349
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.06348,
+      0.99027,
+      -0.1238
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-flechisseur-du-pouce",
+    "name": "Long fléchisseur du pouce",
+    "nameLatin": "Musculus flexor pollicis longus",
+    "aliases": [
+      "FPL"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Face antérieure du radius et membrane interosseuse.",
+    "insertion": "Base de la phalange distale du pouce.",
+    "actions": [
+      "Flexion de l’IP du pouce"
+    ],
+    "secondaryActions": [
+      "Flexion MP du pouce"
+    ],
+    "focus": {
+      "position": [
+        -0.26974,
+        -0.01141,
+        0.07075
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.27688,
+      0.89516,
+      -0.34933
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "long-palmaire",
+    "name": "Long palmaire",
+    "nameLatin": "Musculus palmaris longus",
+    "aliases": [
+      "petit palmaire"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle médial.",
+    "insertion": "Aponévrose palmaire.",
+    "actions": [
+      "Flexion du poignet"
+    ],
+    "secondaryActions": [
+      "Mise en tension de l’aponévrose palmaire"
+    ],
+    "focus": {
+      "position": [
+        -0.2389,
+        -0.03192,
+        0.08441
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.24636,
+      0.95061,
+      -0.18879
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "longissimus-de-la-tete",
+    "name": "Longissimus de la tête",
+    "nameLatin": "Musculus longissimus capitis",
+    "aliases": [
+      "longissimus capitis"
+    ],
+    "region": "cou",
+    "origin": "Transverses thoraciques / articulaires cervicales.",
+    "insertion": "Processus mastoïde.",
+    "actions": [
+      "Extension de la tête",
+      "Rotation homolatérale"
+    ],
+    "focus": {
+      "position": [
+        -0.03488,
+        0.55117,
+        0.02246
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.17408,
+      0.97542,
+      0.1351
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "longissimus-du-cou",
+    "name": "Longissimus du cou",
+    "nameLatin": "Musculus longissimus cervicis",
+    "aliases": [
+      "longissimus cervicis"
+    ],
+    "region": "cou",
+    "origin": "Transverses thoraciques.",
+    "insertion": "Transverses cervicales.",
+    "actions": [
+      "Extension et inclinaison cervicales"
+    ],
+    "focus": {
+      "position": [
+        -0.02965,
+        0.49608,
+        0.00658
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.03561,
+      0.92677,
+      0.37394
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "longissimus-du-thorax",
+    "name": "Longissimus du thorax",
+    "nameLatin": "Musculus longissimus thoracis",
+    "aliases": [
+      "longissimus thoracis"
+    ],
+    "region": "dos",
+    "origin": "Sacrum, épineuses lombaires, crête iliaque.",
+    "insertion": "Transverses thoraciques et côtes.",
+    "actions": [
+      "Extension du rachis thoraco-lombaire"
+    ],
+    "focus": {
+      "position": [
+        -0.03289,
+        0.26716,
+        -0.01703
+      ],
+      "distance": 0.621
+    },
+    "fiberAxis": [
+      -0.08304,
+      0.99652,
+      -0.0075
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "moyen-fessier",
+    "name": "Moyen fessier",
+    "nameLatin": "Musculus gluteus medius",
+    "aliases": [
+      "gluteus medius"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face glutéale de l’ilium entre lignes glutéales antérieure et postérieure.",
+    "insertion": "Face latérale du grand trochanter.",
+    "actions": [
+      "Abduction de hanche"
+    ],
+    "secondaryActions": [
+      "Rotation médiale (fibres antérieures)",
+      "Rotation latérale (fibres postérieures)"
+    ],
+    "focus": {
+      "position": [
+        -0.1127,
+        0.01534,
+        0.01088
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.25095,
+      0.96753,
+      0.03001
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "mylo-hyoidien",
+    "name": "Mylo-hyoïdien",
+    "nameLatin": "Musculus mylohyoideus",
+    "aliases": [
+      "mylohyoid"
+    ],
+    "region": "cou",
+    "origin": "Ligne mylo-hyoïdienne de la mandibule.",
+    "insertion": "Raphe médian et corps de l’hyoïde.",
+    "actions": [
+      "Élève le plancher buccal et l’hyoïde"
+    ],
+    "focus": {
+      "position": [
+        -0.00728,
+        0.57293,
+        0.09656
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.4835,
+      0.30377,
+      -0.82095
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "oblique-externe",
+    "name": "Oblique externe",
+    "nameLatin": "Musculus obliquus externus abdominis",
+    "aliases": [
+      "grand oblique"
+    ],
+    "region": "tronc",
+    "origin": "Face externe des côtes 5–12.",
+    "insertion": "Ligne blanche, crête iliaque, ligament inguinal.",
+    "actions": [
+      "Flexion du tronc (bilatéral)",
+      "Rotation controlatérale"
+    ],
+    "secondaryActions": [
+      "Expiration forcée",
+      "Stabilisation abdominale"
+    ],
+    "focus": {
+      "position": [
+        -0.05131,
+        0.13029,
+        0.13463
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.08391,
+      0.99568,
+      0.03982
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "oblique-inferieur-de-la-tete",
+    "name": "Oblique inférieur de la tête",
+    "nameLatin": "Musculus obliquus capitis inferior",
+    "aliases": [
+      "OCI"
+    ],
+    "region": "cou",
+    "origin": "Épineuse de l’axis.",
+    "insertion": "Transverse de l’atlas.",
+    "actions": [
+      "Rotation homolatérale de l’atlas (tête)"
+    ],
+    "focus": {
+      "position": [
+        -0.01981,
+        0.58911,
+        0.00998
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.05895,
+      0.78003,
+      -0.62297
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "oblique-superieur-de-la-tete",
+    "name": "Oblique supérieur de la tête",
+    "nameLatin": "Musculus obliquus capitis superior",
+    "aliases": [
+      "OCS"
+    ],
+    "region": "cou",
+    "origin": "Transverse de l’atlas.",
+    "insertion": "Occipital entre les lignes nuchales.",
+    "actions": [
+      "Extension et inclinaison de la tête"
+    ],
+    "focus": {
+      "position": [
+        -0.0381,
+        0.6216,
+        -0.00348
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.13038,
+      0.39485,
+      -0.90945
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "obturateur-externe",
+    "name": "Obturateur externe",
+    "nameLatin": "Musculus obturatorius externus",
+    "aliases": [
+      "obturateur externe"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Cadre obturateur (face externe).",
+    "insertion": "Fosse trochantérique.",
+    "actions": [
+      "Rotation latérale de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.05932,
+        -0.08023,
+        0.03304
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.27716,
+      0.44576,
+      0.85116
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "obturateur-interne",
+    "name": "Obturateur interne",
+    "nameLatin": "Musculus obturatorius internus",
+    "aliases": [
+      "obturateur interne"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Cadre et membrane obturateurs (face interne).",
+    "insertion": "Face médiale du grand trochanter.",
+    "actions": [
+      "Rotation latérale de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.04933,
+        -0.06071,
+        0.03158
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.62151,
+      0.02343,
+      0.78306
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "omo-hyoidien",
+    "name": "Omo-hyoïdien",
+    "nameLatin": "Musculus omohyoideus",
+    "aliases": [
+      "omohyoid"
+    ],
+    "region": "cou",
+    "origin": "Bord supérieur de la scapula (incisure).",
+    "insertion": "Corps de l’hyoïde.",
+    "actions": [
+      "Abaisse l’hyoïde"
+    ],
+    "focus": {
+      "position": [
+        -0.06058,
+        0.49935,
+        0.03401
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.20442,
+      0.78507,
+      -0.5847
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "opposant-du-petit-doigt",
+    "name": "Opposant du petit doigt",
+    "nameLatin": "Musculus opponens digiti minimi manus",
+    "aliases": [
+      "opposant du V"
+    ],
+    "region": "main",
+    "origin": "Hamulus de l’hamatum et rétinaculum.",
+    "insertion": "5e métacarpien.",
+    "actions": [
+      "Opposition / concavité de la paume (5e rayon)"
+    ],
+    "focus": {
+      "position": [
+        -0.23077,
+        -0.10594,
+        0.09154
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.30848,
+      0.94339,
+      -0.12189
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "opposant-du-petit-orteil",
+    "name": "Opposant du petit orteil",
+    "nameLatin": "Musculus opponens digiti minimi pedis",
+    "aliases": [
+      "opposant du V pied"
+    ],
+    "region": "pied",
+    "origin": "Ligament plantaire long / gaine du fibulaire long.",
+    "insertion": "5e métatarsien.",
+    "actions": [
+      "Stabilise le 5e rayon / légère opposition"
+    ],
+    "focus": {
+      "position": [
+        -0.12026,
+        -0.91566,
+        0.06733
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.61398,
+      0.17203,
+      -0.77034
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "opposant-du-pouce",
+    "name": "Opposant du pouce",
+    "nameLatin": "Musculus opponens pollicis",
+    "aliases": [
+      "opposant"
+    ],
+    "region": "main",
+    "origin": "Rétinaculum des fléchisseurs et trapèze.",
+    "insertion": "Bord latéral du 1er métacarpien.",
+    "actions": [
+      "Opposition du pouce"
+    ],
+    "focus": {
+      "position": [
+        -0.28215,
+        -0.072,
+        0.09478
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.54441,
+      0.68356,
+      -0.48618
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "peaucier-du-cou",
+    "name": "Peaucier du cou",
+    "nameLatin": "Platysma",
+    "aliases": [
+      "platysma"
+    ],
+    "region": "cou",
+    "origin": "Fascia pectoral / deltoïdien superficiel.",
+    "insertion": "Mandibule et peau de la commissure.",
+    "actions": [
+      "Tense la peau du cou"
+    ],
+    "secondaryActions": [
+      "Abaisse la commissure (mimique)"
+    ],
+    "focus": {
+      "position": [
+        -0.0399,
+        0.52011,
+        0.07583
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.6148,
+      0.63352,
+      0.46975
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "pectine",
+    "name": "Pectiné",
+    "nameLatin": "Musculus pectineus",
+    "aliases": [
+      "pectineus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Pecten du pubis.",
+    "insertion": "Ligne pectinéale du fémur.",
+    "actions": [
+      "Adduction et flexion de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.06008,
+        -0.09897,
+        0.06783
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.42097,
+      0.87099,
+      0.25328
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "petit-adducteur",
+    "name": "Petit adducteur",
+    "nameLatin": "Musculus adductor minimus",
+    "aliases": [
+      "adductor minimus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Branche ischio-pubienne (portion haute du grand adducteur).",
+    "insertion": "Ligne âpre proximale.",
+    "actions": [
+      "Adduction de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.08812,
+        -0.16466,
+        0.03794
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.57392,
+      0.78025,
+      0.24865
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "petit-droit-posterieur-de-la-tete",
+    "name": "Petit droit postérieur de la tête",
+    "nameLatin": "Musculus rectus capitis posterior minor",
+    "aliases": [
+      "RCP minor"
+    ],
+    "region": "cou",
+    "origin": "Tubercule postérieur de l’atlas.",
+    "insertion": "Ligne nuchale inférieure (médial).",
+    "actions": [
+      "Extension de la tête"
+    ],
+    "focus": {
+      "position": [
+        -0.01125,
+        0.61872,
+        -0.01672
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.34891,
+      0.66951,
+      -0.65576
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "petit-fessier",
+    "name": "Petit fessier",
+    "nameLatin": "Musculus gluteus minimus",
+    "aliases": [
+      "gluteus minimus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Ilium entre lignes glutéales antérieure et inférieure.",
+    "insertion": "Face antérieure du grand trochanter.",
+    "actions": [
+      "Abduction de hanche",
+      "Rotation médiale de hanche"
+    ],
+    "focus": {
+      "position": [
+        -0.11231,
+        0.00059,
+        0.02581
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.33499,
+      0.94214,
+      0.01202
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "petit-pectoral",
+    "name": "Petit pectoral",
+    "nameLatin": "Musculus pectoralis minor",
+    "aliases": [
+      "pectoralis minor"
+    ],
+    "region": "tronc",
+    "origin": "Face externe des côtes 3–5.",
+    "insertion": "Processus coracoïde.",
+    "actions": [
+      "Abaisse et bascule en avant la scapula"
+    ],
+    "secondaryActions": [
+      "Inspirateur accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.10332,
+        0.38984,
+        0.09562
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.1195,
+      0.8507,
+      -0.51188
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "petit-rhomboide",
+    "name": "Petit rhomboïde",
+    "nameLatin": "Musculus rhomboideus minor",
+    "aliases": [
+      "rhomboïde minor"
+    ],
+    "region": "dos",
+    "origin": "Ligament nuchal et épineuses C7–T1.",
+    "insertion": "Bord médial de la scapula à la racine de l’épine.",
+    "actions": [
+      "Rétraction de la scapula"
+    ],
+    "focus": {
+      "position": [
+        -0.03007,
+        0.4712,
+        -0.02748
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.54707,
+      0.82495,
+      0.14205
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "petit-rond",
+    "name": "Petit rond",
+    "nameLatin": "Musculus teres minor",
+    "aliases": [
+      "teres minor"
+    ],
+    "region": "épaule",
+    "origin": "Bord latéral de la scapula.",
+    "insertion": "Facette inférieure du tubercule majeur.",
+    "actions": [
+      "Rotation latérale du bras"
+    ],
+    "secondaryActions": [
+      "Coaptation"
+    ],
+    "focus": {
+      "position": [
+        -0.14259,
+        0.40829,
+        -0.00291
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.62372,
+      0.65886,
+      0.42056
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "piriforme",
+    "name": "Piriforme",
+    "nameLatin": "Musculus piriformis",
+    "aliases": [
+      "pyramidal du bassin"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face antérieure du sacrum (S2–S4).",
+    "insertion": "Sommet du grand trochanter.",
+    "actions": [
+      "Rotation latérale de hanche (hanche tendue)",
+      "Abduction hanche fléchie"
+    ],
+    "focus": {
+      "position": [
+        -0.06813,
+        -0.02044,
+        -0.00169
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.18871,
+      0.76942,
+      0.61023
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "plantaire",
+    "name": "Plantaire",
+    "nameLatin": "Musculus plantaris",
+    "aliases": [
+      "plantaire grêle"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Ligne supra-condylaire latérale du fémur.",
+    "insertion": "Calcanéus (médial au tendon calcanéen).",
+    "actions": [
+      "Flexion plantaire accessoire",
+      "Flexion du genou accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.0673,
+        -0.60722,
+        0.01189
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.11056,
+      0.9922,
+      0.05766
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "poplite",
+    "name": "Poplité",
+    "nameLatin": "Musculus popliteus",
+    "aliases": [
+      "popliteus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Condyle fémoral latéral (et ménisque latéral).",
+    "insertion": "Face postérieure du tibia au-dessus de la ligne soléaire.",
+    "actions": [
+      "Déverrouille le genou (rotation médiale du tibia)",
+      "Flexion accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.07824,
+        -0.52655,
+        0.02899
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.34572,
+      0.90973,
+      -0.22994
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "premier-interosseux-plantaire",
+    "name": "Premier interosseux plantaire",
+    "nameLatin": "Musculus interosseus plantaris I",
+    "aliases": [
+      "interosseux plantaire 1"
+    ],
+    "region": "pied",
+    "origin": "Métatarsien 3 (face médiale).",
+    "insertion": "Phalange proximale de l’orteil 3 (côté médial).",
+    "actions": [
+      "Adduction de l’orteil 3 (axe du 2e rayon)"
+    ],
+    "focus": {
+      "position": [
+        -0.1154,
+        -0.90709,
+        0.11252
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.37232,
+      0.39922,
+      -0.83786
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "premier-lombrical-du-pied",
+    "name": "Premier lombrical du pied",
+    "nameLatin": "Musculus lumbricalis I pedis",
+    "aliases": [
+      "lombrical 1 pied"
+    ],
+    "region": "pied",
+    "origin": "Tendon médial du fléchisseur long des orteils (orteil 2).",
+    "insertion": "Expansion dorsale de l’orteil 2 (côté médial).",
+    "actions": [
+      "Flexion MP et extension IP de l’orteil 2"
+    ],
+    "focus": {
+      "position": [
+        -0.09058,
+        -0.91319,
+        0.09205
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.36393,
+      0.18007,
+      -0.91386
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "pubo-coccygien",
+    "name": "Pubo-coccygien",
+    "nameLatin": "Musculus pubococcygeus",
+    "aliases": [
+      "pubococcygeus"
+    ],
+    "region": "périnée",
+    "origin": "Pubis (face postérieure).",
+    "insertion": "Coccyx / raphé / organes pelviens.",
+    "actions": [
+      "Soutien pelvien",
+      "Continence"
+    ],
+    "focus": {
+      "position": [
+        -0.0182,
+        -0.07339,
+        0.00719
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.12926,
+      0.16727,
+      -0.9774
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "pubo-rectal",
+    "name": "Pubo-rectal",
+    "nameLatin": "Musculus puborectalis",
+    "aliases": [
+      "puborectalis"
+    ],
+    "region": "périnée",
+    "origin": "Pubis (deux chefs droit et gauche).",
+    "insertion": "Sangle derrière la jonction ano-rectale.",
+    "actions": [
+      "Maintien de l’angle ano-rectal (continence fécale)"
+    ],
+    "focus": {
+      "position": [
+        -0.01745,
+        -0.08235,
+        0.02561
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.1226,
+      -0.12714,
+      -0.98428
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "quatrieme-lombrical-du-pied",
+    "name": "Quatrième lombrical du pied",
+    "nameLatin": "Musculus lumbricalis IV pedis",
+    "aliases": [
+      "lombrical 4 pied"
+    ],
+    "region": "pied",
+    "origin": "Tendons FDL adjacents (orteils 4–5).",
+    "insertion": "Expansion dorsale de l’orteil 5.",
+    "actions": [
+      "Flexion MP et extension IP de l’orteil 5"
+    ],
+    "focus": {
+      "position": [
+        -0.1213,
+        -0.91998,
+        0.09172
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.52481,
+      0.45574,
+      0.71894
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "rond-pronateur",
+    "name": "Rond pronateur",
+    "nameLatin": "Musculus pronator teres",
+    "aliases": [
+      "pronator teres"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Chef huméral : épicondyle médial. Chef ulnaire : processus coronoïde.",
+    "insertion": "Face latérale du radius (tiers moyen).",
+    "actions": [
+      "Pronation de l’avant-bras"
+    ],
+    "secondaryActions": [
+      "Flexion accessoire du coude"
+    ],
+    "heads": [
+      {
+        "name": "Chef huméral",
+        "origin": "Épicondyle médial (tendon commun des fléchisseurs).",
+        "insertion": "Face latérale du radius."
+      },
+      {
+        "name": "Chef ulnaire",
+        "origin": "Processus coronoïde de l’ulna.",
+        "insertion": "Face latérale du radius."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.23579,
+        0.11257,
+        0.04452
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.45224,
+      0.88934,
+      -0.06747
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "rotateurs-cervicaux",
+    "name": "Rotateurs cervicaux",
+    "nameLatin": "Musculi rotatores cervicis",
+    "aliases": [
+      "rotatores colli"
+    ],
+    "region": "cou",
+    "origin": "Processus transverses cervicaux.",
+    "insertion": "Lame / épineuse de la vertèbre sus-jacente (1–2 niveaux).",
+    "actions": [
+      "Rotation controlatérale fine",
+      "Stabilisation segmentaire"
+    ],
+    "focus": {
+      "position": [
+        -0.01007,
+        0.55703,
+        0.01411
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.08952,
+      0.98697,
+      -0.13368
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "rotateurs-lombaires",
+    "name": "Rotateurs lombaires",
+    "nameLatin": "Musculi rotatores lumborum",
+    "aliases": [
+      "rotatores lumborum"
+    ],
+    "region": "dos",
+    "origin": "Transverses lombaires.",
+    "insertion": "Lame / épineuse sus-jacente.",
+    "actions": [
+      "Rotation controlatérale fine",
+      "Stabilisation segmentaire"
+    ],
+    "focus": {
+      "position": [
+        -0.01674,
+        0.15165,
+        0.01264
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.1042,
+      0.99001,
+      -0.09504
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "rotateurs-thoraciques",
+    "name": "Rotateurs thoraciques",
+    "nameLatin": "Musculi rotatores thoracis",
+    "aliases": [
+      "rotatores thoracis"
+    ],
+    "region": "dos",
+    "origin": "Transverses thoraciques.",
+    "insertion": "Lame / épineuse sus-jacente.",
+    "actions": [
+      "Rotation controlatérale fine",
+      "Stabilisation segmentaire"
+    ],
+    "focus": {
+      "position": [
+        -0.01165,
+        0.38082,
+        -0.0134
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.00247,
+      0.99831,
+      0.05801
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "sartorius",
+    "name": "Sartorius",
+    "nameLatin": "Musculus sartorius",
+    "aliases": [
+      "couturier"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Épine iliaque antéro-supérieure.",
+    "insertion": "Face médiale du tibia proximal (patte d’oie).",
+    "actions": [
+      "Flexion, abduction et rotation latérale de hanche",
+      "Flexion du genou"
+    ],
+    "focus": {
+      "position": [
+        -0.07519,
+        -0.25477,
+        0.07578
+      ],
+      "distance": 0.749
+    },
+    "fiberAxis": [
+      -0.12711,
+      0.99106,
+      0.0405
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "scalene-anterieur",
+    "name": "Scalène antérieur",
+    "nameLatin": "Musculus scalenus anterior",
+    "aliases": [
+      "scalenus anterior"
+    ],
+    "region": "cou",
+    "origin": "Transverses C3–C6.",
+    "insertion": "Tubercule du scalène de la 1re côte.",
+    "actions": [
+      "Élève la 1re côte",
+      "Inclinaison cervicale homolatérale"
+    ],
+    "secondaryActions": [
+      "Flexion cervicale"
+    ],
+    "focus": {
+      "position": [
+        -0.03321,
+        0.51995,
+        0.04381
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.3333,
+      0.92844,
+      -0.16404
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "scalene-moyen",
+    "name": "Scalène moyen",
+    "nameLatin": "Musculus scalenus medius",
+    "aliases": [
+      "scalenus medius"
+    ],
+    "region": "cou",
+    "origin": "Transverses C2–C7.",
+    "insertion": "1re côte (en arrière du sillon du plexus).",
+    "actions": [
+      "Élève la 1re côte",
+      "Inclinaison cervicale"
+    ],
+    "focus": {
+      "position": [
+        -0.03519,
+        0.52914,
+        0.03492
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.26698,
+      0.96303,
+      -0.03603
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "scalene-posterieur",
+    "name": "Scalène postérieur",
+    "nameLatin": "Musculus scalenus posterior",
+    "aliases": [
+      "scalenus posterior"
+    ],
+    "region": "cou",
+    "origin": "Transverses C4–C6.",
+    "insertion": "2e côte.",
+    "actions": [
+      "Élève la 2e côte",
+      "Inclinaison cervicale"
+    ],
+    "focus": {
+      "position": [
+        -0.04775,
+        0.50589,
+        0.02688
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.6144,
+      0.74616,
+      0.25643
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "semi-membraneux",
+    "name": "Semi-membraneux",
+    "nameLatin": "Musculus semimembranosus",
+    "aliases": [
+      "semimembranosus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Tubérosité ischiatique.",
+    "insertion": "Condyle tibial médial (et fascia poplité / ligament poplité oblique).",
+    "actions": [
+      "Extension de hanche",
+      "Flexion du genou",
+      "Rotation médiale de jambe genou fléchi"
+    ],
+    "focus": {
+      "position": [
+        -0.04015,
+        -0.3237,
+        0.01956
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.01288,
+      0.99849,
+      -0.05347
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "semi-tendineux",
+    "name": "Semi-tendineux",
+    "nameLatin": "Musculus semitendinosus",
+    "aliases": [
+      "semitendinosus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Tubérosité ischiatique.",
+    "insertion": "Face médiale du tibia proximal (patte d’oie).",
+    "actions": [
+      "Extension de hanche",
+      "Flexion du genou",
+      "Rotation médiale de jambe genou fléchi"
+    ],
+    "focus": {
+      "position": [
+        -0.04977,
+        -0.35843,
+        0.01658
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.01948,
+      0.99409,
+      -0.10678
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "semi-epineux-de-la-tete",
+    "name": "Semi-épineux de la tête",
+    "nameLatin": "Musculus semispinalis capitis",
+    "aliases": [
+      "complexus"
+    ],
+    "region": "cou",
+    "origin": "Transverses thoraciques hautes et cervicales.",
+    "insertion": "Os occipital entre les lignes nuchales.",
+    "actions": [
+      "Extension de la tête"
+    ],
+    "secondaryActions": [
+      "Rotation controlatérale"
+    ],
+    "focus": {
+      "position": [
+        -0.0254,
+        0.60702,
+        -0.01054
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.03772,
+      0.89859,
+      -0.43717
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "semi-epineux-du-cou",
+    "name": "Semi-épineux du cou",
+    "nameLatin": "Musculus semispinalis cervicis",
+    "aliases": [
+      "semispinalis cervicis"
+    ],
+    "region": "cou",
+    "origin": "Transverses thoraciques.",
+    "insertion": "Épineuses cervicales (surtout C2).",
+    "actions": [
+      "Extension cervicale",
+      "Rotation controlatérale"
+    ],
+    "focus": {
+      "position": [
+        -0.01503,
+        0.50007,
+        -0.0025
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.17373,
+      0.95354,
+      0.24615
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "semi-epineux-du-thorax",
+    "name": "Semi-épineux du thorax",
+    "nameLatin": "Musculus semispinalis thoracis",
+    "aliases": [
+      "semispinalis thoracis"
+    ],
+    "region": "dos",
+    "origin": "Transverses thoraciques basses.",
+    "insertion": "Épineuses thoraciques hautes / cervicales basses.",
+    "actions": [
+      "Extension thoracique",
+      "Rotation controlatérale"
+    ],
+    "focus": {
+      "position": [
+        -0.01437,
+        0.36222,
+        -0.02675
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.05834,
+      0.99548,
+      -0.07496
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "soleaire",
+    "name": "Soléaire",
+    "nameLatin": "Musculus soleus",
+    "aliases": [
+      "soleus"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Tête et face postérieure de la fibula, ligne soléaire du tibia, arcade tendineuse.",
+    "insertion": "Calcanéus via le tendon calcanéen.",
+    "actions": [
+      "Flexion plantaire de cheville"
+    ],
+    "secondaryActions": [
+      "Postural (contrôle de l’avancée tibiale)"
+    ],
+    "focus": {
+      "position": [
+        -0.08007,
+        -0.63161,
+        0.01319
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.15009,
+      0.98788,
+      0.03958
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "sphincter-anal-externe",
+    "name": "Sphincter anal externe",
+    "nameLatin": "Musculus sphincter ani externus",
+    "aliases": [
+      "sphincter anal"
+    ],
+    "region": "périnée",
+    "origin": "Raphé ano-coccygien / peau.",
+    "insertion": "Périnée antérieur / fibres circulaires.",
+    "actions": [
+      "Continence anale volontaire"
+    ],
+    "focus": {
+      "position": [
+        -0.00685,
+        -0.09675,
+        -0.01544
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.04238,
+      0.70716,
+      -0.70578
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "splenius-de-la-tete",
+    "name": "Splénius de la tête",
+    "nameLatin": "Musculus splenius capitis",
+    "aliases": [
+      "splenius capitis"
+    ],
+    "region": "cou",
+    "origin": "Ligament nuchal et épineuses C7–T3/4.",
+    "insertion": "Mastoïde et ligne nuchale supérieure.",
+    "actions": [
+      "Extension de la tête (bilatéral)",
+      "Rotation et inclinaison homolatérales"
+    ],
+    "focus": {
+      "position": [
+        -0.01837,
+        0.53336,
+        -0.00873
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.26009,
+      0.92153,
+      0.28834
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "splenius-du-cou",
+    "name": "Splénius du cou",
+    "nameLatin": "Musculus splenius cervicis",
+    "aliases": [
+      "splenius cervicis"
+    ],
+    "region": "cou",
+    "origin": "Épineuses T3–T6.",
+    "insertion": "Transverses C1–C3.",
+    "actions": [
+      "Extension cervicale",
+      "Rotation / inclinaison homolatérales"
+    ],
+    "focus": {
+      "position": [
+        -0.01395,
+        0.44815,
+        -0.02491
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.13824,
+      0.92693,
+      0.34883
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "sterno-cleido-mastoidien",
+    "name": "Sterno-cléido-mastoïdien",
+    "nameLatin": "Musculus sternocleidomastoideus",
+    "aliases": [
+      "SCM",
+      "sterno-cléido-mastoïdien"
+    ],
+    "region": "cou",
+    "origin": "Chef sternal : manubrium. Chef claviculaire : tiers médial de la clavicule.",
+    "insertion": "Processus mastoïde et ligne nuchale supérieure.",
+    "actions": [
+      "Inclinaison homolatérale et rotation controlatérale de la tête"
+    ],
+    "secondaryActions": [
+      "Flexion cervicale (bilatéral)",
+      "Inspirateur accessoire"
+    ],
+    "focus": {
+      "position": [
+        -0.03984,
+        0.53804,
+        0.05891
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.16922,
+      0.87856,
+      -0.44665
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "sterno-hyoidien",
+    "name": "Sterno-hyoïdien",
+    "nameLatin": "Musculus sternohyoideus",
+    "aliases": [
+      "sternohyoid"
+    ],
+    "region": "cou",
+    "origin": "Manubrium et clavicule médiale.",
+    "insertion": "Corps de l’hyoïde.",
+    "actions": [
+      "Abaisse l’hyoïde"
+    ],
+    "focus": {
+      "position": [
+        -0.01303,
+        0.49862,
+        0.0776
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.04233,
+      0.99548,
+      -0.08505
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "sterno-thyroidien",
+    "name": "Sterno-thyroïdien",
+    "nameLatin": "Musculus sternothyroideus",
+    "aliases": [
+      "sternothyroid"
+    ],
+    "region": "cou",
+    "origin": "Manubrium.",
+    "insertion": "Ligne oblique du cartilage thyroïde.",
+    "actions": [
+      "Abaisse le larynx"
+    ],
+    "focus": {
+      "position": [
+        -0.01413,
+        0.48243,
+        0.07392
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.03009,
+      0.95354,
+      -0.29977
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "stylo-hyoidien",
+    "name": "Stylo-hyoïdien",
+    "nameLatin": "Musculus stylohyoideus",
+    "aliases": [
+      "stylohyoid"
+    ],
+    "region": "cou",
+    "origin": "Processus styloïde.",
+    "insertion": "Corps de l’hyoïde.",
+    "actions": [
+      "Élève et recule l’hyoïde"
+    ],
+    "focus": {
+      "position": [
+        -0.02362,
+        0.58795,
+        0.06579
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.37089,
+      0.76884,
+      -0.52088
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "subclavier",
+    "name": "Subclavier",
+    "nameLatin": "Musculus subclavius",
+    "aliases": [
+      "sous-clavier"
+    ],
+    "region": "épaule",
+    "origin": "1re côte et cartilage.",
+    "insertion": "Face inférieure de la clavicule.",
+    "actions": [
+      "Stabilise et abaisse la clavicule"
+    ],
+    "focus": {
+      "position": [
+        -0.06423,
+        0.46161,
+        0.07045
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.63698,
+      -0.10403,
+      -0.76383
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "subscapulaire",
+    "name": "Subscapulaire",
+    "nameLatin": "Musculus subscapularis",
+    "aliases": [
+      "sous-scapulaire"
+    ],
+    "region": "épaule",
+    "origin": "Fosse subscapulaire.",
+    "insertion": "Tubercule mineur de l’humérus.",
+    "actions": [
+      "Rotation médiale du bras"
+    ],
+    "secondaryActions": [
+      "Coaptation gléno-humérale"
+    ],
+    "focus": {
+      "position": [
+        -0.08888,
+        0.40136,
+        -0.01536
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.54177,
+      0.59514,
+      0.59354
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "supinateur",
+    "name": "Supinateur",
+    "nameLatin": "Musculus supinator",
+    "aliases": [
+      "court supinateur"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Épicondyle latéral, ligament collatéral radial, crête du supinateur de l’ulna.",
+    "insertion": "Face latérale du radius proximal.",
+    "actions": [
+      "Supination de l’avant-bras"
+    ],
+    "focus": {
+      "position": [
+        -0.23875,
+        0.12714,
+        0.03176
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.18037,
+      0.96059,
+      -0.21151
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "supra-epineux",
+    "name": "Supra-épineux",
+    "nameLatin": "Musculus supraspinatus",
+    "aliases": [
+      "sus-épineux"
+    ],
+    "region": "épaule",
+    "origin": "Fosse supra-épineuse de la scapula.",
+    "insertion": "Facette supérieure du tubercule majeur.",
+    "actions": [
+      "Amorcer l’abduction du bras"
+    ],
+    "secondaryActions": [
+      "Coaptation de la tête humérale"
+    ],
+    "focus": {
+      "position": [
+        -0.13592,
+        0.45923,
+        0.01287
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.16858,
+      0.97833,
+      0.12019
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "tenseur-du-fascia-lata",
+    "name": "Tenseur du fascia lata",
+    "nameLatin": "Musculus tensor fasciae latae",
+    "aliases": [
+      "TFL"
+    ],
+    "region": "membre-inférieur",
+    "origin": "EIAS et lèvre externe de la crête iliaque.",
+    "insertion": "Tractus ilio-tibial vers le tubercule de Gerdy.",
+    "actions": [
+      "Flexion, abduction et rotation médiale de hanche"
+    ],
+    "secondaryActions": [
+      "Stabilisation latérale du genou"
+    ],
+    "focus": {
+      "position": [
+        -0.14646,
+        -0.03163,
+        0.06404
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.12933,
+      0.98538,
+      0.11092
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "thyro-hyoidien",
+    "name": "Thyro-hyoïdien",
+    "nameLatin": "Musculus thyrohyoideus",
+    "aliases": [
+      "thyrohyoid"
+    ],
+    "region": "cou",
+    "origin": "Ligne oblique du thyroïde.",
+    "insertion": "Grande corne de l’hyoïde.",
+    "actions": [
+      "Abaisse l’hyoïde ou élève le larynx"
+    ],
+    "focus": {
+      "position": [
+        -0.01465,
+        0.55059,
+        0.06412
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.01096,
+      0.8377,
+      0.54603
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "tibial-anterieur",
+    "name": "Tibial antérieur",
+    "nameLatin": "Musculus tibialis anterior",
+    "aliases": [
+      "tibialis anterior"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Condyle tibial latéral et face latérale du tibia, membrane interosseuse.",
+    "insertion": "Cunéiforme médial et base du 1er métatarsien.",
+    "actions": [
+      "Flexion dorsale de cheville",
+      "Inversion du pied"
+    ],
+    "focus": {
+      "position": [
+        -0.08575,
+        -0.75875,
+        0.06887
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.08377,
+      0.98734,
+      -0.13467
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "tibial-posterieur",
+    "name": "Tibial postérieur",
+    "nameLatin": "Musculus tibialis posterior",
+    "aliases": [
+      "tibialis posterior"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Tibia, fibula et membrane interosseuse (loge postérieure profonde).",
+    "insertion": "Naviculaire, cunéiformes et bases métatarsiennes 2–4.",
+    "actions": [
+      "Inversion du pied",
+      "Flexion plantaire accessoire"
+    ],
+    "secondaryActions": [
+      "Soutien de la voûte médiale"
+    ],
+    "focus": {
+      "position": [
+        -0.07772,
+        -0.79314,
+        0.04984
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.07693,
+      0.98705,
+      -0.14078
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "transverse-du-thorax",
+    "name": "Transverse du thorax",
+    "nameLatin": "Musculus transversus thoracis",
+    "aliases": [
+      "triangulaire du sternum"
+    ],
+    "region": "tronc",
+    "origin": "Face postérieure du sternum / xiphoïde.",
+    "insertion": "Cartilages costaux 2–6.",
+    "actions": [
+      "Abaisse les cartilages costaux (expiration)"
+    ],
+    "focus": {
+      "position": [
+        -0.02995,
+        0.34948,
+        0.14313
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.03678,
+      0.95005,
+      -0.30992
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "trapeze",
+    "name": "Trapèze",
+    "nameLatin": "Musculus trapezius",
+    "aliases": [
+      "trapeze",
+      "trapezius"
+    ],
+    "region": "dos",
+    "origin": "Ligne nuchale supérieure, ligament nuchal, processus épineux C7–T12.",
+    "insertion": "Tiers latéral de la clavicule, acromion et épine de la scapula.",
+    "actions": [
+      "Élévation de la scapula (descendant)",
+      "Rétraction (transverse)",
+      "Abaissement et rotation supérieure (ascendant)"
+    ],
+    "secondaryActions": [
+      "Extension cervicale (faisceaux descendants, action bilatérale)"
+    ],
+    "heads": [
+      {
+        "name": "Faisceau descendant",
+        "origin": "Ligne nuchale / ligament nuchal / C7.",
+        "insertion": "Clavicule latérale et acromion."
+      },
+      {
+        "name": "Faisceau transverse",
+        "origin": "Épineuses thoraciques hautes.",
+        "insertion": "Épine de la scapula."
+      },
+      {
+        "name": "Faisceau ascendant",
+        "origin": "Épineuses thoraciques basses.",
+        "insertion": "Épine de la scapula (racine)."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.04555,
+        0.46389,
+        -0.02236
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.08189,
+      0.99185,
+      0.09757
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "triceps-brachial",
+    "name": "Triceps brachial",
+    "nameLatin": "Musculus triceps brachii",
+    "aliases": [
+      "triceps",
+      "triceps du bras"
+    ],
+    "region": "membre-supérieur",
+    "origin": "Chef long : tubercule infra-glénoïdien. Chef latéral : face postérieure de l’humérus au-dessus du sillon radial. Chef médial : face postérieure au-dessous de ce sillon.",
+    "insertion": "Face supérieure de l’olécrane de l’ulna et fascia antébrachial adjacent.",
+    "actions": [
+      "Extension du coude"
+    ],
+    "secondaryActions": [
+      "Adduction et extension de l’épaule (chef long)"
+    ],
+    "heads": [
+      {
+        "name": "Chef long",
+        "origin": "Tubercule infra-glénoïdien de la scapula.",
+        "insertion": "Olécrane."
+      },
+      {
+        "name": "Chef latéral",
+        "origin": "Face postérieure de l’humérus, au-dessus du sillon du nerf radial.",
+        "insertion": "Olécrane."
+      },
+      {
+        "name": "Chef médial",
+        "origin": "Face postérieure de l’humérus, au-dessous du sillon radial.",
+        "insertion": "Olécrane."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.19466,
+        0.2836,
+        0.00198
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.17965,
+      0.9835,
+      0.02123
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "troisieme-fibulaire",
+    "name": "Troisième fibulaire",
+    "nameLatin": "Musculus fibularis tertius",
+    "aliases": [
+      "péronier antérieur"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face antérieure de la fibula distale et membrane interosseuse.",
+    "insertion": "Base du 5e métatarsien (dorsale).",
+    "actions": [
+      "Flexion dorsale",
+      "Éversion"
+    ],
+    "focus": {
+      "position": [
+        -0.10558,
+        -0.86339,
+        0.04234
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.1737,
+      0.9514,
+      -0.25429
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "troisieme-interosseux-plantaire",
+    "name": "Troisième interosseux plantaire",
+    "nameLatin": "Musculus interosseus plantaris III",
+    "aliases": [
+      "interosseux plantaire 3"
+    ],
+    "region": "pied",
+    "origin": "Métatarsien 5 (face médiale).",
+    "insertion": "Phalange proximale de l’orteil 5.",
+    "actions": [
+      "Adduction de l’orteil 5"
+    ],
+    "focus": {
+      "position": [
+        -0.13073,
+        -0.91525,
+        0.09366
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.61739,
+      0.19871,
+      -0.76114
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "troisieme-lombrical-du-pied",
+    "name": "Troisième lombrical du pied",
+    "nameLatin": "Musculus lumbricalis III pedis",
+    "aliases": [
+      "lombrical 3 pied"
+    ],
+    "region": "pied",
+    "origin": "Tendons FDL adjacents (orteils 3–4).",
+    "insertion": "Expansion dorsale de l’orteil 4.",
+    "actions": [
+      "Flexion MP et extension IP de l’orteil 4"
+    ],
+    "focus": {
+      "position": [
+        -0.11089,
+        -0.91717,
+        0.09457
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.59692,
+      0.14047,
+      -0.78991
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "vaste-intermediaire",
+    "name": "Vaste intermédiaire",
+    "nameLatin": "Musculus vastus intermedius",
+    "aliases": [
+      "crural"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Face antérieure et latérale du fémur.",
+    "insertion": "Patella et tubérosité tibiale (quadriceps).",
+    "actions": [
+      "Extension du genou"
+    ],
+    "focus": {
+      "position": [
+        -0.10432,
+        -0.31554,
+        0.06363
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.09009,
+      0.9942,
+      -0.05877
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "vaste-lateral",
+    "name": "Vaste latéral",
+    "nameLatin": "Musculus vastus lateralis",
+    "aliases": [
+      "vaste externe"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Grand trochanter, lèvre latérale de la ligne âpre.",
+    "insertion": "Patella et tubérosité tibiale (quadriceps).",
+    "actions": [
+      "Extension du genou"
+    ],
+    "focus": {
+      "position": [
+        -0.1222,
+        -0.32031,
+        0.05678
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.08206,
+      0.99472,
+      -0.06169
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "vaste-medial",
+    "name": "Vaste médial",
+    "nameLatin": "Musculus vastus medialis",
+    "aliases": [
+      "vaste interne"
+    ],
+    "region": "membre-inférieur",
+    "origin": "Lèvre médiale de la ligne âpre et ligne intertrochantérique.",
+    "insertion": "Patella et tubérosité tibiale (quadriceps).",
+    "actions": [
+      "Extension du genou"
+    ],
+    "secondaryActions": [
+      "Stabilisation médiale de la patella"
+    ],
+    "focus": {
+      "position": [
+        -0.07327,
+        -0.33764,
+        0.07511
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.08889,
+      0.99592,
+      -0.01557
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "elevateur-de-la-scapula",
+    "name": "Élévateur de la scapula",
+    "nameLatin": "Musculus levator scapulae",
+    "aliases": [
+      "angulaire de l’omoplate"
+    ],
+    "region": "dos",
+    "origin": "Transverses C1–C4.",
+    "insertion": "Angle supérieur de la scapula.",
+    "actions": [
+      "Élève la scapula"
+    ],
+    "secondaryActions": [
+      "Inclinaison cervicale homolatérale"
+    ],
+    "focus": {
+      "position": [
+        -0.04431,
+        0.52171,
+        0.0079
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.27004,
+      0.87039,
+      0.41171
+    ],
+    "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "epineux-du-thorax",
+    "name": "Épineux du thorax",
+    "nameLatin": "Musculus spinalis thoracis",
+    "aliases": [
+      "spinalis thoracis"
+    ],
+    "region": "dos",
+    "origin": "Épineuses T11–L2.",
+    "insertion": "Épineuses thoraciques hautes.",
+    "actions": [
+      "Extension du rachis thoracique"
+    ],
+    "focus": {
+      "position": [
+        -0.00426,
+        0.30367,
+        -0.0297
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.00025,
+      0.99434,
+      -0.10621
+    ],
+    "meshSource": "bodyparts3d"
+  }
+]

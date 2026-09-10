@@ -1,0 +1,1476 @@
+{
+  "version": 1,
+  "space": {
+    "up": "Y",
+    "units": "meters",
+    "figureHeight": 1.7,
+    "origin": "near pelvis (hip bones + sacrum centroid)",
+    "facing": "+Z"
+  },
+  "precision": "v1 landmarks are approximate centroids or bounding-box extrema of BodyParts3D bone meshes, after the same transform as skeleton.glb. Pending manual refinement for origin/insertion binding.",
+  "count": 86,
+  "landmarks": [
+    {
+      "id": "vertex",
+      "name": "Vertex",
+      "nameLatin": "Vertex",
+      "region": "crâne",
+      "position": [
+        0.00176,
+        0.77169,
+        0.03181
+      ],
+      "source": {
+        "fmaId": "",
+        "partName": "parietal bone",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "glabelle",
+      "name": "Glabelle",
+      "nameLatin": "Glabella",
+      "region": "crâne",
+      "position": [
+        -0.00757,
+        0.68659,
+        0.13368
+      ],
+      "source": {
+        "fmaId": "FMA52734",
+        "partName": "frontal bone",
+        "mode": "bbox_max_z",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "inion",
+      "name": "Inion",
+      "nameLatin": "Inion",
+      "region": "crâne",
+      "position": [
+        -0.00596,
+        0.68604,
+        -0.06093
+      ],
+      "source": {
+        "fmaId": "FMA52735",
+        "partName": "occipital bone",
+        "mode": "bbox_min_z",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-frontal",
+      "name": "Os frontal",
+      "nameLatin": "Os frontale",
+      "region": "crâne",
+      "position": [
+        0.00023,
+        0.69981,
+        0.09301
+      ],
+      "source": {
+        "fmaId": "FMA52734",
+        "partName": "frontal bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-occipital",
+      "name": "Os occipital",
+      "nameLatin": "Os occipitale",
+      "region": "crâne",
+      "position": [
+        0.00091,
+        0.66312,
+        -0.01993
+      ],
+      "source": {
+        "fmaId": "FMA52735",
+        "partName": "occipital bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-sphenoid",
+      "name": "Os sphénoïde",
+      "nameLatin": "Os sphenoidale",
+      "region": "crâne",
+      "position": [
+        -0.0005,
+        0.65188,
+        0.07349
+      ],
+      "source": {
+        "fmaId": "FMA52736",
+        "partName": "sphenoid bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-ethmoide",
+      "name": "Os ethmoïde",
+      "nameLatin": "Os ethmoidale",
+      "region": "crâne",
+      "position": [
+        -0.00074,
+        0.64888,
+        0.09905
+      ],
+      "source": {
+        "fmaId": "FMA52740",
+        "partName": "ethmoid",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-parietal-d",
+      "name": "Os pariétal droit",
+      "nameLatin": "Os parietale dextrum",
+      "region": "crâne",
+      "position": [
+        -0.02647,
+        0.72738,
+        0.00818
+      ],
+      "source": {
+        "fmaId": "FMA52788",
+        "partName": "right parietal bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-parietal-g",
+      "name": "Os pariétal gauche",
+      "nameLatin": "Os parietale sinistrum",
+      "region": "crâne",
+      "position": [
+        0.02245,
+        0.73019,
+        0.00659
+      ],
+      "source": {
+        "fmaId": "FMA52789",
+        "partName": "left parietal bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-temporal-d",
+      "name": "Os temporal droit",
+      "nameLatin": "Os temporale dextrum",
+      "region": "crâne",
+      "position": [
+        -0.04927,
+        0.64837,
+        0.04041
+      ],
+      "source": {
+        "fmaId": "FMA52738",
+        "partName": "right temporal bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-temporal-g",
+      "name": "Os temporal gauche",
+      "nameLatin": "Os temporale sinistrum",
+      "region": "crâne",
+      "position": [
+        0.04828,
+        0.64818,
+        0.04082
+      ],
+      "source": {
+        "fmaId": "FMA52739",
+        "partName": "left temporal bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "maxillaire-d",
+      "name": "Maxillaire droit",
+      "nameLatin": "Maxilla dextra",
+      "region": "crâne",
+      "position": [
+        -0.0189,
+        0.61975,
+        0.11202
+      ],
+      "source": {
+        "fmaId": "FMA53649",
+        "partName": "right maxilla",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "maxillaire-g",
+      "name": "Maxillaire gauche",
+      "nameLatin": "Maxilla sinistra",
+      "region": "crâne",
+      "position": [
+        0.01693,
+        0.61887,
+        0.11301
+      ],
+      "source": {
+        "fmaId": "FMA53650",
+        "partName": "left maxilla",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "menton",
+      "name": "Menton",
+      "nameLatin": "Gnathion",
+      "region": "crâne",
+      "position": [
+        0.00536,
+        0.5579,
+        0.1223
+      ],
+      "source": {
+        "fmaId": "FMA52748",
+        "partName": "mandible",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "mandibule",
+      "name": "Mandibule",
+      "nameLatin": "Mandibula",
+      "region": "crâne",
+      "position": [
+        -0.00059,
+        0.59729,
+        0.08983
+      ],
+      "source": {
+        "fmaId": "FMA52748",
+        "partName": "mandible",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "c1",
+      "name": "Atlas (C1)",
+      "nameLatin": "Atlas",
+      "region": "rachis",
+      "position": [
+        -0.00054,
+        0.6074,
+        0.02521
+      ],
+      "source": {
+        "fmaId": "FMA12519",
+        "partName": "atlas",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "c2",
+      "name": "Axis (C2)",
+      "nameLatin": "Axis",
+      "region": "rachis",
+      "position": [
+        -0.00046,
+        0.58855,
+        0.0253
+      ],
+      "source": {
+        "fmaId": "FMA12520",
+        "partName": "axis",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "c7",
+      "name": "Vertèbre C7",
+      "nameLatin": "Vertebra cervicalis VII",
+      "region": "rachis",
+      "position": [
+        0.00025,
+        0.51526,
+        0.02327
+      ],
+      "source": {
+        "fmaId": "FMA12525",
+        "partName": "seventh cervical vertebra",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "t1",
+      "name": "Vertèbre T1",
+      "nameLatin": "Vertebra thoracica I",
+      "region": "rachis",
+      "position": [
+        -0.00102,
+        0.49863,
+        0.01699
+      ],
+      "source": {
+        "fmaId": "FMA9165",
+        "partName": "first thoracic vertebra",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "t12",
+      "name": "Vertèbre T12",
+      "nameLatin": "Vertebra thoracica XII",
+      "region": "rachis",
+      "position": [
+        -0.00077,
+        0.21611,
+        0.01178
+      ],
+      "source": {
+        "fmaId": "FMA10081",
+        "partName": "twelfth thoracic vertebra",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "l1",
+      "name": "Vertèbre L1",
+      "nameLatin": "Vertebra lumbalis I",
+      "region": "rachis",
+      "position": [
+        -0.00054,
+        0.18412,
+        0.0199
+      ],
+      "source": {
+        "fmaId": "FMA13072",
+        "partName": "first lumbar vertebra",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "l5",
+      "name": "Vertèbre L5",
+      "nameLatin": "Vertebra lumbalis V",
+      "region": "rachis",
+      "position": [
+        -0.001,
+        0.0718,
+        0.01131
+      ],
+      "source": {
+        "fmaId": "FMA13076",
+        "partName": "fifth lumbar vertebra",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "sacrum",
+      "name": "Sacrum",
+      "nameLatin": "Os sacrum",
+      "region": "rachis",
+      "position": [
+        0.00023,
+        0.00878,
+        -0.01394
+      ],
+      "source": {
+        "fmaId": "FMA16202",
+        "partName": "sacrum",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "manubrium",
+      "name": "Manubrium sternal",
+      "nameLatin": "Manubrium sterni",
+      "region": "thorax",
+      "position": [
+        0.00012,
+        0.4357,
+        0.11066
+      ],
+      "source": {
+        "fmaId": "FMA7486",
+        "partName": "manubrium",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "corps-sternum",
+      "name": "Corps du sternum",
+      "nameLatin": "Corpus sterni",
+      "region": "thorax",
+      "position": [
+        0.00063,
+        0.36096,
+        0.14985
+      ],
+      "source": {
+        "fmaId": "FMA7487",
+        "partName": "body of sternum",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "xiphoide",
+      "name": "Processus xiphoïde",
+      "nameLatin": "Processus xiphoideus",
+      "region": "thorax",
+      "position": [
+        -0.00021,
+        0.31463,
+        0.16259
+      ],
+      "source": {
+        "fmaId": "FMA7488",
+        "partName": "xiphoid process",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "cote1-d",
+      "name": "1re côte droite",
+      "nameLatin": "Costa I dextra",
+      "region": "thorax",
+      "position": [
+        -0.04186,
+        0.48194,
+        0.04633
+      ],
+      "source": {
+        "fmaId": "FMA7857",
+        "partName": "right first rib",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "cote1-g",
+      "name": "1re côte gauche",
+      "nameLatin": "Costa I sinistra",
+      "region": "thorax",
+      "position": [
+        0.04086,
+        0.48159,
+        0.04709
+      ],
+      "source": {
+        "fmaId": "FMA7987",
+        "partName": "left first rib",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "clavicule-d",
+      "name": "Clavicule droite",
+      "nameLatin": "Clavicula dextra",
+      "region": "ceinture-scapulaire",
+      "position": [
+        -0.07838,
+        0.47258,
+        0.05733
+      ],
+      "source": {
+        "fmaId": "FMA13322",
+        "partName": "right clavicle",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "clavicule-g",
+      "name": "Clavicule gauche",
+      "nameLatin": "Clavicula sinistra",
+      "region": "ceinture-scapulaire",
+      "position": [
+        0.07598,
+        0.47151,
+        0.05823
+      ],
+      "source": {
+        "fmaId": "FMA13323",
+        "partName": "left clavicle",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "extremite-sternale-clavicule-d",
+      "name": "Extrémité sternale — clavicule D",
+      "nameLatin": "Extremitas sternalis claviculae dextrae",
+      "region": "ceinture-scapulaire",
+      "position": [
+        -0.00953,
+        0.4545,
+        0.08514
+      ],
+      "source": {
+        "fmaId": "FMA13322",
+        "partName": "right clavicle",
+        "mode": "bbox_max_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "extremite-acromiale-clavicule-d",
+      "name": "Extrémité acromiale — clavicule D",
+      "nameLatin": "Extremitas acromialis claviculae dextrae",
+      "region": "ceinture-scapulaire",
+      "position": [
+        -0.14436,
+        0.48879,
+        0.02734
+      ],
+      "source": {
+        "fmaId": "FMA13322",
+        "partName": "right clavicle",
+        "mode": "bbox_min_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "extremite-sternale-clavicule-g",
+      "name": "Extrémité sternale — clavicule G",
+      "nameLatin": "Extremitas sternalis claviculae sinistrae",
+      "region": "ceinture-scapulaire",
+      "position": [
+        0.00843,
+        0.45634,
+        0.08638
+      ],
+      "source": {
+        "fmaId": "FMA13323",
+        "partName": "left clavicle",
+        "mode": "bbox_min_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "extremite-acromiale-clavicule-g",
+      "name": "Extrémité acromiale — clavicule G",
+      "nameLatin": "Extremitas acromialis claviculae sinistrae",
+      "region": "ceinture-scapulaire",
+      "position": [
+        0.14371,
+        0.48865,
+        0.02842
+      ],
+      "source": {
+        "fmaId": "FMA13323",
+        "partName": "left clavicle",
+        "mode": "bbox_max_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "acromion-d",
+      "name": "Acromion droit",
+      "nameLatin": "Acromion dextrum",
+      "region": "ceinture-scapulaire",
+      "position": [
+        -0.15354,
+        0.48641,
+        0.02961
+      ],
+      "source": {
+        "fmaId": "FMA13395",
+        "partName": "right scapula",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "acromion-g",
+      "name": "Acromion gauche",
+      "nameLatin": "Acromion sinistrum",
+      "region": "ceinture-scapulaire",
+      "position": [
+        0.15446,
+        0.48641,
+        0.03129
+      ],
+      "source": {
+        "fmaId": "FMA13396",
+        "partName": "left scapula",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "angle-inf-scapula-d",
+      "name": "Angle inférieur scapula D",
+      "nameLatin": "Angulus inferior scapulae dextrae",
+      "region": "ceinture-scapulaire",
+      "position": [
+        -0.09345,
+        0.32117,
+        -0.03812
+      ],
+      "source": {
+        "fmaId": "FMA13395",
+        "partName": "right scapula",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "angle-inf-scapula-g",
+      "name": "Angle inférieur scapula G",
+      "nameLatin": "Angulus inferior scapulae sinistrae",
+      "region": "ceinture-scapulaire",
+      "position": [
+        0.09467,
+        0.32116,
+        -0.03733
+      ],
+      "source": {
+        "fmaId": "FMA13396",
+        "partName": "left scapula",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "scapula-d",
+      "name": "Scapula droite",
+      "nameLatin": "Scapula dextra",
+      "region": "ceinture-scapulaire",
+      "position": [
+        -0.11799,
+        0.43928,
+        0.00219
+      ],
+      "source": {
+        "fmaId": "FMA13395",
+        "partName": "right scapula",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "scapula-g",
+      "name": "Scapula gauche",
+      "nameLatin": "Scapula sinistra",
+      "region": "ceinture-scapulaire",
+      "position": [
+        0.11852,
+        0.4387,
+        0.00294
+      ],
+      "source": {
+        "fmaId": "FMA13396",
+        "partName": "left scapula",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tete-humerus-d",
+      "name": "Tête humérale D",
+      "nameLatin": "Caput humeri dextrum",
+      "region": "membre-supérieur",
+      "position": [
+        -0.16287,
+        0.47315,
+        0.03116
+      ],
+      "source": {
+        "fmaId": "FMA23130",
+        "partName": "right humerus",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tete-humerus-g",
+      "name": "Tête humérale G",
+      "nameLatin": "Caput humeri sinistrum",
+      "region": "membre-supérieur",
+      "position": [
+        0.16302,
+        0.47313,
+        0.03236
+      ],
+      "source": {
+        "fmaId": "FMA23131",
+        "partName": "left humerus",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tubercule-majeur-d",
+      "name": "Tubercule majeur D",
+      "nameLatin": "Tuberculum majus humeri dextrum",
+      "region": "membre-supérieur",
+      "position": [
+        -0.2395,
+        0.19173,
+        0.01691
+      ],
+      "source": {
+        "fmaId": "FMA23130",
+        "partName": "right humerus",
+        "mode": "bbox_min_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tubercule-majeur-g",
+      "name": "Tubercule majeur G",
+      "nameLatin": "Tuberculum majus humeri sinistrum",
+      "region": "membre-supérieur",
+      "position": [
+        0.24019,
+        0.19201,
+        0.01852
+      ],
+      "source": {
+        "fmaId": "FMA23131",
+        "partName": "left humerus",
+        "mode": "bbox_max_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "epicondyle-med-humerus-d",
+      "name": "Épicondyle médial humérus D",
+      "nameLatin": "Epicondylus medialis humeri dexter",
+      "region": "membre-supérieur",
+      "position": [
+        -0.13922,
+        0.45063,
+        0.03319
+      ],
+      "source": {
+        "fmaId": "FMA23130",
+        "partName": "right humerus",
+        "mode": "bbox_max_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "epicondyle-lat-humerus-d",
+      "name": "Épicondyle latéral humérus D",
+      "nameLatin": "Epicondylus lateralis humeri dexter",
+      "region": "membre-supérieur",
+      "position": [
+        -0.2395,
+        0.19173,
+        0.01691
+      ],
+      "source": {
+        "fmaId": "FMA23130",
+        "partName": "right humerus",
+        "mode": "bbox_min_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "olecrane-d",
+      "name": "Olécrane D",
+      "nameLatin": "Olecranon dextrum",
+      "region": "membre-supérieur",
+      "position": [
+        -0.20532,
+        0.19018,
+        0.01294
+      ],
+      "source": {
+        "fmaId": "FMA23467",
+        "partName": "right ulna",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "olecrane-g",
+      "name": "Olécrane G",
+      "nameLatin": "Olecranon sinistrum",
+      "region": "membre-supérieur",
+      "position": [
+        0.20804,
+        0.1902,
+        0.01426
+      ],
+      "source": {
+        "fmaId": "FMA23468",
+        "partName": "left ulna",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "styloide-radial-d",
+      "name": "Styloïde radial D",
+      "nameLatin": "Processus styloideus radii dexter",
+      "region": "membre-supérieur",
+      "position": [
+        -0.2754,
+        -0.05546,
+        0.07332
+      ],
+      "source": {
+        "fmaId": "FMA23464",
+        "partName": "right radius",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "styloide-radial-g",
+      "name": "Styloïde radial G",
+      "nameLatin": "Processus styloideus radii sinister",
+      "region": "membre-supérieur",
+      "position": [
+        0.27649,
+        -0.05513,
+        0.07607
+      ],
+      "source": {
+        "fmaId": "FMA23465",
+        "partName": "left radius",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "styloide-ulnaire-d",
+      "name": "Styloïde ulnaire D",
+      "nameLatin": "Processus styloideus ulnae dexter",
+      "region": "membre-supérieur",
+      "position": [
+        -0.2346,
+        -0.05612,
+        0.06775
+      ],
+      "source": {
+        "fmaId": "FMA23467",
+        "partName": "right ulna",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "styloide-ulnaire-g",
+      "name": "Styloïde ulnaire G",
+      "nameLatin": "Processus styloideus ulnae sinister",
+      "region": "membre-supérieur",
+      "position": [
+        0.23547,
+        -0.05628,
+        0.07032
+      ],
+      "source": {
+        "fmaId": "FMA23468",
+        "partName": "left ulna",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "eias-d",
+      "name": "EIAS droite",
+      "nameLatin": "Spina iliaca anterior superior dextra",
+      "region": "bassin",
+      "position": [
+        -0.12922,
+        0.03419,
+        0.09494
+      ],
+      "source": {
+        "fmaId": "FMA16586",
+        "partName": "right hip bone",
+        "mode": "superior_anterior",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "eias-g",
+      "name": "EIAS gauche",
+      "nameLatin": "Spina iliaca anterior superior sinistra",
+      "region": "bassin",
+      "position": [
+        0.12883,
+        0.03342,
+        0.09612
+      ],
+      "source": {
+        "fmaId": "FMA16587",
+        "partName": "left hip bone",
+        "mode": "superior_anterior",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "eiia-d",
+      "name": "EIIA droite",
+      "nameLatin": "Spina iliaca anterior inferior dextra",
+      "region": "bassin",
+      "position": [
+        -0.11724,
+        0.00875,
+        0.07353
+      ],
+      "source": {
+        "fmaId": "FMA16586",
+        "partName": "right hip bone",
+        "mode": "mid_anterior",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "eiia-g",
+      "name": "EIIA gauche",
+      "nameLatin": "Spina iliaca anterior inferior sinistra",
+      "region": "bassin",
+      "position": [
+        0.12516,
+        0.01685,
+        0.08399
+      ],
+      "source": {
+        "fmaId": "FMA16587",
+        "partName": "left hip bone",
+        "mode": "mid_anterior",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "eips-d",
+      "name": "EIPS droite",
+      "nameLatin": "Spina iliaca posterior superior dextra",
+      "region": "bassin",
+      "position": [
+        -0.04378,
+        0.04667,
+        -0.04205
+      ],
+      "source": {
+        "fmaId": "FMA16586",
+        "partName": "right hip bone",
+        "mode": "superior_posterior",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "eips-g",
+      "name": "EIPS gauche",
+      "nameLatin": "Spina iliaca posterior superior sinistra",
+      "region": "bassin",
+      "position": [
+        0.04643,
+        0.04677,
+        -0.04147
+      ],
+      "source": {
+        "fmaId": "FMA16587",
+        "partName": "left hip bone",
+        "mode": "superior_posterior",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "crete-iliaque-d",
+      "name": "Crête iliaque D",
+      "nameLatin": "Crista iliaca dextra",
+      "region": "bassin",
+      "position": [
+        -0.10049,
+        0.09597,
+        0.01509
+      ],
+      "source": {
+        "fmaId": "FMA16586",
+        "partName": "right hip bone",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "crete-iliaque-g",
+      "name": "Crête iliaque G",
+      "nameLatin": "Crista iliaca sinistra",
+      "region": "bassin",
+      "position": [
+        0.10482,
+        0.09619,
+        0.01723
+      ],
+      "source": {
+        "fmaId": "FMA16587",
+        "partName": "left hip bone",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tuberosite-ischiatique-d",
+      "name": "Tubérosité ischiatique D",
+      "nameLatin": "Tuber ischiadicum dextrum",
+      "region": "bassin",
+      "position": [
+        -0.04065,
+        -0.10893,
+        0.00983
+      ],
+      "source": {
+        "fmaId": "FMA16586",
+        "partName": "right hip bone",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tuberosite-ischiatique-g",
+      "name": "Tubérosité ischiatique G",
+      "nameLatin": "Tuber ischiadicum sinistrum",
+      "region": "bassin",
+      "position": [
+        0.04387,
+        -0.10913,
+        0.00986
+      ],
+      "source": {
+        "fmaId": "FMA16587",
+        "partName": "left hip bone",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "symphyse-pubienne",
+      "name": "Symphyse pubienne",
+      "nameLatin": "Symphysis pubica",
+      "region": "bassin",
+      "position": [
+        0.00019,
+        -0.0183,
+        0.02905
+      ],
+      "source": {
+        "fmaId": "",
+        "partName": "right hip bone, left hip bone",
+        "mode": "mid_centroids",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tubercule-pubien",
+      "name": "Tubercule pubien (approx.)",
+      "nameLatin": "Tuberculum pubicum",
+      "region": "bassin",
+      "position": [
+        0.00013,
+        -0.0644,
+        0.07214
+      ],
+      "source": {
+        "fmaId": "",
+        "partName": "right hip bone, left hip bone",
+        "mode": "anterior_inferior_medial",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-coxal-d",
+      "name": "Os coxal droit",
+      "nameLatin": "Os coxae dextrum",
+      "region": "bassin",
+      "position": [
+        -0.06834,
+        -0.01927,
+        0.02921
+      ],
+      "source": {
+        "fmaId": "FMA16586",
+        "partName": "right hip bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "os-coxal-g",
+      "name": "Os coxal gauche",
+      "nameLatin": "Os coxae sinistrum",
+      "region": "bassin",
+      "position": [
+        0.06872,
+        -0.01732,
+        0.02889
+      ],
+      "source": {
+        "fmaId": "FMA16587",
+        "partName": "left hip bone",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "grand-trochanter-d",
+      "name": "Grand trochanter D",
+      "nameLatin": "Trochanter major dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.14921,
+        -0.07782,
+        0.03097
+      ],
+      "source": {
+        "fmaId": "FMA24474",
+        "partName": "right femur",
+        "mode": "bbox_min_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "grand-trochanter-g",
+      "name": "Grand trochanter G",
+      "nameLatin": "Trochanter major sinister",
+      "region": "membre-inférieur",
+      "position": [
+        0.14996,
+        -0.07721,
+        0.03346
+      ],
+      "source": {
+        "fmaId": "FMA24475",
+        "partName": "left femur",
+        "mode": "bbox_max_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tete-femorale-d",
+      "name": "Tête fémorale D",
+      "nameLatin": "Caput femoris dextrum",
+      "region": "membre-inférieur",
+      "position": [
+        -0.08659,
+        -0.02716,
+        0.03586
+      ],
+      "source": {
+        "fmaId": "FMA24474",
+        "partName": "right femur",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tete-femorale-g",
+      "name": "Tête fémorale G",
+      "nameLatin": "Caput femoris sinistrum",
+      "region": "membre-inférieur",
+      "position": [
+        0.08748,
+        -0.02717,
+        0.03363
+      ],
+      "source": {
+        "fmaId": "FMA24475",
+        "partName": "left femur",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "condyle-med-femur-d",
+      "name": "Condyle médial fémur D",
+      "nameLatin": "Condylus medialis femoris dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.03142,
+        -0.45766,
+        0.02607
+      ],
+      "source": {
+        "fmaId": "FMA24474",
+        "partName": "right femur",
+        "mode": "bbox_max_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "condyle-lat-femur-d",
+      "name": "Condyle latéral fémur D",
+      "nameLatin": "Condylus lateralis femoris dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.14921,
+        -0.07782,
+        0.03097
+      ],
+      "source": {
+        "fmaId": "FMA24474",
+        "partName": "right femur",
+        "mode": "bbox_min_x",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "patella-d",
+      "name": "Patella droite",
+      "nameLatin": "Patella dextra",
+      "region": "membre-inférieur",
+      "position": [
+        -0.0824,
+        -0.47861,
+        0.06791
+      ],
+      "source": {
+        "fmaId": "FMA24486",
+        "partName": "right patella",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "patella-g",
+      "name": "Patella gauche",
+      "nameLatin": "Patella sinistra",
+      "region": "membre-inférieur",
+      "position": [
+        0.08282,
+        -0.47718,
+        0.06849
+      ],
+      "source": {
+        "fmaId": "FMA24487",
+        "partName": "left patella",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tuberosite-tibiale-d",
+      "name": "Tubérosité tibiale D",
+      "nameLatin": "Tuberositas tibiae dextra",
+      "region": "membre-inférieur",
+      "position": [
+        -0.08674,
+        -0.519,
+        0.07103
+      ],
+      "source": {
+        "fmaId": "FMA24477",
+        "partName": "right tibia",
+        "mode": "bbox_max_z",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tuberosite-tibiale-g",
+      "name": "Tubérosité tibiale G",
+      "nameLatin": "Tuberositas tibiae sinistra",
+      "region": "membre-inférieur",
+      "position": [
+        0.0866,
+        -0.52013,
+        0.07146
+      ],
+      "source": {
+        "fmaId": "FMA24478",
+        "partName": "left tibia",
+        "mode": "bbox_max_z",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tete-fibula-d",
+      "name": "Tête de la fibula D",
+      "nameLatin": "Caput fibulae dextrum",
+      "region": "membre-inférieur",
+      "position": [
+        -0.10484,
+        -0.50038,
+        0.01575
+      ],
+      "source": {
+        "fmaId": "FMA24480",
+        "partName": "right fibula",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "tete-fibula-g",
+      "name": "Tête de la fibula G",
+      "nameLatin": "Caput fibulae sinistrum",
+      "region": "membre-inférieur",
+      "position": [
+        0.10699,
+        -0.5004,
+        0.01567
+      ],
+      "source": {
+        "fmaId": "FMA24481",
+        "partName": "left fibula",
+        "mode": "bbox_max_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "maleole-mediale-d",
+      "name": "Malléole médiale D",
+      "nameLatin": "Malleolus medialis dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.05487,
+        -0.86412,
+        0.0436
+      ],
+      "source": {
+        "fmaId": "FMA24477",
+        "partName": "right tibia",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "maleole-mediale-g",
+      "name": "Malléole médiale G",
+      "nameLatin": "Malleolus medialis sinister",
+      "region": "membre-inférieur",
+      "position": [
+        0.05527,
+        -0.86418,
+        0.04249
+      ],
+      "source": {
+        "fmaId": "FMA24478",
+        "partName": "left tibia",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "maleole-laterale-d",
+      "name": "Malléole latérale D",
+      "nameLatin": "Malleolus lateralis dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.09659,
+        -0.88329,
+        0.01063
+      ],
+      "source": {
+        "fmaId": "FMA24480",
+        "partName": "right fibula",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "maleole-laterale-g",
+      "name": "Malléole latérale G",
+      "nameLatin": "Malleolus lateralis sinister",
+      "region": "membre-inférieur",
+      "position": [
+        0.09759,
+        -0.8832,
+        0.01353
+      ],
+      "source": {
+        "fmaId": "FMA24481",
+        "partName": "left fibula",
+        "mode": "bbox_min_y",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "calcaneus-d",
+      "name": "Calcanéus D",
+      "nameLatin": "Calcaneus dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.07513,
+        -0.89495,
+        0.02297
+      ],
+      "source": {
+        "fmaId": "FMA24497",
+        "partName": "right calcaneus",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "calcaneus-g",
+      "name": "Calcanéus G",
+      "nameLatin": "Calcaneus sinister",
+      "region": "membre-inférieur",
+      "position": [
+        0.07579,
+        -0.89549,
+        0.02263
+      ],
+      "source": {
+        "fmaId": "FMA24498",
+        "partName": "left calcaneus",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "talus-d",
+      "name": "Talus D",
+      "nameLatin": "Talus dexter",
+      "region": "membre-inférieur",
+      "position": [
+        -0.07042,
+        -0.87463,
+        0.03526
+      ],
+      "source": {
+        "fmaId": "FMA24482",
+        "partName": "right talus",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    },
+    {
+      "id": "talus-g",
+      "name": "Talus G",
+      "nameLatin": "Talus sinister",
+      "region": "membre-inférieur",
+      "position": [
+        0.07083,
+        -0.87463,
+        0.0365
+      ],
+      "source": {
+        "fmaId": "FMA24483",
+        "partName": "left talus",
+        "mode": "centroid",
+        "precision": "approximate-centroid-or-bbox"
+      }
+    }
+  ]
+}

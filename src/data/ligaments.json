@@ -1,0 +1,1135 @@
+{
+  "version": 4,
+  "defaultVisible": false,
+  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) and rectangular lofted ribbons are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic tapered fascicle bundles (rounded cross-section, fan at attachments, thinner mid-substance; source=synthetic-v2), not cadaver meshes. Annular ligament of the radius is a torus. Spinal stick ligaments and menisci are omitted (quality > quantity).",
+  "syntheticDisclaimer": "Entries with source=synthetic-v2 are schematic tapered fascicle bundles (rounded lofted strands) between named landmarks. They are not segmented from cadaver imaging and must not be treated as morphologically accurate. BodyParts3D connective meshes (interosseous membranes, retinacula, named ligaments) remain source=bodyparts3d.",
+  "count": 64,
+  "countBodyparts3d": 18,
+  "countSynthetic": 46,
+  "ligaments": [
+    {
+      "id": "plantaire-long-d",
+      "name": "Ligament plantaire long droit",
+      "nameLatin": "Ligamentum plantare longum dextrum",
+      "region": "pied",
+      "joint": "pied",
+      "notes": "Ligament plantaire profond.",
+      "source": "bodyparts3d",
+      "sourceName": "right long plantar ligament",
+      "fmaId": "FMA44249",
+      "fileIds": [
+        "FJ1424"
+      ],
+      "centroid": [
+        -0.09154,
+        -0.90526,
+        0.06336
+      ]
+    },
+    {
+      "id": "plantaire-long-g",
+      "name": "Ligament plantaire long gauche",
+      "nameLatin": "Ligamentum plantare longum sinistrum",
+      "region": "pied",
+      "joint": "pied",
+      "notes": "Ligament plantaire profond.",
+      "source": "bodyparts3d",
+      "sourceName": "left long plantar ligament",
+      "fmaId": "FMA44250",
+      "fileIds": [
+        "FJ1424M"
+      ],
+      "centroid": [
+        0.09191,
+        -0.90526,
+        0.06419
+      ]
+    },
+    {
+      "id": "stylo-hyoidien-d",
+      "name": "Ligament stylo-hyoïdien droit",
+      "nameLatin": "Ligamentum stylohyoideum dextrum",
+      "region": "cou",
+      "joint": "hyoïde",
+      "notes": "Relie le processus styloïde à l’os hyoïde.",
+      "source": "bodyparts3d",
+      "sourceName": "right stylohyoid ligament",
+      "fmaId": "FMA72309",
+      "fileIds": [
+        "FJ2764"
+      ],
+      "centroid": [
+        -0.02985,
+        0.5956,
+        0.05854
+      ]
+    },
+    {
+      "id": "stylo-hyoidien-g",
+      "name": "Ligament stylo-hyoïdien gauche",
+      "nameLatin": "Ligamentum stylohyoideum sinistrum",
+      "region": "cou",
+      "joint": "hyoïde",
+      "notes": "Relie le processus styloïde à l’os hyoïde.",
+      "source": "bodyparts3d",
+      "sourceName": "left stylohyoid ligament",
+      "fmaId": "FMA72311",
+      "fileIds": [
+        "FJ2763"
+      ],
+      "centroid": [
+        0.02884,
+        0.5955,
+        0.05891
+      ]
+    },
+    {
+      "id": "thyro-hyoidien-lat-d",
+      "name": "Ligament thyro-hyoïdien latéral droit",
+      "nameLatin": "Ligamentum thyrohyoideum laterale dextrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament extrinsèque du larynx.",
+      "source": "bodyparts3d",
+      "sourceName": "right lateral thyrohyoid ligament",
+      "fmaId": "FMA55140",
+      "fileIds": [
+        "FJ2797"
+      ],
+      "centroid": [
+        -0.01796,
+        0.56992,
+        0.05158
+      ]
+    },
+    {
+      "id": "thyro-hyoidien-lat-g",
+      "name": "Ligament thyro-hyoïdien latéral gauche",
+      "nameLatin": "Ligamentum thyrohyoideum laterale sinistrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament extrinsèque du larynx.",
+      "source": "bodyparts3d",
+      "sourceName": "left lateral thyrohyoid ligament",
+      "fmaId": "FMA55141",
+      "fileIds": [
+        "FJ2779"
+      ],
+      "centroid": [
+        0.01706,
+        0.57001,
+        0.05168
+      ]
+    },
+    {
+      "id": "thyro-hyoidien-med",
+      "name": "Ligament thyro-hyoïdien médian",
+      "nameLatin": "Ligamentum thyrohyoideum medianum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament extrinsèque du larynx.",
+      "source": "bodyparts3d",
+      "sourceName": "median thyrohyoid ligament",
+      "fmaId": "FMA55138",
+      "fileIds": [
+        "FJ2790"
+      ],
+      "centroid": [
+        -0.0002,
+        0.55321,
+        0.07827
+      ]
+    },
+    {
+      "id": "hyo-epiglottique",
+      "name": "Ligament hyo-épiglottique",
+      "nameLatin": "Ligamentum hyoepiglotticum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament intrinsèque / épiglotte.",
+      "source": "bodyparts3d",
+      "sourceName": "hyo-epiglottic ligament",
+      "fmaId": "FMA55227",
+      "fileIds": [
+        "FJ2771"
+      ],
+      "centroid": [
+        -0.00052,
+        0.56178,
+        0.07291
+      ]
+    },
+    {
+      "id": "thyro-epiglottique",
+      "name": "Ligament thyro-épiglottique",
+      "nameLatin": "Ligamentum thyroepiglotticum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament intrinsèque du larynx.",
+      "source": "bodyparts3d",
+      "sourceName": "thyro-epiglottic ligament",
+      "fmaId": "FMA55230",
+      "fileIds": [
+        "FJ2807"
+      ],
+      "centroid": [
+        -0.00061,
+        0.54365,
+        0.07249
+      ]
+    },
+    {
+      "id": "crico-thyroidien-med",
+      "name": "Ligament crico-thyroïdien médian",
+      "nameLatin": "Ligamentum cricothyroideum medianum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Membrane crico-thyroïdienne (partie médiane).",
+      "source": "bodyparts3d",
+      "sourceName": "median cricothyroid ligament",
+      "fmaId": "FMA55237",
+      "fileIds": [
+        "FJ2789"
+      ],
+      "centroid": [
+        -0.00055,
+        0.53377,
+        0.06884
+      ]
+    },
+    {
+      "id": "vocal-d",
+      "name": "Ligament vocal droit",
+      "nameLatin": "Ligamentum vocale dextrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Pli vocal — inclus comme ligament du larynx.",
+      "source": "bodyparts3d",
+      "sourceName": "right vocal ligament",
+      "fmaId": "FMA55245",
+      "fileIds": [
+        "FJ2805"
+      ],
+      "centroid": [
+        -0.00234,
+        0.54057,
+        0.06543
+      ]
+    },
+    {
+      "id": "vocal-g",
+      "name": "Ligament vocal gauche",
+      "nameLatin": "Ligamentum vocale sinistrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Pli vocal — inclus comme ligament du larynx.",
+      "source": "bodyparts3d",
+      "sourceName": "left vocal ligament",
+      "fmaId": "FMA55246",
+      "fileIds": [
+        "FJ2787"
+      ],
+      "centroid": [
+        0.00145,
+        0.54055,
+        0.06581
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-avant-bras-d",
+      "name": "Membrane interosseuse de l’avant-bras D",
+      "nameLatin": "Membrana interossea antebrachii dextra",
+      "region": "avant-bras",
+      "joint": "syndesmose radio-ulnaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "source": "bodyparts3d",
+      "sourceName": "interosseous membrane of right forearm",
+      "fmaId": "FMA23707",
+      "fileIds": [
+        "FJ1476"
+      ],
+      "centroid": [
+        -0.23769,
+        0.02994,
+        0.05193
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-avant-bras-g",
+      "name": "Membrane interosseuse de l’avant-bras G",
+      "nameLatin": "Membrana interossea antebrachii sinistra",
+      "region": "avant-bras",
+      "joint": "syndesmose radio-ulnaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "source": "bodyparts3d",
+      "sourceName": "interosseous membrane of left forearm",
+      "fmaId": "FMA23708",
+      "fileIds": [
+        "FJ1476M"
+      ],
+      "centroid": [
+        0.23815,
+        0.02995,
+        0.05397
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-jambe-d",
+      "name": "Membrane interosseuse de la jambe D",
+      "nameLatin": "Membrana interossea cruris dextra",
+      "region": "jambe",
+      "joint": "syndesmose tibio-fibulaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "source": "bodyparts3d",
+      "sourceName": "interosseous membrane of right leg",
+      "fmaId": "FMA35192",
+      "fileIds": [
+        "FJ1392"
+      ],
+      "centroid": [
+        -0.09289,
+        -0.69089,
+        0.03036
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-jambe-g",
+      "name": "Membrane interosseuse de la jambe G",
+      "nameLatin": "Membrana interossea cruris sinistra",
+      "region": "jambe",
+      "joint": "syndesmose tibio-fibulaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "source": "bodyparts3d",
+      "sourceName": "interosseous membrane of left leg",
+      "fmaId": "FMA35193",
+      "fileIds": [
+        "FJ1392M"
+      ],
+      "centroid": [
+        0.09355,
+        -0.69083,
+        0.03116
+      ]
+    },
+    {
+      "id": "retinaculum-flechisseurs-d",
+      "name": "Rétinaculum des fléchisseurs droit",
+      "nameLatin": "Retinaculum musculorum flexorum dextrum",
+      "region": "poignet",
+      "joint": "poignet",
+      "notes": "Rétinaculum (ligament transverse du carpe).",
+      "source": "bodyparts3d",
+      "sourceName": "flexor retinaculum of right wrist",
+      "fmaId": "FMA40120",
+      "fileIds": [
+        "FJ1471"
+      ],
+      "centroid": [
+        -0.25476,
+        -0.06363,
+        0.09087
+      ]
+    },
+    {
+      "id": "retinaculum-flechisseurs-g",
+      "name": "Rétinaculum des fléchisseurs gauche",
+      "nameLatin": "Retinaculum musculorum flexorum sinistrum",
+      "region": "poignet",
+      "joint": "poignet",
+      "notes": "Rétinaculum (ligament transverse du carpe).",
+      "source": "bodyparts3d",
+      "sourceName": "flexor retinaculum of left wrist",
+      "fmaId": "FMA40121",
+      "fileIds": [
+        "FJ1471M"
+      ],
+      "centroid": [
+        0.25491,
+        -0.06361,
+        0.09306
+      ]
+    },
+    {
+      "id": "lca-d",
+      "name": "LCA droit",
+      "nameLatin": "Ligamentum cruciatum anterius",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lca-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.1012,
+        -0.35625,
+        0.0488
+      ]
+    },
+    {
+      "id": "lcp-d",
+      "name": "LCP droit",
+      "nameLatin": "Ligamentum cruciatum posterius",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lcp-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.07532,
+        -0.42851,
+        0.0257
+      ]
+    },
+    {
+      "id": "llim-d",
+      "name": "LLI droit",
+      "nameLatin": "Ligamentum collaterale tibiale",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "llim-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.04946,
+        -0.48034,
+        0.04938
+      ]
+    },
+    {
+      "id": "lle-d",
+      "name": "LLE droit",
+      "nameLatin": "Ligamentum collaterale fibulare",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lle-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.12881,
+        -0.28913,
+        0.02336
+      ]
+    },
+    {
+      "id": "patellaire-d",
+      "name": "Ligament patellaire droit",
+      "nameLatin": "Ligamentum patellae",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "patellaire-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.08548,
+        -0.4987,
+        0.07073
+      ]
+    },
+    {
+      "id": "ilio-femoral-sup-d",
+      "name": "Ilio-fémoral supérieur droit",
+      "nameLatin": "Ligamentum iliofemorale (pars transversa)",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-sup-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.12439,
+        -0.01183,
+        0.06297
+      ]
+    },
+    {
+      "id": "ilio-femoral-inf-d",
+      "name": "Ilio-fémoral inférieur droit",
+      "nameLatin": "Ligamentum iliofemorale (pars descendens)",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-inf-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.1168,
+        -0.02353,
+        0.061
+      ]
+    },
+    {
+      "id": "pubo-femoral-d",
+      "name": "Pubo-fémoral droit",
+      "nameLatin": "Ligamentum pubofemorale",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "pubo-femoral-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.05764,
+        -0.05031,
+        0.05146
+      ]
+    },
+    {
+      "id": "ischio-femoral-d",
+      "name": "Ischio-fémoral droit",
+      "nameLatin": "Ligamentum ischiofemorale",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ischio-femoral-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.09477,
+        -0.09129,
+        0.00583
+      ]
+    },
+    {
+      "id": "gleno-hum-sup-d",
+      "name": "Gléno-huméral supérieur droit",
+      "nameLatin": "Ligamentum glenohumerale superius",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-sup-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.15134,
+        0.48627,
+        0.02791
+      ]
+    },
+    {
+      "id": "gleno-hum-moy-d",
+      "name": "Gléno-huméral moyen droit",
+      "nameLatin": "Ligamentum glenohumerale medium",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-moy-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.15138,
+        0.47041,
+        0.03329
+      ]
+    },
+    {
+      "id": "gleno-hum-inf-d",
+      "name": "Gléno-huméral inférieur droit",
+      "nameLatin": "Ligamentum glenohumerale inferius",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-inf-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.15128,
+        0.45891,
+        0.02689
+      ]
+    },
+    {
+      "id": "coraco-humeral-d",
+      "name": "Coraco-huméral droit",
+      "nameLatin": "Ligamentum coracohumerale",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-humeral-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.1495,
+        0.47409,
+        0.03619
+      ]
+    },
+    {
+      "id": "coraco-acromial-d",
+      "name": "Coraco-acromial droit",
+      "nameLatin": "Ligamentum coracoacromiale",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-acromial-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.14474,
+        0.47431,
+        0.03652
+      ]
+    },
+    {
+      "id": "acromio-clav-d",
+      "name": "Acromio-claviculaire droit",
+      "nameLatin": "Ligamentum acromioclaviculare",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "acromio-clav-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.14904,
+        0.48865,
+        0.02903
+      ]
+    },
+    {
+      "id": "coraco-clav-d",
+      "name": "Coraco-claviculaire droit",
+      "nameLatin": "Ligamenta trapezoidum et conoideum",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-clav-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.1274,
+        0.46999,
+        0.0395
+      ]
+    },
+    {
+      "id": "lliu-d",
+      "name": "LCU droit",
+      "nameLatin": "Ligamentum collaterale ulnare",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lliu-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.17364,
+        0.30622,
+        0.02683
+      ]
+    },
+    {
+      "id": "llir-d",
+      "name": "LCR droit",
+      "nameLatin": "Ligamentum collaterale radiale",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "llir-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.22677,
+        0.17821,
+        0.01825
+      ]
+    },
+    {
+      "id": "annulaire-radius-d",
+      "name": "Annulaire du radius droit",
+      "nameLatin": "Ligamentum anulare radii",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "annulaire-radius-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.21443,
+        0.15825,
+        0.02079
+      ]
+    },
+    {
+      "id": "lfta-d",
+      "name": "LTFA droit",
+      "nameLatin": "Ligamentum talofibulare anterius",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lfta-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.08339,
+        -0.87795,
+        0.03307
+      ]
+    },
+    {
+      "id": "lfcal-d",
+      "name": "LCF droit",
+      "nameLatin": "Ligamentum calcaneofibulare",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lfcal-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.08711,
+        -0.89047,
+        0.01681
+      ]
+    },
+    {
+      "id": "lftp-d",
+      "name": "LTFP droit",
+      "nameLatin": "Ligamentum talofibulare posterius",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lftp-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.08343,
+        -0.87976,
+        0.01402
+      ]
+    },
+    {
+      "id": "deltoide-d",
+      "name": "Ligament deltoïde droit",
+      "nameLatin": "Ligamentum deltoideum",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "deltoide-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.06322,
+        -0.8734,
+        0.04203
+      ]
+    },
+    {
+      "id": "lca-g",
+      "name": "LCA gauche",
+      "nameLatin": "Ligamentum cruciatum anterius",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lca-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.1001,
+        -0.35646,
+        0.04903
+      ]
+    },
+    {
+      "id": "lcp-g",
+      "name": "LCP gauche",
+      "nameLatin": "Ligamentum cruciatum posterius",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lcp-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.07421,
+        -0.42874,
+        0.02594
+      ]
+    },
+    {
+      "id": "llim-g",
+      "name": "LLI gauche",
+      "nameLatin": "Ligamentum collaterale tibiale",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "llim-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.0483,
+        -0.48178,
+        0.0496
+      ]
+    },
+    {
+      "id": "lle-g",
+      "name": "LLE gauche",
+      "nameLatin": "Ligamentum collaterale fibulare",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lle-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.12932,
+        -0.28908,
+        0.02332
+      ]
+    },
+    {
+      "id": "patellaire-g",
+      "name": "Ligament patellaire gauche",
+      "nameLatin": "Ligamentum patellae",
+      "region": "genou",
+      "joint": "genou",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "patellaire-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.0838,
+        -0.49873,
+        0.07124
+      ]
+    },
+    {
+      "id": "ilio-femoral-sup-g",
+      "name": "Ilio-fémoral supérieur gauche",
+      "nameLatin": "Ligamentum iliofemorale (pars transversa)",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-sup-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.12411,
+        -0.01084,
+        0.0649
+      ]
+    },
+    {
+      "id": "ilio-femoral-inf-g",
+      "name": "Ilio-fémoral inférieur gauche",
+      "nameLatin": "Ligamentum iliofemorale (pars descendens)",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ilio-femoral-inf-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.1176,
+        -0.02157,
+        0.06339
+      ]
+    },
+    {
+      "id": "pubo-femoral-g",
+      "name": "Pubo-fémoral gauche",
+      "nameLatin": "Ligamentum pubofemorale",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "pubo-femoral-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.05816,
+        -0.05064,
+        0.05028
+      ]
+    },
+    {
+      "id": "ischio-femoral-g",
+      "name": "Ischio-fémoral gauche",
+      "nameLatin": "Ligamentum ischiofemorale",
+      "region": "hanche",
+      "joint": "hanche",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "ischio-femoral-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.09709,
+        -0.09225,
+        0.00709
+      ]
+    },
+    {
+      "id": "gleno-hum-sup-g",
+      "name": "Gléno-huméral supérieur gauche",
+      "nameLatin": "Ligamentum glenohumerale superius",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-sup-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.15204,
+        0.48552,
+        0.02918
+      ]
+    },
+    {
+      "id": "gleno-hum-moy-g",
+      "name": "Gléno-huméral moyen gauche",
+      "nameLatin": "Ligamentum glenohumerale medium",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-moy-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.15199,
+        0.46962,
+        0.03455
+      ]
+    },
+    {
+      "id": "gleno-hum-inf-g",
+      "name": "Gléno-huméral inférieur gauche",
+      "nameLatin": "Ligamentum glenohumerale inferius",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "gleno-hum-inf-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.15191,
+        0.4576,
+        0.02815
+      ]
+    },
+    {
+      "id": "coraco-humeral-g",
+      "name": "Coraco-huméral gauche",
+      "nameLatin": "Ligamentum coracohumerale",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-humeral-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.15021,
+        0.47348,
+        0.03736
+      ]
+    },
+    {
+      "id": "coraco-acromial-g",
+      "name": "Coraco-acromial gauche",
+      "nameLatin": "Ligamentum coracoacromiale",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-acromial-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.14602,
+        0.47376,
+        0.03794
+      ]
+    },
+    {
+      "id": "acromio-clav-g",
+      "name": "Acromio-claviculaire gauche",
+      "nameLatin": "Ligamentum acromioclaviculare",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "acromio-clav-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.14902,
+        0.48798,
+        0.03041
+      ]
+    },
+    {
+      "id": "coraco-clav-g",
+      "name": "Coraco-claviculaire gauche",
+      "nameLatin": "Ligamenta trapezoidum et conoideum",
+      "region": "épaule",
+      "joint": "épaule",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "coraco-clav-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.12638,
+        0.46924,
+        0.04063
+      ]
+    },
+    {
+      "id": "lliu-g",
+      "name": "LCU gauche",
+      "nameLatin": "Ligamentum collaterale ulnare",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lliu-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.17388,
+        0.30597,
+        0.02756
+      ]
+    },
+    {
+      "id": "llir-g",
+      "name": "LCR gauche",
+      "nameLatin": "Ligamentum collaterale radiale",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "llir-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.22766,
+        0.17864,
+        0.01898
+      ]
+    },
+    {
+      "id": "annulaire-radius-g",
+      "name": "Annulaire du radius gauche",
+      "nameLatin": "Ligamentum anulare radii",
+      "region": "coude",
+      "joint": "coude",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "annulaire-radius-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.21694,
+        0.15831,
+        0.0223
+      ]
+    },
+    {
+      "id": "lfta-g",
+      "name": "LTFA gauche",
+      "nameLatin": "Ligamentum talofibulare anterius",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lfta-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.08433,
+        -0.87743,
+        0.03514
+      ]
+    },
+    {
+      "id": "lfcal-g",
+      "name": "LCF gauche",
+      "nameLatin": "Ligamentum calcaneofibulare",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lfcal-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.0877,
+        -0.89025,
+        0.01809
+      ]
+    },
+    {
+      "id": "lftp-g",
+      "name": "LTFP gauche",
+      "nameLatin": "Ligamentum talofibulare posterius",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "lftp-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.08429,
+        -0.87924,
+        0.01609
+      ]
+    },
+    {
+      "id": "deltoide-g",
+      "name": "Ligament deltoïde gauche",
+      "nameLatin": "Ligamentum deltoideum",
+      "region": "cheville",
+      "joint": "cheville",
+      "notes": "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis (section circulaire, éventail aux insertions, plus mince au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique.",
+      "source": "synthetic-v2",
+      "sourceName": "deltoide-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.06269,
+        -0.87449,
+        0.04182
+      ]
+    }
+  ]
+}
