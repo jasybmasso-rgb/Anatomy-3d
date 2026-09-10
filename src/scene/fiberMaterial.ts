@@ -1,16 +1,22 @@
 import * as THREE from "three";
 
 const BASE = new THREE.Color("#c44536");
-const FIBER = new THREE.Color("#7a2218");
 
+/**
+ * Pedagogical fiber direction: world-space stripes along origin→insertion (PCA).
+ * Injected after project_vertex so it does not depend on USE_ENVMAP/shadow chunks.
+ */
 export function createFiberMuscleMaterial(fiberAxis: THREE.Vector3): THREE.MeshPhysicalMaterial {
   const material = new THREE.MeshPhysicalMaterial({
     color: BASE,
-    roughness: 0.42,
-    metalness: 0.03,
+    roughness: 0.62,
+    metalness: 0.0,
     transparent: true,
-    opacity: 0.92,
-    clearcoat: 0.12,
+    opacity: 0.94,
+    clearcoat: 0.0,
+    sheen: 0.35,
+    sheenColor: new THREE.Color("#8a2a20"),
+    sheenRoughness: 0.85,
     side: THREE.DoubleSide,
     vertexColors: false,
   });
@@ -24,8 +30,8 @@ export function createFiberMuscleMaterial(fiberAxis: THREE.Vector3): THREE.MeshP
 varying vec3 vFiberPos;`,
       )
       .replace(
-        "#include <worldpos_vertex>",
-        `#include <worldpos_vertex>
+        "#include <project_vertex>",
+        `#include <project_vertex>
 vFiberPos = (modelMatrix * vec4(transformed, 1.0)).xyz;`,
       );
     shader.fragmentShader = shader.fragmentShader
@@ -40,17 +46,17 @@ uniform vec3 uFiberDir;`,
         `#include <color_fragment>
 vec3 fdir = normalize(uFiberDir);
 float along = dot(vFiberPos, fdir);
-float t = fract(along * 28.0);
-float band = smoothstep(0.0, 0.08, t) * smoothstep(0.42, 0.18, t);
-float fine = 0.55 + 0.45 * sin(along * 92.0);
-float fiber = clamp(band * 0.85 + (1.0 - fine) * 0.22, 0.0, 1.0);
-vec3 fiberCol = vec3(0.42, 0.10, 0.07);
-diffuseColor.rgb = mix(diffuseColor.rgb, fiberCol, 0.55 * fiber);`,
+float t = fract(along * 20.0);
+float groove = smoothstep(0.08, 0.0, abs(t - 0.5));
+float fill = smoothstep(0.18, 0.42, abs(t - 0.5));
+vec3 grooveCol = vec3(0.36, 0.08, 0.06);
+vec3 ridgeCol = vec3(0.86, 0.38, 0.30);
+diffuseColor.rgb = mix(ridgeCol, grooveCol, 0.55 + 0.45 * groove);
+diffuseColor.rgb = mix(diffuseColor.rgb, ridgeCol, 0.22 * fill);`,
       );
   };
   material.customProgramCacheKey = () =>
-    `fiber:${axis.x.toFixed(3)},${axis.y.toFixed(3)},${axis.z.toFixed(3)}`;
+    `fiber-v2:${axis.x.toFixed(3)},${axis.y.toFixed(3)},${axis.z.toFixed(3)}`;
+  material.needsUpdate = true;
   return material;
 }
-
-void FIBER;

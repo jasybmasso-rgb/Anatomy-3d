@@ -180,7 +180,7 @@ export function CameraRig({
       if (freshGesture) {
         pointerFromEvent(event, element, pointer.current);
         const hit = pickNearby(raycaster.current, pointer.current, camera, scene);
-        if (hit) {
+        if (hit && camera.position.distanceTo(hit) < MAX_DISTANCE) {
           zoomPivot.current.copy(hit);
         } else {
           camera.getWorldDirection(_viewDir);
@@ -192,7 +192,7 @@ export function CameraRig({
         // Re-center orbit on the cursor hit without a view jump: translate
         // camera and target by the same delta, once per gesture.
         _offset.copy(zoomPivot.current).sub(orbit.target);
-        if (_offset.lengthSq() > 1e-10) {
+        if (_offset.lengthSq() > 1e-10 && _offset.length() < 2.6) {
           camera.position.add(_offset);
           orbit.target.copy(zoomPivot.current);
           orbit.update();
