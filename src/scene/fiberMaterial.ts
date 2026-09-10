@@ -44,7 +44,7 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix) {
   vec2 circ = fiberCirc(uv.y);
   float belly = pow(sin(3.14159265 * along), 1.42);
   float tendon = 1.0 - belly;
-  float endCap = 1.0 - smoothstep(0.0, 0.13, min(along, 1.0 - along));
+  float endCap = 1.0 - smoothstep(0.0, 0.18, min(along, 1.0 - along));
 
   vec3 tendonCol = vec3(0.94, 0.88, 0.76);
   vec3 midCol = vec3(0.62, 0.14, 0.10);
@@ -63,7 +63,9 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix) {
   float shade = mix(1.0 - contrast, 1.0 + contrast * 0.28, ridge);
   vec3 col = base * shade;
   col = mix(col, mix(col, tendonCol, 0.4), tendon * ridge * 0.22);
-  col = mix(col, col * tint, clamp(tintMix, 0.0, 1.0));
+  float lum = dot(col, vec3(0.32, 0.5, 0.18));
+  vec3 chainCol = tint * mix(0.4, 1.2, lum);
+  col = mix(col, chainCol, clamp(tintMix, 0.0, 1.0));
   return clamp(col, 0.0, 1.0);
 }
 float pedagogicalMuscleRoughness(vec2 uv) {
@@ -226,7 +228,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v4";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v5";
   return material;
 }
 
@@ -238,12 +240,12 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     metalness: 0.0,
     transparent: true,
     opacity: schematic ? 0.82 : 0.94,
-    depthTest: true,
+    depthTest: !schematic,
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,
-    emissive: schematic ? "#2a1c10" : "#3a2414",
-    emissiveIntensity: schematic ? 0.06 : 0.12,
+    emissive: schematic ? "#4a3018" : "#3a2414",
+    emissiveIntensity: schematic ? 0.14 : 0.16,
   });
   material.userData.kind = "ligament";
   material.onBeforeCompile = (shader) => {
@@ -263,7 +265,7 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     material.userData.shader = shader;
   };
   material.customProgramCacheKey = () =>
-    schematic ? "anatomy-fiber-ligament-synth-v2" : "anatomy-fiber-ligament-bp3d-v2";
+    schematic ? "anatomy-fiber-ligament-synth-v3" : "anatomy-fiber-ligament-bp3d-v3";
   return material;
 }
 

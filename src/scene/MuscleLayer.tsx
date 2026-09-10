@@ -92,8 +92,8 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const tintHex = chainOn ? tintForMuscle(entry.id, props.activeChainIds) : null;
       const tint = tintHex ? new THREE.Color(tintHex) : null;
       const ghosted = showAll && !selected && !tint;
-      const opacity = selected ? 0.97 : tint ? 0.9 : showAll ? 0.52 : 0.96;
-      setMuscleTint(entry.material, tint, tint ? (selected ? 0.38 : 0.55) : 0);
+      const opacity = selected ? 0.97 : tint ? 0.94 : showAll ? (chainOn ? 0.28 : 0.52) : 0.96;
+      setMuscleTint(entry.material, tint, tint ? (selected ? 0.42 : 0.78) : 0);
       entry.material.opacity = opacity;
       entry.material.transparent = opacity < 0.98;
       entry.material.depthWrite = selected || opacity > 0.85;
