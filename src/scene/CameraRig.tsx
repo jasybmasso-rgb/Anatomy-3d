@@ -12,7 +12,11 @@ export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 
 const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
-const ZOOM_STEP = 0.18;
+const ZOOM_PIXEL_SCALE = 0.00135;
+const ZOOM_DAMP = 11;
+const TARGET_DAMP = 8;
+const FOCUS_DAMP = 5;
+const GESTURE_MS = 160;
 const SKIP_PICK = new Set(["ignore", "floor", "shadow"]);
 const SAMPLE_RINGS = [0, 0.07, 0.16, 0.28, 0.42, 0.58];
 const SAMPLE_DIRS = 8;
@@ -20,6 +24,7 @@ const _ndc = new THREE.Vector2();
 const _viewDir = new THREE.Vector3();
 const _plane = new THREE.Plane();
 const _planeHit = new THREE.Vector3();
+const _offset = new THREE.Vector3();
 
 function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Vector3 } {
   if (!muscle) {
@@ -43,7 +48,6 @@ function isPickableMesh(obj: THREE.Object3D): obj is THREE.Mesh {
   return true;
 }
 
-/** Closest pickable hit to the camera among rays in a screen-space spiral around the pointer. */
 function pickNearby(
   raycaster: THREE.Raycaster,
   pointer: THREE.Vector2,
@@ -80,11 +84,8 @@ function pointerFromEvent(event: MouseEvent, element: HTMLElement, out: THREE.Ve
   out.set(((event.clientX - rect.left) / w) * 2 - 1, -((event.clientY - rect.top) / h) * 2 + 1);
 }
 
-function dollyToward(camera: THREE.Camera, pivot: THREE.Vector3, factor: number) {
-  const offset = camera.position.clone().sub(pivot);
-  if (offset.lengthSq() < 1e-10) return;
-  const nextDist = THREE.MathUtils.clamp(offset.length() * factor, MIN_DISTANCE, MAX_DISTANCE);
-  camera.position.copy(pivot).addScaledVector(offset.normalize(), nextDist);
+function ease(dt: number, rate: number) {
+  return 1 - Math.exp(-rate * dt);
 }
 
 export function CameraRig({
@@ -99,23 +100,39 @@ export function CameraRig({
   const goalEye = useRef(new THREE.Vector3(...DEFAULT_EYE));
   const goalTarget = useRef(new THREE.Vector3(...DEFAULT_TARGET));
   const animating = useRef(true);
+  const zooming = useRef(false);
+  const zoomDistance = useRef(camera.position.distanceTo(new THREE.Vector3(...DEFAULT_TARGET)));
+  const zoomPivot = useRef(new THREE.Vector3(...DEFAULT_TARGET));
+  const gestureUntil = useRef(0);
   const raycaster = useRef(new THREE.Raycaster());
   const pointer = useRef(new THREE.Vector2());
   const applyFocusRef = useRef<(point: THREE.Vector3, smooth?: boolean) => void>(() => undefined);
 
-  function stopAnimation() {
+  function stopScriptedMotion() {
     animating.current = false;
+  }
+
+  function syncZoomFromCamera(orbit: OrbitControlsImpl) {
+    zoomDistance.current = THREE.MathUtils.clamp(
+      camera.position.distanceTo(orbit.target),
+      MIN_DISTANCE,
+      MAX_DISTANCE,
+    );
+    zoomPivot.current.copy(orbit.target);
   }
 
   function applyFocus(point: THREE.Vector3, smooth = true) {
     const orbit = controls.current;
     if (!orbit) return;
+    zooming.current = false;
     const offset = camera.position.clone().sub(orbit.target);
     const dist = THREE.MathUtils.clamp(offset.length(), MIN_DISTANCE, MAX_DISTANCE);
     const dir =
       offset.lengthSq() > 1e-8 ? offset.normalize() : new THREE.Vector3(0.42, 0.18, 0.88).normalize();
     goalTarget.current.copy(point);
     goalEye.current.copy(point).addScaledVector(dir, dist);
+    zoomDistance.current = dist;
+    zoomPivot.current.copy(point);
     if (smooth) {
       animating.current = true;
       return;
@@ -139,7 +156,10 @@ export function CameraRig({
     const next = goalsFor(muscle);
     goalEye.current.copy(next.eye);
     goalTarget.current.copy(next.target);
+    zoomDistance.current = next.eye.distanceTo(next.target);
+    zoomPivot.current.copy(next.target);
     animating.current = true;
+    zooming.current = false;
   }, [muscle, resetToken]);
 
   useEffect(() => {
@@ -150,31 +170,38 @@ export function CameraRig({
       if (!orbit || !orbit.enabled) return;
       event.preventDefault();
       event.stopPropagation();
-      stopAnimation();
+      animating.current = false;
 
-      pointerFromEvent(event, element, pointer.current);
-      const hit = pickNearby(raycaster.current, pointer.current, camera, scene);
-      const factor = Math.exp(Math.sign(event.deltaY) * ZOOM_STEP);
+      const now = performance.now();
+      const freshGesture = now > gestureUntil.current;
+      gestureUntil.current = now + GESTURE_MS;
 
-      if (hit) {
-        dollyToward(camera, hit, factor);
-        orbit.target.copy(hit);
-        orbit.update();
-        return;
+      if (freshGesture) {
+        pointerFromEvent(event, element, pointer.current);
+        const hit = pickNearby(raycaster.current, pointer.current, camera, scene);
+        if (hit) {
+          zoomPivot.current.copy(hit);
+        } else {
+          camera.getWorldDirection(_viewDir);
+          _plane.setFromNormalAndCoplanarPoint(_viewDir, orbit.target);
+          raycaster.current.setFromCamera(pointer.current, camera);
+          const planePoint = raycaster.current.ray.intersectPlane(_plane, _planeHit);
+          zoomPivot.current.copy(planePoint ?? orbit.target);
+        }
+        zoomDistance.current = THREE.MathUtils.clamp(
+          camera.position.distanceTo(zoomPivot.current),
+          MIN_DISTANCE,
+          MAX_DISTANCE,
+        );
       }
 
-      camera.getWorldDirection(_viewDir);
-      _plane.setFromNormalAndCoplanarPoint(_viewDir, orbit.target);
-      raycaster.current.setFromCamera(pointer.current, camera);
-      const planePoint = raycaster.current.ray.intersectPlane(_plane, _planeHit);
-      if (planePoint) {
-        dollyToward(camera, planePoint, factor);
-        orbit.update();
-        return;
-      }
-
-      dollyToward(camera, orbit.target, factor);
-      orbit.update();
+      const factor = Math.exp(event.deltaY * ZOOM_PIXEL_SCALE);
+      zoomDistance.current = THREE.MathUtils.clamp(
+        zoomDistance.current * factor,
+        MIN_DISTANCE,
+        MAX_DISTANCE,
+      );
+      zooming.current = true;
     };
 
     const onDblClick = (event: MouseEvent) => {
@@ -193,16 +220,43 @@ export function CameraRig({
 
   useFrame((_, dt) => {
     const orbit = controls.current;
-    if (!orbit || !animating.current) return;
-    const k = 1 - Math.exp(-5 * dt);
-    camera.position.lerp(goalEye.current, k);
-    orbit.target.lerp(goalTarget.current, k);
+    if (!orbit) return;
+    const dtClamped = Math.min(dt, 0.05);
+
+    if (animating.current) {
+      const k = ease(dtClamped, FOCUS_DAMP);
+      camera.position.lerp(goalEye.current, k);
+      orbit.target.lerp(goalTarget.current, k);
+      orbit.update();
+      if (
+        camera.position.distanceTo(goalEye.current) < 0.012 &&
+        orbit.target.distanceTo(goalTarget.current) < 0.012
+      ) {
+        animating.current = false;
+        syncZoomFromCamera(orbit);
+      }
+      return;
+    }
+
+    if (!zooming.current) return;
+
+    orbit.target.lerp(zoomPivot.current, ease(dtClamped, TARGET_DAMP));
+    _offset.copy(camera.position).sub(orbit.target);
+    const current = _offset.length();
+    if (current < 1e-6) {
+      zooming.current = false;
+      return;
+    }
+    const next = THREE.MathUtils.damp(current, zoomDistance.current, ZOOM_DAMP, dtClamped);
+    camera.position.copy(orbit.target).addScaledVector(_offset.multiplyScalar(1 / current), next);
     orbit.update();
+
     if (
-      camera.position.distanceTo(goalEye.current) < 0.012 &&
-      orbit.target.distanceTo(goalTarget.current) < 0.012
+      Math.abs(next - zoomDistance.current) < 0.0015 &&
+      orbit.target.distanceTo(zoomPivot.current) < 0.004 &&
+      performance.now() > gestureUntil.current
     ) {
-      animating.current = false;
+      zooming.current = false;
     }
   });
 
@@ -216,7 +270,11 @@ export function CameraRig({
       screenSpacePanning
       minDistance={MIN_DISTANCE}
       maxDistance={MAX_DISTANCE}
-      onStart={stopAnimation}
+      onStart={() => {
+        stopScriptedMotion();
+        zooming.current = false;
+        if (controls.current) syncZoomFromCamera(controls.current);
+      }}
     />
   );
 }

@@ -12,6 +12,7 @@ export function App() {
   const [resetToken, setResetToken] = useState(0);
   const [showLandmarks, setShowLandmarks] = useState(false);
   const [showLigaments, setShowLigaments] = useState(false);
+  const [showFascia, setShowFascia] = useState(false);
   const selected = getMuscleById(selection.selectedMuscleId);
 
   function reset() {
@@ -40,6 +41,14 @@ export function App() {
           />
           Afficher les ligaments
         </label>
+        <label className="landmarks-toggle fascia-toggle">
+          <input
+            type="checkbox"
+            checked={showFascia}
+            onChange={(event) => setShowFascia(event.target.checked)}
+          />
+          Afficher les fascias
+        </label>
         <label className="landmarks-toggle">
           <input
             type="checkbox"
@@ -59,6 +68,7 @@ export function App() {
               muscle={selected}
               showLandmarks={showLandmarks}
               showLigaments={showLigaments}
+              showFascia={showFascia}
               resetToken={resetToken}
             />
           </SceneErrorBoundary>

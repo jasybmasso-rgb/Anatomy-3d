@@ -44,10 +44,26 @@ Catalogue des pièces du `ligaments.glb` (même espace que le squelette). Toggle
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` / `joint` | Localisation. |
-| `notes` | Inclusion / précision. |
-| `fmaId` / `fileIds` | Identifiants BodyParts3D. |
+| `source` | `bodyparts3d` ou `synthetic`. |
+| `notes` | Inclusion / précision. Les synthétiques sont des approximations pédagogiques. |
+| `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
-BodyParts3D 4.0 n’expose pas les ligaments majeurs des articulations (LCA, ilio-fémoral, etc.). Le fichier liste uniquement les maillages réellement présents.
+BodyParts3D 4.0 n’expose pas les ligaments majeurs des articulations (LCA, ilio-fémoral, etc.). Ceux-ci sont **synthétisés** comme capsules / disques ancrés sur `landmarks.json`.
+
+## `fascia.json`
+
+Catalogue du `fascia.glb`. Toggle « Afficher les fascias » **off** par défaut. Matériau gris-bleu translucide (distinct du tan ligamentaire et de l’ivoire osseux).
+
+| Champ | Rôle |
+| --- | --- |
+| `id` | Clé stable. |
+| `name` / `nameLatin` | Noms FR et latin. |
+| `region` | Localisation. |
+| `source` | `bodyparts3d` ou `synthetic`. |
+| `notes` | Inclusion / approximation. |
+| `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
+
+BP3D 4.0 n’a quasiment pas de nappes fasciales distinctes : les parents « investing fascia » et « fascia lata » se réduisent aux **tractus ilio-tibiaux** (FJ1423 / FJ1423M). Peau, graisse, TFL et septums nasaux / cérébraux exclus. Les rétinaculums du poignet restent dans `ligaments.json`. Les aponévroses plantaire / palmaire, le fascia thoraco-lombaire et la ligne blanche sont synthétiques. Lacunes documentées dans `gaps`.
 
 La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id` (`src/lib/search.ts`).
 

@@ -17,6 +17,7 @@ from trimesh.exchange.gltf import export_glb
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_skeleton_glb as sk
+from build_synthetic_ligaments import build as build_synthetic
 
 OUT_GLB = sk.ROOT / "public" / "models" / "ligaments.glb"
 OUT_META = sk.ROOT / "public" / "models" / "ligaments.meta.json"
@@ -24,7 +25,8 @@ OUT_CATALOG = sk.ROOT / "src" / "data" / "ligaments.json"
 SKELETON_META = sk.ROOT / "public" / "models" / "skeleton.meta.json"
 
 # Exact English names from isa_parts_list_e.txt.
-# BodyParts3D has no cruciate / collateral / iliofemoral / glenohumeral meshes.
+# BodyParts3D has no cruciate / collateral / iliofemoral / glenohumeral meshes;
+# those are synthesized in build_synthetic_ligaments.py and merged below.
 INCLUDE: dict[str, dict[str, str]] = {
     "right long plantar ligament": {
         "id": "plantaire-long-d",
@@ -178,8 +180,10 @@ INCLUSION_RULES = (
     "(deep fibrous / ligamentous layer). "
     "Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, "
     "lens suspensory ligaments, trochleae, abstract parents, arteries. "
-    "BodyParts3D 4.0 has no meshes for major joint ligaments "
-    "(ACL/PCL, collaterals, iliofemoral, glenohumeral, etc.) nor joint capsules."
+    "Major joint ligaments absent from BodyParts3D 4.0 (ACL/PCL, collaterals, "
+    "hip capsular ligaments, glenohumeral, annular, ATFL/CFL/PTFL, spinal "
+    "ALL/PLL/flavum) are synthesized as landmark-anchored bands "
+    "(source=synthetic) — educational approximations, not cadaver segmentations."
 )
 
 
@@ -242,6 +246,7 @@ def main() -> int:
         catalog.append(
             {
                 **info,
+                "source": "bodyparts3d",
                 "sourceName": en_name,
                 "fmaId": cid,
                 "fileIds": element_map.get(cid, []),
@@ -253,41 +258,53 @@ def main() -> int:
         print("too few ligaments; abort", file=sys.stderr)
         return 1
 
-    combined = trimesh.util.concatenate([m for _c, _n, m in items])
+    print("synthesizing major-joint ligaments…", flush=True)
+    synth_meshes, synth_catalog = build_synthetic()
+    catalog.extend(synth_catalog)
+
+    combined = trimesh.util.concatenate([m for _c, _n, m in items] + synth_meshes)
     combined.visual.vertex_colors = [210, 176, 148, 180]
     _ = combined.vertex_normals
     OUT_GLB.parent.mkdir(parents=True, exist_ok=True)
     OUT_GLB.write_bytes(export_glb(combined, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)
 
+    n_bp3d = sum(1 for p in catalog if p.get("source") == "bodyparts3d")
+    n_synth = sum(1 for p in catalog if p.get("source") == "synthetic")
     meta = {
         "glbBytes": OUT_GLB.stat().st_size,
         "glbMiB": round(size_mb, 2),
-        "partCount": len(items),
+        "partCount": len(catalog),
+        "countBodyparts3d": n_bp3d,
+        "countSynthetic": n_synth,
         "vertexCount": int(len(combined.vertices)),
         "faceCount": int(len(combined.faces)),
-        "license": "CC BY-SA 2.1 Japan",
+        "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic bands are original educational approximations",
         "alignedTo": "public/models/skeleton.glb",
         "inclusionRules": INCLUSION_RULES,
-        "missingMajorJoints": [
-            "ACL/PCL",
-            "collateral ligaments",
-            "iliofemoral / pubofemoral / ischiofemoral",
-            "glenohumeral / coracohumeral",
-            "joint capsules",
-        ],
     }
     OUT_META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
 
     payload = {
-        "version": 1,
+        "version": 2,
         "defaultVisible": False,
         "inclusionRules": INCLUSION_RULES,
+        "syntheticDisclaimer": (
+            "Entries with source=synthetic are educational approximations placed between "
+            "named landmarks (or X-mirrored contralateral landmarks). They are not segmented "
+            "from cadaver imaging and must not be treated as morphologically accurate."
+        ),
         "count": len(catalog),
+        "countBodyparts3d": n_bp3d,
+        "countSynthetic": n_synth,
         "ligaments": catalog,
     }
     OUT_CATALOG.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(catalog)} parts", flush=True)
+    print(
+        f"wrote {OUT_GLB} ({size_mb:.2f} MiB), {len(catalog)} parts "
+        f"({n_bp3d} BP3D + {n_synth} synthetic)",
+        flush=True,
+    )
     return 0
 
 

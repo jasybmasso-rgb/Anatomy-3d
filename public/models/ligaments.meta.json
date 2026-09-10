@@ -1,17 +1,12 @@
 {
-  "glbBytes": 1651904,
-  "glbMiB": 1.58,
-  "partCount": 18,
-  "vertexCount": 38053,
-  "faceCount": 48766,
-  "license": "CC BY-SA 2.1 Japan",
+  "glbBytes": 1743480,
+  "glbMiB": 1.66,
+  "partCount": 97,
+  "countBodyparts3d": 18,
+  "countSynthetic": 79,
+  "vertexCount": 39887,
+  "faceCount": 52118,
+  "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic bands are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Included: BodyParts3D concepts whose English name is a named ligament, plus interosseous membranes (syndesmoses) and flexor retinacula (deep fibrous / ligamentous layer). Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, lens suspensory ligaments, trochleae, abstract parents, arteries. BodyParts3D 4.0 has no meshes for major joint ligaments (ACL/PCL, collaterals, iliofemoral, glenohumeral, etc.) nor joint capsules.",
-  "missingMajorJoints": [
-    "ACL/PCL",
-    "collateral ligaments",
-    "iliofemoral / pubofemoral / ischiofemoral",
-    "glenohumeral / coracohumeral",
-    "joint capsules"
-  ]
+  "inclusionRules": "Included: BodyParts3D concepts whose English name is a named ligament, plus interosseous membranes (syndesmoses) and flexor retinacula (deep fibrous / ligamentous layer). Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, lens suspensory ligaments, trochleae, abstract parents, arteries. Major joint ligaments absent from BodyParts3D 4.0 (ACL/PCL, collaterals, hip capsular ligaments, glenohumeral, annular, ATFL/CFL/PTFL, spinal ALL/PLL/flavum) are synthesized as landmark-anchored bands (source=synthetic) \u2014 educational approximations, not cadaver segmentations."
 }

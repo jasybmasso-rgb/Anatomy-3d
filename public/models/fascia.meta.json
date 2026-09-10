@@ -1,0 +1,19 @@
+{
+  "glbBytes": 944128,
+  "glbMiB": 0.9,
+  "partCount": 10,
+  "countBodyparts3d": 2,
+  "countSynthetic": 8,
+  "vertexCount": 18914,
+  "faceCount": 34440,
+  "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic sheets are original educational approximations",
+  "alignedTo": "public/models/skeleton.glb",
+  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Investing-fascia / fascia-lata parents map to those same files and are not duplicated. Flexor retinacula of the wrist remain in ligaments.glb. Excluded: tensor fasciae latae (muscle), nasal septum, septum of telencephalon, skin, fat, abstract parents. BodyParts3D 4.0 has no dedicated meshes for thoracolumbar fascia, plantar / palmar aponeuroses, abdominal fascia, crural fascia, or intermuscular septa; those gaps are filled with landmark-anchored synthetic sheets (source=synthetic).",
+  "gaps": [
+    "fascia cervicale / nuchal",
+    "fascia crural et r\u00e9tinaculums de cheville (hors ligaments)",
+    "fascia antebrachial (hors r\u00e9tinaculum d\u00e9j\u00e0 dans ligaments)",
+    "clavipectoral / pectoral fascia",
+    "septums intermusculaires de la cuisse et de la jambe"
+  ]
+}

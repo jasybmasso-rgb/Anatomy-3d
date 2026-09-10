@@ -1,26 +1,26 @@
-export type LigamentSource = "bodyparts3d" | "synthetic";
+export type FasciaSource = "bodyparts3d" | "synthetic";
 
-export type Ligament = {
+export type FasciaPart = {
   id: string;
   name: string;
   nameLatin: string;
   region: string;
-  joint: string;
   notes: string;
-  source: LigamentSource;
+  source: FasciaSource;
   sourceName: string;
   fmaId: string;
   fileIds: string[];
   centroid: [number, number, number];
 };
 
-export type LigamentsFile = {
+export type FasciaFile = {
   version: number;
   defaultVisible: boolean;
   inclusionRules: string;
+  gaps?: string[];
   syntheticDisclaimer?: string;
   count: number;
   countBodyparts3d?: number;
   countSynthetic?: number;
-  ligaments: Ligament[];
+  fascia: FasciaPart[];
 };

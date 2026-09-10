@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import type { Muscle } from "../types/muscle";
 import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
+import { Fascia } from "./Fascia";
 import { FLOOR_Y } from "./landmarks";
 import { Ligaments } from "./Ligaments";
 import { MuscleMesh } from "./MuscleMesh";
@@ -41,6 +42,7 @@ type AnatomySceneProps = {
   muscle: Muscle | null;
   showLandmarks: boolean;
   showLigaments: boolean;
+  showFascia: boolean;
   resetToken: number;
 };
 
@@ -48,6 +50,7 @@ export function AnatomyScene({
   muscle,
   showLandmarks,
   showLigaments,
+  showFascia,
   resetToken,
 }: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
@@ -77,6 +80,7 @@ export function AnatomyScene({
       <Lights />
       <Suspense fallback={null}>
         <Skeleton />
+        <Fascia visible={showFascia} />
         <Ligaments visible={showLigaments} />
         {muscle ? <MuscleMesh muscle={muscle} /> : null}
         <LandmarkLayer visible={showLandmarks} />
