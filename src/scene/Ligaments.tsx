@@ -11,11 +11,12 @@ export function Ligaments({ visible }: { visible: boolean }) {
     const material = new THREE.MeshPhysicalMaterial({
       color: LIGAMENT_COLOR,
       emissive: "#6a4220",
-      emissiveIntensity: 0.32,
+      emissiveIntensity: 0.4,
       roughness: 0.48,
       metalness: 0.02,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.95,
+      depthTest: false,
       depthWrite: false,
       side: THREE.DoubleSide,
       vertexColors: false,
@@ -30,13 +31,13 @@ export function Ligaments({ visible }: { visible: boolean }) {
         obj.castShadow = false;
         obj.receiveShadow = false;
         obj.material = material;
+        obj.renderOrder = 3;
       }
     });
     return clone;
   }, [gltf]);
 
-  if (!visible) return null;
-  return <primitive object={scene} />;
+  return <primitive object={scene} visible={visible} />;
 }
 
 useGLTF.preload("/models/ligaments.glb");

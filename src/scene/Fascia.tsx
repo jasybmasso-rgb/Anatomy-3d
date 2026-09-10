@@ -30,13 +30,13 @@ export function Fascia({ visible }: { visible: boolean }) {
         obj.castShadow = false;
         obj.receiveShadow = false;
         obj.material = material;
+        obj.renderOrder = 2;
       }
     });
     return clone;
   }, [gltf]);
 
-  if (!visible) return null;
-  return <primitive object={scene} />;
+  return <primitive object={scene} visible={visible} />;
 }
 
 useGLTF.preload("/models/fascia.glb");
