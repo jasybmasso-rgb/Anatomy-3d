@@ -158,10 +158,14 @@ def fiber_bundle(
         offsets = [0.0]
     else:
         offsets = np.linspace(-spread, spread, n_fibers)
-    fiber_w = width / max(n_fibers * 0.55, 1.0)
-    for off in offsets:
-        path = center + side * off
-        parts.append(loft_ribbon(path, width=fiber_w, thickness=thickness))
+    fiber_w = width / max(n_fibers * 0.95, 1.0)
+    mid_t = tangents[len(tangents) // 2]
+    nrm = np.cross(side, mid_t)
+    nrm /= max(np.linalg.norm(nrm), 1e-9)
+    for i, off in enumerate(offsets):
+        stagger = nrm * (0.0022 * ((i % 3) - 1))
+        path = center + side * off + stagger
+        parts.append(loft_ribbon(path, width=max(fiber_w, 0.0016), thickness=thickness * 0.82))
     merged = trimesh.util.concatenate(parts)
     merged.merge_vertices()
     return merged
