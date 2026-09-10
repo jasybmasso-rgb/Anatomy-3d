@@ -198,7 +198,7 @@ def fascicle_bundle(
     spread_end: float = 0.0065,
     spread_mid: float = 0.0024,
     samples: int = 20,
-    radial: int = 8,
+    radial: int = 10,
 ) -> trimesh.Trimesh:
     """Tapered rounded fascicles along a Bézier — fan at attachments, thin mid-substance."""
     pa = np.asarray(a, dtype=np.float64)
@@ -228,13 +228,12 @@ def fascicle_bundle(
     parts: list[trimesh.Trimesh] = []
     n_fibers = max(3, int(n_fibers))
     for i in range(n_fibers):
-        ang = (2.0 * math.pi * i) / n_fibers + 0.11 * i
-        # slightly elliptical packing
-        pack = np.cos(ang) * side * 1.05 + np.sin(ang) * nrm * 0.72
+        ang = (2.0 * math.pi * i) / n_fibers + 0.17 * i
+        pack = np.cos(ang) * side * 1.0 + np.sin(ang) * nrm * 0.94
         fiber_sag = nrm * (0.0012 * math.sin(i * 1.7)) + side * (0.0008 * math.cos(i * 1.3))
         path = center + pack * spread[:, None] + fiber_sag
         r = radii * (0.86 + 0.14 * (0.5 + 0.5 * math.sin(i * 2.1)))
-        parts.append(loft_tube(path, r, radial=radial, caps=False))
+        parts.append(loft_tube(path, r, radial=radial, caps=True))
     merged = trimesh.util.concatenate(parts)
     merged.merge_vertices()
     return merged
