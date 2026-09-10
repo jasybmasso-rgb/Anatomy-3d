@@ -706,20 +706,20 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.00037,
-        0.13877,
-        0.00239
+        0.00098,
+        0.11619,
+        -0.03079
       ],
       "focus": {
         "position": [
-          -0.13822,
-          0.13869,
-          0.00186
+          -0.16247,
+          0.11606,
+          -0.03166
         ],
         "distance": 0.62
       },
-      "vertexCount": 300,
-      "faceCount": 520,
+      "vertexCount": 240,
+      "faceCount": 360,
       "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
     },
     {

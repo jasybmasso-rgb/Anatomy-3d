@@ -64,7 +64,7 @@ def build() -> tuple[list[trimesh.Trimesh], list[dict]]:
         catalog.append(entry(id_, name, latin, region, joint, mesh))
 
     def capsule(id_, name, latin, region, joint, a, b, r):
-        add(id_, name, latin, region, joint, band(a, b, r))
+        add(id_, name, latin, region, joint, band(a, b, r * 1.75))
 
     # --- Knee ---
     for side, suf, flip in (("droit", "d", False), ("gauche", "g", True)):
@@ -99,9 +99,9 @@ def build() -> tuple[list[trimesh.Trimesh], list[dict]]:
                 pat, tub, 0.006)
         men_c = mix(mix(lat_f, med_f, 0.5), tub, 0.35)
         add(f"menisque-med-{suf}", f"Ménisque médial {side}", "Meniscus medialis", "genou", "genou",
-            disc(off(men_c, x=(-0.012 if suf == "d" else 0.012)), [0, 1, 0.15], 0.018, 0.004))
+            disc(off(men_c, x=(-0.012 if suf == "d" else 0.012)), [0, 1, 0.15], 0.02, 0.005))
         add(f"menisque-lat-{suf}", f"Ménisque latéral {side}", "Meniscus lateralis", "genou", "genou",
-            disc(off(men_c, x=(0.012 if suf == "d" else -0.012)), [0, 1, 0.15], 0.016, 0.004))
+            disc(off(men_c, x=(0.012 if suf == "d" else -0.012)), [0, 1, 0.15], 0.018, 0.005))
 
     # --- Hip ---
     for suf, side in (("d", "droit"), ("g", "gauche")):

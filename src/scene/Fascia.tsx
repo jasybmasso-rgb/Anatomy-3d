@@ -11,11 +11,11 @@ export function Fascia({ visible }: { visible: boolean }) {
     const material = new THREE.MeshPhysicalMaterial({
       color: FASCIA_COLOR,
       emissive: "#1c3344",
-      emissiveIntensity: 0.12,
+      emissiveIntensity: 0.16,
       roughness: 0.42,
       metalness: 0.02,
       transparent: true,
-      opacity: 0.52,
+      opacity: 0.58,
       depthWrite: false,
       side: THREE.DoubleSide,
       vertexColors: false,

@@ -35,20 +35,27 @@ def build() -> dict[str, trimesh.Trimesh]:
     p = load_lm()
     out: dict[str, trimesh.Trimesh] = {}
 
-    # Latissimus: iliac crest / PSIS / lumbar spine → intertubercular groove.
+    # Latissimus: posterior-lateral wrap, iliac crest / spine → flank → humerus.
     lats: list[trimesh.Trimesh] = []
     for suf in ("d", "g"):
+        sx = -1.0 if suf == "d" else 1.0
         hum = p[f"tubercule-majeur-{suf}"]
+        gt = p[f"grand-trochanter-{suf}"]
+        crest = p[f"crete-iliaque-{suf}"]
+        eips = p[f"eips-{suf}"]
+        flank = off(mix(crest, gt, 0.28), x=sx * 0.03, z=-0.06)
+        axilla = off(mix(flank, hum, 0.58), z=-0.035, y=0.03)
         origins = [
-            p[f"crete-iliaque-{suf}"],
-            p[f"eips-{suf}"],
-            off(p["l5"], x=(-0.02 if suf == "d" else 0.02), z=-0.02),
-            off(p["t12"], x=(-0.025 if suf == "d" else 0.025), z=-0.025),
-            off(p["sacrum"], x=(-0.015 if suf == "d" else 0.015)),
+            off(eips, z=-0.03),
+            off(crest, z=-0.035),
+            off(p["l5"], x=sx * 0.03, z=-0.045),
+            off(p["t12"], x=sx * 0.045, z=-0.05),
+            off(p["sacrum"], x=sx * 0.02, z=-0.03),
         ]
         for origin in origins:
-            lats.append(ribbon(origin, mix(origin, hum, 0.92), width=0.028, thickness=0.012))
-            lats.append(band(mix(origin, hum, 0.15), mix(origin, hum, 0.85), 0.012))
+            lats.append(ribbon(origin, flank, width=0.048, thickness=0.007))
+            lats.append(ribbon(flank, axilla, width=0.036, thickness=0.007))
+            lats.append(ribbon(axilla, hum, width=0.02, thickness=0.006))
     out["grand-dorsal"] = _concat(lats)
 
     # Rectus abdominis: two paramedian straps, xiphoid → pubis, with three intersections.
