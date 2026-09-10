@@ -10,10 +10,12 @@ export function Ligaments({ visible }: { visible: boolean }) {
     const clone = gltf.scene.clone(true);
     const material = new THREE.MeshPhysicalMaterial({
       color: LIGAMENT_COLOR,
-      roughness: 0.55,
+      emissive: "#5a3a1c",
+      emissiveIntensity: 0.18,
+      roughness: 0.5,
       metalness: 0.02,
       transparent: true,
-      opacity: 0.58,
+      opacity: 0.78,
       depthWrite: false,
       side: THREE.DoubleSide,
       vertexColors: false,
