@@ -43,20 +43,6 @@ function isPickableMesh(obj: THREE.Object3D): obj is THREE.Mesh {
   return true;
 }
 
-function firstHit(
-  raycaster: THREE.Raycaster,
-  ndc: THREE.Vector2,
-  camera: THREE.Camera,
-  scene: THREE.Scene,
-): THREE.Vector3 | null {
-  raycaster.setFromCamera(ndc, camera);
-  const hits = raycaster.intersectObjects(scene.children, true);
-  for (const hit of hits) {
-    if (isPickableMesh(hit.object)) return hit.point.clone();
-  }
-  return null;
-}
-
 /** Closest pickable hit to the camera among rays in a screen-space spiral around the pointer. */
 function pickNearby(
   raycaster: THREE.Raycaster,

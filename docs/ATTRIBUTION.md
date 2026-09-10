@@ -2,7 +2,7 @@
 
 ## BodyParts3D / Anatomography
 
-Le squelette 3D (`public/models/skeleton.glb`) est un **dérivé** des maillages polygonaux **BodyParts3D** (arbre IS-A, réduction 99 %), filtrés aux **os** uniquement, fusionnés et renormalisés pour le web.
+Les maillages `public/models/skeleton.glb` et `public/models/ligaments.glb` sont des **dérivés** des polygones **BodyParts3D** (arbre IS-A, réduction 99 %), filtrés respectivement aux **os** et à une **couche ligamentaire / fibreuse profonde**, fusionnés et renormalisés pour le web.
 
 **Crédit exigé (libellé officiel) :**
 
@@ -19,18 +19,22 @@ Le squelette 3D (`public/models/skeleton.glb`) est un **dérivé** des maillages
 
 Toute **redistribution du GLB** ou d’un autre dérivé des maillages BodyParts3D doit rester sous **CC BY-SA 2.1 Japon** (ou une licence compatible). Cela **ne s’applique pas** automatiquement au code applicatif (MIT) : le code et le jeu de données musculaires textuels sont distincts du dérivé 3D.
 
-Modifications par rapport aux OBJ d’origine : sous-ensemble osseux seulement ; conversion mètres ; Y-up ; stature ~1,7 m ; origine près du bassin ; orientation face +Z ; fusion en un seul GLB.
+Modifications par rapport aux OBJ d’origine : sous-ensemble osseux ou ligamentaire ; conversion mètres ; Y-up ; stature ~1,7 m ; origine près du bassin ; orientation face +Z ; fusion en GLB. Le GLB ligaments est aligné sur la même matrice `worldMatrix` que le squelette.
 
 ### Reconstruction
 
 ```bash
 python3 scripts/build_skeleton_glb.py
+python3 scripts/build_ligaments_glb.py
 # ou
 bash scripts/build-skeleton-glb.sh
+bash scripts/build-ligaments-glb.sh
 ```
 
-Le script télécharge `isa_BP3D_4.0_obj_99.zip`, `isa_element_parts.txt` (correspondance concept → fichier `FJ####`) et les listes IS-A depuis l’archive DBCLS, garde les **feuilles** descendantes de `FMA5018` (bone organ) plus le sternum (manubrium, corps, xiphoïde), puis écrit `public/models/skeleton.glb` et `src/data/landmarks.json`.
+Le script squelette télécharge `isa_BP3D_4.0_obj_99.zip`, `isa_element_parts.txt` (correspondance concept → fichier `FJ####`) et les listes IS-A depuis l’archive DBCLS, garde les **feuilles** descendantes de `FMA5018` (bone organ) plus le sternum, puis écrit `public/models/skeleton.glb` et `src/data/landmarks.json`.
+
+Le script ligaments reprend les mêmes OBJ et applique `skeleton.meta.json` → `worldMatrix`. Inclusion : ligaments nommés + membranes interosseuses + rétinaculums des fléchisseurs. **Hors jeu BodyParts3D 4.0** : LCA/LCP, collatéraux, ilio-fémoral, gléno-huméraux, capsules articulaires. Voir `src/data/ligaments.json`.
 
 Dépendances Python : `pip install -r scripts/requirements-skeleton.txt`.
 
-Taille actuelle du dérivé commité : **13,47 MiB** (`public/models/skeleton.glb`, 203 os, ~284 k sommets, normales, réduction source 99 %). Détail dans `public/models/skeleton.meta.json`. Pas besoin de Git LFS sous la limite GitHub (100 Mo).
+Tailles commitées : squelette **13,47 MiB** (203 os) ; ligaments **1,58 MiB** (18 pièces). Détail dans `public/models/*.meta.json`. Pas besoin de Git LFS.

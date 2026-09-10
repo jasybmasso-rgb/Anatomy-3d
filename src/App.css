@@ -9,7 +9,7 @@
 
 .topbar {
   display: grid;
-  grid-template-columns: minmax(160px, auto) minmax(220px, 1fr) auto auto;
+  grid-template-columns: minmax(160px, auto) minmax(200px, 1fr) auto auto auto;
   gap: 1rem;
   align-items: center;
   padding: 0.7rem 1.1rem;
@@ -325,6 +325,7 @@
     grid-template-areas:
       "brand reset"
       "search search"
+      "ligaments ligaments"
       "landmarks landmarks";
   }
 
@@ -337,7 +338,11 @@
     max-width: none;
   }
 
-  .landmarks-toggle {
+  .ligaments-toggle {
+    grid-area: ligaments;
+  }
+
+  .landmarks-toggle:not(.ligaments-toggle) {
     grid-area: landmarks;
   }
 

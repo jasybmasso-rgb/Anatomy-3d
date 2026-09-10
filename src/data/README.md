@@ -35,6 +35,20 @@ Repères osseux nommés, **même espace** que `public/models/skeleton.glb` (Y-up
 
 **Précision v1** : points approximatifs (centroïde ou extrémité de boîte), à raffiner manuellement avant un binding origine/insertion. Le toggle UI « Afficher les repères » est **désactivé** par défaut.
 
+## `ligaments.json`
+
+Catalogue des pièces du `ligaments.glb` (même espace que le squelette). Toggle « Afficher les ligaments » **off** par défaut.
+
+| Champ | Rôle |
+| --- | --- |
+| `id` | Clé stable. |
+| `name` / `nameLatin` | Noms FR et latin. |
+| `region` / `joint` | Localisation. |
+| `notes` | Inclusion / précision. |
+| `fmaId` / `fileIds` | Identifiants BodyParts3D. |
+
+BodyParts3D 4.0 n’expose pas les ligaments majeurs des articulations (LCA, ilio-fémoral, etc.). Le fichier liste uniquement les maillages réellement présents.
+
 La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id` (`src/lib/search.ts`).
 
 ## Ce qui n’est pas ici (volontairement)

@@ -217,6 +217,7 @@ def normalize_meshes(
     elif up == 2:
         rot[:3, :3] = trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])[:3, :3]
 
+    world = rot.copy()
     for _, _, mesh in items:
         mesh.apply_transform(rot)
 
@@ -226,15 +227,22 @@ def normalize_meshes(
     scale = 1.0
     if span > 10:
         scale = 0.001
+        smm = np.eye(4)
+        smm[:3, :3] *= scale
+        world = smm @ world
         for _, _, mesh in items:
             mesh.apply_scale(scale)
         all_v = np.vstack([m.vertices for _, _, m in items])
         span = float(all_v.max(0)[1] - all_v.min(0)[1])
 
+    height_scale = 1.0
     if span > 1e-6:
-        s = TARGET_HEIGHT / span
+        height_scale = TARGET_HEIGHT / span
+        sh = np.eye(4)
+        sh[:3, :3] *= height_scale
+        world = sh @ world
         for _, _, mesh in items:
-            mesh.apply_scale(s)
+            mesh.apply_scale(height_scale)
         all_v = np.vstack([m.vertices for _, _, m in items])
 
     # Pelvis origin: centroid of hip bones + sacrum
@@ -247,6 +255,7 @@ def normalize_meshes(
     pelvis_c = np.vstack(pelvis_v).mean(0)
     shift = np.eye(4)
     shift[:3, 3] = -pelvis_c
+    world = shift @ world
     for _, _, mesh in items:
         mesh.apply_transform(shift)
 
@@ -267,6 +276,7 @@ def normalize_meshes(
         # Want anterior along +Z
         yaw = float(np.arctan2(delta[0], delta[2]))
         yaw_m = trimesh.transformations.rotation_matrix(-yaw, [0, 1, 0])
+        world = yaw_m @ world
         for _, _, mesh in items:
             mesh.apply_transform(yaw_m)
 
@@ -275,6 +285,7 @@ def normalize_meshes(
     right = named_centroid("right femur")
     if right is not None and right[0] > 0:
         flip = np.diag([-1.0, 1.0, 1.0, 1.0])
+        world = flip @ world
         for _, _, mesh in items:
             mesh.apply_transform(flip)
         flipped_x = True
@@ -286,6 +297,8 @@ def normalize_meshes(
         "mmToM": scale == 0.001,
         "yawRad": yaw,
         "flippedX": flipped_x,
+        "heightScale": height_scale,
+        "worldMatrix": world.round(8).tolist(),
         "bounds": {
             "min": all_v.min(0).round(5).tolist(),
             "max": all_v.max(0).round(5).tolist(),

@@ -1,0 +1,332 @@
+{
+  "version": 1,
+  "defaultVisible": false,
+  "inclusionRules": "Included: BodyParts3D concepts whose English name is a named ligament, plus interosseous membranes (syndesmoses) and flexor retinacula (deep fibrous / ligamentous layer). Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, lens suspensory ligaments, trochleae, abstract parents, arteries. BodyParts3D 4.0 has no meshes for major joint ligaments (ACL/PCL, collaterals, iliofemoral, glenohumeral, etc.) nor joint capsules.",
+  "count": 18,
+  "ligaments": [
+    {
+      "id": "plantaire-long-d",
+      "name": "Ligament plantaire long droit",
+      "nameLatin": "Ligamentum plantare longum dextrum",
+      "region": "pied",
+      "joint": "pied",
+      "notes": "Ligament plantaire profond.",
+      "sourceName": "right long plantar ligament",
+      "fmaId": "FMA44249",
+      "fileIds": [
+        "FJ1424"
+      ],
+      "centroid": [
+        -0.09154,
+        -0.90526,
+        0.06336
+      ]
+    },
+    {
+      "id": "plantaire-long-g",
+      "name": "Ligament plantaire long gauche",
+      "nameLatin": "Ligamentum plantare longum sinistrum",
+      "region": "pied",
+      "joint": "pied",
+      "notes": "Ligament plantaire profond.",
+      "sourceName": "left long plantar ligament",
+      "fmaId": "FMA44250",
+      "fileIds": [
+        "FJ1424M"
+      ],
+      "centroid": [
+        0.09191,
+        -0.90526,
+        0.06419
+      ]
+    },
+    {
+      "id": "stylo-hyoidien-d",
+      "name": "Ligament stylo-hyoïdien droit",
+      "nameLatin": "Ligamentum stylohyoideum dextrum",
+      "region": "cou",
+      "joint": "hyoïde",
+      "notes": "Relie le processus styloïde à l’os hyoïde.",
+      "sourceName": "right stylohyoid ligament",
+      "fmaId": "FMA72309",
+      "fileIds": [
+        "FJ2764"
+      ],
+      "centroid": [
+        -0.02985,
+        0.5956,
+        0.05854
+      ]
+    },
+    {
+      "id": "stylo-hyoidien-g",
+      "name": "Ligament stylo-hyoïdien gauche",
+      "nameLatin": "Ligamentum stylohyoideum sinistrum",
+      "region": "cou",
+      "joint": "hyoïde",
+      "notes": "Relie le processus styloïde à l’os hyoïde.",
+      "sourceName": "left stylohyoid ligament",
+      "fmaId": "FMA72311",
+      "fileIds": [
+        "FJ2763"
+      ],
+      "centroid": [
+        0.02884,
+        0.5955,
+        0.05891
+      ]
+    },
+    {
+      "id": "thyro-hyoidien-lat-d",
+      "name": "Ligament thyro-hyoïdien latéral droit",
+      "nameLatin": "Ligamentum thyrohyoideum laterale dextrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament extrinsèque du larynx.",
+      "sourceName": "right lateral thyrohyoid ligament",
+      "fmaId": "FMA55140",
+      "fileIds": [
+        "FJ2797"
+      ],
+      "centroid": [
+        -0.01796,
+        0.56992,
+        0.05158
+      ]
+    },
+    {
+      "id": "thyro-hyoidien-lat-g",
+      "name": "Ligament thyro-hyoïdien latéral gauche",
+      "nameLatin": "Ligamentum thyrohyoideum laterale sinistrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament extrinsèque du larynx.",
+      "sourceName": "left lateral thyrohyoid ligament",
+      "fmaId": "FMA55141",
+      "fileIds": [
+        "FJ2779"
+      ],
+      "centroid": [
+        0.01706,
+        0.57001,
+        0.05168
+      ]
+    },
+    {
+      "id": "thyro-hyoidien-med",
+      "name": "Ligament thyro-hyoïdien médian",
+      "nameLatin": "Ligamentum thyrohyoideum medianum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament extrinsèque du larynx.",
+      "sourceName": "median thyrohyoid ligament",
+      "fmaId": "FMA55138",
+      "fileIds": [
+        "FJ2790"
+      ],
+      "centroid": [
+        -0.0002,
+        0.55321,
+        0.07827
+      ]
+    },
+    {
+      "id": "hyo-epiglottique",
+      "name": "Ligament hyo-épiglottique",
+      "nameLatin": "Ligamentum hyoepiglotticum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament intrinsèque / épiglotte.",
+      "sourceName": "hyo-epiglottic ligament",
+      "fmaId": "FMA55227",
+      "fileIds": [
+        "FJ2771"
+      ],
+      "centroid": [
+        -0.00052,
+        0.56178,
+        0.07291
+      ]
+    },
+    {
+      "id": "thyro-epiglottique",
+      "name": "Ligament thyro-épiglottique",
+      "nameLatin": "Ligamentum thyroepiglotticum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Ligament intrinsèque du larynx.",
+      "sourceName": "thyro-epiglottic ligament",
+      "fmaId": "FMA55230",
+      "fileIds": [
+        "FJ2807"
+      ],
+      "centroid": [
+        -0.00061,
+        0.54365,
+        0.07249
+      ]
+    },
+    {
+      "id": "crico-thyroidien-med",
+      "name": "Ligament crico-thyroïdien médian",
+      "nameLatin": "Ligamentum cricothyroideum medianum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Membrane crico-thyroïdienne (partie médiane).",
+      "sourceName": "median cricothyroid ligament",
+      "fmaId": "FMA55237",
+      "fileIds": [
+        "FJ2789"
+      ],
+      "centroid": [
+        -0.00055,
+        0.53377,
+        0.06884
+      ]
+    },
+    {
+      "id": "vocal-d",
+      "name": "Ligament vocal droit",
+      "nameLatin": "Ligamentum vocale dextrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Pli vocal — inclus comme ligament du larynx.",
+      "sourceName": "right vocal ligament",
+      "fmaId": "FMA55245",
+      "fileIds": [
+        "FJ2805"
+      ],
+      "centroid": [
+        -0.00234,
+        0.54057,
+        0.06543
+      ]
+    },
+    {
+      "id": "vocal-g",
+      "name": "Ligament vocal gauche",
+      "nameLatin": "Ligamentum vocale sinistrum",
+      "region": "cou",
+      "joint": "larynx",
+      "notes": "Pli vocal — inclus comme ligament du larynx.",
+      "sourceName": "left vocal ligament",
+      "fmaId": "FMA55246",
+      "fileIds": [
+        "FJ2787"
+      ],
+      "centroid": [
+        0.00145,
+        0.54055,
+        0.06581
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-avant-bras-d",
+      "name": "Membrane interosseuse de l’avant-bras D",
+      "nameLatin": "Membrana interossea antebrachii dextra",
+      "region": "avant-bras",
+      "joint": "syndesmose radio-ulnaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "sourceName": "interosseous membrane of right forearm",
+      "fmaId": "FMA23707",
+      "fileIds": [
+        "FJ1476"
+      ],
+      "centroid": [
+        -0.23769,
+        0.02994,
+        0.05193
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-avant-bras-g",
+      "name": "Membrane interosseuse de l’avant-bras G",
+      "nameLatin": "Membrana interossea antebrachii sinistra",
+      "region": "avant-bras",
+      "joint": "syndesmose radio-ulnaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "sourceName": "interosseous membrane of left forearm",
+      "fmaId": "FMA23708",
+      "fileIds": [
+        "FJ1476M"
+      ],
+      "centroid": [
+        0.23815,
+        0.02995,
+        0.05397
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-jambe-d",
+      "name": "Membrane interosseuse de la jambe D",
+      "nameLatin": "Membrana interossea cruris dextra",
+      "region": "jambe",
+      "joint": "syndesmose tibio-fibulaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "sourceName": "interosseous membrane of right leg",
+      "fmaId": "FMA35192",
+      "fileIds": [
+        "FJ1392"
+      ],
+      "centroid": [
+        -0.09289,
+        -0.69089,
+        0.03036
+      ]
+    },
+    {
+      "id": "membrane-interosseuse-jambe-g",
+      "name": "Membrane interosseuse de la jambe G",
+      "nameLatin": "Membrana interossea cruris sinistra",
+      "region": "jambe",
+      "joint": "syndesmose tibio-fibulaire",
+      "notes": "Syndesmose — tissu fibreux profond, inclus comme couche ligamentaire.",
+      "sourceName": "interosseous membrane of left leg",
+      "fmaId": "FMA35193",
+      "fileIds": [
+        "FJ1392M"
+      ],
+      "centroid": [
+        0.09355,
+        -0.69083,
+        0.03116
+      ]
+    },
+    {
+      "id": "retinaculum-flechisseurs-d",
+      "name": "Rétinaculum des fléchisseurs droit",
+      "nameLatin": "Retinaculum musculorum flexorum dextrum",
+      "region": "poignet",
+      "joint": "poignet",
+      "notes": "Rétinaculum (ligament transverse du carpe).",
+      "sourceName": "flexor retinaculum of right wrist",
+      "fmaId": "FMA40120",
+      "fileIds": [
+        "FJ1471"
+      ],
+      "centroid": [
+        -0.25476,
+        -0.06363,
+        0.09087
+      ]
+    },
+    {
+      "id": "retinaculum-flechisseurs-g",
+      "name": "Rétinaculum des fléchisseurs gauche",
+      "nameLatin": "Retinaculum musculorum flexorum sinistrum",
+      "region": "poignet",
+      "joint": "poignet",
+      "notes": "Rétinaculum (ligament transverse du carpe).",
+      "sourceName": "flexor retinaculum of left wrist",
+      "fmaId": "FMA40121",
+      "fileIds": [
+        "FJ1471M"
+      ],
+      "centroid": [
+        0.25491,
+        -0.06361,
+        0.09306
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "glbBytes": 1651904,
+  "glbMiB": 1.58,
+  "partCount": 18,
+  "vertexCount": 38053,
+  "faceCount": 48766,
+  "license": "CC BY-SA 2.1 Japan",
+  "alignedTo": "public/models/skeleton.glb",
+  "inclusionRules": "Included: BodyParts3D concepts whose English name is a named ligament, plus interosseous membranes (syndesmoses) and flexor retinacula (deep fibrous / ligamentous layer). Excluded: calcaneal (Achilles) tendons, extraocular check ligaments, lens suspensory ligaments, trochleae, abstract parents, arteries. BodyParts3D 4.0 has no meshes for major joint ligaments (ACL/PCL, collaterals, iliofemoral, glenohumeral, etc.) nor joint capsules.",
+  "missingMajorJoints": [
+    "ACL/PCL",
+    "collateral ligaments",
+    "iliofemoral / pubofemoral / ischiofemoral",
+    "glenohumeral / coracohumeral",
+    "joint capsules"
+  ]
+}

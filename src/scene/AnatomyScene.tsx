@@ -5,6 +5,7 @@ import type { Muscle } from "../types/muscle";
 import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
 import { FLOOR_Y } from "./landmarks";
+import { Ligaments } from "./Ligaments";
 import { MuscleMesh } from "./MuscleMesh";
 import { Skeleton } from "./Skeleton";
 
@@ -39,10 +40,16 @@ function Lights() {
 type AnatomySceneProps = {
   muscle: Muscle | null;
   showLandmarks: boolean;
+  showLigaments: boolean;
   resetToken: number;
 };
 
-export function AnatomyScene({ muscle, showLandmarks, resetToken }: AnatomySceneProps) {
+export function AnatomyScene({
+  muscle,
+  showLandmarks,
+  showLigaments,
+  resetToken,
+}: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
     return (
       <div className="scene-error" role="alert">
@@ -70,6 +77,7 @@ export function AnatomyScene({ muscle, showLandmarks, resetToken }: AnatomyScene
       <Lights />
       <Suspense fallback={null}>
         <Skeleton />
+        <Ligaments visible={showLigaments} />
         {muscle ? <MuscleMesh muscle={muscle} /> : null}
         <LandmarkLayer visible={showLandmarks} />
       </Suspense>
