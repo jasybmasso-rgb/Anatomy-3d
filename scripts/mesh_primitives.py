@@ -192,15 +192,17 @@ def fascicle_bundle(
     b: Sequence[float],
     *,
     sag: Sequence[float] | None = None,
-    n_fibers: int = 7,
-    radius_end: float = 0.0022,
-    radius_mid: float = 0.00135,
-    spread_end: float = 0.0065,
-    spread_mid: float = 0.0024,
-    samples: int = 20,
-    radial: int = 10,
+    wrap: Sequence[float] | None = None,
+    n_fibers: int = 12,
+    radius_end: float = 0.00185,
+    radius_mid: float = 0.00105,
+    spread_end: float = 0.0084,
+    spread_mid: float = 0.0017,
+    samples: int = 28,
+    radial: int = 8,
+    rings: int = 2,
 ) -> trimesh.Trimesh:
-    """Tapered rounded fascicles along a Bézier — fan at attachments, thin mid-substance."""
+    """Tapered rounded fascicles along a Bézier — fan at attachments, wrap the joint."""
     pa = np.asarray(a, dtype=np.float64)
     pb = np.asarray(b, dtype=np.float64)
     mid = (pa + pb) / 2.0
@@ -209,31 +211,58 @@ def fascicle_bundle(
         sag_v = np.array([0.0, -0.08 * length, -0.04 * length]) if length > 1e-6 else np.zeros(3)
     else:
         sag_v = np.asarray(sag, dtype=np.float64)
-    c1 = pa * 0.58 + mid * 0.42 + sag_v * 0.4
-    c2 = pb * 0.58 + mid * 0.42 + sag_v * 0.4
+    if wrap is not None:
+        w = np.asarray(wrap, dtype=np.float64)
+        c1 = pa * 0.38 + w * 0.62 + sag_v * 0.22
+        c2 = pb * 0.38 + w * 0.62 + sag_v * 0.22
+    else:
+        c1 = pa * 0.52 + mid * 0.48 + sag_v * 0.55
+        c2 = pb * 0.52 + mid * 0.48 + sag_v * 0.55
     center = bezier_cubic(pa, c1, c2, pb, samples)
     tangents = np.gradient(center, axis=0)
     tangents /= np.clip(np.linalg.norm(tangents, axis=1, keepdims=True), 1e-9, None)
+    # Parallel-transport a frame so curvature around the joint stays smooth.
     ref = np.array([0.0, 0.0, 1.0])
-    if abs(np.dot(tangents[len(tangents) // 2], ref)) > 0.9:
+    if abs(np.dot(tangents[0], ref)) > 0.9:
         ref = np.array([1.0, 0.0, 0.0])
-    side = np.cross(tangents[len(tangents) // 2], ref)
-    side /= max(np.linalg.norm(side), 1e-9)
-    nrm = np.cross(side, tangents[len(tangents) // 2])
-    nrm /= max(np.linalg.norm(nrm), 1e-9)
+    side0 = np.cross(tangents[0], ref)
+    side0 /= max(np.linalg.norm(side0), 1e-9)
+    sides = np.zeros_like(center)
+    nrms = np.zeros_like(center)
+    sides[0] = side0
+    nrms[0] = np.cross(tangents[0], sides[0])
+    nrms[0] /= max(np.linalg.norm(nrms[0]), 1e-9)
+    for i in range(1, len(center)):
+        s = sides[i - 1] - tangents[i] * np.dot(tangents[i], sides[i - 1])
+        s /= max(np.linalg.norm(s), 1e-9)
+        sides[i] = s
+        n = np.cross(tangents[i], s)
+        nrms[i] = n / max(np.linalg.norm(n), 1e-9)
 
     ts = np.linspace(0.0, 1.0, samples)
+    # Stronger flare at the bony attachments, thinner mid-substance.
     spread = _profile_thin_mid(ts, spread_end, spread_mid)
     radii = _profile_thin_mid(ts, radius_end, radius_mid)
     parts: list[trimesh.Trimesh] = []
-    n_fibers = max(3, int(n_fibers))
-    for i in range(n_fibers):
-        ang = (2.0 * math.pi * i) / n_fibers + 0.17 * i
-        pack = np.cos(ang) * side * 1.0 + np.sin(ang) * nrm * 0.94
-        fiber_sag = nrm * (0.0012 * math.sin(i * 1.7)) + side * (0.0008 * math.cos(i * 1.3))
-        path = center + pack * spread[:, None] + fiber_sag
-        r = radii * (0.86 + 0.14 * (0.5 + 0.5 * math.sin(i * 2.1)))
-        parts.append(loft_tube(path, r, radial=radial, caps=True))
+    n_fibers = max(4, int(n_fibers))
+    ring_specs = [(n_fibers, 1.0)]
+    if rings >= 2:
+        ring_specs.append((max(n_fibers // 2, 4), 0.42))
+    fiber_index = 0
+    for count, scale in ring_specs:
+        for i in range(count):
+            base_ang = (2.0 * math.pi * i) / count + 0.11 * fiber_index
+            twist = 0.55 * ts
+            ang = base_ang + twist
+            pack = (np.cos(ang)[:, None] * sides + np.sin(ang)[:, None] * nrms) * scale
+            jitter = nrms * (0.0007 * math.sin(fiber_index * 1.9)) + sides * (
+                0.0005 * math.cos(fiber_index * 1.4)
+            )
+            path = center + pack * spread[:, None] + jitter
+            r = radii * (0.78 + 0.22 * (0.5 + 0.5 * math.sin(fiber_index * 2.3)))
+            r = r * (0.92 + 0.08 * scale)
+            parts.append(loft_tube(path, r, radial=radial, caps=True))
+            fiber_index += 1
     merged = trimesh.util.concatenate(parts)
     merged.merge_vertices()
     return merged

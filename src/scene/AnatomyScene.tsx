@@ -7,7 +7,7 @@ import { CameraRig, DEFAULT_EYE } from "./CameraRig";
 import { Fascia } from "./Fascia";
 import { FLOOR_Y } from "./landmarks";
 import { Ligaments } from "./Ligaments";
-import { MuscleMesh } from "./MuscleMesh";
+import { MuscleLayer } from "./MuscleLayer";
 import { Skeleton } from "./Skeleton";
 
 const SCENE_BG = "#121a24";
@@ -41,18 +41,26 @@ function Lights() {
 type AnatomySceneProps = {
   muscle: Muscle | null;
   showMuscles: boolean;
+  showAllMuscles: boolean;
+  hiddenMuscleIds: string[];
   showLandmarks: boolean;
   showLigaments: boolean;
   showFascia: boolean;
+  showChains: boolean;
+  activeChainIds: string[];
   resetToken: number;
 };
 
 export function AnatomyScene({
   muscle,
   showMuscles,
+  showAllMuscles,
+  hiddenMuscleIds,
   showLandmarks,
   showLigaments,
   showFascia,
+  showChains,
+  activeChainIds,
   resetToken,
 }: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
@@ -84,7 +92,14 @@ export function AnatomyScene({
         <Skeleton />
         <Fascia visible={showFascia} />
         <Ligaments visible={showLigaments} />
-        {showMuscles && muscle ? <MuscleMesh muscle={muscle} /> : null}
+        <MuscleLayer
+          selectedMuscleId={muscle?.id ?? null}
+          showMuscles={showMuscles}
+          showAllMuscles={showAllMuscles}
+          hiddenMuscleIds={hiddenMuscleIds}
+          chainLayerOn={showChains}
+          activeChainIds={activeChainIds}
+        />
         <LandmarkLayer visible={showLandmarks} />
       </Suspense>
       <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />

@@ -19,7 +19,7 @@ Tableau de **22 muscles** (Phase 1). Chaque objet :
 | `meshHint` | `string` | Indice de forme de repli si le GLB n’expose pas le nœud. |
 | `meshSource` | `bodyparts3d` \| `synthetic` | Provenance du maillage 3D. |
 
-Maillages : `public/models/muscles.glb` (nœud = `id`) + catalogue `src/data/muscleMeshes.json`. **20** muscles BP3D ; **grand dorsal** et **droit de l’abdomen** synthétiques (absents de BP3D 4.0). L’UI n’affiche que le muscle sélectionné.
+Maillages : `public/models/muscles.glb` (nœud = `id`) + catalogue `src/data/muscleMeshes.json`. **20** muscles BP3D ; **grand dorsal** et **droit de l’abdomen** synthétiques (absents de BP3D 4.0). L’UI peut afficher le muscle sélectionné ou tout le jeu (`Afficher tous les muscles`), avec masquage fin.
 
 Import applicatif : `src/types/muscle.ts` + `src/data/loadMuscles.ts`.
 
@@ -70,10 +70,13 @@ BP3D 4.0 n’a quasiment pas de nappes fasciales distinctes : les parents « inv
 
 La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id` (`src/lib/search.ts`).
 
+## `chains.json`
+
+Lignes pédagogiques type Anatomy Trains (Tom Myers) : `id`, `sigle`, noms FR+EN, courte description originale, `tint`, `muscleIds[]` mappés au catalogue. Disclaimer dans le fichier. L’UI (Couches → Chaînes myofaciales) permet la multi-sélection.
+
 ## Ce qui n’est pas ici (volontairement)
 
-- Chaînes myofasciales → plus tard, fichier séparé (Phase 2).
 - Nerfs → Phase 3.
-- Listes de sélection multiple → Phase 4 (l’UI ne lit qu’un `id` à la fois).
+- Atlas vasculaire / organes.
 
-Ne pas fusionner ces domaines dans `muscles.json` : garder des identifiants de muscles stables pour les relier ensuite.
+Ne pas fusionner ces domaines dans `muscles.json` : garder des identifiants de muscles stables pour les relier.

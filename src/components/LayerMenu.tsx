@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { ChainPicker } from "./ChainPicker";
 
 export type LayerId =
   | "muscles"
@@ -34,16 +35,27 @@ const LAYERS: LayerMeta[] = [
   { id: "ligaments", label: "Ligaments", ready: true },
   { id: "landmarks", label: "Repères osseux", ready: true },
   { id: "nerves", label: "Nerfs", ready: false, hint: "bientôt" },
-  { id: "chains", label: "Chaînes myofaciales", ready: false, hint: "bientôt" },
+  { id: "chains", label: "Chaînes myofaciales", ready: true },
   { id: "vessels", label: "Vaisseaux / organes", ready: false, hint: "bientôt" },
 ];
 
 type LayerMenuProps = {
   layers: LayerState;
   onChange: (id: LayerId, value: boolean) => void;
+  showAllMuscles: boolean;
+  onShowAllMuscles: (value: boolean) => void;
+  activeChainIds: string[];
+  onActiveChainsChange: (ids: string[]) => void;
 };
 
-export function LayerMenu({ layers, onChange }: LayerMenuProps) {
+export function LayerMenu({
+  layers,
+  onChange,
+  showAllMuscles,
+  onShowAllMuscles,
+  activeChainIds,
+  onActiveChainsChange,
+}: LayerMenuProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
@@ -80,7 +92,8 @@ export function LayerMenu({ layers, onChange }: LayerMenuProps) {
       {open ? (
         <div className="layer-menu-panel" id={menuId} role="group" aria-label="Couches anatomiques">
           <p className="layer-menu-note">
-            Le squelette (os et cartilage) reste toujours visible. Sélection fine : à venir.
+            Le squelette (os et cartilage) reste toujours visible. Masquage fin des muscles dans le
+            panneau.
           </p>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (
@@ -95,6 +108,23 @@ export function LayerMenu({ layers, onChange }: LayerMenuProps) {
                   <span>{layer.label}</span>
                   {layer.hint ? <em>{layer.hint}</em> : null}
                 </label>
+                {layer.id === "muscles" && layers.muscles ? (
+                  <label className="layer-menu-nested">
+                    <input
+                      type="checkbox"
+                      checked={showAllMuscles}
+                      onChange={(event) => onShowAllMuscles(event.target.checked)}
+                    />
+                    Afficher tous les muscles
+                  </label>
+                ) : null}
+                {layer.id === "chains" && layers.chains ? (
+                  <ChainPicker
+                    compact
+                    activeChainIds={activeChainIds}
+                    onChange={onActiveChainsChange}
+                  />
+                ) : null}
               </li>
             ))}
           </ul>

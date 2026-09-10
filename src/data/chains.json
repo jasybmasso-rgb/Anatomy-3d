@@ -1,0 +1,340 @@
+{
+  "version": 1,
+  "model": "Tom Myers — Anatomy Trains (modèle pédagogique de continuités myofasciales)",
+  "disclaimer": {
+    "fr": "Les chaînes affichées suivent le modèle pédagogique des méridiens myofasciaux popularisé par Tom Myers (Anatomy Trains). Ce n’est pas une carte anatomique unique, ni un protocole clinique : fascias, muscles et variations individuelles sont plus complexes que des lignes dessinées. S’en servir comme grille de lecture du mouvement, pas comme vérité exclusive.",
+    "en": "Displayed lines follow Tom Myers’ pedagogical model of myofascial meridians (Anatomy Trains). This is not a unique anatomical map or a clinical protocol. Use it as a reading grid, not as an exclusive truth."
+  },
+  "chains": [
+    {
+      "id": "sbl",
+      "sigle": "SBL",
+      "group": "principal",
+      "name": {
+        "fr": "Ligne superficielle postérieure",
+        "en": "Superficial Back Line"
+      },
+      "description": {
+        "fr": "Continuité postérieure de la voûte plantaire vers la nuque : plantar flexors, ischio-jambiers, érecteurs, sous-occipitaux. Souvent lue comme l’étayage « en arrière » et l’extension.",
+        "en": "Posterior continuity from the plantar vault toward the nape: plantar flexors, hamstrings, erectors, suboccipitals. Often read as rearward support and extension."
+      },
+      "tint": "#3d6bb3",
+      "muscleIds": [
+        "abducteur-de-l-hallux",
+        "court-flechisseur-des-orteils",
+        "gastrocnemien",
+        "soleaire",
+        "plantaire",
+        "biceps-femoral",
+        "semi-tendineux",
+        "semi-membraneux",
+        "iliocostal-lombaire",
+        "iliocostal-thoracique",
+        "iliocostal-cervical",
+        "longissimus-du-thorax",
+        "longissimus-du-cou",
+        "longissimus-de-la-tete",
+        "epineux-du-thorax",
+        "semi-epineux-du-thorax",
+        "semi-epineux-du-cou",
+        "semi-epineux-de-la-tete",
+        "splenius-de-la-tete",
+        "grand-droit-posterieur-de-la-tete",
+        "petit-droit-posterieur-de-la-tete",
+        "oblique-inferieur-de-la-tete",
+        "oblique-superieur-de-la-tete"
+      ]
+    },
+    {
+      "id": "sfl",
+      "sigle": "SFL",
+      "group": "principal",
+      "name": {
+        "fr": "Ligne superficielle antérieure",
+        "en": "Superficial Front Line"
+      },
+      "description": {
+        "fr": "Continuité antérieure du dos du pied vers le tronc et le cou : jambier antérieur, quadriceps, droit de l’abdomen, sterno-cléido-mastoïdien. Souvent associée à la flexion et à la face avant du corps.",
+        "en": "Anterior continuity from the dorsum of the foot toward the trunk and neck: tibialis anterior, quadriceps, rectus abdominis, sternocleidomastoid. Often associated with flexion."
+      },
+      "tint": "#d4604a",
+      "muscleIds": [
+        "tibial-anterieur",
+        "extenseur-long-des-orteils",
+        "extenseur-long-de-l-hallux",
+        "droit-femoral",
+        "vaste-intermediaire",
+        "vaste-lateral",
+        "vaste-medial",
+        "droit-abdomen",
+        "sterno-cleido-mastoidien",
+        "peaucier-du-cou"
+      ]
+    },
+    {
+      "id": "ll",
+      "sigle": "LL",
+      "group": "principal",
+      "name": {
+        "fr": "Ligne latérale",
+        "en": "Lateral Line"
+      },
+      "description": {
+        "fr": "Étriers latéraux de la malléole à la hanche, au flanc et au cou : fibulaires, tenseur du fascia lata, moyen fessier, obliques, intercostaux. Stabilité dans le plan frontal, inclinaisons.",
+        "en": "Lateral stirrups from the malleolus through hip, flank and neck: fibulars, TFL, gluteus medius, obliques, intercostals. Frontal-plane stability and side bending."
+      },
+      "tint": "#c9a227",
+      "muscleIds": [
+        "long-fibulaire",
+        "court-fibulaire",
+        "troisieme-fibulaire",
+        "tenseur-du-fascia-lata",
+        "moyen-fessier",
+        "petit-fessier",
+        "oblique-externe",
+        "intercostaux-externes",
+        "iliocostal-lombaire",
+        "iliocostal-thoracique",
+        "iliocostal-cervical",
+        "splenius-de-la-tete",
+        "splenius-du-cou",
+        "sterno-cleido-mastoidien"
+      ]
+    },
+    {
+      "id": "spl",
+      "sigle": "SPL",
+      "group": "principal",
+      "name": {
+        "fr": "Ligne spirale",
+        "en": "Spiral Line"
+      },
+      "description": {
+        "fr": "Hélice autour du tronc et des membres : splénius, rhomboïdes, dentelé antérieur, oblique, tenseur du fascia lata, jambier antérieur et long fibulaire. Rotations et contre-rotations.",
+        "en": "Helix around trunk and limbs: splenius, rhomboids, serratus anterior, oblique, TFL, tibialis anterior and fibularis longus. Rotations and counter-rotations."
+      },
+      "tint": "#7b5ea7",
+      "muscleIds": [
+        "splenius-de-la-tete",
+        "splenius-du-cou",
+        "grand-rhomboide",
+        "petit-rhomboide",
+        "dentele-anterieur",
+        "oblique-externe",
+        "droit-abdomen",
+        "tenseur-du-fascia-lata",
+        "biceps-femoral",
+        "tibial-anterieur",
+        "long-fibulaire"
+      ]
+    },
+    {
+      "id": "dfl",
+      "sigle": "DFL",
+      "group": "principal",
+      "name": {
+        "fr": "Ligne profonde antérieure",
+        "en": "Deep Front Line"
+      },
+      "description": {
+        "fr": "Axe profond : jambier postérieur, adducteurs, iliopsoas, plancher pelvien, diaphragme, scalènes et longs du cou. Appui, respiration, organisation du centre.",
+        "en": "Deep axial line: tibialis posterior, adductors, iliopsoas, pelvic floor, diaphragm, scalenes and longus colli. Support, breathing, organisation of the centre."
+      },
+      "tint": "#2a9d8f",
+      "muscleIds": [
+        "tibial-posterieur",
+        "flechisseur-long-des-orteils",
+        "flechisseur-long-de-l-hallux",
+        "poplite",
+        "long-adducteur",
+        "court-adducteur",
+        "grand-adducteur",
+        "petit-adducteur",
+        "gracile",
+        "pectine",
+        "iliopsoas",
+        "pubo-coccygien",
+        "ilio-coccygien",
+        "pubo-rectal",
+        "coccygien",
+        "diaphragme",
+        "transverse-du-thorax",
+        "intercostaux-internes",
+        "intercostaux-intimes",
+        "long-du-cou",
+        "long-de-la-tete",
+        "scalene-anterieur",
+        "scalene-moyen",
+        "scalene-posterieur",
+        "droit-anterieur-de-la-tete",
+        "droit-lateral-de-la-tete",
+        "sterno-hyoidien",
+        "sterno-thyroidien",
+        "omo-hyoidien",
+        "thyro-hyoidien",
+        "genio-hyoidien",
+        "mylo-hyoidien"
+      ]
+    },
+    {
+      "id": "sfal",
+      "sigle": "SFAL",
+      "group": "bras",
+      "name": {
+        "fr": "Ligne superficielle antérieure du bras",
+        "en": "Superficial Front Arm Line"
+      },
+      "description": {
+        "fr": "De la poitrine vers le pouce : grand pectoral, biceps, fléchisseurs superficiels et thénar. Gestes de tirer et de fermer la main.",
+        "en": "From the chest toward the thumb: pectoralis major, biceps, superficial flexors and thenar. Pulling and closing the hand."
+      },
+      "tint": "#e07a3d",
+      "muscleIds": [
+        "grand-pectoral",
+        "biceps-brachial",
+        "long-palmaire",
+        "flechisseur-radial-du-carpe",
+        "flechisseur-superficiel-des-doigts",
+        "court-abducteur-du-pouce",
+        "opposant-du-pouce",
+        "court-flechisseur-du-pouce"
+      ]
+    },
+    {
+      "id": "dfal",
+      "sigle": "DFAL",
+      "group": "bras",
+      "name": {
+        "fr": "Ligne profonde antérieure du bras",
+        "en": "Deep Front Arm Line"
+      },
+      "description": {
+        "fr": "Plan plus profond de la ceinture vers les fléchisseurs : petit pectoral, coraco-brachial, brachial, fléchisseurs profonds.",
+        "en": "Deeper plane from the girdle toward the flexors: pectoralis minor, coracobrachialis, brachialis, deep flexors."
+      },
+      "tint": "#b85c38",
+      "muscleIds": [
+        "petit-pectoral",
+        "subclavier",
+        "coraco-brachial",
+        "brachial",
+        "flechisseur-profond-des-doigts",
+        "long-flechisseur-du-pouce",
+        "adducteur-du-pouce"
+      ]
+    },
+    {
+      "id": "sbal",
+      "sigle": "SBAL",
+      "group": "bras",
+      "name": {
+        "fr": "Ligne superficielle postérieure du bras",
+        "en": "Superficial Back Arm Line"
+      },
+      "description": {
+        "fr": "Du trapèze au dos de la main : trapèze, deltoïde, extenseurs du poignet et des doigts. Ouvrir le bras et relever la main.",
+        "en": "From trapezius to the dorsum of the hand: trapezius, deltoid, wrist and finger extensors. Opening the arm and lifting the hand."
+      },
+      "tint": "#5ba3d9",
+      "muscleIds": [
+        "trapeze",
+        "deltoide",
+        "ancone",
+        "extenseur-des-doigts",
+        "extenseur-ulnaire-du-carpe",
+        "long-extenseur-radial-du-carpe",
+        "court-extenseur-radial-du-carpe",
+        "extenseur-du-petit-doigt",
+        "extenseur-de-l-index"
+      ]
+    },
+    {
+      "id": "dbal",
+      "sigle": "DBAL",
+      "group": "bras",
+      "name": {
+        "fr": "Ligne profonde postérieure du bras",
+        "en": "Deep Back Arm Line"
+      },
+      "description": {
+        "fr": "Stabilisateurs profonds de la scapula vers le triceps et le bord ulnaire : rhomboïdes, élévateur, coiffe, triceps, hypothénar.",
+        "en": "Deep scapular stabilisers toward triceps and the ulnar border: rhomboids, levator, rotator cuff, triceps, hypothenar."
+      },
+      "tint": "#4c5bd4",
+      "muscleIds": [
+        "grand-rhomboide",
+        "petit-rhomboide",
+        "elevateur-de-la-scapula",
+        "supra-epineux",
+        "infra-epineux",
+        "petit-rond",
+        "subscapulaire",
+        "grand-rond",
+        "triceps-brachial",
+        "abducteur-du-petit-doigt",
+        "opposant-du-petit-doigt",
+        "court-flechisseur-du-petit-doigt"
+      ]
+    },
+    {
+      "id": "ffl",
+      "sigle": "FFL",
+      "group": "fonctionnelle",
+      "name": {
+        "fr": "Ligne fonctionnelle antérieure",
+        "en": "Front Functional Line"
+      },
+      "description": {
+        "fr": "Pont poitrine–abdomen–adducteurs, souvent lu d’un côté vers l’autre dans les gestes de lancer ou de transfert d’appui.",
+        "en": "Chest–abdomen–adductor bridge, often read contralaterally in throwing or weight transfer."
+      },
+      "tint": "#c45c7a",
+      "muscleIds": [
+        "grand-pectoral",
+        "droit-abdomen",
+        "long-adducteur",
+        "grand-adducteur"
+      ]
+    },
+    {
+      "id": "bfl",
+      "sigle": "BFL",
+      "group": "fonctionnelle",
+      "name": {
+        "fr": "Ligne fonctionnelle postérieure",
+        "en": "Back Functional Line"
+      },
+      "description": {
+        "fr": "Pont grand dorsal–grand fessier–vaste latéral. Lecture fréquente des foulées et des rotations du tronc vers le membre opposé.",
+        "en": "Latissimus–gluteus maximus–vastus lateralis bridge. Often read in gait and trunk rotation toward the opposite limb."
+      },
+      "tint": "#4a8f5c",
+      "muscleIds": [
+        "grand-dorsal",
+        "grand-fessier",
+        "vaste-lateral"
+      ]
+    },
+    {
+      "id": "ifl",
+      "sigle": "IFL",
+      "group": "fonctionnelle",
+      "name": {
+        "fr": "Ligne fonctionnelle homolatérale",
+        "en": "Ipsilateral Functional Line"
+      },
+      "description": {
+        "fr": "Continuité du même côté entre thorax, oblique et sangle de hanche (sartorius, tenseur du fascia lata) dans les appuis unilatéraux.",
+        "en": "Same-side continuity between thorax, oblique and hip sling (sartorius, TFL) in unilateral stance."
+      },
+      "tint": "#d4a017",
+      "muscleIds": [
+        "grand-pectoral",
+        "grand-dorsal",
+        "oblique-externe",
+        "sartorius",
+        "tenseur-du-fascia-lata"
+      ]
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 {
-  "glbBytes": 3073844,
-  "glbMiB": 2.93,
+  "glbBytes": 6166916,
+  "glbMiB": 5.88,
   "partCount": 64,
   "countBodyparts3d": 18,
   "countSynthetic": 46,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 fascicle bundles are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) and rectangular lofted ribbons are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic tapered fascicle bundles (rounded cross-section, fan at attachments, thinner mid-substance; source=synthetic-v2), not cadaver meshes. Annular ligament of the radius is a torus. Spinal stick ligaments and menisci are omitted (quality > quantity)."
+  "inclusionRules": "Included from BodyParts3D: named ligaments, interosseous membranes (syndesmoses) and flexor retinacula. Excluded: calcaneal tendons, extraocular check ligaments, lens zonules, trochleae, abstract parents. Crude capsule/stick synthetics (v1) and rectangular lofted ribbons are not exported. Missing major ligaments of knee, hip, shoulder, elbow and ankle are schematic tapered fascicle bundles (many rounded strands, joint curvature, fan at attachments, thinner mid-substance; source=synthetic-v2), not cadaver meshes. Annular ligament of the radius is a torus. Spinal stick ligaments and menisci are omitted (quality > quantity)."
 }

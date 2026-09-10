@@ -437,6 +437,281 @@
   font-size: 0.78rem;
 }
 
+.layer-menu-panel {
+  max-height: min(70vh, 36rem);
+  overflow: auto;
+}
+
+.layer-menu-nested {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.1rem 0 0.35rem 1.7rem;
+  color: #d5deea;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.layer-menu-nested input {
+  accent-color: #6ea8ff;
+}
+
+.muscle-tools {
+  margin: 0 0 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid #243044;
+}
+
+.muscle-tools-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.muscle-tools-toggle input,
+.muscle-hide-item input {
+  accent-color: #6ea8ff;
+}
+
+.muscle-tools-hint {
+  margin: 0.45rem 0 0.7rem;
+  color: #8b9bb4;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.muscle-tools-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.muscle-tools-mini {
+  border: 1px solid #33455f;
+  background: #0c1118;
+  color: #e8eef4;
+  border-radius: 0.4rem;
+  padding: 0.22rem 0.55rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.muscle-tools-mini:hover {
+  border-color: #6ea8ff;
+}
+
+.muscle-tools-count {
+  margin-left: auto;
+  color: #8b9bb4;
+  font-size: 0.75rem;
+}
+
+.muscle-tools-search-label {
+  display: block;
+  margin: 0.45rem 0 0.3rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b9bb4;
+}
+
+.muscle-tools-search {
+  margin-bottom: 0.4rem;
+}
+
+.muscle-hide-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 11rem;
+  overflow: auto;
+  border: 1px solid #243044;
+  border-radius: 0.45rem;
+}
+
+.muscle-hide-item {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  padding: 0.28rem 0.45rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.muscle-hide-item:hover {
+  background: #24344a;
+}
+
+.hidden-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0 0 0.55rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hidden-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid #4d3a36;
+  background: #2a1816;
+  color: #f0d4ce;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.hidden-chip-more {
+  color: #8b9bb4;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.25rem;
+}
+
+.chain-picker {
+  margin: 0.2rem 0 0.4rem;
+}
+
+.chain-picker-compact {
+  margin: 0.15rem 0 0.5rem 1.35rem;
+}
+
+.chain-group + .chain-group {
+  margin-top: 0.35rem;
+}
+
+.chain-group-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b9bb4;
+}
+
+.chain-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-item {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.22rem 0.3rem;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.chain-picker-compact .chain-item {
+  grid-template-columns: auto auto auto;
+}
+
+.chain-item:hover,
+.chain-item-on {
+  background: #24344a;
+}
+
+.chain-item input {
+  accent-color: #6ea8ff;
+}
+
+.chain-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.chain-sigle {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.chain-name {
+  color: #b7c3d6;
+  font-size: 0.78rem;
+}
+
+.chain-details {
+  margin: 0 0 1.2rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid #243044;
+}
+
+.chain-disclaimer {
+  margin: 0.35rem 0 0.8rem;
+  color: #8b9bb4;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.chain-detail-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.chain-detail-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 650;
+}
+
+.chain-detail-en {
+  margin: 0.15rem 0 0.3rem;
+  color: #8b9bb4;
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.chain-detail-body {
+  margin: 0;
+  color: #d5deea;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.chain-legend {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.chain-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(18, 26, 36, 0.82);
+  border: 1px solid #243044;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
 @media (max-width: 860px) {
   .topbar {
     grid-template-columns: 1fr auto;
