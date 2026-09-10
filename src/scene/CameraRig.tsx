@@ -12,19 +12,26 @@ export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 
 const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
-const ZOOM_PIXEL_SCALE = 0.00135;
-const ZOOM_DAMP = 11;
-const TARGET_DAMP = 8;
+const ZOOM_PIXEL_SCALE = 0.0012;
+const ZOOM_DAMP = 8;
+const TARGET_DAMP = 6;
 const FOCUS_DAMP = 5;
-const GESTURE_MS = 160;
+const GESTURE_MS = 180;
 const SKIP_PICK = new Set(["ignore", "floor", "shadow"]);
-const SAMPLE_RINGS = [0, 0.07, 0.16, 0.28, 0.42, 0.58];
+const SAMPLE_RINGS = [0, 0.035, 0.08, 0.14];
 const SAMPLE_DIRS = 8;
 const _ndc = new THREE.Vector2();
 const _viewDir = new THREE.Vector3();
 const _plane = new THREE.Plane();
 const _planeHit = new THREE.Vector3();
 const _offset = new THREE.Vector3();
+
+function normalizedWheelDelta(event: WheelEvent) {
+  let dy = event.deltaY;
+  if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) dy *= 16;
+  else if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) dy *= 80;
+  return THREE.MathUtils.clamp(dy, -90, 90);
+}
 
 function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Vector3 } {
   if (!muscle) {
@@ -195,7 +202,7 @@ export function CameraRig({
         );
       }
 
-      const factor = Math.exp(event.deltaY * ZOOM_PIXEL_SCALE);
+      const factor = Math.exp(normalizedWheelDelta(event) * ZOOM_PIXEL_SCALE);
       zoomDistance.current = THREE.MathUtils.clamp(
         zoomDistance.current * factor,
         MIN_DISTANCE,
@@ -240,20 +247,22 @@ export function CameraRig({
 
     if (!zooming.current) return;
 
-    orbit.target.lerp(zoomPivot.current, ease(dtClamped, TARGET_DAMP));
-    _offset.copy(camera.position).sub(orbit.target);
+    // Dolly along the camera→pivot ray so wheel easing is a true distance lerp,
+    // not a mix of (camera−oldTarget) vs (camera−bone). Orbit target follows.
+    _offset.copy(camera.position).sub(zoomPivot.current);
     const current = _offset.length();
     if (current < 1e-6) {
       zooming.current = false;
       return;
     }
     const next = THREE.MathUtils.damp(current, zoomDistance.current, ZOOM_DAMP, dtClamped);
-    camera.position.copy(orbit.target).addScaledVector(_offset.multiplyScalar(1 / current), next);
+    camera.position.copy(zoomPivot.current).addScaledVector(_offset.multiplyScalar(1 / current), next);
+    orbit.target.lerp(zoomPivot.current, ease(dtClamped, TARGET_DAMP));
     orbit.update();
 
     if (
-      Math.abs(next - zoomDistance.current) < 0.0015 &&
-      orbit.target.distanceTo(zoomPivot.current) < 0.004 &&
+      Math.abs(next - zoomDistance.current) < 0.002 &&
+      orbit.target.distanceTo(zoomPivot.current) < 0.006 &&
       performance.now() > gestureUntil.current
     ) {
       zooming.current = false;
