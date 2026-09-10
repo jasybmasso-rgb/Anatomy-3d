@@ -33,7 +33,12 @@ export function Skeleton() {
   return (
     <group>
       <primitive object={scene} />
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, FLOOR_Y, 0]} receiveShadow>
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, FLOOR_Y, 0]}
+        receiveShadow
+        userData={{ pick: "ignore" }}
+      >
         <circleGeometry args={[1.8, 48]} />
         <meshStandardMaterial color="#1b2432" roughness={1} metalness={0} />
       </mesh>

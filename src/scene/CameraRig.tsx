@@ -13,7 +13,13 @@ export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
 const ZOOM_STEP = 0.18;
-const PICK_LAYERS = new Set(["bone", "ligament", "landmark", "muscle"]);
+const SKIP_PICK = new Set(["ignore", "floor", "shadow"]);
+const SAMPLE_RINGS = [0, 0.07, 0.16, 0.28, 0.42, 0.58];
+const SAMPLE_DIRS = 8;
+const _ndc = new THREE.Vector2();
+const _viewDir = new THREE.Vector3();
+const _plane = new THREE.Plane();
+const _planeHit = new THREE.Vector3();
 
 function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Vector3 } {
   if (!muscle) {
@@ -31,20 +37,41 @@ function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Ve
 }
 
 function isPickableMesh(obj: THREE.Object3D): obj is THREE.Mesh {
-  return obj instanceof THREE.Mesh && PICK_LAYERS.has(String(obj.userData.pick ?? ""));
+  if (!(obj instanceof THREE.Mesh) || !obj.visible) return false;
+  if (SKIP_PICK.has(String(obj.userData.pick ?? ""))) return false;
+  if (obj.material instanceof THREE.ShadowMaterial) return false;
+  return true;
 }
 
-function pickPoint(
+function firstHit(
+  raycaster: THREE.Raycaster,
+  ndc: THREE.Vector2,
+  camera: THREE.Camera,
+  scene: THREE.Scene,
+): THREE.Vector3 | null {
+  raycaster.setFromCamera(ndc, camera);
+  const hits = raycaster.intersectObjects(scene.children, true);
+  for (const hit of hits) {
+    if (isPickableMesh(hit.object)) return hit.point.clone();
+  }
+  return null;
+}
+
+/** Prefer the mesh under the cursor; otherwise the nearest bone in a screen-space spiral. */
+function pickNearby(
   raycaster: THREE.Raycaster,
   pointer: THREE.Vector2,
   camera: THREE.Camera,
   scene: THREE.Scene,
 ): THREE.Vector3 | null {
-  raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(scene.children, true);
-  for (const hit of hits) {
-    if (isPickableMesh(hit.object) && hit.point) {
-      return hit.point.clone();
+  for (const radius of SAMPLE_RINGS) {
+    const count = radius === 0 ? 1 : SAMPLE_DIRS;
+    for (let i = 0; i < count; i += 1) {
+      const angle = (i / count) * Math.PI * 2;
+      _ndc.set(pointer.x + Math.cos(angle) * radius, pointer.y + Math.sin(angle) * radius);
+      if (Math.abs(_ndc.x) > 1.2 || Math.abs(_ndc.y) > 1.2) continue;
+      const hit = firstHit(raycaster, _ndc, camera, scene);
+      if (hit) return hit;
     }
   }
   return null;
@@ -55,6 +82,13 @@ function pointerFromEvent(event: MouseEvent, element: HTMLElement, out: THREE.Ve
   const w = Math.max(rect.width, 1);
   const h = Math.max(rect.height, 1);
   out.set(((event.clientX - rect.left) / w) * 2 - 1, -((event.clientY - rect.top) / h) * 2 + 1);
+}
+
+function dollyToward(camera: THREE.Camera, pivot: THREE.Vector3, factor: number) {
+  const offset = camera.position.clone().sub(pivot);
+  if (offset.lengthSq() < 1e-10) return;
+  const nextDist = THREE.MathUtils.clamp(offset.length() * factor, MIN_DISTANCE, MAX_DISTANCE);
+  camera.position.copy(pivot).addScaledVector(offset.normalize(), nextDist);
 }
 
 export function CameraRig({
@@ -71,6 +105,7 @@ export function CameraRig({
   const animating = useRef(true);
   const raycaster = useRef(new THREE.Raycaster());
   const pointer = useRef(new THREE.Vector2());
+  const applyFocusRef = useRef<(point: THREE.Vector3, smooth?: boolean) => void>(() => undefined);
 
   function stopAnimation() {
     animating.current = false;
@@ -79,28 +114,30 @@ export function CameraRig({
   function applyFocus(point: THREE.Vector3, smooth = true) {
     const orbit = controls.current;
     if (!orbit) return;
-    const currentTarget = orbit.target.clone();
-    const offset = camera.position.clone().sub(currentTarget);
+    const offset = camera.position.clone().sub(orbit.target);
     const dist = THREE.MathUtils.clamp(offset.length(), MIN_DISTANCE, MAX_DISTANCE);
-    const dir = offset.lengthSq() > 1e-8 ? offset.normalize() : new THREE.Vector3(0.42, 0.18, 0.88).normalize();
+    const dir =
+      offset.lengthSq() > 1e-8 ? offset.normalize() : new THREE.Vector3(0.42, 0.18, 0.88).normalize();
     goalTarget.current.copy(point);
     goalEye.current.copy(point).addScaledVector(dir, dist);
     if (smooth) {
       animating.current = true;
-    } else {
-      camera.position.copy(goalEye.current);
-      orbit.target.copy(point);
-      orbit.update();
-      animating.current = false;
+      return;
     }
+    camera.position.copy(goalEye.current);
+    orbit.target.copy(point);
+    orbit.update();
+    animating.current = false;
   }
+
+  applyFocusRef.current = applyFocus;
 
   useEffect(() => {
     registerOrbitFocus((point, options) => {
-      applyFocus(point, options?.smooth !== false);
+      applyFocusRef.current(point, options?.smooth !== false);
     });
     return () => registerOrbitFocus(null);
-  });
+  }, []);
 
   useEffect(() => {
     const next = goalsFor(muscle);
@@ -116,41 +153,44 @@ export function CameraRig({
       const orbit = controls.current;
       if (!orbit || !orbit.enabled) return;
       event.preventDefault();
+      event.stopPropagation();
       stopAnimation();
 
       pointerFromEvent(event, element, pointer.current);
-      const hit = pickPoint(raycaster.current, pointer.current, camera, scene);
+      const hit = pickNearby(raycaster.current, pointer.current, camera, scene);
       const factor = Math.exp(Math.sign(event.deltaY) * ZOOM_STEP);
-      let pivot: THREE.Vector3;
+
       if (hit) {
-        pivot = hit;
-      } else {
-        raycaster.current.setFromCamera(pointer.current, camera);
-        const depth = Math.max(camera.position.distanceTo(orbit.target), MIN_DISTANCE);
-        pivot = raycaster.current.ray.origin
-          .clone()
-          .addScaledVector(raycaster.current.ray.direction, depth);
+        dollyToward(camera, hit, factor);
+        orbit.target.copy(hit);
+        orbit.update();
+        return;
       }
-      const offset = camera.position.clone().sub(pivot);
-      const nextDist = THREE.MathUtils.clamp(offset.length() * factor, MIN_DISTANCE, MAX_DISTANCE);
-      if (offset.lengthSq() < 1e-10) return;
-      camera.position.copy(pivot).addScaledVector(offset.normalize(), nextDist);
-      orbit.target.copy(pivot);
+
+      camera.getWorldDirection(_viewDir);
+      _plane.setFromNormalAndCoplanarPoint(_viewDir, orbit.target);
+      raycaster.current.setFromCamera(pointer.current, camera);
+      const planePoint = raycaster.current.ray.intersectPlane(_plane, _planeHit);
+      if (planePoint) {
+        dollyToward(camera, planePoint, factor);
+        orbit.update();
+        return;
+      }
+
+      dollyToward(camera, orbit.target, factor);
       orbit.update();
     };
 
     const onDblClick = (event: MouseEvent) => {
-      const orbit = controls.current;
-      if (!orbit) return;
       pointerFromEvent(event, element, pointer.current);
-      const hit = pickPoint(raycaster.current, pointer.current, camera, scene);
-      if (hit) applyFocus(hit, true);
+      const hit = pickNearby(raycaster.current, pointer.current, camera, scene);
+      if (hit) applyFocusRef.current(hit, true);
     };
 
-    element.addEventListener("wheel", onWheel, { passive: false });
+    element.addEventListener("wheel", onWheel, { passive: false, capture: true });
     element.addEventListener("dblclick", onDblClick);
     return () => {
-      element.removeEventListener("wheel", onWheel);
+      element.removeEventListener("wheel", onWheel, true);
       element.removeEventListener("dblclick", onDblClick);
     };
   }, [camera, gl, scene]);
