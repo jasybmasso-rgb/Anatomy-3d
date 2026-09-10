@@ -21,6 +21,7 @@ export function Skeleton() {
         if (!geom.getAttribute("normal")) {
           geom.computeVertexNormals();
         }
+        obj.userData.pick = "bone";
         obj.castShadow = true;
         obj.receiveShadow = true;
         obj.material = material;

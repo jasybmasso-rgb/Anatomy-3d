@@ -46,11 +46,11 @@ export function App() {
       <div className="workspace">
         <div className="viewport" aria-label="Scène anatomique 3D">
           <SceneErrorBoundary>
-            <AnatomyScene muscle={selected} showLandmarks={showLandmarks} />
+            <AnatomyScene muscle={selected} showLandmarks={showLandmarks} resetToken={resetToken} />
           </SceneErrorBoundary>
           {!selected ? (
             <p className="viewport-hint">
-              Squelette BodyParts3D — recherchez un muscle pour l’afficher
+              Molette : zoom vers le curseur · Clic droit : panoramique · Double-clic : recentrer
             </p>
           ) : null}
         </div>

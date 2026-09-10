@@ -39,9 +39,10 @@ function Lights() {
 type AnatomySceneProps = {
   muscle: Muscle | null;
   showLandmarks: boolean;
+  resetToken: number;
 };
 
-export function AnatomyScene({ muscle, showLandmarks }: AnatomySceneProps) {
+export function AnatomyScene({ muscle, showLandmarks, resetToken }: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
     return (
       <div className="scene-error" role="alert">
@@ -73,7 +74,7 @@ export function AnatomyScene({ muscle, showLandmarks }: AnatomySceneProps) {
         <LandmarkLayer visible={showLandmarks} />
       </Suspense>
       <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />
-      <CameraRig muscle={muscle} />
+      <CameraRig muscle={muscle} resetToken={resetToken} />
     </Canvas>
   );
 }

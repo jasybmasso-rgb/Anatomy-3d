@@ -26,7 +26,7 @@ function CapsuleMesh({ prim }: { prim: CapsulePrim }) {
   }, [prim]);
 
   return (
-    <mesh position={mid} quaternion={quat} castShadow>
+    <mesh position={mid} quaternion={quat} castShadow userData={{ pick: "muscle" }}>
       <capsuleGeometry args={[radius, cyl, 6, 12]} />
       <meshPhysicalMaterial
         color={MUSCLE_COLOR}
@@ -50,7 +50,7 @@ function BoxMesh({
   size: Vec3;
 }) {
   return (
-    <mesh position={position} rotation={rotation} castShadow>
+    <mesh position={position} rotation={rotation} castShadow userData={{ pick: "muscle" }}>
       <boxGeometry args={size} />
       <meshPhysicalMaterial
         color={MUSCLE_COLOR}

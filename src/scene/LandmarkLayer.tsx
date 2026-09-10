@@ -1,7 +1,9 @@
 import { Html } from "@react-three/drei";
 import { useState } from "react";
+import * as THREE from "three";
 import raw from "../data/landmarks.json";
 import type { LandmarksFile } from "../data/landmarks";
+import { requestOrbitFocus } from "./orbitFocus";
 
 const data = raw as LandmarksFile;
 
@@ -25,7 +27,9 @@ export function LandmarkLayer({ visible }: { visible: boolean }) {
               onClick={(event) => {
                 event.stopPropagation();
                 setPinned((cur) => (cur === lm.id ? null : lm.id));
+                requestOrbitFocus(new THREE.Vector3(...lm.position), { smooth: true });
               }}
+              userData={{ pick: "landmark" }}
             >
               <sphereGeometry args={[0.032, 12, 10]} />
               <meshBasicMaterial transparent opacity={0} depthWrite={false} />
