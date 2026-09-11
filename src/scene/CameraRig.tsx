@@ -294,15 +294,22 @@ export function CameraRig({
       pinchDist.current = pinchDistance();
       panMid.current = midpoint();
       twoFingerPan.current = true;
-      // OrbitControls TWO:DOLLY_PAN also pans; we own the gesture so it does not double.
-      if (orbit) orbit.enablePan = false;
+      // Own the two-finger gesture: OrbitControls would otherwise keep rotating
+      // from the first finger (TWO:DOLLY_PAN also pans — we pan ourselves).
+      if (orbit) {
+        orbit.enablePan = false;
+        orbit.enableRotate = false;
+      }
     };
 
     const endTwoFinger = () => {
       pinchDist.current = 0;
       twoFingerPan.current = false;
       const orbit = controls.current;
-      if (orbit) orbit.enablePan = true;
+      if (orbit) {
+        orbit.enablePan = true;
+        orbit.enableRotate = true;
+      }
     };
 
     const onPointerDown = (event: PointerEvent) => {
@@ -329,7 +336,7 @@ export function CameraRig({
         panMid.current = mid;
       }
 
-      if (pinchDist.current >= 4 && next >= 4 && pinchPx > panPx * 0.55) {
+      if (pinchDist.current >= 4 && next >= 4 && pinchPx > 10 && pinchPx > panPx * 0.85) {
         const ratio = pinchDist.current / next;
         const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.82, 1.22));
         if (Math.abs(logDelta) > 0.0015) {
