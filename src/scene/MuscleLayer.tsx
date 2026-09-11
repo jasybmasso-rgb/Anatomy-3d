@@ -6,7 +6,6 @@ import { muscles } from "../data/loadMuscles";
 import { setPickMeshes } from "./structurePick";
 import {
   applyFiberUVs,
-  applyTendonAttribute,
   clipPlanesForSide,
   createFiberMuscleMaterial,
   setMuscleTint,
@@ -27,7 +26,7 @@ export type MuscleLayerProps = {
 type MuscleEntry = {
   id: string;
   object: THREE.Object3D;
-  material: THREE.MeshPhysicalMaterial;
+  material: THREE.MeshPhongMaterial;
   meshes: THREE.Mesh[];
 };
 
@@ -107,7 +106,16 @@ export function MuscleLayer(props: MuscleLayerProps) {
           obj.geometry.computeVertexNormals();
         }
         applyFiberUVs(obj.geometry, hint.lengthSq() > 1e-8 ? hint : undefined);
-        applyTendonAttribute(obj.geometry, hint.lengthSq() > 1e-8 ? hint : undefined);
+        if (!obj.geometry.getAttribute("color")) {
+          const n = obj.geometry.getAttribute("position").count;
+          const rgb = new Float32Array(n * 3);
+          for (let i = 0; i < n; i += 1) {
+            rgb[i * 3] = 0.769;
+            rgb[i * 3 + 1] = 0.282;
+            rgb[i * 3 + 2] = 0.227;
+          }
+          obj.geometry.setAttribute("color", new THREE.BufferAttribute(rgb, 3));
+        }
         obj.userData.pick = "muscle";
         obj.userData.muscleId = muscle.id;
         obj.raycast = THREE.Mesh.prototype.raycast;

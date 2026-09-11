@@ -41,39 +41,36 @@ vec2 fiberCirc(float around) {
 `;
 
 const GLSL_MUSCLE_ALBEDO = /* glsl */ `
-vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix, float tendonAmt) {
+vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix) {
   float along = clamp(uv.x, 0.0, 1.0);
   vec2 circ = fiberCirc(uv.y);
+  float lum = dot(painted, vec3(0.299, 0.587, 0.114));
+  float chroma = max(max(painted.r, painted.g), painted.b) - min(min(painted.r, painted.g), painted.b);
+  float paintTendon = smoothstep(0.56, 0.84, lum) * (1.0 - smoothstep(0.16, 0.42, chroma));
+  float endCap = 1.0 - smoothstep(0.0, 0.11, min(along, 1.0 - along));
+  float tendon = clamp(max(paintTendon, endCap * 0.50 * (1.0 - paintTendon)), 0.0, 1.0);
+
+  vec3 tendonCol = vec3(0.95, 0.91, 0.82);
+  vec3 fiberCol = vec3(0.80, 0.11, 0.075);
+  vec3 bellyCol = vec3(0.64, 0.045, 0.038);
   float belly = pow(sin(3.14159265 * along), 0.82);
-  // Mild UV fallback only — painted apo / inscriptions live in tendonAmt.
-  float endCap = 1.0 - smoothstep(0.0, 0.10, min(along, 1.0 - along));
-  float tendon = clamp(mix(endCap * 0.34, 1.0, clamp(tendonAmt, 0.0, 1.0)), 0.0, 1.0);
+  vec3 flesh = mix(fiberCol, bellyCol, smoothstep(0.18, 1.0, belly));
+  flesh = mix(flesh, painted * vec3(1.2, 0.62, 0.55), 0.18);
+  vec3 base = mix(flesh, tendonCol, tendon);
 
-  vec3 tendonCol = vec3(0.96, 0.93, 0.86);
-  vec3 midCol = vec3(0.82, 0.11, 0.08);
-  vec3 bellyCol = vec3(0.58, 0.035, 0.032);
-  float flesh = 1.0 - smoothstep(0.05, 0.62, tendon);
-  vec3 base = mix(tendonCol, mix(midCol, bellyCol, smoothstep(0.18, 1.0, belly)), flesh);
-
-  float density = mix(86.0, 18.0, belly * flesh);
+  float density = mix(86.0, 18.0, belly * (1.0 - tendon));
   float warp = fiberFbm(circ * 2.2 + vec2(along * 2.8, 4.1)) - 0.5;
   vec2 fuv = circ * density + vec2(warp * 2.1, along * 1.6);
   float n = fiberFbm(fuv);
   n = n * 0.62 + fiberFbm(fuv * 2.35 + vec2(along * 3.4, 9.0)) * 0.38;
   float ridge = smoothstep(0.32, 0.74, n);
-  float contrast = mix(0.13, 0.09, belly) * flesh;
+  float contrast = mix(0.14, 0.09, belly) * (1.0 - tendon);
   float shade = mix(1.0 - contrast, 1.0 + contrast * 0.28, ridge);
   vec3 col = base * shade;
-  col = mix(col, mix(col, tendonCol, 0.22), (1.0 - tendon) * ridge * 0.10);
-  float lum = dot(col, vec3(0.32, 0.5, 0.18));
-  vec3 chainCol = tint * mix(0.4, 1.2, lum);
+  float pl = dot(col, vec3(0.32, 0.5, 0.18));
+  vec3 chainCol = tint * mix(0.4, 1.2, pl);
   col = mix(col, chainCol, clamp(tintMix, 0.0, 1.0));
   return clamp(col, 0.0, 1.0);
-}
-float pedagogicalMuscleRoughness(vec2 uv, float tendonAmt) {
-  float along = clamp(uv.x, 0.0, 1.0);
-  float belly = pow(sin(3.14159265 * along), 0.82);
-  return mix(mix(0.40, 0.64, belly), 0.32, clamp(tendonAmt, 0.0, 1.0));
 }
 `;
 
@@ -322,21 +319,20 @@ export function clipPlanesForSide(side: "both" | "left" | "right"): THREE.Plane[
 
 export type FiberMaterialKind = "muscle" | "ligament";
 
-export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
-  const material = new THREE.MeshPhysicalMaterial({
+export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
+  const material = new THREE.MeshPhongMaterial({
     color: "#ffffff",
-    map: getDummyMap(),
-    roughness: 0.52,
-    metalness: 0.0,
+    vertexColors: true,
+    shininess: 22,
+    specular: "#4a2018",
     transparent: false,
     opacity: 1,
     depthWrite: true,
-    clearcoat: 0.05,
     side: THREE.FrontSide,
-    vertexColors: false,
     clippingPlanes: [],
     clipShadows: true,
   });
+  material.defines = { ...(material.defines ?? {}), USE_UV: "" };
   material.userData.uTint = new THREE.Color(1, 1, 1);
   material.userData.uTintMix = { value: 0 };
   material.userData.uSelected = { value: 0 };
@@ -345,51 +341,37 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     shader.uniforms.uTint = { value: material.userData.uTint };
     shader.uniforms.uTintMix = material.userData.uTintMix;
     shader.uniforms.uSelected = material.userData.uSelected;
-    shader.vertexShader = shader.vertexShader.replace(
-      "#include <common>",
-      `#include <common>\nattribute float tendon;\nvarying float vTendon;`,
-    );
-    shader.vertexShader = shader.vertexShader.replace(
-      "#include <begin_vertex>",
-      `#include <begin_vertex>\nvTendon = tendon;`,
-    );
     shader.fragmentShader = shader.fragmentShader.replace(
       "uniform vec3 diffuse;",
-      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;\nvarying float vTendon;",
+      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;",
     );
     shader.fragmentShader = patchAfterCommon(
       shader.fragmentShader,
       `${GLSL_NOISE}\n${GLSL_MUSCLE_ALBEDO}`,
     );
     shader.fragmentShader = shader.fragmentShader.replace(
-      "#include <map_fragment>",
+      "#include <color_fragment>",
       /* glsl */ `
+      #include <color_fragment>
       {
-        vec2 fiberUv = vMapUv;
-        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, uTint, uTintMix, clamp(vTendon, 0.0, 1.0));
+        vec2 fiberUv = vUv;
+        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, diffuseColor.rgb, uTint, uTintMix);
         float selected = clamp(uSelected, 0.0, 1.0);
         fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.18, 1.08, 0.88), selected * 0.38);
         #ifndef FLAT_SHADED
         vec3 nView = normalize(vNormal);
         float fres = pow(1.0 - abs(nView.z), 2.15);
-        fiberAlbedo += vec3(1.0, 0.76, 0.28) * fres * selected * 1.05;
+        fiberAlbedo += vec3(1.0, 0.76, 0.28) * fres * selected * 0.85;
         #else
         fiberAlbedo += vec3(0.45, 0.22, 0.06) * selected * 0.16;
         #endif
-        diffuseColor *= vec4(fiberAlbedo, 1.0);
+        diffuseColor.rgb = fiberAlbedo;
       }
-      `,
-    );
-    shader.fragmentShader = shader.fragmentShader.replace(
-      "#include <roughnessmap_fragment>",
-      `#include <roughnessmap_fragment>
-       roughnessFactor = mix(pedagogicalMuscleRoughness(vMapUv, clamp(vTendon, 0.0, 1.0)), 0.34, clamp(vTendon, 0.0, 1.0));
-       roughnessFactor = mix(roughnessFactor, 0.28, clamp(uSelected, 0.0, 1.0) * 0.55);
       `,
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v11-chart";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v12-phong-chart";
   return material;
 }
 
@@ -430,7 +412,7 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
   return material;
 }
 
-export function setMuscleTint(material: THREE.MeshPhysicalMaterial, tint: THREE.Color | null, mix = 0.48) {
+export function setMuscleTint(material: THREE.MeshPhongMaterial, tint: THREE.Color | null, mix = 0.48) {
   const current = material.userData.uTint as THREE.Color | undefined;
   const mixRef = material.userData.uTintMix as { value: number } | undefined;
   if (tint && current && mixRef) {
@@ -441,16 +423,15 @@ export function setMuscleTint(material: THREE.MeshPhysicalMaterial, tint: THREE.
     mixRef.value = 0;
   } else if (tint) {
     material.color.copy(tint);
-    material.color.lerp(new THREE.Color("#ffffff"), 0.4);
+    material.color.lerp(new THREE.Color("#c44438"), 0.35);
   } else {
-    material.color.set("#ffffff");
+    material.color.set("#c44438");
   }
 }
 
-export function setMuscleSelected(material: THREE.MeshPhysicalMaterial, selected: boolean) {
+export function setMuscleSelected(material: THREE.MeshPhongMaterial, selected: boolean) {
   const sel = material.userData.uSelected as { value: number } | undefined;
   if (sel) sel.value = selected ? 1 : 0;
   material.emissive.set(selected ? "#ff9a4a" : "#000000");
   material.emissiveIntensity = selected ? 0.28 : 0;
-  material.clearcoat = selected ? 0.18 : 0.05;
 }
