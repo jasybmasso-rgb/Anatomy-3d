@@ -1288,21 +1288,21 @@
       "fileIds": [],
       "centroid": [
         -1e-05,
-        0.15074,
-        0.13506
+        0.14927,
+        0.13601
       ],
       "focus": {
         "position": [
-          -0.04555,
-          0.15074,
-          0.13506
+          -0.04575,
+          0.14927,
+          0.13601
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.03501,
-        0.95324,
-        0.30017
+        -0.03526,
+        0.95344,
+        0.29952
       ],
       "vertexCount": 816,
       "faceCount": 1360,
@@ -2089,22 +2089,22 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.00013,
-        0.31962,
-        0.02395
+        8e-05,
+        0.31679,
+        0.00324
       ],
       "focus": {
         "position": [
-          -0.13971,
-          0.31961,
-          0.02361
+          -0.14501,
+          0.31679,
+          0.00303
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.29508,
-        0.91774,
-        0.26586
+        -0.24864,
+        0.94068,
+        0.23086
       ],
       "vertexCount": 1690,
       "faceCount": 3132,
@@ -3247,25 +3247,25 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.00032,
-        0.61947,
-        0.06481
+        0.0,
+        0.61314,
+        0.0534
       ],
       "focus": {
         "position": [
-          -0.05586,
-          0.61957,
-          0.06466
+          -0.0696,
+          0.61314,
+          0.0534
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.08908,
-        0.93555,
-        0.34178
+        0.01686,
+        0.99984,
+        0.00645
       ],
-      "vertexCount": 364,
-      "faceCount": 592,
+      "vertexCount": 420,
+      "faceCount": 696,
       "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {
@@ -4141,25 +4141,25 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.0005,
-        0.6555,
-        0.06853
+        -0.0,
+        0.65155,
+        0.04115
       ],
       "focus": {
         "position": [
-          -0.04339,
-          0.65555,
-          0.06842
+          -0.05164,
+          0.65155,
+          0.04115
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.58022,
-        -0.01448,
-        -0.81433
+        0.18303,
+        0.97176,
+        -0.14895
       ],
-      "vertexCount": 92,
-      "faceCount": 84,
+      "vertexCount": 160,
+      "faceCount": 200,
       "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {
@@ -4171,22 +4171,22 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.00037,
-        0.59939,
-        0.06719
+        0.0,
+        0.5895,
+        0.04403
       ],
       "focus": {
         "position": [
-          -0.02796,
-          0.5995,
-          0.06706
+          -0.04677,
+          0.5895,
+          0.04403
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        0.08986,
-        0.86434,
-        0.49482
+        0.30739,
+        0.87225,
+        0.38039
       ],
       "vertexCount": 160,
       "faceCount": 200,
@@ -5215,25 +5215,25 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.00048,
-        0.66988,
-        0.05087
+        -0.0,
+        0.66413,
+        0.03643
       ],
       "focus": {
         "position": [
-          -0.05394,
-          0.66962,
-          0.05099
+          -0.0703,
+          0.66413,
+          0.03643
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        0.00478,
-        0.93793,
-        -0.3468
+        -0.06916,
+        0.92689,
+        -0.3689
       ],
-      "vertexCount": 344,
-      "faceCount": 528,
+      "vertexCount": 412,
+      "faceCount": 660,
       "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {

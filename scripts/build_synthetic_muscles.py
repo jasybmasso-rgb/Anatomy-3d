@@ -48,27 +48,46 @@ def _sheet(paths: list[np.ndarray], thickness: float) -> trimesh.Trimesh:
     return grid_sheet(grid, thickness=thickness)
 
 
+def _lat_wrap_path(origin: np.ndarray, insert: np.ndarray, sx: float, n: int = 24) -> np.ndarray:
+    """C-shaped path: stay on the back, climb the flank, then tendon to the humerus.
+
+    Linear mixes origin→insert would cut through the thorax; control points are
+    forced onto the mid-axillary corridor.
+    """
+    back_x = sx * max(abs(float(origin[0])) + 0.055, 0.125)
+    c1 = np.array([back_x, float(origin[1]) + 0.035, min(float(origin[2]), -0.028)])
+    axilla_x = sx * 0.168
+    c2 = np.array(
+        [
+            axilla_x,
+            float(origin[1]) * 0.32 + float(insert[1]) * 0.68,
+            0.012,
+        ]
+    )
+    return bezier_cubic(origin, c1, c2, insert, n)
+
+
 def _latissimus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     """Broad thoracolumbar origin → axillary wrap → intertubercular groove."""
     suf = "d" if sx < 0 else "g"
-    t7 = mix(p["t1"], p["t12"], 0.55) + np.array([sx * 0.014, 0.0, -0.058])
-    t9 = mix(p["t1"], p["t12"], 0.70) + np.array([sx * 0.018, 0.0, -0.056])
-    t12s = off(p["t12"], x=sx * 0.022, z=-0.052)
-    l2 = mix(p["l1"], p["l5"], 0.35) + np.array([sx * 0.028, 0.0, -0.048])
-    l5s = off(p["l5"], x=sx * 0.032, z=-0.046)
-    sac = off(p["sacrum"], x=sx * 0.028, y=0.012, z=-0.038)
-    eips = off(p[f"eips-{suf}"], z=-0.014)
+    t7 = mix(p["t1"], p["t12"], 0.55) + np.array([sx * 0.016, 0.0, -0.062])
+    t9 = mix(p["t1"], p["t12"], 0.70) + np.array([sx * 0.020, 0.0, -0.060])
+    t12s = off(p["t12"], x=sx * 0.024, z=-0.056)
+    l2 = mix(p["l1"], p["l5"], 0.35) + np.array([sx * 0.030, 0.0, -0.052])
+    l5s = off(p["l5"], x=sx * 0.034, z=-0.050)
+    sac = off(p["sacrum"], x=sx * 0.030, y=0.012, z=-0.042)
+    eips = off(p[f"eips-{suf}"], z=-0.018)
     crest = p[f"crete-iliaque-{suf}"]
-    crest_post = mix(eips, crest, 0.40) + np.array([0.0, 0.006, -0.022])
-    crest_lat = off(crest, x=sx * 0.010, z=-0.012)
-    scap = off(p[f"angle-inf-scapula-{suf}"], x=sx * 0.006, y=-0.008, z=-0.010)
-    # Lower ribs, mid-axillary (no dedicated landmarks).
-    rib11 = np.array([sx * 0.112, 0.205, 0.008], dtype=np.float64)
-    rib9 = np.array([sx * 0.118, 0.255, 0.022], dtype=np.float64)
+    crest_post = mix(eips, crest, 0.40) + np.array([0.0, 0.006, -0.028])
+    crest_lat = off(crest, x=sx * 0.012, z=-0.018)
+    scap = off(p[f"angle-inf-scapula-{suf}"], x=sx * 0.010, y=-0.006, z=-0.016)
+    # Costal origins stay on the mid-axillary line (not the anterior chest).
+    rib11 = np.array([sx * 0.125, 0.200, -0.008], dtype=np.float64)
+    rib9 = np.array([sx * 0.132, 0.248, 0.000], dtype=np.float64)
 
     head = p[f"tete-humerus-{suf}"]
     # Floor of the intertubercular groove: distal / anterior / slightly lateral to the head.
-    insert = head + np.array([sx * 0.014, -0.030, 0.026])
+    insert = head + np.array([sx * 0.012, -0.028, 0.022])
 
     origins = [
         t7,
@@ -84,30 +103,19 @@ def _latissimus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
         rib9,
         scap,
     ]
-
-    paths: list[np.ndarray] = []
-    for i, origin in enumerate(origins):
-        climb = 0.045 + 0.012 * (i / max(len(origins) - 1, 1))
-        c1 = origin + np.array([sx * (0.048 + 0.01 * (i % 3)), climb, -0.008])
-        c1[0] = sx * max(abs(float(c1[0])), 0.088)
-        c2 = mix(origin, insert, 0.64) + np.array([sx * 0.028, 0.012, 0.038])
-        c2[0] = sx * max(abs(float(c2[0])), 0.125)
-        paths.append(bezier_cubic(origin, c1, c2, insert, 24))
-
-    sheet = _sheet(paths, thickness=0.0072)
-    # Posterior axillary fold: thicker converging border.
-    fold = paths[10]
-    radii = np.linspace(0.0048, 0.0022, len(fold))
-    border = loft_tube(fold, radii, radial=8, caps=True)
+    paths = [_lat_wrap_path(origin, insert, sx) for origin in origins]
+    sheet = _sheet(paths, thickness=0.0068)
+    fold = _lat_wrap_path(rib9, insert, sx)
+    border = loft_tube(fold, np.linspace(0.0050, 0.0024, len(fold)), radial=8, caps=True)
     tendon = loft_tube(
         bezier_cubic(
-            mix(rib9, insert, 0.55),
-            mix(rib9, insert, 0.72) + np.array([sx * 0.01, 0.004, 0.012]),
-            mix(rib9, insert, 0.88) + np.array([sx * 0.004, -0.002, 0.008]),
+            np.array([sx * 0.155, 0.38, 0.018]),
+            np.array([sx * 0.162, 0.42, 0.028]),
+            insert + np.array([sx * 0.006, -0.008, 0.006]),
             insert,
             12,
         ),
-        np.linspace(0.0055, 0.0030, 12),
+        np.linspace(0.0052, 0.0028, 12),
         radial=8,
         caps=True,
     )
@@ -137,72 +145,73 @@ def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     # Thinner at the three tendinous intersections (xiphoid, mid, umbilical).
     sheet = grid_sheet(grid, thickness=0.0105)
     parts = [sheet]
-    for t_ins, width in ((0.26, 0.008), (0.50, 0.008), (0.74, 0.007)):
-        a = mix(pub, mix(xiph, costal, 0.4), t_ins) + np.array([sx * 0.010, 0.0, 0.010])
-        b = mix(pub, mix(xiph, costal, 0.4), t_ins) + np.array([sx * 0.038, 0.0, 0.010])
-        parts.append(loft_ribbon(np.linspace(a, b, 8), width=width, thickness=0.0036))
+    for t_ins in (0.24, 0.48, 0.72):
+        mid = mix(pub, mix(xiph, costal, 0.4), t_ins)
+        a = mid + np.array([sx * 0.008, 0.0, 0.016])
+        b = mid + np.array([sx * 0.042, 0.0, 0.016])
+        # Recessed inscription: thinner, slightly more anterior so it reads as a tendon band.
+        parts.append(loft_ribbon(np.linspace(a, b, 8), width=0.011, thickness=0.0024))
     return _concat(parts)
 
 
 def _temporalis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    suf = "d" if sx < 0 else "g"
-    par = p[f"os-parietal-{suf}"]
-    temp = p[f"os-temporal-{suf}"]
-    front = p["os-frontal"]
-    coronoid = np.array([sx * 0.046, 0.626, 0.056], dtype=np.float64)
+    """Fan on the temporal fossa → coronoid. Landmarks are bone centroids (too medial);
+    positions are taken on the outer cranial table so the muscle sits on the skull side."""
+    coronoid = np.array([sx * 0.062, 0.618, 0.052], dtype=np.float64)
     origins = [
-        off(par, x=sx * 0.016, y=0.016, z=-0.010),
-        off(par, x=sx * 0.026, y=0.006, z=0.014),
-        off(front, x=sx * 0.050, y=0.022, z=-0.012),
-        off(temp, x=sx * 0.016, y=0.058, z=0.006),
-        off(temp, x=sx * 0.020, y=0.032, z=0.018),
+        np.array([sx * 0.068, 0.748, -0.018], dtype=np.float64),
+        np.array([sx * 0.074, 0.742, 0.012], dtype=np.float64),
+        np.array([sx * 0.070, 0.728, 0.055], dtype=np.float64),
+        np.array([sx * 0.076, 0.700, -0.004], dtype=np.float64),
+        np.array([sx * 0.072, 0.682, 0.042], dtype=np.float64),
+        np.array([sx * 0.068, 0.658, 0.028], dtype=np.float64),
     ]
     paths = []
     for origin in origins:
-        c1 = mix(origin, coronoid, 0.35) + np.array([sx * 0.008, -0.006, 0.006])
-        c2 = mix(origin, coronoid, 0.72) + np.array([sx * 0.004, -0.004, 0.004])
+        c1 = mix(origin, coronoid, 0.32) + np.array([sx * 0.010, -0.004, 0.004])
+        c2 = mix(origin, coronoid, 0.70) + np.array([sx * 0.004, -0.002, 0.002])
         paths.append(bezier_cubic(origin, c1, c2, coronoid, 18))
-    return _sheet(paths, thickness=0.0058)
+    return _sheet(paths, thickness=0.0072)
 
 
 def _masseter_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    suf = "d" if sx < 0 else "g"
-    zyg_ant = off(p[f"maxillaire-{suf}"], x=sx * 0.040, y=0.030, z=-0.004)
-    zyg_post = off(p[f"os-temporal-{suf}"], x=sx * 0.016, y=0.014, z=0.026)
-    angle = np.array([sx * 0.054, 0.570, 0.052], dtype=np.float64)
-    ramus = np.array([sx * 0.050, 0.598, 0.050], dtype=np.float64)
-    # Superficial (zygomatic arch → mandibular angle) + deep (arch → ramus).
+    zyg_ant = np.array([sx * 0.068, 0.658, 0.082], dtype=np.float64)
+    zyg_post = np.array([sx * 0.072, 0.650, 0.038], dtype=np.float64)
+    angle = np.array([sx * 0.070, 0.548, 0.048], dtype=np.float64)
+    ramus = np.array([sx * 0.068, 0.598, 0.055], dtype=np.float64)
     super_paths = []
-    for t, dest in ((0.15, angle), (0.5, mix(angle, ramus, 0.35)), (0.85, mix(angle, ramus, 0.15))):
+    for t in (0.08, 0.34, 0.58, 0.86):
         o = mix(zyg_ant, zyg_post, t)
-        c1 = mix(o, dest, 0.4) + np.array([sx * 0.006, 0.0, 0.006])
-        super_paths.append(bezier_cubic(o, c1, mix(o, dest, 0.75), dest, 14))
-    deep_o = mix(zyg_ant, zyg_post, 0.7) + np.array([-sx * 0.006, 0.0, -0.006])
+        dest = mix(angle, ramus, 0.15 + 0.35 * t)
+        c1 = mix(o, dest, 0.42) + np.array([sx * 0.008, 0.0, 0.004])
+        super_paths.append(bezier_cubic(o, c1, mix(o, dest, 0.78), dest, 14))
+    deep_o = mix(zyg_ant, zyg_post, 0.72) + np.array([-sx * 0.004, 0.0, -0.006])
     deep = bezier_cubic(deep_o, mix(deep_o, ramus, 0.45), mix(deep_o, ramus, 0.75), ramus, 12)
-    return _concat([_sheet(super_paths, thickness=0.0075), loft_tube(deep, np.full(12, 0.0036), radial=8, caps=True)])
+    return _concat(
+        [_sheet(super_paths, thickness=0.0090), loft_tube(deep, np.full(12, 0.0042), radial=8, caps=True)]
+    )
 
 
 def _pterygoid_medial_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    sph = off(p["os-sphenoid"], x=sx * 0.018, y=-0.006, z=0.008)
-    maxil = off(p[f"maxillaire-{'d' if sx < 0 else 'g'}"], x=sx * 0.008, y=0.004, z=-0.016)
-    angle = np.array([sx * 0.030, 0.568, 0.048], dtype=np.float64)
+    sph = np.array([sx * 0.028, 0.640, 0.055], dtype=np.float64)
+    maxil = np.array([sx * 0.032, 0.618, 0.072], dtype=np.float64)
+    angle = np.array([sx * 0.058, 0.554, 0.028], dtype=np.float64)
     paths = []
     for origin in (sph, mix(sph, maxil, 0.55), maxil):
-        c1 = mix(origin, angle, 0.4) + np.array([sx * 0.006, -0.004, -0.004])
+        c1 = mix(origin, angle, 0.4) + np.array([sx * 0.010, -0.004, -0.006])
         paths.append(bezier_cubic(origin, c1, mix(origin, angle, 0.75), angle, 14))
-    return _sheet(paths, thickness=0.0054)
+    return _sheet(paths, thickness=0.0060)
 
 
 def _pterygoid_lateral_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Mostly horizontal: lateral pterygoid plate → TMJ / condyle."""
-    sph = off(p["os-sphenoid"], x=sx * 0.024, y=0.012, z=0.016)
-    sph_inf = off(p["os-sphenoid"], x=sx * 0.022, y=-0.004, z=0.020)
-    condyle = off(p[f"os-temporal-{'d' if sx < 0 else 'g'}"], x=sx * 0.008, y=0.006, z=0.006)
+    sph = np.array([sx * 0.030, 0.658, 0.052], dtype=np.float64)
+    sph_inf = np.array([sx * 0.028, 0.642, 0.058], dtype=np.float64)
+    condyle = np.array([sx * 0.068, 0.652, 0.028], dtype=np.float64)
     paths = []
-    for origin in (sph, sph_inf):
-        c1 = mix(origin, condyle, 0.45) + np.array([sx * 0.008, 0.002, 0.004])
-        paths.append(bezier_cubic(origin, c1, mix(origin, condyle, 0.78), condyle, 12))
-    return _sheet(paths, thickness=0.0046)
+    for origin in (sph, sph_inf, mix(sph, sph_inf, 0.5)):
+        c1 = mix(origin, condyle, 0.45) + np.array([sx * 0.008, 0.002, 0.002])
+        paths.append(bezier_cubic(origin, c1, mix(origin, condyle, 0.78), condyle, 14))
+    return _sheet(paths, thickness=0.0052)
 
 
 def _bilateral(builder, p: dict[str, np.ndarray]) -> trimesh.Trimesh:

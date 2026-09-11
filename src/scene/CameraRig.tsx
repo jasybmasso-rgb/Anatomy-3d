@@ -38,8 +38,8 @@ function normalizedWheelDelta(event: WheelEvent) {
 function facingOffset(focus: THREE.Vector3, distance: number): THREE.Vector3 {
   const { x, y, z } = focus;
   const side = x < -0.025 ? -1 : x > 0.025 ? 1 : 0;
-  const posterior = z < -0.03;
-  const anterior = z > 0.045;
+  const posterior = z < 0.02;
+  const anterior = z > 0.05;
   const cranial = y > 0.52;
   const caudal = y < -0.25;
   const limb = Math.abs(x) > 0.12;
@@ -72,7 +72,10 @@ function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Ve
     };
   }
   const [tx, ty, tz] = toLandmarkFocus(muscle.focus.position);
-  const d = THREE.MathUtils.clamp(muscle.focus.distance, 0.45, 2.4);
+  let d = THREE.MathUtils.clamp(muscle.focus.distance, 0.45, 2.4);
+  if (muscle.id === "grand-dorsal") d = Math.max(d, 1.28);
+  else if (muscle.region === "dos") d = Math.max(d, 0.95);
+  else if (muscle.region === "tête") d = Math.max(d, 0.72);
   const target = new THREE.Vector3(tx, ty, tz);
   return {
     target,
