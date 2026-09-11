@@ -28,13 +28,13 @@ function zoomLogFromWheel(event: WheelEvent) {
   else if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) dy *= 80;
   const pinch = event.ctrlKey || event.metaKey;
   const mag = Math.abs(dy);
-  // Chromebook / Linux trackpads send tiny pixel deltas; ctrl+wheel is pinch-zoom.
+  // Trackpad crumbs need a higher per-pixel gain; a mouse tick (~100px) must stay modest.
   let scale: number;
-  if (pinch) scale = 0.032;
-  else if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL && mag < 10) scale = 0.030;
-  else if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL && mag < 40) scale = 0.016;
-  else scale = 0.011;
-  return THREE.MathUtils.clamp(dy, -180, 180) * scale;
+  if (pinch) scale = 0.016;
+  else if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL && mag <= 8) scale = 0.022;
+  else if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL && mag <= 24) scale = 0.010;
+  else scale = 0.0052;
+  return THREE.MathUtils.clamp(dy * scale, -0.18, 0.18);
 }
 
 /** Camera offset so the selected muscle faces the viewer (L/R, A/P, region). */
