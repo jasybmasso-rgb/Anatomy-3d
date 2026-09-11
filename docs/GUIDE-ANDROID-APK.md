@@ -6,7 +6,9 @@ Cette version embarque le build Vite (WebView + WebGL) et les maillages GLB. Les
 
 ## Télécharger l’APK
 
-L’APK de cette exécution d’agent : artefact `Anatomy-3d-1.0-debug.apk` (~54 Mo). Il n’est pas versionné dans Git.
+L’APK de cette exécution d’agent : artefact `Anatomy-3d-1.0-debug-viscera.apk` (**~60 Mo**, 59,7 Mio). Il n’est pas versionné dans Git.
+
+Cette build embarque les trois couches viscérales : `nerves.glb` (nerfs), `organs.glb` (organes) et `vessels.glb` (vaisseaux sanguins), en plus du squelette, des muscles, ligaments et fascias.
 
 ```bash
 npm install
@@ -37,6 +39,6 @@ Le WebView du Chromebook doit prendre en charge WebGL. Si l’écran reste noir,
 ## Notes
 
 - **Debug** : pas de signature de production. Désinstallez cette build avant d’installer une version Play Store du même identifiant.
-- Premier lancement : les GLB (~50 Mo) se chargent en mémoire ; attendez quelques secondes.
+- Premier lancement : les GLB (~56 Mo de maillages, dont ~6 Mo de nerfs/organes/vaisseaux) se chargent en mémoire ; attendez quelques secondes.
 - WebGL 2 est préféré ; WebGL 1 reste un repli. OpenGL ES 2.0 est exigé.
 - Pour reconstruire : `npm run apk:debug` (nécessite JDK 21 et le SDK Android API 36).

@@ -50,7 +50,7 @@ npm run preview
 
 ## APK Android (test sideload)
 
-Application Capacitor (`ca.anatomy3d.app`). APK **debug** pour installation hors Play Store :
+Application Capacitor (`ca.anatomy3d.app`). APK **debug** pour installation hors Play Store (squelette, muscles, ligaments, fascias, **nerfs, organes et vaisseaux** inclus) :
 
 ```bash
 npm run apk:debug
