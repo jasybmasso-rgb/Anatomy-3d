@@ -6,9 +6,9 @@ Cette version embarque le build Vite (WebView + WebGL) et les maillages GLB. Les
 
 ## Télécharger l’APK
 
-L’APK de cette exécution d’agent : artefact `Anatomy-3d-1.0-debug-viscera.apk` (**~60 Mo**, 59,7 Mio). Il n’est pas versionné dans Git.
+L’APK de cette exécution d’agent : artefact `Anatomy-3d-1.0-debug-anatomy-pass-atlas.apk` (**~87 Mo**, 86 Mio). Il n’est pas versionné dans Git.
 
-Cette build embarque les trois couches viscérales : `nerves.glb` (nerfs), `organs.glb` (organes) et `vessels.glb` (vaisseaux sanguins), en plus du squelette, des muscles, ligaments et fascias.
+Cette build embarque les maillages à jour : fascias calés, ligaments sans têtes de champignon, nerfs synthetic-v3 (racines foraminales, sciatique sous le piriforme), paroi abdominale empilée, shader fibres rouges / tendons blancs, plus `nerves.glb`, `organs.glb` et `vessels.glb`.
 
 ```bash
 npm install
