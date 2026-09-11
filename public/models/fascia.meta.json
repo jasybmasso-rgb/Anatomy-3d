@@ -1,12 +1,12 @@
 {
-  "glbBytes": 1139132,
-  "glbMiB": 1.09,
+  "glbBytes": 1174240,
+  "glbMiB": 1.12,
   "partCount": 10,
   "countBodyparts3d": 2,
   "countSynthetic": 8,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 wrap sheets are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Fascia lata, crural fascia, thoracolumbar fascia, nuchal ligament and sacrotuberous ligaments are schematic (source=synthetic-v2).",
+  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Fascia lata, crural fascia, thoracolumbar fascia, nuchal ligament and sacrotuberous ligaments are schematic sheets snapped to the body envelope (source=synthetic-v3).",
   "gaps": [
     "fascia cervicale / nuchal",
     "r\u00e9tinaculums de cheville (hors ligaments)",

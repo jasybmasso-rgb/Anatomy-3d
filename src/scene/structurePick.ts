@@ -11,6 +11,18 @@ export type PickHit = {
 
 const buckets = new Map<StructureKind, THREE.Mesh[]>();
 
+/** When hits sit almost on top of each other, prefer thin catalog layers. */
+const KIND_BIAS: Record<StructureKind, number> = {
+  ligament: -0.014,
+  nerve: -0.012,
+  vessel: -0.010,
+  fascia: -0.007,
+  organ: 0,
+  muscle: 0.005,
+};
+
+const RESIDUAL_VESSEL = new Set(["arbre-arteriel", "arbre-veineux"]);
+
 export function setPickMeshes(kind: StructureKind, meshes: THREE.Mesh[]) {
   buckets.set(kind, meshes);
 }
@@ -40,7 +52,11 @@ export function collectStructureHits(raycaster: THREE.Raycaster): PickHit[] {
       hits.push({ kind, id, distance: hit.distance });
     }
   }
-  hits.sort((a, b) => a.distance - b.distance);
+  hits.sort((a, b) => {
+    const pa = a.distance + KIND_BIAS[a.kind] + (RESIDUAL_VESSEL.has(a.id) ? 0.02 : 0);
+    const pb = b.distance + KIND_BIAS[b.kind] + (RESIDUAL_VESSEL.has(b.id) ? 0.02 : 0);
+    return pa - pb;
+  });
   const unique: PickHit[] = [];
   for (const hit of hits) {
     if (unique.some((row) => row.kind === hit.kind && row.id === hit.id)) continue;

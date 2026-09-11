@@ -17,8 +17,10 @@ NERVE_INCLUSION = (
     "Nerfs crâniens / orbitaires BodyParts3D 4.0 (optique, trochléaire, oculomoteur, "
     "ophtalmique, ciliaires). Les grands troncs périphériques (plexus brachial, "
     "médian, ulnaire, radial, sciatique, fémoral, tibial, fibulaire, phrénique…) "
-    "sont des tubes schématiques synthetic-v2 plus fins, calés sur le trajet usuel : "
-    "BP3D 4.0 n’a pas ces maillages."
+    "sont des tubes schématiques synthetic-v3 plus fins, avec racines "
+    "foraminales visibles et trajets calés sur l’anatomie usuelle "
+    "(sciatique sous le piriforme, tunnel cubital, sillon spiral, ligament "
+    "inguinal…). BP3D 4.0 n’a pas ces maillages."
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,8 +62,9 @@ def main() -> int:
         {
             "inclusionRules": NERVE_INCLUSION,
             "syntheticDisclaimer": (
-                "Les pièces source=synthetic-v2 sont des tubes loftés le long du "
-                "trajet anatomique usuel (repères osseux), pas des nerfs segmentés. "
+                "Les pièces source=synthetic-v3 sont des tubes loftés le long du "
+                "trajet anatomique usuel (repères osseux, sorties foraminales, "
+                "sciatique sous le piriforme), pas des nerfs segmentés. "
                 "Les maillages crâniens BP3D restent source=bodyparts3d."
             ),
             "count": len(catalog),
@@ -84,7 +87,7 @@ def main() -> int:
         }
     )
     META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {GLB} ({size_mb:.2f} MiB), {len(catalog)} parts ({n_bp3d} BP3D + {n_synth} synthetic-v2)")
+    print(f"wrote {GLB} ({size_mb:.2f} MiB), {len(catalog)} parts ({n_bp3d} BP3D + {n_synth} synthetic)")
     return 0
 
 

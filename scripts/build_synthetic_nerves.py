@@ -1,62 +1,54 @@
-"""Schematic major peripheral nerve trunks (synthetic-v2), landmark-anchored.
+"""Schematic major peripheral nerves (synthetic-v3), landmark-anchored.
 
 BodyParts3D 4.0 has almost no peripheral-nerve meshes (cranial/orbital only).
 These tubes are pedagogical approximations, not cadaver segmentations.
 
-Paths follow textbook courses (cubital tunnel, spiral groove, inguinal
-ligament, greater sciatic foramen, fibular neck…) using named landmarks,
-with derived elbow/knee points when a bbox landmark sits on the wrong bone.
-Radii are trunk-scale (thinner than v1 sausages).
+v3: visible foraminal roots / exits from the vertebral column, thinner trunks,
+full textbook courses. Sciatic passes deep to piriformis (infrapiriform).
 """
 
 from __future__ import annotations
 
-import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import trimesh
 
-from anatomy_fr import region_from_point
-from mesh_primitives import bezier_cubic, loft_tube
-
-ROOT = Path(__file__).resolve().parents[1]
-LANDMARKS = ROOT / "src" / "data" / "landmarks.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from anatomy_fr import region_from_point  # noqa: E402
+from body_surface import (  # noqa: E402
+    fix_landmarks,
+    foramen,
+    load_lm,
+    mix,
+    off,
+    piriformis_underside,
+    spinal_levels,
+)
+from mesh_primitives import bezier_cubic, loft_tube  # noqa: E402
 
 NOTE = (
-    "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique "
-    "usuel, ancré sur des repères osseux. Ce n’est pas une segmentation "
-    "cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques "
-    "(sciatique, médian, plexus, etc.)."
+    "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet "
+    "anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur "
+    "des repères osseux et, pour le sciatique, le bord inférieur du piriforme. "
+    "Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas "
+    "les nerfs périphériques (sciatique, médian, plexus, etc.)."
 )
 
-# Atlas gold-yellow, distinct from bone ivory, gland tan, muscle red, vessels.
 NERVE_RGB = (246, 214, 72, 255)
-
-
-def load_lm() -> dict[str, np.ndarray]:
-    data = json.loads(LANDMARKS.read_text(encoding="utf-8"))
-    return {item["id"]: np.array(item["position"], dtype=float) for item in data["landmarks"]}
 
 
 def mirror(p: np.ndarray) -> np.ndarray:
     return np.array([-p[0], p[1], p[2]])
 
 
-def mix(a: np.ndarray, b: np.ndarray, t: float) -> np.ndarray:
-    return a * (1.0 - t) + b * t
-
-
-def off(p: np.ndarray, x: float = 0, y: float = 0, z: float = 0) -> np.ndarray:
-    return p + np.array([x, y, z], dtype=float)
-
-
-def _polyline(points: list[np.ndarray], samples: int = 9) -> np.ndarray:
+def _polyline(points: list[np.ndarray], samples: int = 10) -> np.ndarray:
     chunks: list[np.ndarray] = []
     for a, b in zip(points[:-1], points[1:]):
         mid = (a + b) / 2.0
-        chord = np.linalg.norm(b - a)
-        sag = np.array([0.0, 0.0, 0.0025 if chord > 0.04 else 0.0012], dtype=float)
+        chord = float(np.linalg.norm(b - a))
+        sag = np.array([0.0, 0.0, 0.0018 if chord > 0.04 else 0.0008], dtype=float)
         curve = bezier_cubic(a, mix(a, mid, 0.38) + sag, mix(b, mid, 0.38) + sag, b, samples)
         chunks.append(curve[:-1])
     chunks.append(np.asarray(points[-1], dtype=float)[None, :])
@@ -67,14 +59,19 @@ def nerve_tube(
     points: list[np.ndarray],
     radius: float,
     *,
-    samples: int = 9,
-    radial: int = 12,
-    taper: float = 0.82,
+    samples: int = 10,
+    radial: int = 10,
+    taper: float = 0.84,
 ) -> trimesh.Trimesh:
     path = _polyline(points, samples)
-    t = np.linspace(1.08, taper, len(path))
-    radii = np.clip(radius * t, radius * 0.62, radius * 1.15)
-    mesh = loft_tube(path, radii, radial=radial, caps=True)
+    t = np.linspace(1.0, taper, len(path))
+    radii = np.clip(radius * t, radius * 0.55, radius * 1.06)
+    return loft_tube(path, radii, radial=radial, caps=True)
+
+
+def merge_tubes(parts: list[trimesh.Trimesh]) -> trimesh.Trimesh:
+    mesh = trimesh.util.concatenate([p for p in parts if p is not None and p.vertices.size])
+    mesh.merge_vertices()
     return mesh
 
 
@@ -90,7 +87,7 @@ def _entry(part_id: str, name: str, latin: str, mesh: trimesh.Trimesh, aliases: 
         "aliases": aliases,
         "region": region_from_point(float(c[0]), float(c[1]), float(c[2])),
         "notes": NOTE,
-        "source": "synthetic-v2",
+        "source": "synthetic-v3",
         "sourceName": part_id,
         "fmaIds": [],
         "fileIds": [],
@@ -109,8 +106,16 @@ def _near_y(a: np.ndarray, b: np.ndarray, tol: float = 0.12) -> bool:
     return abs(float(a[1] - b[1])) <= tol
 
 
+def roots_to(levels: list[np.ndarray], dest: np.ndarray, radius: float) -> list[trimesh.Trimesh]:
+    tubes = []
+    for src in levels:
+        tubes.append(nerve_tube([src, mix(src, dest, 0.55), dest], radius, samples=8, radial=8, taper=0.9))
+    return tubes
+
+
 def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
-    p = load_lm()
+    p = fix_landmarks(load_lm())
+    lv = spinal_levels(p)
     meshes: list[tuple[str, trimesh.Trimesh]] = []
     catalog: list[dict] = []
 
@@ -128,10 +133,8 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             return p[alt]
         return mirror(p[key_d])
 
-    for suf, side, adj in (("d", "droit", "droit"), ("g", "gauche", "gauche")):
+    for suf, side in (("d", "droit"), ("g", "gauche")):
         sx = -1.0 if suf == "d" else 1.0
-        c7 = p["c7"]
-        t1 = p["t1"]
         clav = S("clavicule-d", suf)
         hum = S("tete-humerus-d", suf)
         acrom = S("acromion-d", suf)
@@ -139,25 +142,31 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         sty_r = S("styloide-radial-d", suf)
         sty_u = S("styloide-ulnaire-d", suf)
 
-        # Elbow: olecranon is reliable; medial epicondyle bbox is at the shoulder.
         lat_raw = S("epicondyle-lat-humerus-d", suf) if suf == "d" else mirror(p["epicondyle-lat-humerus-d"])
         lat_ep = lat_raw if _near_y(lat_raw, ole, 0.08) else off(ole, x=sx * 0.032, y=0.006, z=0.004)
-        med_ep = off(ole, x=-sx * 0.028, y=0.01, z=-0.012)
-        cubital = off(mix(med_ep, lat_ep, 0.48), y=-0.012, z=0.022)
+        med_raw = p["epicondyle-med-humerus-d"] if suf == "d" else mirror(p["epicondyle-med-humerus-d"])
+        med_ep = med_raw if _near_y(med_raw, ole, 0.08) else off(ole, x=-sx * 0.028, y=0.01, z=-0.012)
+        cubital = off(mix(med_ep, lat_ep, 0.48), y=-0.012, z=0.018)
         mid_arm = mix(hum, ole, 0.52)
 
-        # C5–T1 roots → trunks behind the clavicle → axilla (brachial plexus).
-        root = off(mix(c7, t1, 0.4), x=sx * 0.028, z=0.006)
-        scalene = off(root, x=sx * 0.018, y=-0.012, z=0.01)
-        retroclav = off(clav, x=sx * 0.02, y=-0.018, z=-0.012)
-        axilla = off(hum, x=sx * 0.012, y=-0.028, z=0.006)
+        c5 = foramen(lv["C5"], sx, "cervical")
+        c6 = foramen(lv["C6"], sx, "cervical")
+        c7f = foramen(lv["C7"], sx, "cervical")
+        c8 = foramen(mix(lv["C7"], lv["T1"], 0.55), sx, "cervical")
+        t1f = foramen(lv["T1"], sx, "thoracic")
+        scalene = off(mix(c7f, t1f, 0.4), x=sx * 0.016, y=-0.008, z=0.008)
+        retroclav = off(clav, x=sx * 0.018, y=-0.016, z=-0.010)
+        axilla = off(hum, x=sx * 0.010, y=-0.026, z=0.004)
 
         add(
             f"plexus-brachial-{suf}",
             f"Plexus brachial {side}",
             "Plexus brachialis",
-            nerve_tube([root, scalene, retroclav, axilla], 0.0048),
-            ["brachial plexus", f"plexus brachial {adj}"],
+            merge_tubes(
+                roots_to([c5, c6, c7f, c8, t1f], scalene, 0.00135)
+                + [nerve_tube([scalene, retroclav, axilla], 0.0034, taper=0.88)]
+            ),
+            ["brachial plexus", f"plexus brachial {side}", "C5", "C6", "C7", "C8", "T1"],
         )
         add(
             f"nerf-axillaire-{suf}",
@@ -166,10 +175,10 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(hum, x=sx * 0.008, y=-0.02, z=-0.016),
-                    off(acrom, x=sx * 0.006, y=-0.018, z=0.004),
+                    off(hum, x=sx * 0.006, y=-0.018, z=-0.014),
+                    off(acrom, x=sx * 0.004, y=-0.016, z=0.002),
                 ],
-                0.0026,
+                0.0019,
             ),
             ["axillary nerve", "circonflexe"],
         )
@@ -180,14 +189,13 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mid_arm, x=sx * 0.006, z=0.018),
-                    off(lat_ep, x=sx * 0.008, y=-0.03, z=0.02),
+                    off(mid_arm, x=sx * 0.005, z=0.016),
+                    off(lat_ep, x=sx * 0.006, y=-0.028, z=0.016),
                 ],
-                0.0024,
+                0.0018,
             ),
             ["musculocutaneous nerve"],
         )
-        # Median: medial arm with brachial a. → cubital fossa (medial to biceps) → carpal tunnel.
         carpal = mix(sty_r, sty_u, 0.48)
         add(
             f"nerf-median-{suf}",
@@ -196,16 +204,15 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mix(hum, ole, 0.38), x=-sx * 0.01, z=0.012),
+                    off(mix(hum, ole, 0.38), x=-sx * 0.008, z=0.010),
                     cubital,
-                    off(mix(cubital, carpal, 0.55), z=0.012),
-                    off(carpal, z=0.01),
+                    off(mix(cubital, carpal, 0.55), z=0.010),
+                    off(carpal, z=0.008),
                 ],
-                0.0027,
+                0.0020,
             ),
             ["median nerve"],
         )
-        # Ulnar: medial cord → cubital tunnel (behind medial epicondyle) → Guyon.
         add(
             f"nerf-ulnaire-{suf}",
             f"Nerf ulnaire {side}",
@@ -213,16 +220,15 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mix(hum, ole, 0.4), x=-sx * 0.016, z=-0.006),
-                    off(med_ep, z=-0.014),
-                    off(mix(med_ep, sty_u, 0.55), x=-sx * 0.006, z=0.004),
-                    off(sty_u, z=0.008),
+                    off(mix(hum, ole, 0.4), x=-sx * 0.014, z=-0.006),
+                    off(med_ep, z=-0.012),
+                    off(mix(med_ep, sty_u, 0.55), x=-sx * 0.005, z=0.003),
+                    off(sty_u, z=0.006),
                 ],
-                0.0026,
+                0.0019,
             ),
             ["ulnar nerve", "cubital"],
         )
-        # Radial: posterior cord → spiral groove → anterior to lateral epicondyle → radius.
         add(
             f"nerf-radial-{suf}",
             f"Nerf radial {side}",
@@ -230,18 +236,16 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mix(hum, ole, 0.28), z=-0.022),
-                    off(mix(hum, ole, 0.58), x=sx * 0.012, z=-0.018),
-                    off(lat_ep, y=-0.008, z=0.006),
-                    off(sty_r, z=0.006),
+                    off(mix(hum, ole, 0.28), z=-0.020),
+                    off(mix(hum, ole, 0.58), x=sx * 0.010, z=-0.016),
+                    off(lat_ep, y=-0.006, z=0.005),
+                    off(sty_r, z=0.005),
                 ],
-                0.0026,
+                0.0019,
             ),
             ["radial nerve"],
         )
 
-        l1 = p["l1"]
-        l5 = p["l5"]
         eias = S("eias-d", suf)
         eips = S("eips-d", suf)
         isch = S("tuberosite-ischiatique-d", suf)
@@ -257,37 +261,44 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
 
         cond_m_raw = S("condyle-med-femur-d", suf) if suf == "d" else mirror(p["condyle-med-femur-d"])
         cond_m = cond_m_raw if _near_y(cond_m_raw, pat, 0.12) else off(pat, x=-sx * 0.024, z=-0.012)
-        knee_post = off(mix(cond_m, off(pat, x=sx * 0.028, z=-0.02), 0.5), z=-0.034)
+        knee_post = off(mix(cond_m, off(pat, x=sx * 0.028, z=-0.02), 0.5), z=-0.032)
 
-        # Lumbar plexus: psoas gutter L1–L4 toward inguinal ligament.
-        psoas = off(mix(l1, l5, 0.45), x=sx * 0.032, z=0.012)
+        l2 = foramen(lv["L2"], sx, "lumbar")
+        l3 = foramen(lv["L3"], sx, "lumbar")
+        l4 = foramen(lv["L4"], sx, "lumbar")
+        l5f = foramen(lv["L5"], sx, "lumbar")
+        s1 = foramen(lv["S1"], sx, "sacral")
+        s2 = foramen(lv["S2"], sx, "sacral")
+        s3 = foramen(lv["S3"], sx, "sacral")
+        psoas = off(mix(lv["L2"], lv["L4"], 0.5), x=sx * 0.030, z=0.010)
         inguinal = mix(eias, pub_t, 0.55)
+
         add(
             f"plexus-lombaire-{suf}",
             f"Plexus lombaire {side}",
             "Plexus lumbalis",
-            nerve_tube(
-                [
-                    off(l1, x=sx * 0.018, z=0.008),
-                    psoas,
-                    off(inguinal, y=0.02, z=0.01),
-                ],
-                0.0042,
+            merge_tubes(
+                roots_to([l2, l3, l4], psoas, 0.0013)
+                + [nerve_tube([psoas, off(inguinal, y=0.018, z=0.008)], 0.0028, taper=0.86)]
             ),
-            ["lumbar plexus"],
+            ["lumbar plexus", "L1", "L2", "L3", "L4"],
         )
-        # Femoral: under inguinal ligament (mid ASIS–pubic tubercle) → anterior thigh.
         add(
             f"nerf-femoral-{suf}",
             f"Nerf fémoral {side}",
             "Nervus femoralis",
-            nerve_tube(
-                [
-                    off(inguinal, z=0.016),
-                    off(mix(inguinal, pat, 0.42), z=0.028),
-                    off(cond_m, z=0.018),
-                ],
-                0.003,
+            merge_tubes(
+                roots_to([l2, l3, l4], off(inguinal, z=0.014), 0.00125)
+                + [
+                    nerve_tube(
+                        [
+                            off(inguinal, z=0.014),
+                            off(mix(inguinal, pat, 0.42), z=0.024),
+                            off(cond_m, z=0.016),
+                        ],
+                        0.0022,
+                    )
+                ]
             ),
             ["femoral nerve"],
         )
@@ -295,33 +306,47 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"nerf-obturateur-{suf}",
             f"Nerf obturateur {side}",
             "Nervus obturatorius",
-            nerve_tube(
-                [
-                    off(pub, x=sx * 0.022, z=0.008),
-                    off(mix(pub, hip, 0.55), x=sx * 0.016, z=0.004),
-                    off(mix(hip, cond_m, 0.38), x=-sx * 0.008, z=0.006),
-                ],
-                0.0022,
+            merge_tubes(
+                roots_to([l2, l3, l4], off(pub, x=sx * 0.020, z=0.006), 0.00115)
+                + [
+                    nerve_tube(
+                        [
+                            off(pub, x=sx * 0.020, z=0.006),
+                            off(mix(pub, hip, 0.55), x=sx * 0.014, z=0.002),
+                            off(mix(hip, cond_m, 0.38), x=-sx * 0.006, z=0.004),
+                        ],
+                        0.0017,
+                    )
+                ]
             ),
             ["obturator nerve"],
         )
-        # Sciatic: greater sciatic foramen (EIPS/sacrum) → posterior ischium → popliteal split.
-        sciatic_exit = off(mix(sacrum, eips, 0.55), x=sx * 0.018, y=-0.02, z=-0.028)
+
+        # Sciatic: L4–S3 roots → greater sciatic foramen INFERIOR to piriformis
+        # → between ischium and GT (closer to ischium) → posterior thigh → popliteal split.
+        under_pir = piriformis_underside(sx)
+        # Posterior greater-sciatic notch, then INFERIOR to piriformis (not through the belly).
+        behind = off(mix(sacrum, eips, 0.22), x=sx * 0.032, y=-0.006, z=-0.042)
+        gsf = off(mix(sacrum, eips, 0.38), x=sx * 0.026, y=-0.048, z=-0.034)
+        deep_glute = off(mix(isch, gt, 0.28), z=-0.034, y=-0.006)
+        mid_thigh = off(mix(isch, knee_post, 0.48), z=-0.032, x=sx * 0.006)
+        sacral_plexus = off(mix(s1, s2, 0.5), x=sx * 0.016, y=-0.004, z=-0.012)
         add(
             f"nerf-sciatique-{suf}",
             f"Nerf sciatique {side}",
             "Nervus ischiadicus",
-            nerve_tube(
-                [
-                    sciatic_exit,
-                    off(isch, x=sx * 0.01, z=-0.032),
-                    off(mix(isch, knee_post, 0.55), z=-0.036),
-                    knee_post,
-                ],
-                0.0048,
-                taper=0.78,
+            merge_tubes(
+                roots_to([l4, l5f, s1, s2, s3], sacral_plexus, 0.00135)
+                + [
+                    nerve_tube(
+                        [sacral_plexus, behind, gsf, under_pir, deep_glute, mid_thigh, knee_post],
+                        0.0030,
+                        samples=12,
+                        taper=0.78,
+                    )
+                ]
             ),
-            ["sciatic nerve", "ischiatique"],
+            ["sciatic nerve", "ischiatique", "L4", "L5", "S1", "S2", "S3", "piriforme"],
         )
         add(
             f"nerf-tibial-{suf}",
@@ -330,14 +355,13 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     knee_post,
-                    off(mix(knee_post, mal_m, 0.5), z=-0.022),
-                    off(mal_m, z=-0.012),
+                    off(mix(knee_post, mal_m, 0.5), z=-0.020),
+                    off(mal_m, z=-0.010),
                 ],
-                0.0028,
+                0.0020,
             ),
             ["tibial nerve"],
         )
-        # Common fibular: popliteal fossa → winds around fibular neck → lateral leg.
         add(
             f"nerf-fibulaire-{suf}",
             f"Nerf fibulaire commun {side}",
@@ -345,11 +369,11 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     knee_post,
-                    off(fib, x=sx * 0.006, y=0.006, z=-0.008),
-                    off(fib, x=sx * 0.008, y=-0.01, z=0.01),
-                    off(mal_l, z=0.008),
+                    off(fib, x=sx * 0.005, y=0.004, z=-0.008),
+                    off(fib, x=sx * 0.007, y=-0.010, z=0.008),
+                    off(mal_l, z=0.006),
                 ],
-                0.0024,
+                0.0018,
             ),
             ["common peroneal", "fibular nerve", "péronier"],
         )
@@ -359,28 +383,35 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             "Nervus gluteus inferior",
             nerve_tube(
                 [
-                    off(sciatic_exit, z=-0.006),
-                    off(gt, x=sx * 0.004, z=-0.018),
+                    under_pir,
+                    off(gt, x=sx * 0.004, z=-0.016),
                 ],
-                0.0022,
+                0.0016,
             ),
             ["inferior gluteal nerve"],
         )
 
     for suf, side, sx in (("d", "droit", -1.0), ("g", "gauche", 1.0)):
         rib1 = S("cote1-d", suf)
+        c3 = foramen(lv["C3"], sx, "cervical")
+        c4 = foramen(lv["C4"], sx, "cervical")
         add(
             f"nerf-phrenique-{suf}",
             f"Nerf phrénique {side}",
             "Nervus phrenicus",
-            nerve_tube(
-                [
-                    off(p["c7"], x=sx * 0.016, z=0.028),
-                    off(rib1, x=sx * 0.01, z=0.02),
-                    off(p["manubrium"], x=sx * 0.028, z=0.018),
-                    off(p["xiphoide"], x=sx * 0.036, y=-0.02, z=0.008),
-                ],
-                0.002,
+            merge_tubes(
+                roots_to([c3, c4], off(p["c7"], x=sx * 0.014, z=0.024), 0.0011)
+                + [
+                    nerve_tube(
+                        [
+                            off(p["c7"], x=sx * 0.014, z=0.024),
+                            off(rib1, x=sx * 0.008, z=0.016),
+                            off(p["manubrium"], x=sx * 0.024, z=0.016),
+                            off(p["xiphoide"], x=sx * 0.032, y=-0.018, z=0.006),
+                        ],
+                        0.0015,
+                    )
+                ]
             ),
             ["phrenic nerve"],
         )

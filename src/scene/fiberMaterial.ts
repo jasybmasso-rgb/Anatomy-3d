@@ -41,39 +41,39 @@ vec2 fiberCirc(float around) {
 `;
 
 const GLSL_MUSCLE_ALBEDO = /* glsl */ `
-vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix) {
+vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix, float tendonAmt) {
   float along = clamp(uv.x, 0.0, 1.0);
   vec2 circ = fiberCirc(uv.y);
-  float belly = pow(sin(3.14159265 * along), 1.42);
-  float tendon = 1.0 - belly;
-  float endCap = 1.0 - smoothstep(0.0, 0.10, min(along, 1.0 - along));
+  float belly = pow(sin(3.14159265 * along), 1.08);
+  float endCap = 1.0 - smoothstep(0.0, 0.16, min(along, 1.0 - along));
+  float tendon = clamp(max(endCap * 0.72, tendonAmt), 0.0, 1.0);
 
-  vec3 tendonCol = vec3(0.94, 0.88, 0.76);
-  vec3 midCol = vec3(0.62, 0.14, 0.10);
-  vec3 bellyCol = vec3(0.33, 0.038, 0.036);
-  vec3 base = mix(tendonCol, mix(midCol, bellyCol, smoothstep(0.18, 1.0, belly)), smoothstep(0.0, 0.42, belly));
-  base = mix(base, vec3(0.97, 0.93, 0.84), endCap * 0.38);
+  vec3 tendonCol = vec3(0.97, 0.94, 0.88);
+  vec3 midCol = vec3(0.72, 0.13, 0.10);
+  vec3 bellyCol = vec3(0.46, 0.045, 0.042);
+  float flesh = 1.0 - smoothstep(0.12, 0.78, tendon);
+  vec3 base = mix(tendonCol, mix(midCol, bellyCol, smoothstep(0.12, 1.0, belly)), flesh);
 
-  // Wider spacing in the belly, denser toward origin / insertion.
-  float density = mix(72.0, 17.0, belly);
+  float density = mix(78.0, 16.0, belly * flesh);
   float warp = fiberFbm(circ * 2.2 + vec2(along * 2.8, 4.1)) - 0.5;
   vec2 fuv = circ * density + vec2(warp * 2.1, along * 1.6);
   float n = fiberFbm(fuv);
   n = n * 0.62 + fiberFbm(fuv * 2.35 + vec2(along * 3.4, 9.0)) * 0.38;
   float ridge = smoothstep(0.32, 0.74, n);
-  float contrast = mix(0.16, 0.055, belly);
-  float shade = mix(1.0 - contrast, 1.0 + contrast * 0.28, ridge);
+  float contrast = mix(0.10, 0.07, belly) * flesh;
+  float shade = mix(1.0 - contrast, 1.0 + contrast * 0.32, ridge);
   vec3 col = base * shade;
-  col = mix(col, mix(col, tendonCol, 0.4), tendon * ridge * 0.22);
+  col = mix(col, tendonCol, tendon * 0.92);
+  col = mix(col, mix(col, tendonCol, 0.35), (1.0 - tendon) * ridge * 0.12);
   float lum = dot(col, vec3(0.32, 0.5, 0.18));
   vec3 chainCol = tint * mix(0.4, 1.2, lum);
   col = mix(col, chainCol, clamp(tintMix, 0.0, 1.0));
   return clamp(col, 0.0, 1.0);
 }
-float pedagogicalMuscleRoughness(vec2 uv) {
+float pedagogicalMuscleRoughness(vec2 uv, float tendonAmt) {
   float along = clamp(uv.x, 0.0, 1.0);
-  float belly = pow(sin(3.14159265 * along), 1.42);
-  return mix(0.38, 0.62, belly);
+  float belly = pow(sin(3.14159265 * along), 1.08);
+  return mix(mix(0.38, 0.62, belly), 0.34, clamp(tendonAmt, 0.0, 1.0));
 }
 `;
 
@@ -287,9 +287,9 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
       /* glsl */ `
       {
         vec2 fiberUv = vMapUv;
-        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, uTint, uTintMix);
-        vec3 tendonCol = vec3(0.94, 0.88, 0.76);
-        fiberAlbedo = mix(fiberAlbedo, tendonCol, clamp(vTendon, 0.0, 1.0));
+        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, uTint, uTintMix, clamp(vTendon, 0.0, 1.0));
+        vec3 tendonCol = vec3(0.97, 0.94, 0.88);
+        fiberAlbedo = mix(fiberAlbedo, tendonCol, smoothstep(0.18, 0.82, clamp(vTendon, 0.0, 1.0)));
         float selected = clamp(uSelected, 0.0, 1.0);
         fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.18, 1.08, 0.88), selected * 0.38);
         #ifndef FLAT_SHADED
@@ -306,13 +306,13 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     shader.fragmentShader = shader.fragmentShader.replace(
       "#include <roughnessmap_fragment>",
       `#include <roughnessmap_fragment>
-       roughnessFactor = mix(pedagogicalMuscleRoughness(vMapUv), 0.36, clamp(vTendon, 0.0, 1.0));
+       roughnessFactor = mix(pedagogicalMuscleRoughness(vMapUv, clamp(vTendon, 0.0, 1.0)), 0.34, clamp(vTendon, 0.0, 1.0));
        roughnessFactor = mix(roughnessFactor, 0.28, clamp(uSelected, 0.0, 1.0) * 0.55);
       `,
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v9-selected";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v10-tendon";
   return material;
 }
 
@@ -324,7 +324,7 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     metalness: 0.04,
     transparent: true,
     opacity: schematic ? 0.92 : 0.96,
-    depthTest: !schematic,
+    depthTest: true,
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,
@@ -349,7 +349,7 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     material.userData.shader = shader;
   };
   material.customProgramCacheKey = () =>
-    schematic ? "anatomy-fiber-ligament-synth-v4" : "anatomy-fiber-ligament-bp3d-v4";
+    schematic ? "anatomy-fiber-ligament-synth-v5" : "anatomy-fiber-ligament-bp3d-v5";
   return material;
 }
 

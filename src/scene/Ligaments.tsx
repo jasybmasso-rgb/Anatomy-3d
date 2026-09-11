@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { ligaments as catalog } from "../data/loadConnective";
 import { applyFiberUVs, createLigamentFiberMaterial, inferLongAxis } from "./fiberMaterial";
+import { attachFatRaycast } from "./fatRaycast";
 import { setPickMeshes } from "./structurePick";
 
 type LigamentEntry = {
@@ -44,7 +45,8 @@ export function Ligaments({ visible, selectedId, hiddenIds }: LigamentsProps) {
         applyFiberUVs(obj.geometry, axis);
         obj.userData.pick = "ligament";
         obj.userData.structureId = part.id;
-        obj.raycast = THREE.Mesh.prototype.raycast;
+        obj.userData.pickPriority = 0;
+        attachFatRaycast(obj, "ligament");
         obj.castShadow = false;
         obj.receiveShadow = false;
         obj.material = material;

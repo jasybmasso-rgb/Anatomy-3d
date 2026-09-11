@@ -124,14 +124,26 @@ def loft_tube(
     radial: int = 8,
     *,
     caps: bool = False,
+    oval: Sequence[float] | np.ndarray | None = None,
 ) -> trimesh.Trimesh:
-    """Loft a rounded (circular) tube along a polyline with per-sample radius."""
+    """Loft a rounded tube along a polyline with per-sample radius.
+
+    `oval` is (n, 2) or (2,) scales along (normal, binormal). Values >1 widen
+    the cross-section; <1 flatten it — used to flare ligaments onto bone
+    without bulbous caps.
+    """
     pts = np.asarray(path, dtype=np.float64)
     rad = np.asarray(radii, dtype=np.float64)
     if len(pts) < 2:
         raise ValueError("path too short")
     if rad.shape[0] != len(pts):
         rad = np.linspace(float(rad.flat[0]), float(rad.flat[-1]), len(pts))
+    if oval is None:
+        oval_n = np.ones((len(pts), 2), dtype=np.float64)
+    else:
+        oval_n = np.asarray(oval, dtype=np.float64)
+        if oval_n.ndim == 1:
+            oval_n = np.tile(oval_n, (len(pts), 1))
     tangents = np.gradient(pts, axis=0)
     tangents /= np.clip(np.linalg.norm(tangents, axis=1, keepdims=True), 1e-9, None)
     ref = np.array([0.0, 0.0, 1.0])
@@ -150,9 +162,10 @@ def loft_tube(
         binormals[i] /= max(np.linalg.norm(binormals[i]), 1e-9)
     angles = np.linspace(0.0, 2.0 * math.pi, radial, endpoint=False)
     verts = []
-    for p, n, b, r in zip(pts, normals, binormals, rad):
+    for p, n, b, r, ov in zip(pts, normals, binormals, rad, oval_n):
+        rx, ry = r * float(ov[0]), r * float(ov[1])
         for ang in angles:
-            verts.append(p + r * (math.cos(ang) * n + math.sin(ang) * b))
+            verts.append(p + math.cos(ang) * rx * n + math.sin(ang) * ry * b)
     verts = np.asarray(verts, dtype=np.float64)
     faces = []
     nseg = len(pts) - 1
@@ -187,16 +200,22 @@ def _profile_thin_mid(t: np.ndarray, end: float, mid: float) -> np.ndarray:
     return end * (1.0 - belly) + mid * belly
 
 
+def _attachment_flare(t: np.ndarray, width: float = 0.18) -> np.ndarray:
+    """1 at both ends, 0 in the mid-substance — periosteal fan, not a belly taper."""
+    edge = np.minimum(t, 1.0 - t)
+    return np.clip(1.0 - edge / max(width, 1e-4), 0.0, 1.0)
+
+
 def attachment_pad(
     center: Sequence[float],
     tangent: Sequence[float],
     *,
     major: float = 0.011,
     minor: float = 0.0065,
-    thickness: float = 0.0026,
+    thickness: float = 0.0009,
     bone_normal: Sequence[float] | None = None,
 ) -> trimesh.Trimesh:
-    """Flattened oval footprint that sits on bone — not a conical fiber tip."""
+    """Thin periosteal footprint (sheet), not a cylindrical mushroom cap."""
     c = np.asarray(center, dtype=np.float64)
     t = np.asarray(tangent, dtype=np.float64)
     tn = np.linalg.norm(t)
@@ -208,8 +227,7 @@ def attachment_pad(
         nn = np.linalg.norm(n)
         n = n / nn if nn > 1e-9 else -t
     x, y, z = _orthonormal_frame(n)
-    # Flatten along the incoming fiber so the pad reads as a bony flare.
-    mesh = trimesh.creation.cylinder(radius=1.0, height=max(thickness, 0.0016), sections=22)
+    mesh = trimesh.creation.cylinder(radius=1.0, height=max(thickness, 0.0006), sections=20)
     scale = np.eye(4)
     scale[0, 0] = major
     scale[1, 1] = minor
@@ -220,7 +238,7 @@ def attachment_pad(
     rot[:3, 1] = y
     rot[:3, 2] = z
     mesh.apply_transform(rot)
-    mesh.apply_translation(c + n * (thickness * 0.15))
+    mesh.apply_translation(c + n * (thickness * 0.35))
     return mesh
 
 
@@ -277,9 +295,12 @@ def fascicle_bundle(
         nrms[i] = n / max(np.linalg.norm(n), 1e-9)
 
     ts = np.linspace(0.0, 1.0, samples)
-    # Stronger flare at the bony attachments, thinner mid-substance.
-    spread = _profile_thin_mid(ts, spread_end, spread_mid)
-    radii = _profile_thin_mid(ts, radius_end, radius_mid)
+    # Fan onto bone (spread up, fiber radius down) — never a conical / mushroom bulb.
+    flare = _attachment_flare(ts, 0.20)
+    spread = spread_mid + (spread_end - spread_mid) * (flare**1.05)
+    r_end = min(float(radius_end), float(radius_mid) * 0.72)
+    radii = radius_mid * (1.0 - 0.58 * flare) + r_end * (0.42 * flare)
+    oval = np.column_stack([1.0 - 0.55 * flare, 1.0 + 0.85 * flare])
     parts: list[trimesh.Trimesh] = []
     n_fibers = max(4, int(n_fibers))
     ring_specs = [(n_fibers, 1.0)]
@@ -298,15 +319,19 @@ def fascicle_bundle(
             path = center + pack * spread[:, None] + jitter
             r = radii * (0.78 + 0.22 * (0.5 + 0.5 * math.sin(fiber_index * 2.3)))
             r = r * (0.92 + 0.08 * scale)
-            parts.append(loft_tube(path, r, radial=radial, caps=True))
+            parts.append(loft_tube(path, r, radial=radial, caps=False, oval=oval))
             fiber_index += 1
-    # Flattened bony footprints so endings blend onto landmarks instead of tapering to a point.
+    # Hair-thin periosteal footprint — a sheet on bone, not a cap.
     t0 = center[1] - center[0]
     t1 = center[-1] - center[-2]
-    pad_major = max(spread_end * 1.15, 0.0075)
-    pad_minor = max(spread_end * 0.62, 0.0044)
-    parts.append(attachment_pad(pa, t0, major=pad_major, minor=pad_minor, bone_normal=-t0))
-    parts.append(attachment_pad(pb, t1, major=pad_major, minor=pad_minor, bone_normal=t1))
+    pad_major = max(spread_end * 1.05, 0.0065)
+    pad_minor = max(spread_end * 0.48, 0.0032)
+    parts.append(
+        attachment_pad(pa, t0, major=pad_major, minor=pad_minor, thickness=0.00085, bone_normal=-t0)
+    )
+    parts.append(
+        attachment_pad(pb, t1, major=pad_major, minor=pad_minor, thickness=0.00085, bone_normal=t1)
+    )
     merged = trimesh.util.concatenate(parts)
     merged.merge_vertices()
     return merged

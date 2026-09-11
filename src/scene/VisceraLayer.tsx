@@ -2,6 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import type { VisceraPart } from "../types/structure";
+import { attachFatRaycast } from "./fatRaycast";
 import { setPickMeshes } from "./structurePick";
 
 const ORGAN_TONE: Record<string, string> = {
@@ -72,7 +73,7 @@ export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds 
         if (!obj.geometry.getAttribute("normal")) obj.geometry.computeVertexNormals();
         obj.userData.pick = kind;
         obj.userData.structureId = part.id;
-        obj.raycast = THREE.Mesh.prototype.raycast;
+        attachFatRaycast(obj, kind);
         obj.castShadow = false;
         obj.receiveShadow = false;
         obj.material = material;

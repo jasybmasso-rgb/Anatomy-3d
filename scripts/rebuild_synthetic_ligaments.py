@@ -25,8 +25,8 @@ INCLUSION_RULES = (
     "trochleae, abstract parents. Crude capsule/stick synthetics (v1) and "
     "rectangular lofted ribbons are not exported. Missing major ligaments of "
     "knee, hip, shoulder, elbow and ankle are schematic tapered fascicle bundles "
-    "(many rounded strands, joint curvature, fan at attachments, thinner "
-    "mid-substance; source=synthetic-v2), not cadaver meshes. Annular ligament "
+    "(flared fascicles that blend onto bone, no mushroom caps; "
+    "source=synthetic-v3), not cadaver meshes. Annular ligament "
     "of the radius is a torus. Spinal stick ligaments and menisci are omitted "
     "(quality > quantity)."
 )
@@ -65,8 +65,8 @@ def main() -> int:
         {
             "inclusionRules": INCLUSION_RULES,
             "syntheticDisclaimer": (
-                "Entries with source=synthetic-v2 are schematic tapered fascicle "
-                "bundles (rounded lofted strands, joint wrap, attachment flare) "
+                "Entries with source=synthetic-v3 are schematic fascicle "
+                "bundles (lofted strands that flare onto bone, no bulbous caps) "
                 "between named landmarks. They are not segmented from cadaver "
                 "imaging and must not be treated as morphologically accurate. "
                 "BodyParts3D connective meshes (interosseous membranes, "
@@ -90,7 +90,7 @@ def main() -> int:
         "inclusionRules": INCLUSION_RULES,
     }
     META.write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {GLB} ({size_mb:.2f} MiB), {len(catalog)} parts ({n_bp3d} BP3D + {n_synth} synthetic-v2)")
+    print(f"wrote {GLB} ({size_mb:.2f} MiB), {len(catalog)} parts ({n_bp3d} BP3D + {n_synth} synthetic)")
     return 0
 
 

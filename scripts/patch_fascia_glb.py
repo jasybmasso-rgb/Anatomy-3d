@@ -21,7 +21,8 @@ CATALOG = ROOT / "src" / "data" / "fascia.json"
 INCLUSION = (
     "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). "
     "Fascia lata, crural fascia, thoracolumbar fascia, nuchal ligament and "
-    "sacrotuberous ligaments are schematic (source=synthetic-v2)."
+    "sacrotuberous ligaments are schematic sheets snapped to the body envelope "
+    "(source=synthetic-v3)."
 )
 
 
@@ -41,7 +42,7 @@ def main() -> int:
         mesh.visual.vertex_colors = [155, 182, 200, 180]
         mesh.metadata["name"] = part_id
         scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)
-        print(f"  + {part_id:32s}  {len(mesh.faces):6d} faces  synthetic-v2", flush=True)
+        print(f"  + {part_id:32s}  {len(mesh.faces):6d} faces  synthetic-v3", flush=True)
 
     GLB.write_bytes(export_glb(scene, include_normals=True))
     size_mb = GLB.stat().st_size / (1024 * 1024)

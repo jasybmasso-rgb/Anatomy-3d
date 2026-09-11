@@ -41,6 +41,21 @@ const THIN_SHEETS = new Set([
   "pterygoide-lateral",
 ]);
 
+/** Superficial → drawn later. Deep wall stays behind even if sheets kiss. */
+const WALL_ORDER: Record<string, number> = {
+  "transverse-de-l-abdomen": 2,
+  "oblique-interne": 3,
+  "droit-abdomen": 4,
+  "oblique-externe": 6,
+};
+
+const WALL_OFFSET: Record<string, number> = {
+  "transverse-de-l-abdomen": 4,
+  "oblique-interne": 2,
+  "droit-abdomen": 0,
+  "oblique-externe": -2,
+};
+
 function visibleIds(props: MuscleLayerProps): Set<string> {
   const hidden = new Set(props.hiddenMuscleIds);
   const shown = new Set<string>();
@@ -65,6 +80,7 @@ function applyTendonAttribute(geometry: THREE.BufferGeometry) {
   if (geometry.getAttribute("tendon")) return;
   const pos = geometry.getAttribute("position");
   const color = geometry.getAttribute("color");
+  const uv = geometry.getAttribute("uv");
   const arr = new Float32Array(pos.count);
   if (color) {
     for (let i = 0; i < pos.count; i += 1) {
@@ -77,7 +93,14 @@ function applyTendonAttribute(geometry: THREE.BufferGeometry) {
         b /= 255;
       }
       const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-      arr[i] = THREE.MathUtils.smoothstep(0.52, 0.82, lum);
+      arr[i] = THREE.MathUtils.smoothstep(0.48, 0.86, lum);
+    }
+  }
+  if (uv) {
+    for (let i = 0; i < pos.count; i += 1) {
+      const along = THREE.MathUtils.clamp(uv.getX(i), 0, 1);
+      const end = 1 - THREE.MathUtils.smoothstep(0, 0.16, Math.min(along, 1 - along));
+      arr[i] = Math.max(arr[i], end * 0.82);
     }
   }
   geometry.setAttribute("tendon", new THREE.BufferAttribute(arr, 1));
@@ -95,6 +118,12 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const hint = new THREE.Vector3(...(muscle.fiberAxis ?? [0, 0, 0]));
       const material = createFiberMuscleMaterial();
       if (THIN_SHEETS.has(muscle.id)) material.side = THREE.DoubleSide;
+      const wallOff = WALL_OFFSET[muscle.id];
+      if (wallOff !== undefined) {
+        material.polygonOffset = true;
+        material.polygonOffsetFactor = wallOff;
+        material.polygonOffsetUnits = wallOff;
+      }
       const meshes: THREE.Mesh[] = [];
       clone.traverse((obj) => {
         if (!(obj instanceof THREE.Mesh)) return;
@@ -137,7 +166,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
       entry.material.clippingPlanes = clipPlanesForSide(side);
       entry.object.traverse((obj) => {
         if (obj instanceof THREE.Mesh) {
-          obj.renderOrder = selected ? 8 : 5;
+          obj.renderOrder = selected ? 8 : (WALL_ORDER[entry.id] ?? 5);
           obj.castShadow = true;
         }
       });

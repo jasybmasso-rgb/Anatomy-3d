@@ -1,32 +1,26 @@
-"""Schematic major-joint ligaments: tapered rounded fascicle bundles (synthetic-v2).
+"""Schematic major-joint ligaments: flared fascicle bundles (synthetic-v3).
 
-Not cadaver meshes. Landmark-anchored, labeled source=synthetic-v2.
+Not cadaver meshes. Landmark-anchored. No mushroom-cap ends.
 Spine sticks and menisci are omitted on purpose (quality > quantity).
 """
 
 from __future__ import annotations
 
-import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import trimesh
 
-from mesh_primitives import fascicle_bundle, torus_ring
-
-ROOT = Path(__file__).resolve().parents[1]
-LANDMARKS = ROOT / "src" / "data" / "landmarks.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from body_surface import fix_landmarks, load_lm  # noqa: E402
+from mesh_primitives import fascicle_bundle, torus_ring  # noqa: E402
 
 NOTE = (
-    "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis "
-    "(plusieurs brins, courbure articulaire, éventail aux insertions, plus mince "
-    "au milieu) entre repères osseux vérifiés. Ce n’est pas une segmentation cadavérique."
+    "Schéma pédagogique (synthetic-v3) : faisceaux de fascicules qui s’évasent "
+    "en nappe sur l’os (pas de tête de champignon), courbure articulaire, plus "
+    "mince au milieu. Ce n’est pas une segmentation cadavérique."
 )
-
-
-def load_lm() -> dict[str, np.ndarray]:
-    data = json.loads(LANDMARKS.read_text(encoding="utf-8"))
-    return {item["id"]: np.array(item["position"], dtype=float) for item in data["landmarks"]}
 
 
 def mirror(p: np.ndarray) -> np.ndarray:
@@ -49,7 +43,7 @@ def entry(id_: str, name: str, latin: str, region: str, joint: str, mesh: trimes
         "region": region,
         "joint": joint,
         "notes": NOTE,
-        "source": "synthetic-v2",
+        "source": "synthetic-v3",
         "sourceName": id_,
         "fmaId": "",
         "fileIds": [],
@@ -58,7 +52,7 @@ def entry(id_: str, name: str, latin: str, region: str, joint: str, mesh: trimes
 
 
 def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
-    p = load_lm()
+    p = fix_landmarks(load_lm())
     meshes: list[tuple[str, trimesh.Trimesh]] = []
     catalog: list[dict] = []
 
@@ -69,23 +63,12 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         catalog.append(entry(id_, name, latin, region, joint, mesh))
 
     def bundle(id_, name, latin, region, joint, a, b, **kw):
-        if "spread_end" in kw:
-            kw["spread_end"] = float(kw["spread_end"]) * 1.35
         add(id_, name, latin, region, joint, fascicle_bundle(a, b, **kw))
-
-    def S(key: str, suf: str) -> np.ndarray:
-        if key in p:
-            return p[key]
-        if suf == "g" and key.endswith("-g"):
-            right = key[:-2] + "-d"
-            if right in p:
-                return mirror(p[right])
-        raise KeyError(key)
 
     for suf, side in (("d", "droit"), ("g", "gauche")):
         sx = -1.0 if suf == "d" else 1.0
-        lat_f = S("condyle-lat-femur-d", suf) if suf == "d" else mirror(p["condyle-lat-femur-d"])
-        med_f = S("condyle-med-femur-d", suf) if suf == "d" else mirror(p["condyle-med-femur-d"])
+        lat_f = p["condyle-lat-femur-d"] if suf == "d" else mirror(p["condyle-lat-femur-d"])
+        med_f = p["condyle-med-femur-d"] if suf == "d" else mirror(p["condyle-med-femur-d"])
         pat = p[f"patella-{suf}"]
         tub = p[f"tuberosite-tibiale-{suf}"]
         fib = p[f"tete-fibula-{suf}"]
@@ -236,6 +219,11 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         sty_r = p[f"styloide-radial-{suf}"]
         epi_m = p["epicondyle-med-humerus-d"] if suf == "d" else mirror(p["epicondyle-med-humerus-d"])
         epi_l = p["epicondyle-lat-humerus-d"] if suf == "d" else mirror(p["epicondyle-lat-humerus-d"])
+        # Guard: medial epicondyle bbox used to sit on the humeral head.
+        if abs(float(epi_m[1] - ole[1])) > 0.08:
+            epi_m = off(ole, x=-sx * 0.024, y=0.008, z=-0.008)
+        if abs(float(epi_l[1] - ole[1])) > 0.08:
+            epi_l = off(ole, x=sx * 0.028, y=0.004, z=0.004)
         ulna_prox = mix(ole, sty_u, 0.11)
         rad_head = mix(ole, sty_r, 0.13)
         bundle(

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "defaultVisible": false,
-  "inclusionRules": "Nerfs crâniens / orbitaires BodyParts3D 4.0 (optique, trochléaire, oculomoteur, ophtalmique, ciliaires). Les grands troncs périphériques (plexus brachial, médian, ulnaire, radial, sciatique, fémoral, tibial, fibulaire, phrénique…) sont des tubes schématiques synthetic-v2 plus fins, calés sur le trajet usuel : BP3D 4.0 n’a pas ces maillages.",
+  "inclusionRules": "Nerfs crâniens / orbitaires BodyParts3D 4.0 (optique, trochléaire, oculomoteur, ophtalmique, ciliaires). Les grands troncs périphériques (plexus brachial, médian, ulnaire, radial, sciatique, fémoral, tibial, fibulaire, phrénique…) sont des tubes schématiques synthetic-v3 plus fins, avec racines foraminales visibles et trajets calés sur l’anatomie usuelle (sciatique sous le piriforme, tunnel cubital, sillon spiral, ligament inguinal…). BP3D 4.0 n’a pas ces maillages.",
   "count": 63,
   "countBodyparts3d": 35,
   "countSynthetic": 28,
@@ -1275,29 +1275,34 @@
       "nameLatin": "Plexus brachialis",
       "aliases": [
         "brachial plexus",
-        "plexus brachial droit"
+        "plexus brachial droit",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "T1"
       ],
       "region": "cou",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "plexus-brachial-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.08297,
-        0.47606,
-        0.0387
+        -0.0448,
+        0.49889,
+        0.03581
       ],
       "focus": {
         "position": [
-          -0.08297,
-          0.47606,
-          0.0387
+          -0.0448,
+          0.49889,
+          0.03581
         ],
         "distance": 0.55
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 797,
+      "faceCount": 1580,
       "kind": "nerve"
     },
     {
@@ -1309,26 +1314,26 @@
         "circonflexe"
       ],
       "region": "cou",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-axillaire-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.16891,
-        0.45509,
-        0.02651
+        -0.16692,
+        0.45708,
+        0.02615
       ],
       "focus": {
         "position": [
-          -0.16891,
-          0.45509,
-          0.02651
+          -0.16692,
+          0.45708,
+          0.02615
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 192,
+      "faceCount": 380,
       "kind": "nerve"
     },
     {
@@ -1339,26 +1344,26 @@
         "musculocutaneous nerve"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-musculo-cutane-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.20175,
-        0.31396,
-        0.03942
+        -0.20017,
+        0.31508,
+        0.03658
       ],
       "focus": {
         "position": [
-          -0.20175,
-          0.31396,
-          0.03942
+          -0.20017,
+          0.31508,
+          0.03658
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 192,
+      "faceCount": 380,
       "kind": "nerve"
     },
     {
@@ -1369,26 +1374,26 @@
         "median nerve"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-median-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.20667,
-        0.199,
-        0.04918
+        -0.20856,
+        0.19862,
+        0.04902
       ],
       "focus": {
         "position": [
-          -0.20667,
-          0.199,
-          0.04918
+          -0.20856,
+          0.19862,
+          0.04902
         ],
-        "distance": 0.564
+        "distance": 0.565
       },
-      "vertexCount": 398,
-      "faceCount": 792,
+      "vertexCount": 372,
+      "faceCount": 740,
       "kind": "nerve"
     },
     {
@@ -1400,26 +1405,26 @@
         "cubital"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-ulnaire-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.1878,
-        0.20315,
-        0.02801
+        -0.19147,
+        0.20219,
+        0.03328
       ],
       "focus": {
         "position": [
-          -0.1878,
-          0.20315,
-          0.02801
+          -0.19147,
+          0.20219,
+          0.03328
         ],
-        "distance": 0.568
+        "distance": 0.565
       },
-      "vertexCount": 398,
-      "faceCount": 792,
+      "vertexCount": 372,
+      "faceCount": 740,
       "kind": "nerve"
     },
     {
@@ -1430,26 +1435,26 @@
         "radial nerve"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-radial-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.21026,
-        0.26772,
-        0.02441
+        -0.20946,
+        0.2687,
+        0.0243
       ],
       "focus": {
         "position": [
-          -0.21026,
-          0.26772,
-          0.02441
+          -0.20946,
+          0.2687,
+          0.0243
         ],
-        "distance": 0.572
+        "distance": 0.573
       },
-      "vertexCount": 398,
-      "faceCount": 792,
+      "vertexCount": 372,
+      "faceCount": 740,
       "kind": "nerve"
     },
     {
@@ -1457,29 +1462,33 @@
       "name": "Plexus lombaire droit",
       "nameLatin": "Plexus lumbalis",
       "aliases": [
-        "lumbar plexus"
+        "lumbar plexus",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "plexus-lombaire-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.03572,
-        0.1114,
-        0.04633
+        -0.03301,
+        0.1137,
+        0.02641
       ],
       "focus": {
         "position": [
-          -0.03572,
-          0.1114,
-          0.04633
+          -0.03301,
+          0.1137,
+          0.02641
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 465,
+      "faceCount": 920,
       "kind": "nerve"
     },
     {
@@ -1490,26 +1499,26 @@
         "femoral nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-femoral-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.05572,
-        -0.22663,
-        0.0878
+        -0.04806,
+        -0.04492,
+        0.06493
       ],
       "focus": {
         "position": [
-          -0.05572,
-          -0.22663,
-          0.0878
+          -0.04806,
+          -0.04492,
+          0.06493
         ],
-        "distance": 0.55
+        "distance": 0.686
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 555,
+      "faceCount": 1100,
       "kind": "nerve"
     },
     {
@@ -1520,26 +1529,26 @@
         "obturator nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-obturateur-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.05082,
-        -0.06661,
-        0.03837
+        -0.03305,
+        0.01108,
+        0.0273
       ],
       "focus": {
         "position": [
-          -0.05082,
-          -0.06661,
-          0.03837
+          -0.03305,
+          0.01108,
+          0.0273
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 555,
+      "faceCount": 1100,
       "kind": "nerve"
     },
     {
@@ -1548,29 +1557,35 @@
       "nameLatin": "Nervus ischiadicus",
       "aliases": [
         "sciatic nerve",
-        "ischiatique"
+        "ischiatique",
+        "L4",
+        "L5",
+        "S1",
+        "S2",
+        "S3",
+        "piriforme"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-sciatique-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.05487,
-        -0.21556,
-        -0.0253
+        -0.04507,
+        -0.04854,
+        -0.02139
       ],
       "focus": {
         "position": [
-          -0.05487,
-          -0.21556,
-          -0.0253
+          -0.04507,
+          -0.04854,
+          -0.02139
         ],
-        "distance": 0.55
+        "distance": 0.633
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 1277,
+      "faceCount": 2540,
       "kind": "nerve"
     },
     {
@@ -1581,26 +1596,26 @@
         "tibial nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-tibial-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
         -0.06289,
         -0.66613,
-        0.01099
+        0.0131
       ],
       "focus": {
         "position": [
           -0.06289,
           -0.66613,
-          0.01099
+          0.0131
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 192,
+      "faceCount": 380,
       "kind": "nerve"
     },
     {
@@ -1613,26 +1628,26 @@
         "péronier"
       ],
       "region": "membre-inférieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-fibulaire-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.10161,
-        -0.56551,
-        0.01556
+        -0.10104,
+        -0.56571,
+        0.01466
       ],
       "focus": {
         "position": [
-          -0.10161,
-          -0.56551,
-          0.01556
+          -0.10104,
+          -0.56571,
+          0.01466
         ],
         "distance": 0.55
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 282,
+      "faceCount": 560,
       "kind": "nerve"
     },
     {
@@ -1643,26 +1658,26 @@
         "inferior gluteal nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-gluteal-inf-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.09759,
-        -0.0341,
-        -0.02414
+        -0.10771,
+        -0.07253,
+        -0.01073
       ],
       "focus": {
         "position": [
-          -0.09759,
-          -0.0341,
-          -0.02414
+          -0.10771,
+          -0.07253,
+          -0.01073
         ],
         "distance": 0.55
       },
-      "vertexCount": 110,
-      "faceCount": 216,
+      "vertexCount": 102,
+      "faceCount": 200,
       "kind": "nerve"
     },
     {
@@ -1671,29 +1686,34 @@
       "nameLatin": "Plexus brachialis",
       "aliases": [
         "brachial plexus",
-        "plexus brachial gauche"
+        "plexus brachial gauche",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "T1"
       ],
       "region": "cou",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "plexus-brachial-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.08198,
-        0.47572,
-        0.03921
+        0.04414,
+        0.49877,
+        0.03599
       ],
       "focus": {
         "position": [
-          0.08198,
-          0.47572,
-          0.03921
+          0.04414,
+          0.49877,
+          0.03599
         ],
         "distance": 0.55
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 797,
+      "faceCount": 1580,
       "kind": "nerve"
     },
     {
@@ -1705,26 +1725,26 @@
         "circonflexe"
       ],
       "region": "cou",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-axillaire-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.16927,
-        0.45507,
-        0.02784
+        0.16728,
+        0.45706,
+        0.02748
       ],
       "focus": {
         "position": [
-          0.16927,
-          0.45507,
-          0.02784
+          0.16728,
+          0.45706,
+          0.02748
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 192,
+      "faceCount": 380,
       "kind": "nerve"
     },
     {
@@ -1735,26 +1755,26 @@
         "musculocutaneous nerve"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-musculo-cutane-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.20249,
-        0.31395,
-        0.04033
+        0.2009,
+        0.31508,
+        0.03749
       ],
       "focus": {
         "position": [
-          0.20249,
-          0.31395,
-          0.04033
+          0.2009,
+          0.31508,
+          0.03749
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 192,
+      "faceCount": 380,
       "kind": "nerve"
     },
     {
@@ -1765,26 +1785,26 @@
         "median nerve"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-median-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.20773,
-        0.19902,
-        0.05061
+        0.20912,
+        0.19865,
+        0.05021
       ],
       "focus": {
         "position": [
-          0.20773,
-          0.19902,
-          0.05061
+          0.20912,
+          0.19865,
+          0.05021
         ],
-        "distance": 0.564
+        "distance": 0.565
       },
-      "vertexCount": 398,
-      "faceCount": 792,
+      "vertexCount": 372,
+      "faceCount": 740,
       "kind": "nerve"
     },
     {
@@ -1796,26 +1816,26 @@
         "cubital"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-ulnaire-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.18929,
-        0.20311,
-        0.02963
+        0.19201,
+        0.20214,
+        0.03445
       ],
       "focus": {
         "position": [
-          0.18929,
-          0.20311,
-          0.02963
+          0.19201,
+          0.20214,
+          0.03445
         ],
-        "distance": 0.569
+        "distance": 0.566
       },
-      "vertexCount": 398,
-      "faceCount": 792,
+      "vertexCount": 372,
+      "faceCount": 740,
       "kind": "nerve"
     },
     {
@@ -1826,26 +1846,26 @@
         "radial nerve"
       ],
       "region": "membre-supérieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-radial-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.21104,
-        0.26776,
-        0.02556
+        0.21024,
+        0.26874,
+        0.02544
       ],
       "focus": {
         "position": [
-          0.21104,
-          0.26776,
-          0.02556
+          0.21024,
+          0.26874,
+          0.02544
         ],
-        "distance": 0.572
+        "distance": 0.573
       },
-      "vertexCount": 398,
-      "faceCount": 792,
+      "vertexCount": 372,
+      "faceCount": 740,
       "kind": "nerve"
     },
     {
@@ -1853,29 +1873,33 @@
       "name": "Plexus lombaire gauche",
       "nameLatin": "Plexus lumbalis",
       "aliases": [
-        "lumbar plexus"
+        "lumbar plexus",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "plexus-lombaire-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.03472,
-        0.11131,
-        0.04647
+        0.03164,
+        0.11366,
+        0.02647
       ],
       "focus": {
         "position": [
-          0.03472,
-          0.11131,
-          0.04647
+          0.03164,
+          0.11366,
+          0.02647
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 465,
+      "faceCount": 920,
       "kind": "nerve"
     },
     {
@@ -1886,26 +1910,26 @@
         "femoral nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-femoral-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.05579,
-        -0.22654,
-        0.0882
+        0.04759,
+        -0.04501,
+        0.06525
       ],
       "focus": {
         "position": [
-          0.05579,
-          -0.22654,
-          0.0882
+          0.04759,
+          -0.04501,
+          0.06525
         ],
-        "distance": 0.55
+        "distance": 0.687
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 555,
+      "faceCount": 1100,
       "kind": "nerve"
     },
     {
@@ -1916,26 +1940,26 @@
         "obturator nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-obturateur-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.05138,
-        -0.06662,
-        0.03743
+        0.03289,
+        0.01107,
+        0.02697
       ],
       "focus": {
         "position": [
-          0.05138,
-          -0.06662,
-          0.03743
+          0.03289,
+          0.01107,
+          0.02697
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 555,
+      "faceCount": 1100,
       "kind": "nerve"
     },
     {
@@ -1944,29 +1968,35 @@
       "nameLatin": "Nervus ischiadicus",
       "aliases": [
         "sciatic nerve",
-        "ischiatique"
+        "ischiatique",
+        "L4",
+        "L5",
+        "S1",
+        "S2",
+        "S3",
+        "piriforme"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-sciatique-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.05673,
-        -0.21539,
-        -0.02512
+        0.04542,
+        -0.04848,
+        -0.02127
       ],
       "focus": {
         "position": [
-          0.05673,
-          -0.21539,
-          -0.02512
+          0.04542,
+          -0.04848,
+          -0.02127
         ],
-        "distance": 0.55
+        "distance": 0.632
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 1277,
+      "faceCount": 2540,
       "kind": "nerve"
     },
     {
@@ -1977,26 +2007,26 @@
         "tibial nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-tibial-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.0632,
+        0.06319,
         -0.6658,
-        0.01058
+        0.01269
       ],
       "focus": {
         "position": [
-          0.0632,
+          0.06319,
           -0.6658,
-          0.01058
+          0.01269
         ],
         "distance": 0.55
       },
-      "vertexCount": 206,
-      "faceCount": 408,
+      "vertexCount": 192,
+      "faceCount": 380,
       "kind": "nerve"
     },
     {
@@ -2009,26 +2039,26 @@
         "péronier"
       ],
       "region": "membre-inférieur",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-fibulaire-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.1032,
-        -0.56538,
-        0.01609
+        0.10263,
+        -0.56558,
+        0.01518
       ],
       "focus": {
         "position": [
-          0.1032,
-          -0.56538,
-          0.01609
+          0.10263,
+          -0.56558,
+          0.01518
         ],
         "distance": 0.55
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 282,
+      "faceCount": 560,
       "kind": "nerve"
     },
     {
@@ -2039,26 +2069,26 @@
         "inferior gluteal nerve"
       ],
       "region": "tronc",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-gluteal-inf-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.0988,
-        -0.03377,
-        -0.02274
+        0.10822,
+        -0.07222,
+        -0.00949
       ],
       "focus": {
         "position": [
-          0.0988,
-          -0.03377,
-          -0.02274
+          0.10822,
+          -0.07222,
+          -0.00949
         ],
         "distance": 0.55
       },
-      "vertexCount": 110,
-      "faceCount": 216,
+      "vertexCount": 102,
+      "faceCount": 200,
       "kind": "nerve"
     },
     {
@@ -2069,26 +2099,26 @@
         "phrenic nerve"
       ],
       "region": "cou",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-phrenique-d",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.03481,
-        0.4392,
-        0.10356
+        -0.02449,
+        0.48599,
+        0.07313
       ],
       "focus": {
         "position": [
-          -0.03481,
-          0.4392,
-          0.10356
+          -0.02449,
+          0.48599,
+          0.07313
         ],
         "distance": 0.55
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 524,
+      "faceCount": 1040,
       "kind": "nerve"
     },
     {
@@ -2099,28 +2129,28 @@
         "phrenic nerve"
       ],
       "region": "cou",
-      "notes": "Schéma pédagogique (synthetic-v2) : tube lofté le long du trajet anatomique usuel, ancré sur des repères osseux. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
-      "source": "synthetic-v2",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le bord inférieur du piriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3",
       "sourceName": "nerf-phrenique-g",
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.03458,
-        0.43909,
-        0.1038
+        0.02437,
+        0.48593,
+        0.07326
       ],
       "focus": {
         "position": [
-          0.03458,
-          0.43909,
-          0.1038
+          0.02437,
+          0.48593,
+          0.07326
         ],
         "distance": 0.55
       },
-      "vertexCount": 302,
-      "faceCount": 600,
+      "vertexCount": 524,
+      "faceCount": 1040,
       "kind": "nerve"
     }
   ],
-  "syntheticDisclaimer": "Les pièces source=synthetic-v2 sont des tubes loftés le long du trajet anatomique usuel (repères osseux), pas des nerfs segmentés. Les maillages crâniens BP3D restent source=bodyparts3d."
+  "syntheticDisclaimer": "Les pièces source=synthetic-v3 sont des tubes loftés le long du trajet anatomique usuel (repères osseux, sorties foraminales, sciatique sous le piriforme), pas des nerfs segmentés. Les maillages crâniens BP3D restent source=bodyparts3d."
 }

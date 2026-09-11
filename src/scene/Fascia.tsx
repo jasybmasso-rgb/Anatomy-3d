@@ -9,6 +9,7 @@ import {
 } from "../data/chains";
 import { fascias as catalog } from "../data/loadConnective";
 import { clipPlanesForSide } from "./fiberMaterial";
+import { attachFatRaycast } from "./fatRaycast";
 import { setPickMeshes } from "./structurePick";
 
 function materialFor(source: string, tintHex?: string | null, selected = false) {
@@ -68,7 +69,7 @@ export function Fascia({
         obj.userData.fasciaId = part.id;
         obj.userData.structureId = part.id;
         obj.userData.source = byId.get(part.id)?.source ?? "bodyparts3d";
-        obj.raycast = THREE.Mesh.prototype.raycast;
+        attachFatRaycast(obj, "fascia");
         obj.castShadow = false;
         obj.receiveShadow = false;
         obj.renderOrder = 2;

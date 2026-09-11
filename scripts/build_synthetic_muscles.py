@@ -242,7 +242,7 @@ def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
         end = np.exp(-(t / 0.065) ** 2) + np.exp(-(((1.0 - t) / 0.075) ** 2))
         pinch = max(ins, 0.62 * end)
         y = float(mix(pub, mix(xiph, costal, 0.30), t)[1])
-        z = float(_wall_z(y)) + 0.0055 * (1.0 - 0.78 * pinch)
+        z = float(_wall_z(y)) + 0.0062 * (1.0 - 0.78 * pinch)
         inner = 0.0042
         width = 0.058 * (1.0 - 0.38 * pinch)
         for j in range(n_across):
@@ -258,9 +258,11 @@ def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
     w = np.zeros(len(v), dtype=np.float64)
     for b in bands:
-        w = np.maximum(w, np.exp(-(((t - b) / 0.016) ** 2)))
-    w = np.maximum(w, 0.95 * np.exp(-(t / 0.042) ** 2))
-    w = np.maximum(w, 0.95 * np.exp(-(((1.0 - t) / 0.046) ** 2)))
+        w = np.maximum(w, np.exp(-(((t - b) / 0.012) ** 2)))
+    w = np.maximum(w, 0.97 * np.exp(-(t / 0.038) ** 2))
+    w = np.maximum(w, 0.97 * np.exp(-(((1.0 - t) / 0.042) ** 2)))
+    # Linea alba edge (medial) stays tendinous.
+    w = np.maximum(w, np.clip((0.010 - np.abs(v[:, 0])) / 0.006, 0.0, 1.0) * 0.55)
     paint_tendon(sheet, w)
     return sheet
 
@@ -273,7 +275,7 @@ def _linea_alba(p: dict[str, np.ndarray]) -> trimesh.Trimesh:
     for i in range(n_along):
         t = i / (n_along - 1)
         y = float(mix(pub, xiph, t)[1])
-        z = float(_wall_z(y)) + 0.0075
+        z = float(_wall_z(y)) + 0.0082
         half = 0.0044
         for j in range(n_across):
             s = j / (n_across - 1)
@@ -294,65 +296,71 @@ def _abdominal_wrap(
     linea: float = 0.006,
     diagonal: float = 0.0,
     x_scale: float = 1.0,
+    flank_depth: float | None = None,
 ) -> np.ndarray:
     """Flank → linea alba on the torso envelope.
 
     diagonal>0 skews fibers superomedial (IO); <0 inferomedial (EO).
-    depth>0 sits deep to the rectus wall.
+    depth>0 sits deep to the rectus wall (smaller anterior z).
+    x_scale < 1 insets the flank so deep layers stay inside superficial ones.
     """
+    z_flank = depth if flank_depth is None else flank_depth
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         ty = i / (n_along - 1)
         y = y_top * (1.0 - ty) + y_bot * ty
         z_ant = float(_wall_z(y)) - depth
         x_lat = float(_flank_x(y)) * x_scale * (0.96 + 0.04 * np.sin(ty * np.pi))
-        z_lat = float(_flank_z(y)) - depth * 0.45
+        z_lat = float(_flank_z(y)) - z_flank
         for j in range(n_across):
             s = j / (n_across - 1)
             y_fiber = y + diagonal * (0.5 - s) * 0.048
             # Quarter-ellipse: lateral (s=0) → anterior midline (s=1).
             x = sx * mix(x_lat, linea, s**0.88)
-            z = mix(z_lat, z_ant, s**1.22)
+            z = mix(z_lat, z_ant, s**1.18)
             grid[i, j] = np.array([x, y_fiber, z], dtype=np.float64)
     return grid
 
 
 def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Intermediate wall: iliac crest / inguinal → ribs 10–12 and linea alba."""
+    """Intermediate wall: iliac crest / inguinal → ribs 10–12; under rectus at the linea."""
     grid = _abdominal_wrap(
         sx,
         y_top=0.272,
         y_bot=0.010,
-        depth=0.0048,
+        depth=0.0095,
         n_along=18,
         n_across=11,
-        linea=0.006,
+        linea=0.0065,
         diagonal=0.90,
-        x_scale=1.0,
+        x_scale=0.97,
+        flank_depth=0.0070,
     )
-    sheet = grid_sheet(grid, thickness=0.0054)
+    sheet = grid_sheet(grid, thickness=0.0038)
     v = np.asarray(sheet.vertices)
-    w = np.clip((0.050 - np.abs(v[:, 0])) / 0.024, 0.0, 1.0)
+    # Aponeurosis (white) as the sheet reaches the rectus sheath.
+    w = np.clip((0.058 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0)
     paint_tendon(sheet, w)
     return sheet
 
 
 def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Deepest wall: horizontal fibers; posterior rectus sheath at the midline."""
+    """Deepest wall: horizontal fibers; posterior rectus sheath, inset on the flank."""
     grid = _abdominal_wrap(
         sx,
         y_top=0.278,
         y_bot=0.008,
-        depth=0.0105,
+        depth=0.0185,
         n_along=16,
         n_across=11,
-        linea=0.0055,
+        linea=0.0058,
         diagonal=0.0,
-        x_scale=0.96,
+        x_scale=0.88,
+        flank_depth=0.014,
     )
-    sheet = grid_sheet(grid, thickness=0.0042)
+    sheet = grid_sheet(grid, thickness=0.0032)
     v = np.asarray(sheet.vertices)
-    w = np.clip((0.048 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0)
+    w = np.clip((0.055 - np.abs(v[:, 0])) / 0.020, 0.0, 1.0)
     paint_tendon(sheet, w)
     return sheet
 
@@ -365,7 +373,7 @@ def _eo_aponeurosis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh
     for i in range(n_along):
         ty = i / (n_along - 1)
         y = y_top * (1.0 - ty) + y_bot * ty + (-0.55) * 0.0
-        z = float(_wall_z(y)) + 0.012
+        z = float(_wall_z(y)) + 0.016
         for j in range(n_across):
             s = j / (n_across - 1)
             y_fiber = y + (-0.50) * (0.5 - s) * 0.040
@@ -385,7 +393,7 @@ def enhance_external_oblique(mesh: trimesh.Trimesh, p: dict[str, np.ndarray] | N
     abdomen = ((y > -0.03) & (y < 0.335) & (v[:, 2] > -0.03)).astype(np.float64)
     # White only over rectus (|x| ≲ 5–6 cm). Flank stays red.
     w = np.clip((0.058 - xabs) / 0.016, 0.0, 1.0) * abdomen
-    target_z = z_wall + 0.012
+    target_z = z_wall + 0.016
     v[:, 2] = v[:, 2] * (1.0 - w) + target_z * w
     # Pull remaining anterior blobs down onto the wall (BP3D EO is a thick volume).
     too_front = np.clip((v[:, 2] - (z_wall + 0.024)) / 0.05, 0.0, 1.0) * abdomen * (1.0 - 0.35 * w)
@@ -482,9 +490,9 @@ def build() -> dict[str, trimesh.Trimesh]:
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
     w = np.zeros(len(v), dtype=np.float64)
     for b in (0.18, 0.40, 0.62):
-        w = np.maximum(w, np.exp(-(((t - b) / 0.016) ** 2)))
-    w = np.maximum(w, 0.95 * np.exp(-(t / 0.042) ** 2))
-    w = np.maximum(w, 0.95 * np.exp(-(((1.0 - t) / 0.046) ** 2)))
+        w = np.maximum(w, np.exp(-(((t - b) / 0.012) ** 2)))
+    w = np.maximum(w, 0.97 * np.exp(-(t / 0.038) ** 2))
+    w = np.maximum(w, 0.97 * np.exp(-(((1.0 - t) / 0.042) ** 2)))
     w = np.maximum(w, np.clip((0.0055 - np.abs(v[:, 0])) / 0.003, 0.0, 1.0))
     paint_tendon(rectus, w)
     return {
