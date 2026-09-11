@@ -30,6 +30,13 @@ const REGION_LABEL: Record<string, string> = {
   crâne: "Crâne",
   "ceinture-scapulaire": "Ceinture scapulaire",
   thorax: "Thorax",
+  genou: "Genou",
+  hanche: "Hanche",
+  coude: "Coude",
+  cheville: "Cheville",
+  poignet: "Poignet",
+  "avant-bras": "Avant-bras",
+  jambe: "Jambe",
 };
 
 type SidePanelProps = {
