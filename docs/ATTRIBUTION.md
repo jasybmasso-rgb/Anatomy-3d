@@ -2,7 +2,7 @@
 
 ## BodyParts3D / Anatomography
 
-Les maillages `public/models/skeleton.glb`, `public/models/ligaments.glb`, `public/models/fascia.glb` et `public/models/muscles.glb` sont des **dérivés** (ou, pour les pièces `synthetic-v2`, des approximations pédagogiques alignées) des polygones **BodyParts3D** (arbre IS-A, réduction 99 %), filtrés respectivement aux **os + cartilage**, à une **couche ligamentaire / fibreuse profonde**, aux **fascias** et aux **muscles squelettiques nommés**, fusionnés et renormalisés pour le web.
+Les maillages `public/models/skeleton.glb`, `public/models/ligaments.glb`, `public/models/fascia.glb`, `public/models/muscles.glb`, `public/models/nerves.glb`, `public/models/organs.glb` et `public/models/vessels.glb` sont des **dérivés** (ou, pour les pièces `synthetic-v2`, des approximations pédagogiques alignées) des polygones **BodyParts3D** (arbre IS-A, réduction 99 %), filtrés respectivement aux **os + cartilage**, à une **couche ligamentaire / fibreuse profonde**, aux **fascias**, aux **muscles squelettiques nommés**, aux **nerfs**, aux **organes viscéraux** et aux **vaisseaux sanguins**, fusionnés et renormalisés pour le web.
 
 **Crédit exigé (libellé officiel) :**
 
@@ -19,7 +19,9 @@ Les maillages `public/models/skeleton.glb`, `public/models/ligaments.glb`, `publ
 
 Toute **redistribution du GLB** ou d’un autre dérivé des maillages BodyParts3D doit rester sous **CC BY-SA 2.1 Japon** (ou une licence compatible). Cela **ne s’applique pas** automatiquement au code applicatif (MIT) : le code et le jeu de données musculaires textuels sont distincts du dérivé 3D.
 
-Modifications par rapport aux OBJ d’origine : sous-ensemble osseux et cartilagineux, ligamentaire, fascial ou musculaire ; conversion mètres ; Y-up ; stature ~1,7 m ; origine près du bassin ; orientation face +Z ; fusion en GLB ; décimation des muscles trop denses. Les GLB ligaments, fascias et muscles sont alignés sur la même matrice `worldMatrix` que le squelette. Le cartilage n’est **pas** une couche Couches : il est toujours affiché avec l’os (nœud `cartilage` dans `skeleton.glb`).
+Modifications par rapport aux OBJ d’origine : sous-ensemble osseux et cartilagineux, ligamentaire, fascial, musculaire, nerveux, viscéral ou vasculaire ; conversion mètres ; Y-up ; stature ~1,7 m ; origine près du bassin ; orientation face +Z ; fusion en GLB ; décimation des pièces trop denses. Les GLB ligaments, fascias, muscles, nerfs, organes et vaisseaux sont alignés sur la même matrice `worldMatrix` que le squelette. Le cartilage n’est **pas** une couche Couches : il est toujours affiché avec l’os (nœud `cartilage` dans `skeleton.glb`).
+
+Les couches **Nerfs**, **Organes** et **Vaisseaux sanguins** sont **trois interrupteurs distincts** (jamais fusionnés). Les nerfs périphériques majeurs absents de BodyParts3D 4.0 (sciatique, médian, plexus, etc.) sont des tubes `synthetic-v2`. Le cœur-organe et les coronaires ne partagent pas la même couche.
 
 Pièces `source=synthetic-v2` (faisceaux ligamentaires majeurs en fascicules arrondis, nappes fasciales ouvertes) et `source=synthetic` (grand dorsal, droit de l’abdomen) : approximations pédagogiques originales, **pas** des segmentations cadavériques. Les capsules/bâtonnets v1, rubans rectangulaires et manchons cylindriques ne sont plus exportés.
 
@@ -30,11 +32,13 @@ python3 scripts/build_skeleton_glb.py
 python3 scripts/build_ligaments_glb.py
 python3 scripts/build_fascia_glb.py
 python3 scripts/build_muscles_glb.py
+python3 scripts/build_viscera_layers.py
 # ou
 bash scripts/build-skeleton-glb.sh
 bash scripts/build-ligaments-glb.sh
 bash scripts/build-fascia-glb.sh
 bash scripts/build-muscles-glb.sh
+bash scripts/build-viscera-glb.sh
 ```
 
 Le script squelette télécharge `isa_BP3D_4.0_obj_99.zip`, `isa_element_parts.txt` (correspondance concept → fichier `FJ####`) et les listes IS-A depuis l’archive DBCLS, garde les **feuilles** descendantes de `FMA5018` (bone organ) plus le sternum, y ajoute le **cartilage** BodyParts3D disponible (cartilages costaux gauches/droits 1–7, disques intervertébraux nommés, cartilage thyroïde / cricoïde / aryténoïdes / corniculés / cunéiformes, épiglotte, cartilages nasaux septal / alaires / latéraux — fichiers FJ uniques), puis écrit `public/models/skeleton.glb` (nœuds `bones` + `cartilage`) et `src/data/landmarks.json` (os seulement). BodyParts3D 4.0 n’a pas de cartilage articulaire hyalin ni de ménisques.
@@ -44,6 +48,16 @@ Le script ligaments reprend les mêmes OBJ et applique `skeleton.meta.json` → 
 Le script fascias n’extrait de BP3D que les **tractus ilio-tibiaux** (FJ1423 / FJ1423M). Nappes schématiques : fascia lata et fascia crural en **feuilles ouvertes** (pas de cylindres), plus une nappe thoraco-lombaire postérieure. Fascia antébrachial, aponévroses palmaire/plantaire et ligne blanche omis. Voir `src/data/fascia.json`.
 
 Le script muscles importe **tous** les muscles squelettiques BodyParts3D 4.0 disponibles (organes / chefs / zones, hors face-langue-larynx-œil), chefs fusionnés sous un id sélectionnable. **Absent de BP3D 4.0** : grand dorsal et droit de l’abdomen. L’apparence des fibres (UV le long de l’axe origine→insertion + texture fusiforme ventre rouge / extrémités tendineuses claires) est calculée côté client. Textes O/I/actions : `src/data/muscles.json`. Catalogue maillages : `src/data/muscleMeshes.json`.
+
+Le script viscères (`scripts/build_viscera_layers.py`) produit **trois GLB séparés** avec la même `worldMatrix` :
+
+| Fichier | Couche Couches | Contenu |
+| --- | --- | --- |
+| `nerves.glb` | Nerfs | Nerfs crâniens / orbitaires BP3D + troncs périphériques schématiques |
+| `organs.glb` | Organes | Viscères (reins, foie, cœur-parois, intestin, encéphale, arbre bronchique…) |
+| `vessels.glb` | Vaisseaux sanguins | Artères (rouge) et veines (bleu) seulement — pas d’organes |
+
+Catalogues : `src/data/nerves.json`, `organs.json`, `vessels.json`. Tailles dans `public/models/{nerves,organs,vessels}.meta.json`.
 
 Dépendances Python : `pip install -r scripts/requirements-skeleton.txt`.
 

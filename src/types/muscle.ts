@@ -37,5 +37,6 @@ export type Muscle = {
 };
 
 export type SelectionState = {
-  selectedMuscleId: string | null;
-};
+  kind: "muscle" | "nerve" | "organ" | "vessel";
+  id: string;
+} | null;

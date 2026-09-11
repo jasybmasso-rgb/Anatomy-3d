@@ -1,6 +1,10 @@
 # Notes — nerfs (Phase 3)
 
-**Statut :** recherche pour plus tard. Hors-scope du MVP.
+**Statut :** couche **Nerfs** livrée, distincte des organes et des vaisseaux.
+
+Géométrie : maillages crâniens BodyParts3D 4.0 + tubes schématiques (`synthetic-v2`) pour les grands troncs périphériques (BP3D n’a pas sciatique, médian, plexus, etc.). Ce n’est **pas** un atlas de dermatomes.
+
+Les correspondances muscle ↔ nerf ci-dessous restent des pistes pédagogiques, non affichées comme overlay automatique.
 
 ## Intention
 

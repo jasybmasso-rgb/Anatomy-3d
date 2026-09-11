@@ -11,13 +11,13 @@ Interface en **français canadien (fr-CA)**. Licence **MIT**.
 - À la sélection : **muscle stylisé** + animation de caméra vers le foyer du muscle.
 - **Réinitialiser** : muscle, panneau, champ de recherche et caméra.
 
-Les chaînes myofasciales (Tom Myers), les nerfs et la superposition multi-éléments **ne font pas** partie de cette phase. Voir `docs/PLAN-PHASES.md` et `docs/SPEC-MVP.md`.
+Les chaînes myofasciales (Tom Myers) sont une couche pédagogique. iOS / IPA hors de ce livrable.
 
 ## Choix 3D : squelette BodyParts3D
 
 Le squelette affiché est un **GLB fusionné** (`public/models/skeleton.glb`, normales incluses) dérivé de **BodyParts3D** (os + cartilage hyalin / fibrocartilage disponible, réduction 99 %). Voir `docs/ATTRIBUTION.md` pour le crédit **CC BY-SA 2.1 Japon** et les implications share-alike.
 
-Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments (`ligaments.glb`, tan — BP3D + fascicules synthétiques aux articulations majeures) et fascias (`fascia.glb`, gris-bleu — tractus ilio-tibiaux BP3D + nappes / feuilles synthétiques).
+Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments, fascias, **nerfs**, **organes** et **vaisseaux sanguins** (trois interrupteurs distincts — jamais organes+circulation fusionnés). Les nerfs périphériques majeurs absents de BodyParts3D 4.0 sont des tubes schématiques.
 
 Reconstruction du GLB :
 
@@ -73,6 +73,6 @@ Sortie : `android/app/build/outputs/apk/debug/app-debug.apk`. Guide d’installa
 
 ## Hors-scope actuel
 
-- Anatomy Trains / chaînes de Tom Myers
-- Nerfs et plexus en 3D
-- Sélection de plusieurs éléments à la fois
+- IPA iOS
+- Réécriture Anatomy Trains / Myers
+- Fusion organes + vaisseaux dans une seule couche

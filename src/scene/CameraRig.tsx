@@ -3,7 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
-import type { Muscle } from "../types/muscle";
+import type { FocusTarget } from "../types/structure";
 import { toLandmarkFocus } from "./landmarks";
 import { registerOrbitFocus } from "./orbitFocus";
 
@@ -69,22 +69,22 @@ function facingOffset(focus: THREE.Vector3, distance: number): THREE.Vector3 {
   return new THREE.Vector3(dx, dy, dz).normalize().multiplyScalar(distance);
 }
 
-function goalsFor(muscle: Muscle | null): { eye: THREE.Vector3; target: THREE.Vector3 } {
-  if (!muscle) {
+function goalsFor(target: FocusTarget | null): { eye: THREE.Vector3; target: THREE.Vector3 } {
+  if (!target) {
     return {
       eye: new THREE.Vector3(...DEFAULT_EYE),
       target: new THREE.Vector3(...DEFAULT_TARGET),
     };
   }
-  const [tx, ty, tz] = toLandmarkFocus(muscle.focus.position);
-  let d = THREE.MathUtils.clamp(muscle.focus.distance, 0.45, 2.4);
-  if (muscle.id === "grand-dorsal") d = Math.max(d, 1.28);
-  else if (muscle.region === "dos") d = Math.max(d, 0.95);
-  else if (muscle.region === "tête") d = Math.max(d, 0.72);
-  const target = new THREE.Vector3(tx, ty, tz);
+  const [tx, ty, tz] = toLandmarkFocus(target.focus.position);
+  let d = THREE.MathUtils.clamp(target.focus.distance, 0.45, 2.4);
+  if (target.id === "grand-dorsal") d = Math.max(d, 1.28);
+  else if (target.region === "dos") d = Math.max(d, 0.95);
+  else if (target.region === "tête") d = Math.max(d, 0.72);
+  const aim = new THREE.Vector3(tx, ty, tz);
   return {
-    target,
-    eye: target.clone().add(facingOffset(target, d)),
+    target: aim,
+    eye: aim.clone().add(facingOffset(aim, d)),
   };
 }
 
@@ -163,10 +163,10 @@ function applyDollyToward(
 }
 
 export function CameraRig({
-  muscle,
+  focus,
   resetToken,
 }: {
-  muscle: Muscle | null;
+  focus: FocusTarget | null;
   resetToken: number;
 }) {
   const controls = useRef<OrbitControlsImpl>(null);
@@ -215,11 +215,11 @@ export function CameraRig({
   }, []);
 
   useEffect(() => {
-    const next = goalsFor(muscle);
+    const next = goalsFor(focus);
     goalEye.current.copy(next.eye);
     goalTarget.current.copy(next.target);
     animating.current = true;
-  }, [muscle, resetToken]);
+  }, [focus, resetToken]);
 
   useEffect(() => {
     const element = gl.domElement;

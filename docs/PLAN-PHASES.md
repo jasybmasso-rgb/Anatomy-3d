@@ -33,16 +33,17 @@ Notes préparatoires : `docs/research/NOTES-ANATOMY-TRAINS.md`.
 
 Ce n’est **pas** une copie d’ouvrage : modèle pédagogique, sources citées, textes originaux.
 
-## Phase 3 — Nerfs
+## Phase 3 — Nerfs, organes, circulation
 
-**Après Phase 2** (ou selon priorisation produit, mais jamais avant acceptation Phase 1).
+**Statut :** couches Couches distinctes livrées (nerfs / organes / vaisseaux sanguins). Pas un atlas neurologique clinique.
 
-Périmètre envisagé :
+Périmètre :
 
-- grands troncs nerveux et correspondances muscles / territoires ;
-- schéma 3D simplifié (pas un atlas neurologique complet).
+- trois interrupteurs **Nerfs**, **Organes**, **Vaisseaux sanguins** (jamais fusionnés) ;
+- maillages BodyParts3D + troncs nerveux schématiques si absents de BP3D 4.0 ;
+- recherche et fiche pour les structures nommées.
 
-Notes préparatoires : `docs/research/NOTES-NERFS.md`.
+Notes préparatoires historiques : `docs/research/NOTES-NERFS.md`.
 
 ## Phase 4 — Superposition multi-éléments
 

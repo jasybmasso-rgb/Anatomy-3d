@@ -74,9 +74,27 @@ La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id
 
 Lignes pédagogiques type Anatomy Trains (Tom Myers) : `id`, `sigle`, noms FR+EN, courte description originale, `tint`, `muscleIds[]` mappés au catalogue. Disclaimer dans le fichier. L’UI (Couches → Chaînes myofaciales) permet la multi-sélection.
 
+## `nerves.json` / `organs.json` / `vessels.json`
+
+Catalogues des trois couches viscérales **séparées** (`nerves.glb`, `organs.glb`, `vessels.glb`), même espace que le squelette. Toggles Couches **off** par défaut. Jamais fusionner organes et vaisseaux.
+
+| Champ | Rôle |
+| --- | --- |
+| `id` | Clé stable (nœud GLB). |
+| `name` / `nameLatin` | Nom FR et libellé source / latin. |
+| `aliases` | Recherche (anglais BP3D, synonymes). |
+| `region` | tête / cou / tronc / membre. |
+| `notes` | Inclusion, lacunes BP3D, schéma. |
+| `source` | `bodyparts3d` ou `synthetic-v2` (troncs nerveux pédagogiques). |
+| `kind` | `nerve` \| `organ` \| `vessel`. |
+| `vesselKind` | `artery` (rouge) ou `vein` (bleu) — vaisseaux seulement. |
+| `organTone` | Teinte viscérale (foie, cœur, poumon…). |
+| `focus` | Cible caméra. |
+
+**Nerfs :** maillages crâniens / orbitaires BP3D 4.0 + tubes schématiques pour sciatique, médian, plexi, etc. (BP3D n’a pas les nerfs périphériques). **Organes :** viscères nommés ; poumons = arbre bronchique (pas de parenchyme nommé). **Vaisseaux :** circulation seulement (aorte, carotides, caves, coronaires…) + arbres artériel/veineux résiduels.
+
 ## Ce qui n’est pas ici (volontairement)
 
-- Nerfs → Phase 3.
-- Atlas vasculaire / organes.
+- Atlas neurologique complet (dermatomes, neurodynamique).
 
 Ne pas fusionner ces domaines dans `muscles.json` : garder des identifiants de muscles stables pour les relier.

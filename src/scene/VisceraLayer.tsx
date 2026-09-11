@@ -1,0 +1,107 @@
+import { useGLTF } from "@react-three/drei";
+import { useEffect, useMemo } from "react";
+import * as THREE from "three";
+import type { VisceraPart } from "../types/structure";
+import { setPickMeshes } from "./structurePick";
+
+const ORGAN_TONE: Record<string, string> = {
+  kidney: "#a84840",
+  spleen: "#963034",
+  gut: "#c47658",
+  gland: "#d6b084",
+  liver: "#84342a",
+  heart: "#9c2428",
+  lung: "#d69a9a",
+  brain: "#e8c4ba",
+  default: "#c48c78",
+};
+
+function visceraColor(part: VisceraPart): string {
+  if (part.kind === "nerve") return "#e8d48a";
+  if (part.kind === "vessel") return part.vesselKind === "vein" ? "#2a4aa8" : "#bc2a2a";
+  return ORGAN_TONE[part.organTone ?? "default"] ?? ORGAN_TONE.default;
+}
+
+function createVisceraMaterial(part: VisceraPart): THREE.MeshPhysicalMaterial {
+  const nerve = part.kind === "nerve";
+  const vessel = part.kind === "vessel";
+  return new THREE.MeshPhysicalMaterial({
+    color: visceraColor(part),
+    roughness: nerve ? 0.38 : vessel ? 0.32 : 0.48,
+    metalness: vessel ? 0.08 : 0.02,
+    clearcoat: nerve ? 0.22 : 0.08,
+    sheen: nerve ? 0.45 : 0,
+    sheenColor: new THREE.Color(nerve ? "#fff6d0" : "#000000"),
+    side: nerve || vessel ? THREE.DoubleSide : THREE.FrontSide,
+    transparent: part.kind === "organ",
+    opacity: part.kind === "organ" ? 0.92 : 1,
+    depthWrite: part.kind !== "organ",
+  });
+}
+
+function setSelected(material: THREE.MeshPhysicalMaterial, selected: boolean) {
+  material.emissive.set(selected ? "#ffcc66" : "#000000");
+  material.emissiveIntensity = selected ? 0.38 : 0;
+  material.clearcoat = selected ? 0.28 : material.userData.baseClearcoat ?? 0.08;
+}
+
+type VisceraLayerProps = {
+  url: string;
+  parts: VisceraPart[];
+  kind: "nerve" | "organ" | "vessel";
+  visible: boolean;
+  selectedId: string | null;
+};
+
+export function VisceraLayer({ url, parts, kind, visible, selectedId }: VisceraLayerProps) {
+  const gltf = useGLTF(url);
+  const entries = useMemo(() => {
+    const list: { id: string; object: THREE.Object3D; material: THREE.MeshPhysicalMaterial; meshes: THREE.Mesh[] }[] =
+      [];
+    for (const part of parts) {
+      const src = gltf.scene.getObjectByName(part.id);
+      if (!src) continue;
+      const clone = src.clone(true);
+      const material = createVisceraMaterial(part);
+      material.userData.baseClearcoat = material.clearcoat;
+      const meshes: THREE.Mesh[] = [];
+      clone.traverse((obj) => {
+        if (!(obj instanceof THREE.Mesh)) return;
+        obj.geometry = obj.geometry.clone();
+        if (!obj.geometry.getAttribute("normal")) obj.geometry.computeVertexNormals();
+        obj.userData.pick = kind;
+        obj.userData.structureId = part.id;
+        obj.raycast = THREE.Mesh.prototype.raycast;
+        obj.castShadow = false;
+        obj.receiveShadow = false;
+        obj.material = material;
+        obj.renderOrder = kind === "nerve" ? 7 : kind === "vessel" ? 6 : 4;
+        meshes.push(obj);
+      });
+      clone.visible = false;
+      list.push({ id: part.id, object: clone, material, meshes });
+    }
+    return list;
+  }, [gltf, parts, kind]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      entry.object.visible = visible;
+      setSelected(entry.material, visible && entry.id === selectedId);
+    }
+    setPickMeshes(kind, visible ? entries.flatMap((entry) => entry.meshes) : []);
+    return () => setPickMeshes(kind, []);
+  }, [entries, kind, selectedId, visible]);
+
+  return (
+    <group name={`${kind}s`} visible={visible}>
+      {entries.map((entry) => (
+        <primitive key={entry.id} object={entry.object} />
+      ))}
+    </group>
+  );
+}
+
+useGLTF.preload("/models/nerves.glb");
+useGLTF.preload("/models/organs.glb");
+useGLTF.preload("/models/vessels.glb");

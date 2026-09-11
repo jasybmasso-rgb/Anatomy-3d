@@ -97,6 +97,19 @@
 
 .search-option-name {
   font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: baseline;
+}
+
+.search-option-kind {
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8b9bb4;
 }
 
 .search-option-latin {

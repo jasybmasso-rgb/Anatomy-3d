@@ -2,7 +2,9 @@ import { ContactShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import type { ChainSide } from "../data/chains";
+import { nerves, organs, vessels } from "../data/loadViscera";
 import type { Muscle } from "../types/muscle";
+import type { FocusTarget, StructureKind } from "../types/structure";
 import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
 import { Fascia } from "./Fascia";
@@ -10,6 +12,8 @@ import { FLOOR_Y } from "./landmarks";
 import { Ligaments } from "./Ligaments";
 import { MuscleLayer } from "./MuscleLayer";
 import { Skeleton } from "./Skeleton";
+import { StructurePick } from "./structurePick";
+import { VisceraLayer } from "./VisceraLayer";
 
 const SCENE_BG = "#121a24";
 
@@ -41,32 +45,44 @@ function Lights() {
 
 type AnatomySceneProps = {
   muscle: Muscle | null;
+  focus: FocusTarget | null;
+  selectedKind: StructureKind | null;
+  selectedId: string | null;
   showMuscles: boolean;
   showAllMuscles: boolean;
   hiddenMuscleIds: string[];
   showLandmarks: boolean;
   showLigaments: boolean;
   showFascia: boolean;
+  showNerves: boolean;
+  showOrgans: boolean;
+  showVessels: boolean;
   showChains: boolean;
   activeChainIds: string[];
   chainSide: ChainSide;
   resetToken: number;
-  onSelectMuscle: (id: string) => void;
+  onSelectStructure: (kind: StructureKind, id: string) => void;
 };
 
 export function AnatomyScene({
   muscle,
+  focus,
+  selectedKind,
+  selectedId,
   showMuscles,
   showAllMuscles,
   hiddenMuscleIds,
   showLandmarks,
   showLigaments,
   showFascia,
+  showNerves,
+  showOrgans,
+  showVessels,
   showChains,
   activeChainIds,
   chainSide,
   resetToken,
-  onSelectMuscle,
+  onSelectStructure,
 }: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
     return (
@@ -102,6 +118,27 @@ export function AnatomyScene({
           chainSide={chainSide}
         />
         <Ligaments visible={showLigaments} />
+        <VisceraLayer
+          url="/models/organs.glb"
+          parts={organs}
+          kind="organ"
+          visible={showOrgans}
+          selectedId={selectedKind === "organ" ? selectedId : null}
+        />
+        <VisceraLayer
+          url="/models/vessels.glb"
+          parts={vessels}
+          kind="vessel"
+          visible={showVessels}
+          selectedId={selectedKind === "vessel" ? selectedId : null}
+        />
+        <VisceraLayer
+          url="/models/nerves.glb"
+          parts={nerves}
+          kind="nerve"
+          visible={showNerves}
+          selectedId={selectedKind === "nerve" ? selectedId : null}
+        />
         <MuscleLayer
           selectedMuscleId={muscle?.id ?? null}
           showMuscles={showMuscles}
@@ -110,12 +147,12 @@ export function AnatomyScene({
           chainLayerOn={showChains}
           activeChainIds={activeChainIds}
           chainSide={chainSide}
-          onSelect={onSelectMuscle}
         />
         <LandmarkLayer visible={showLandmarks} />
+        <StructurePick onSelect={onSelectStructure} />
       </Suspense>
       <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />
-      <CameraRig muscle={muscle} resetToken={resetToken} />
+      <CameraRig focus={focus} resetToken={resetToken} />
     </Canvas>
   );
 }

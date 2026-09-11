@@ -1,10 +1,11 @@
 import type { ChainSide } from "../data/chains";
-import type { Muscle, MuscleRegion } from "../types/muscle";
+import type { Muscle } from "../types/muscle";
+import type { StructureKind, VisceraPart } from "../types/structure";
 import { ChainDetails } from "./ChainPicker";
 import { MuscleVisibilityPanel } from "./MuscleVisibilityPanel";
 import { muscles as allMuscles } from "../data/loadMuscles";
 
-const REGION_LABEL: Record<MuscleRegion, string> = {
+const REGION_LABEL: Record<string, string> = {
   "membre-supérieur": "Membre supérieur",
   "membre-inférieur": "Membre inférieur",
   tronc: "Tronc",
@@ -17,8 +18,16 @@ const REGION_LABEL: Record<MuscleRegion, string> = {
   tête: "Tête",
 };
 
+const KIND_KICKER: Record<Exclude<StructureKind, "muscle">, string> = {
+  nerve: "Nerf",
+  organ: "Organe",
+  vessel: "Vaisseau sanguin",
+};
+
 type SidePanelProps = {
   muscle: Muscle | null;
+  viscera: VisceraPart | null;
+  kind: StructureKind | null;
   showAllMuscles: boolean;
   hiddenMuscleIds: string[];
   onShowAllMuscles: (value: boolean) => void;
@@ -31,6 +40,8 @@ type SidePanelProps = {
 
 export function SidePanel({
   muscle,
+  viscera,
+  kind,
   showAllMuscles,
   hiddenMuscleIds,
   onShowAllMuscles,
@@ -40,8 +51,9 @@ export function SidePanel({
   chainSide,
   onChainSideChange,
 }: SidePanelProps) {
+  const title = muscle?.name ?? viscera?.name;
   return (
-    <aside className="panel" aria-label={muscle ? `Fiche : ${muscle.name}` : "Fiche du muscle"}>
+    <aside className="panel" aria-label={title ? `Fiche : ${title}` : "Fiche anatomique"}>
       <MuscleVisibilityPanel
         muscles={allMuscles}
         selected={muscle}
@@ -117,15 +129,43 @@ export function SidePanel({
             <p className="panel-mesh-note">Maillage schématique : absent de BodyParts3D 4.0.</p>
           ) : null}
         </>
+      ) : viscera && kind && kind !== "muscle" ? (
+        <>
+          <p className="panel-kicker">
+            {KIND_KICKER[kind]}
+            {viscera.region ? ` · ${REGION_LABEL[viscera.region] ?? viscera.region}` : null}
+          </p>
+          <h2 className="panel-title">{viscera.name}</h2>
+          <p className="panel-latin">{viscera.nameLatin}</p>
+          <dl className="panel-dl">
+            {viscera.vesselKind ? (
+              <div>
+                <dt>Type</dt>
+                <dd>{viscera.vesselKind === "vein" ? "Veine" : "Artère"}</dd>
+              </div>
+            ) : null}
+            <div>
+              <dt>Notes</dt>
+              <dd>{viscera.notes}</dd>
+            </div>
+          </dl>
+          {viscera.source.startsWith("synthetic") ? (
+            <p className="panel-mesh-note">
+              Schéma pédagogique : BodyParts3D 4.0 n’a pas ce maillage.
+            </p>
+          ) : (
+            <p className="panel-mesh-note">Maillage BodyParts3D, CC BY-SA 2.1 Japon.</p>
+          )}
+        </>
       ) : (
         <>
-          <p className="panel-empty-kicker">Aucun muscle sélectionné</p>
+          <p className="panel-empty-kicker">Aucune structure sélectionnée</p>
           <h2 className="panel-empty-title">
             {showAllMuscles ? "Tous les muscles" : "Squelette seulement"}
           </h2>
           <p className="panel-empty-body">
-            Cliquez un muscle dans la scène, ou recherchez-le, pour la fiche (origines,
-            insertions, mouvements). Cochez « Afficher tous les muscles » pour le jeu complet.
+            Cliquez une structure dans la scène, ou recherchez-la (muscle, nerf, organe, vaisseau).
+            Activez les couches Nerfs, Organes ou Vaisseaux sanguins dans Couches.
           </p>
         </>
       )}

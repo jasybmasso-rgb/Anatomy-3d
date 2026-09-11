@@ -8,8 +8,9 @@ export type LayerId =
   | "ligaments"
   | "landmarks"
   | "nerves"
-  | "chains"
-  | "vessels";
+  | "organs"
+  | "vessels"
+  | "chains";
 
 export type LayerState = Record<LayerId, boolean>;
 
@@ -19,8 +20,9 @@ export const DEFAULT_LAYERS: LayerState = {
   ligaments: false,
   landmarks: false,
   nerves: false,
-  chains: false,
+  organs: false,
   vessels: false,
+  chains: false,
 };
 
 type LayerMeta = {
@@ -35,9 +37,10 @@ const LAYERS: LayerMeta[] = [
   { id: "fascias", label: "Fascias", ready: true },
   { id: "ligaments", label: "Ligaments", ready: true },
   { id: "landmarks", label: "Repères osseux", ready: true },
-  { id: "nerves", label: "Nerfs", ready: false, hint: "bientôt" },
+  { id: "nerves", label: "Nerfs", ready: true },
+  { id: "organs", label: "Organes", ready: true },
+  { id: "vessels", label: "Vaisseaux sanguins", ready: true },
   { id: "chains", label: "Chaînes myofaciales", ready: true },
-  { id: "vessels", label: "Vaisseaux / organes", ready: false, hint: "bientôt" },
 ];
 
 type LayerMenuProps = {
@@ -97,8 +100,8 @@ export function LayerMenu({
       {open ? (
         <div className="layer-menu-panel" id={menuId} role="group" aria-label="Couches anatomiques">
           <p className="layer-menu-note">
-            Le squelette (os et cartilage) reste toujours visible. Cliquez un muscle pour le
-            sélectionner, puis masquez-le dans le panneau.
+            Le squelette (os et cartilage) reste toujours visible. Cliquez une structure pour la
+            sélectionner. Nerfs, organes et vaisseaux sont trois couches distinctes.
           </p>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (

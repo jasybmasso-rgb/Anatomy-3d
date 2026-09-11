@@ -6,22 +6,33 @@ import { SearchBar } from "./components/SearchBar";
 import { SidePanel } from "./components/SidePanel";
 import { muscleIdsForChains, type ChainSide } from "./data/chains";
 import { muscles, getMuscleById } from "./data/loadMuscles";
+import { nerves, organs, vessels, getVisceraById } from "./data/loadViscera";
 import { AnatomyScene } from "./scene/AnatomyScene";
 import type { SelectionState } from "./types/muscle";
+import type { StructureKind } from "./types/structure";
 import "./App.css";
 
+const ALL_VISCERA = [...nerves, ...organs, ...vessels];
+
 export function App() {
-  const [selection, setSelection] = useState<SelectionState>({ selectedMuscleId: null });
+  const [selection, setSelection] = useState<SelectionState>(null);
   const [resetToken, setResetToken] = useState(0);
   const [layers, setLayers] = useState<LayerState>(DEFAULT_LAYERS);
   const [showAllMuscles, setShowAllMuscles] = useState(false);
   const [hiddenMuscleIds, setHiddenMuscleIds] = useState<string[]>([]);
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
   const [chainSide, setChainSide] = useState<ChainSide>("both");
-  const selected = getMuscleById(selection.selectedMuscleId);
+
+  const selectedMuscle =
+    selection?.kind === "muscle" ? getMuscleById(selection.id) : null;
+  const selectedViscera =
+    selection && selection.kind !== "muscle"
+      ? getVisceraById(selection.kind, selection.id)
+      : null;
+  const focus = selectedMuscle ?? selectedViscera;
 
   function reset() {
-    setSelection({ selectedMuscleId: null });
+    setSelection(null);
     setResetToken((token) => token + 1);
     setShowAllMuscles(false);
     setHiddenMuscleIds([]);
@@ -40,9 +51,12 @@ export function App() {
     if (value) setLayers((prev) => ({ ...prev, muscles: true }));
   }
 
-  function onSelectMuscle(id: string) {
-    setSelection({ selectedMuscleId: id });
-    setLayers((prev) => ({ ...prev, muscles: true }));
+  function onSelectStructure(kind: StructureKind, id: string) {
+    setSelection({ kind, id });
+    if (kind === "muscle") setLayers((prev) => ({ ...prev, muscles: true }));
+    if (kind === "nerve") setLayers((prev) => ({ ...prev, nerves: true }));
+    if (kind === "organ") setLayers((prev) => ({ ...prev, organs: true }));
+    if (kind === "vessel") setLayers((prev) => ({ ...prev, vessels: true }));
   }
 
   function onActiveChainsChange(ids: string[]) {
@@ -61,13 +75,15 @@ export function App() {
       <header className="topbar">
         <div className="brand">
           <p className="brand-mark">Anatomy-3d</p>
-          <p className="brand-sub">Squelette, muscles et chaînes myofaciales</p>
+          <p className="brand-sub">Squelette, muscles, nerfs, organes et circulation</p>
         </div>
         <SearchBar
           muscles={muscles}
-          selectedId={selection.selectedMuscleId}
+          viscera={ALL_VISCERA}
+          selectedId={selection?.id ?? null}
+          selectedKind={selection?.kind ?? null}
           resetToken={resetToken}
-          onSelect={onSelectMuscle}
+          onSelect={onSelectStructure}
         />
         <LayerMenu
           layers={layers}
@@ -87,22 +103,28 @@ export function App() {
         <div className="viewport" aria-label="Scène anatomique 3D">
           <SceneErrorBoundary>
             <AnatomyScene
-              muscle={selected}
+              muscle={selectedMuscle}
+              focus={focus}
+              selectedKind={selection?.kind ?? null}
+              selectedId={selection?.id ?? null}
               showMuscles={layers.muscles}
               showAllMuscles={showAllMuscles}
               hiddenMuscleIds={hiddenMuscleIds}
               showLandmarks={layers.landmarks}
               showLigaments={layers.ligaments}
               showFascia={layers.fascias}
+              showNerves={layers.nerves}
+              showOrgans={layers.organs}
+              showVessels={layers.vessels}
               showChains={layers.chains}
               activeChainIds={activeChainIds}
               chainSide={chainSide}
               resetToken={resetToken}
-              onSelectMuscle={onSelectMuscle}
+              onSelectStructure={onSelectStructure}
             />
           </SceneErrorBoundary>
           <ChainLegend activeChainIds={layers.chains ? activeChainIds : []} />
-          {!selected ? (
+          {!focus ? (
             <p className="viewport-hint">
               Clic : sélectionner · Molette / pincement : zoom · Un doigt : orbite · Deux doigts :
               panoramique
@@ -110,7 +132,9 @@ export function App() {
           ) : null}
         </div>
         <SidePanel
-          muscle={selected}
+          muscle={selectedMuscle}
+          viscera={selectedViscera}
+          kind={selection?.kind ?? null}
           showAllMuscles={showAllMuscles}
           hiddenMuscleIds={hiddenMuscleIds}
           onShowAllMuscles={onShowAllMuscles}
