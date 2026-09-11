@@ -291,13 +291,13 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
         vec3 tendonCol = vec3(0.94, 0.88, 0.76);
         fiberAlbedo = mix(fiberAlbedo, tendonCol, clamp(vTendon, 0.0, 1.0));
         float selected = clamp(uSelected, 0.0, 1.0);
-        fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.22, 1.12, 0.92), selected * 0.72);
+        fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.18, 1.08, 0.88), selected * 0.38);
         #ifndef FLAT_SHADED
         vec3 nView = normalize(vNormal);
-        float fres = pow(1.0 - abs(nView.z), 2.35);
-        fiberAlbedo += vec3(1.0, 0.78, 0.32) * fres * selected * 0.92;
+        float fres = pow(1.0 - abs(nView.z), 2.15);
+        fiberAlbedo += vec3(1.0, 0.76, 0.28) * fres * selected * 1.05;
         #else
-        fiberAlbedo += vec3(0.55, 0.28, 0.08) * selected * 0.22;
+        fiberAlbedo += vec3(0.45, 0.22, 0.06) * selected * 0.16;
         #endif
         diffuseColor *= vec4(fiberAlbedo, 1.0);
       }
@@ -374,6 +374,6 @@ export function setMuscleSelected(material: THREE.MeshPhysicalMaterial, selected
   const sel = material.userData.uSelected as { value: number } | undefined;
   if (sel) sel.value = selected ? 1 : 0;
   material.emissive.set(selected ? "#ff9a4a" : "#000000");
-  material.emissiveIntensity = selected ? 0.42 : 0;
-  material.clearcoat = selected ? 0.22 : 0.05;
+  material.emissiveIntensity = selected ? 0.28 : 0;
+  material.clearcoat = selected ? 0.18 : 0.05;
 }
