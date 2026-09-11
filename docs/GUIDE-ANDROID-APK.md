@@ -42,3 +42,4 @@ Le WebView du Chromebook doit prendre en charge WebGL. Si l’écran reste noir,
 - Premier lancement : les GLB (~56 Mo de maillages, dont ~6 Mo de nerfs/organes/vaisseaux) se chargent en mémoire ; attendez quelques secondes.
 - WebGL 2 est préféré ; WebGL 1 reste un repli. OpenGL ES 2.0 est exigé.
 - Pour reconstruire : `npm run apk:debug` (nécessite JDK 21 et le SDK Android API 36).
+- **Node.js 22+** est attendu par Capacitor 8 / `@capacitor/cli` (`engines.node >= 22`). Node 20 passe encore pour une partie des deps ; Node 18 ne fait qu’afficher `EBADENGINE`. Ne pas utiliser `npm audit fix --force` (cela rétrograderait Capacitor vers 6). L’avis `uuid` est dans `@capacitor/cli` → `xcode` (outillage de build), pas dans l’appli WebView.

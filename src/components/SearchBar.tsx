@@ -1,18 +1,13 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import type { Muscle } from "../types/muscle";
-import type { StructureKind, VisceraPart } from "../types/structure";
+import type { ConnectivePart, StructureKind, VisceraPart } from "../types/structure";
+import { STRUCTURE_KIND_LABEL } from "../types/structure";
 import { searchStructures, type SearchHit } from "../lib/searchStructures";
-
-const KIND_LABEL: Record<StructureKind, string> = {
-  muscle: "Muscle",
-  nerve: "Nerf",
-  organ: "Organe",
-  vessel: "Vaisseau",
-};
 
 type SearchBarProps = {
   muscles: Muscle[];
   viscera: VisceraPart[];
+  connective: ConnectivePart[];
   selectedId: string | null;
   selectedKind: StructureKind | null;
   resetToken: number;
@@ -22,6 +17,7 @@ type SearchBarProps = {
 export function SearchBar({
   muscles,
   viscera,
+  connective,
   selectedId,
   selectedKind,
   resetToken,
@@ -40,8 +36,8 @@ export function SearchBar({
   }, [resetToken]);
 
   const results = useMemo(
-    () => searchStructures(muscles, viscera, query).slice(0, 12),
-    [muscles, viscera, query],
+    () => searchStructures(muscles, viscera, connective, query).slice(0, 12),
+    [muscles, viscera, connective, query],
   );
 
   useEffect(() => {
@@ -83,7 +79,7 @@ export function SearchBar({
         className="search-input"
         type="search"
         role="combobox"
-        placeholder="Rechercher un muscle, un nerf, un organe…"
+        placeholder="Rechercher un muscle, un ligament, un nerf…"
         autoComplete="off"
         aria-autocomplete="list"
         aria-expanded={open && results.length > 0}
@@ -121,7 +117,7 @@ export function SearchBar({
               >
                 <span className="search-option-name">
                   {hit.name}
-                  <em className="search-option-kind">{KIND_LABEL[hit.kind]}</em>
+                  <em className="search-option-kind">{STRUCTURE_KIND_LABEL[hit.kind]}</em>
                 </span>
                 <span className="search-option-latin">{hit.nameLatin}</span>
               </button>

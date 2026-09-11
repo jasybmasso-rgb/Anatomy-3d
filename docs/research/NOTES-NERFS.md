@@ -2,7 +2,7 @@
 
 **Statut :** couche **Nerfs** livrée, distincte des organes et des vaisseaux.
 
-Géométrie : maillages crâniens BodyParts3D 4.0 + tubes schématiques (`synthetic-v2`) pour les grands troncs périphériques (BP3D n’a pas sciatique, médian, plexus, etc.). Ce n’est **pas** un atlas de dermatomes.
+Géométrie : maillages crâniens BodyParts3D 4.0 (fidélité conservée) + tubes schématiques plus fins (`synthetic-v2`) pour les grands troncs périphériques, calés sur le trajet usuel (cubital, sillon spiral, ligament inguinal, grande échancrure sciatique…). Ce n’est **pas** un atlas de dermatomes. Couleur atlas or-jaune, distincte de l’ivoire osseux et des viscères.
 
 Les correspondances muscle ↔ nerf ci-dessous restent des pistes pédagogiques, non affichées comme overlay automatique.
 

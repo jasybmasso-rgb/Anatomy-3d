@@ -17,7 +17,7 @@ const ORGAN_TONE: Record<string, string> = {
 };
 
 function visceraColor(part: VisceraPart): string {
-  if (part.kind === "nerve") return "#e8d48a";
+  if (part.kind === "nerve") return "#f6d648";
   if (part.kind === "vessel") return part.vesselKind === "vein" ? "#2a4aa8" : "#bc2a2a";
   return ORGAN_TONE[part.organTone ?? "default"] ?? ORGAN_TONE.default;
 }
@@ -31,7 +31,7 @@ function createVisceraMaterial(part: VisceraPart): THREE.MeshPhysicalMaterial {
     metalness: vessel ? 0.08 : 0.02,
     clearcoat: nerve ? 0.22 : 0.08,
     sheen: nerve ? 0.45 : 0,
-    sheenColor: new THREE.Color(nerve ? "#fff6d0" : "#000000"),
+    sheenColor: new THREE.Color(nerve ? "#fff6b8" : "#000000"),
     side: nerve || vessel ? THREE.DoubleSide : THREE.FrontSide,
     transparent: part.kind === "organ",
     opacity: part.kind === "organ" ? 0.92 : 1,
@@ -51,9 +51,10 @@ type VisceraLayerProps = {
   kind: "nerve" | "organ" | "vessel";
   visible: boolean;
   selectedId: string | null;
+  hiddenIds: string[];
 };
 
-export function VisceraLayer({ url, parts, kind, visible, selectedId }: VisceraLayerProps) {
+export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds }: VisceraLayerProps) {
   const gltf = useGLTF(url);
   const entries = useMemo(() => {
     const list: { id: string; object: THREE.Object3D; material: THREE.MeshPhysicalMaterial; meshes: THREE.Mesh[] }[] =
@@ -85,13 +86,17 @@ export function VisceraLayer({ url, parts, kind, visible, selectedId }: VisceraL
   }, [gltf, parts, kind]);
 
   useEffect(() => {
+    const hidden = new Set(hiddenIds);
+    const pick: THREE.Mesh[] = [];
     for (const entry of entries) {
-      entry.object.visible = visible;
-      setSelected(entry.material, visible && entry.id === selectedId);
+      const on = visible && !hidden.has(entry.id);
+      entry.object.visible = on;
+      setSelected(entry.material, on && entry.id === selectedId);
+      if (on) pick.push(...entry.meshes);
     }
-    setPickMeshes(kind, visible ? entries.flatMap((entry) => entry.meshes) : []);
+    setPickMeshes(kind, pick);
     return () => setPickMeshes(kind, []);
-  }, [entries, kind, selectedId, visible]);
+  }, [entries, hiddenIds, kind, selectedId, visible]);
 
   return (
     <group name={`${kind}s`} visible={visible}>

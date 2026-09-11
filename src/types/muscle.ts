@@ -36,7 +36,4 @@ export type Muscle = {
   meshSource?: "bodyparts3d" | "synthetic";
 };
 
-export type SelectionState = {
-  kind: "muscle" | "nerve" | "organ" | "vessel";
-  id: string;
-} | null;
+export type { SelectionState } from "./structure";

@@ -67,13 +67,27 @@ export function StructurePick({ onSelect }: StructurePickProps) {
   useEffect(() => {
     const element = gl.domElement;
     let down: { x: number; y: number } | null = null;
+    let activePointers = 0;
+    let multiTouch = false;
 
     const onPointerDown = (event: PointerEvent) => {
+      activePointers += 1;
+      if (activePointers > 1) {
+        multiTouch = true;
+        down = null;
+        return;
+      }
       if (event.button !== 0) return;
       down = { x: event.clientX, y: event.clientY };
     };
 
     const onPointerUp = (event: PointerEvent) => {
+      activePointers = Math.max(0, activePointers - 1);
+      if (multiTouch) {
+        if (activePointers === 0) multiTouch = false;
+        down = null;
+        return;
+      }
       if (!down || event.button !== 0) return;
       const dx = event.clientX - down.x;
       const dy = event.clientY - down.y;
@@ -99,9 +113,11 @@ export function StructurePick({ onSelect }: StructurePickProps) {
 
     element.addEventListener("pointerdown", onPointerDown);
     element.addEventListener("pointerup", onPointerUp);
+    element.addEventListener("pointercancel", onPointerUp);
     return () => {
       element.removeEventListener("pointerdown", onPointerDown);
       element.removeEventListener("pointerup", onPointerUp);
+      element.removeEventListener("pointercancel", onPointerUp);
     };
   }, [camera, gl, pointer, raycaster]);
 

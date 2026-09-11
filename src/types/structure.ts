@@ -1,4 +1,4 @@
-export type StructureKind = "muscle" | "nerve" | "organ" | "vessel";
+export type StructureKind = "muscle" | "ligament" | "fascia" | "nerve" | "organ" | "vessel";
 
 export type FocusTarget = {
   id: string;
@@ -32,6 +32,23 @@ export type VisceraPart = {
   vesselKind?: "artery" | "vein";
 };
 
+export type ConnectivePart = {
+  id: string;
+  name: string;
+  nameLatin: string;
+  aliases: string[];
+  region: string;
+  notes: string;
+  source: string;
+  kind: "ligament" | "fascia";
+  joint?: string;
+  centroid: [number, number, number];
+  focus: {
+    position: [number, number, number];
+    distance: number;
+  };
+};
+
 export type VisceraFile = {
   version: number;
   defaultVisible: boolean;
@@ -44,3 +61,35 @@ export type VisceraFile = {
   organs?: VisceraPart[];
   vessels?: VisceraPart[];
 };
+
+export type HiddenMap = Record<StructureKind, string[]>;
+
+export const EMPTY_HIDDEN: HiddenMap = {
+  muscle: [],
+  ligament: [],
+  fascia: [],
+  nerve: [],
+  organ: [],
+  vessel: [],
+};
+
+export const STRUCTURE_KIND_LABEL: Record<StructureKind, string> = {
+  muscle: "Muscle",
+  ligament: "Ligament",
+  fascia: "Fascia",
+  nerve: "Nerf",
+  organ: "Organe",
+  vessel: "Vaisseau sanguin",
+};
+
+export type SelectionState = {
+  kind: StructureKind;
+  id: string;
+} | null;
+
+export function focusFromCentroid(
+  centroid: [number, number, number],
+  distance = 0.72,
+): FocusTarget["focus"] {
+  return { position: centroid, distance };
+}

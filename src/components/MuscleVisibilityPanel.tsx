@@ -1,39 +1,68 @@
 import { useMemo } from "react";
 import type { Muscle } from "../types/muscle";
+import type { ConnectivePart, HiddenMap, StructureKind, VisceraPart } from "../types/structure";
+import { STRUCTURE_KIND_LABEL } from "../types/structure";
+
+type Named = { kind: StructureKind; id: string; name: string };
 
 type MuscleVisibilityPanelProps = {
   muscles: Muscle[];
-  selected: Muscle | null;
+  viscera: VisceraPart[];
+  connective: ConnectivePart[];
+  selectedKind: StructureKind | null;
+  selectedId: string | null;
+  selectedName: string | null;
   showAllMuscles: boolean;
-  hiddenMuscleIds: string[];
+  hiddenIds: HiddenMap;
   onShowAll: (value: boolean) => void;
-  onHiddenChange: (ids: string[]) => void;
+  onHiddenChange: (kind: StructureKind, id: string, hide: boolean) => void;
 };
+
+function hideLabel(kind: StructureKind | null): string {
+  if (kind === "muscle") return "Masquer ce muscle";
+  if (kind === "ligament") return "Masquer ce ligament";
+  if (kind === "fascia") return "Masquer ce fascia";
+  if (kind === "nerve") return "Masquer ce nerf";
+  if (kind === "organ") return "Masquer cet organe";
+  if (kind === "vessel") return "Masquer ce vaisseau";
+  return "Masquer cette structure";
+}
 
 export function MuscleVisibilityPanel({
   muscles,
-  selected,
+  viscera,
+  connective,
+  selectedKind,
+  selectedId,
+  selectedName,
   showAllMuscles,
-  hiddenMuscleIds,
+  hiddenIds,
   onShowAll,
   onHiddenChange,
 }: MuscleVisibilityPanelProps) {
-  const hidden = useMemo(() => new Set(hiddenMuscleIds), [hiddenMuscleIds]);
-  const hiddenMuscles = useMemo(
-    () => muscles.filter((muscle) => hidden.has(muscle.id)),
-    [muscles, hidden],
-  );
-  const selectedHidden = selected ? hidden.has(selected.id) : false;
+  const lookup = useMemo(() => {
+    const map = new Map<string, Named>();
+    for (const muscle of muscles) map.set(`muscle:${muscle.id}`, { kind: "muscle", id: muscle.id, name: muscle.name });
+    for (const part of viscera) map.set(`${part.kind}:${part.id}`, { kind: part.kind, id: part.id, name: part.name });
+    for (const part of connective) map.set(`${part.kind}:${part.id}`, { kind: part.kind, id: part.id, name: part.name });
+    return map;
+  }, [muscles, viscera, connective]);
 
-  function setHidden(id: string, hide: boolean) {
-    const next = new Set(hidden);
-    if (hide) next.add(id);
-    else next.delete(id);
-    onHiddenChange([...next]);
-  }
+  const hiddenRows = useMemo(() => {
+    const rows: Named[] = [];
+    (Object.keys(hiddenIds) as StructureKind[]).forEach((kind) => {
+      for (const id of hiddenIds[kind]) {
+        rows.push(lookup.get(`${kind}:${id}`) ?? { kind, id, name: id });
+      }
+    });
+    return rows;
+  }, [hiddenIds, lookup]);
+
+  const selectedHidden =
+    selectedKind && selectedId ? hiddenIds[selectedKind].includes(selectedId) : false;
 
   return (
-    <section className="muscle-tools" aria-label="Affichage des muscles">
+    <section className="muscle-tools" aria-label="Affichage des structures">
       <label className="muscle-tools-toggle">
         <input
           type="checkbox"
@@ -43,36 +72,38 @@ export function MuscleVisibilityPanel({
         <span>Afficher tous les muscles</span>
       </label>
       <p className="muscle-tools-hint">
-        Cliquez un muscle dans la scène pour le sélectionner. Une fois choisi, masquez-le ici pour
-        lire les couches profondes.
+        Cliquez une structure dans la scène pour la sélectionner. Une fois choisie, masquez-la ici
+        pour lire les couches profondes. Un second clic au même endroit cycle les pièces
+        superposées (fascia, ligament, muscle…).
       </p>
-      {selected ? (
+      {selectedKind && selectedId && selectedName ? (
         <label className="muscle-tools-toggle muscle-tools-hide-selected">
           <input
             type="checkbox"
             checked={selectedHidden}
-            onChange={(event) => setHidden(selected.id, event.target.checked)}
+            onChange={(event) => onHiddenChange(selectedKind, selectedId, event.target.checked)}
           />
-          <span>Masquer ce muscle</span>
+          <span>{hideLabel(selectedKind)}</span>
         </label>
       ) : null}
-      {hiddenMuscles.length > 0 ? (
-        <ul className="hidden-chips" aria-label="Muscles masqués">
-          {hiddenMuscles.slice(0, 12).map((muscle) => (
-            <li key={muscle.id}>
+      {hiddenRows.length > 0 ? (
+        <ul className="hidden-chips" aria-label="Structures masquées">
+          {hiddenRows.slice(0, 12).map((row) => (
+            <li key={`${row.kind}:${row.id}`}>
               <button
                 type="button"
                 className="hidden-chip"
-                onClick={() => setHidden(muscle.id, false)}
+                onClick={() => onHiddenChange(row.kind, row.id, false)}
                 title="Réafficher"
               >
-                {muscle.name}
+                {row.name}
+                <em className="hidden-chip-kind">{STRUCTURE_KIND_LABEL[row.kind]}</em>
                 <span aria-hidden="true">×</span>
               </button>
             </li>
           ))}
-          {hiddenMuscles.length > 12 ? (
-            <li className="hidden-chip-more">+{hiddenMuscles.length - 12}</li>
+          {hiddenRows.length > 12 ? (
+            <li className="hidden-chip-more">+{hiddenRows.length - 12}</li>
           ) : null}
         </ul>
       ) : null}

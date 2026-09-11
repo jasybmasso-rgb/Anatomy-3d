@@ -100,8 +100,9 @@ export function LayerMenu({
       {open ? (
         <div className="layer-menu-panel" id={menuId} role="group" aria-label="Couches anatomiques">
           <p className="layer-menu-note">
-            Le squelette (os et cartilage) reste toujours visible. Cliquez une structure pour la
-            sélectionner. Nerfs, organes et vaisseaux sont trois couches distinctes.
+            Le squelette (os et cartilage) reste toujours visible. Cliquez une structure de n’importe
+            quelle couche pour la sélectionner. Nerfs, organes et vaisseaux sont trois couches
+            distinctes.
           </p>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (

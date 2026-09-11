@@ -1,9 +1,17 @@
 import type { ChainSide } from "../data/chains";
+import { connective as allConnective } from "../data/loadConnective";
+import { muscles as allMuscles } from "../data/loadMuscles";
+import { nerves, organs, vessels } from "../data/loadViscera";
 import type { Muscle } from "../types/muscle";
-import type { StructureKind, VisceraPart } from "../types/structure";
+import type {
+  ConnectivePart,
+  HiddenMap,
+  StructureKind,
+  VisceraPart,
+} from "../types/structure";
+import { STRUCTURE_KIND_LABEL } from "../types/structure";
 import { ChainDetails } from "./ChainPicker";
 import { MuscleVisibilityPanel } from "./MuscleVisibilityPanel";
-import { muscles as allMuscles } from "../data/loadMuscles";
 
 const REGION_LABEL: Record<string, string> = {
   "membre-supérieur": "Membre supérieur",
@@ -16,22 +24,23 @@ const REGION_LABEL: Record<string, string> = {
   pied: "Pied",
   périnée: "Périnée",
   tête: "Tête",
-};
-
-const KIND_KICKER: Record<Exclude<StructureKind, "muscle">, string> = {
-  nerve: "Nerf",
-  organ: "Organe",
-  vessel: "Vaisseau sanguin",
+  cuisse: "Cuisse",
+  bassin: "Bassin",
+  rachis: "Rachis",
+  crâne: "Crâne",
+  "ceinture-scapulaire": "Ceinture scapulaire",
+  thorax: "Thorax",
 };
 
 type SidePanelProps = {
   muscle: Muscle | null;
   viscera: VisceraPart | null;
+  connective: ConnectivePart | null;
   kind: StructureKind | null;
   showAllMuscles: boolean;
-  hiddenMuscleIds: string[];
+  hiddenIds: HiddenMap;
   onShowAllMuscles: (value: boolean) => void;
-  onHiddenChange: (ids: string[]) => void;
+  onHiddenChange: (kind: StructureKind, id: string, hide: boolean) => void;
   showChains: boolean;
   activeChainIds: string[];
   chainSide: ChainSide;
@@ -41,9 +50,10 @@ type SidePanelProps = {
 export function SidePanel({
   muscle,
   viscera,
+  connective,
   kind,
   showAllMuscles,
-  hiddenMuscleIds,
+  hiddenIds,
   onShowAllMuscles,
   onHiddenChange,
   showChains,
@@ -51,14 +61,19 @@ export function SidePanel({
   chainSide,
   onChainSideChange,
 }: SidePanelProps) {
-  const title = muscle?.name ?? viscera?.name;
+  const title = muscle?.name ?? viscera?.name ?? connective?.name;
+  const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? null;
   return (
     <aside className="panel" aria-label={title ? `Fiche : ${title}` : "Fiche anatomique"}>
       <MuscleVisibilityPanel
         muscles={allMuscles}
-        selected={muscle}
+        viscera={[...nerves, ...organs, ...vessels]}
+        connective={allConnective}
+        selectedKind={kind}
+        selectedId={selectedId}
+        selectedName={title ?? null}
         showAllMuscles={showAllMuscles}
-        hiddenMuscleIds={hiddenMuscleIds}
+        hiddenIds={hiddenIds}
         onShowAll={onShowAllMuscles}
         onHiddenChange={onHiddenChange}
       />
@@ -129,10 +144,10 @@ export function SidePanel({
             <p className="panel-mesh-note">Maillage schématique : absent de BodyParts3D 4.0.</p>
           ) : null}
         </>
-      ) : viscera && kind && kind !== "muscle" ? (
+      ) : viscera && kind && (kind === "nerve" || kind === "organ" || kind === "vessel") ? (
         <>
           <p className="panel-kicker">
-            {KIND_KICKER[kind]}
+            {STRUCTURE_KIND_LABEL[kind]}
             {viscera.region ? ` · ${REGION_LABEL[viscera.region] ?? viscera.region}` : null}
           </p>
           <h2 className="panel-title">{viscera.name}</h2>
@@ -157,6 +172,34 @@ export function SidePanel({
             <p className="panel-mesh-note">Maillage BodyParts3D, CC BY-SA 2.1 Japon.</p>
           )}
         </>
+      ) : connective && kind && (kind === "ligament" || kind === "fascia") ? (
+        <>
+          <p className="panel-kicker">
+            {STRUCTURE_KIND_LABEL[kind]}
+            {connective.region ? ` · ${REGION_LABEL[connective.region] ?? connective.region}` : null}
+          </p>
+          <h2 className="panel-title">{connective.name}</h2>
+          <p className="panel-latin">{connective.nameLatin}</p>
+          <dl className="panel-dl">
+            {connective.joint ? (
+              <div>
+                <dt>Articulation</dt>
+                <dd>{connective.joint}</dd>
+              </div>
+            ) : null}
+            <div>
+              <dt>Notes</dt>
+              <dd>{connective.notes}</dd>
+            </div>
+          </dl>
+          {connective.source.startsWith("synthetic") ? (
+            <p className="panel-mesh-note">
+              Schéma pédagogique : BodyParts3D 4.0 n’a pas ce maillage.
+            </p>
+          ) : (
+            <p className="panel-mesh-note">Maillage BodyParts3D, CC BY-SA 2.1 Japon.</p>
+          )}
+        </>
       ) : (
         <>
           <p className="panel-empty-kicker">Aucune structure sélectionnée</p>
@@ -164,8 +207,9 @@ export function SidePanel({
             {showAllMuscles ? "Tous les muscles" : "Squelette seulement"}
           </h2>
           <p className="panel-empty-body">
-            Cliquez une structure dans la scène, ou recherchez-la (muscle, nerf, organe, vaisseau).
-            Activez les couches Nerfs, Organes ou Vaisseaux sanguins dans Couches.
+            Cliquez une structure dans la scène, ou recherchez-la (muscle, ligament, fascia, nerf,
+            organe, vaisseau). Activez la couche correspondante dans Couches. Un second clic au même
+            endroit cycle les pièces superposées.
           </p>
         </>
       )}

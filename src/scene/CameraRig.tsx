@@ -136,6 +136,29 @@ function ease(dt: number, rate: number) {
   return 1 - Math.exp(-rate * dt);
 }
 
+const _panRight = new THREE.Vector3();
+const _panUp = new THREE.Vector3();
+
+function panScreenSpace(
+  camera: THREE.Camera,
+  orbit: OrbitControlsImpl,
+  deltaX: number,
+  deltaY: number,
+  clientHeight: number,
+) {
+  if (!(camera instanceof THREE.PerspectiveCamera)) return;
+  camera.updateMatrix();
+  const offset = camera.position.distanceTo(orbit.target);
+  const targetDistance = offset * Math.tan((camera.fov / 2) * Math.PI / 180);
+  const panX = (2 * deltaX * targetDistance) / Math.max(clientHeight, 1);
+  const panY = (2 * deltaY * targetDistance) / Math.max(clientHeight, 1);
+  _panRight.setFromMatrixColumn(camera.matrix, 0).multiplyScalar(-panX);
+  _panUp.setFromMatrixColumn(camera.matrix, 1).multiplyScalar(panY);
+  camera.position.add(_panRight).add(_panUp);
+  orbit.target.add(_panRight).add(_panUp);
+  orbit.update();
+}
+
 function applyDollyToward(
   camera: THREE.Camera,
   orbit: OrbitControlsImpl,
@@ -179,8 +202,10 @@ export function CameraRig({
   const applyFocusRef = useRef<(point: THREE.Vector3, smooth?: boolean) => void>(() => undefined);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinchDist = useRef(0);
+  const panMid = useRef({ x: 0, y: 0 });
   const zoomPending = useRef(0);
   const zoomPivot = useRef(new THREE.Vector3());
+  const twoFingerPan = useRef(false);
 
   function stopScriptedMotion() {
     animating.current = false;
@@ -259,30 +284,64 @@ export function CameraRig({
       return Math.hypot(dx, dy);
     };
 
+    const midpoint = () => {
+      const pts = [...pointers.current.values()];
+      return { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+    };
+
+    const beginTwoFinger = () => {
+      const orbit = controls.current;
+      pinchDist.current = pinchDistance();
+      panMid.current = midpoint();
+      twoFingerPan.current = true;
+      // OrbitControls TWO:DOLLY_PAN also pans; we own the gesture so it does not double.
+      if (orbit) orbit.enablePan = false;
+    };
+
+    const endTwoFinger = () => {
+      pinchDist.current = 0;
+      twoFingerPan.current = false;
+      const orbit = controls.current;
+      if (orbit) orbit.enablePan = true;
+    };
+
     const onPointerDown = (event: PointerEvent) => {
       pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
-      if (pointers.current.size === 2) {
-        pinchDist.current = pinchDistance();
-      }
+      if (pointers.current.size === 2) beginTwoFinger();
     };
 
     const onPointerMove = (event: PointerEvent) => {
       if (!pointers.current.has(event.pointerId)) return;
       pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
-      if (pointers.current.size < 2 || pinchDist.current < 4) return;
+      if (pointers.current.size < 2 || !twoFingerPan.current) return;
+      const orbit = controls.current;
+      if (!orbit || !orbit.enabled) return;
       const next = pinchDistance();
-      if (next < 4) return;
-      const ratio = pinchDist.current / next;
-      pinchDist.current = next;
-      const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.82, 1.22));
-      if (Math.abs(logDelta) < 1e-5) return;
-      const pts = [...pointers.current.values()];
-      queueZoom((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2, logDelta);
+      const mid = midpoint();
+      const panDx = mid.x - panMid.current.x;
+      const panDy = mid.y - panMid.current.y;
+      const panPx = Math.hypot(panDx, panDy);
+      const pinchPx = pinchDist.current > 4 && next > 4 ? Math.abs(next - pinchDist.current) : 0;
+
+      if (panPx >= 0.5) {
+        stopScriptedMotion();
+        panScreenSpace(camera, orbit, panDx, panDy, element.clientHeight);
+        panMid.current = mid;
+      }
+
+      if (pinchDist.current >= 4 && next >= 4 && pinchPx > panPx * 0.55) {
+        const ratio = pinchDist.current / next;
+        const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.82, 1.22));
+        if (Math.abs(logDelta) > 0.0015) {
+          queueZoom(mid.x, mid.y, logDelta);
+        }
+      }
+      if (next >= 4) pinchDist.current = next;
     };
 
     const onPointerUp = (event: PointerEvent) => {
       pointers.current.delete(event.pointerId);
-      if (pointers.current.size < 2) pinchDist.current = 0;
+      if (pointers.current.size < 2) endTwoFinger();
     };
 
     element.addEventListener("wheel", onWheel, { passive: false, capture: true });
@@ -342,7 +401,7 @@ export function CameraRig({
       maxDistance={MAX_DISTANCE}
       touches={{
         ONE: THREE.TOUCH.ROTATE,
-        TWO: THREE.TOUCH.PAN,
+        TWO: THREE.TOUCH.DOLLY_PAN,
       }}
       mouseButtons={{
         LEFT: THREE.MOUSE.ROTATE,

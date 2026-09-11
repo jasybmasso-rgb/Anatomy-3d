@@ -1,6 +1,6 @@
 {
-  "glbBytes": 1212840,
-  "glbMiB": 1.16,
+  "glbBytes": 1336836,
+  "glbMiB": 1.27,
   "partCount": 63,
   "countBodyparts3d": 35,
   "countSynthetic": 28,
@@ -9,5 +9,5 @@
   "maxFacesPerPart": 2200,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 tubes are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Nerfs cr\u00e2niens / orbitaires BodyParts3D 4.0 (optique, trochl\u00e9aire, oculomoteur, ophtalmique, ciliaires). Les grands troncs p\u00e9riph\u00e9riques (plexus brachial, m\u00e9dian, ulnaire, radial, sciatique, f\u00e9moral, tibial, fibulaire, phr\u00e9nique\u2026) sont des tubes sch\u00e9matiques synthetic-v2 : BP3D 4.0 n\u2019a pas ces maillages."
+  "inclusionRules": "Nerfs cr\u00e2niens / orbitaires BodyParts3D 4.0 (optique, trochl\u00e9aire, oculomoteur, ophtalmique, ciliaires). Les grands troncs p\u00e9riph\u00e9riques (plexus brachial, m\u00e9dian, ulnaire, radial, sciatique, f\u00e9moral, tibial, fibulaire, phr\u00e9nique\u2026) sont des tubes sch\u00e9matiques synthetic-v2 plus fins, cal\u00e9s sur le trajet usuel : BP3D 4.0 n\u2019a pas ces maillages."
 }

@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import type { ChainSide } from "../data/chains";
 import { nerves, organs, vessels } from "../data/loadViscera";
 import type { Muscle } from "../types/muscle";
-import type { FocusTarget, StructureKind } from "../types/structure";
+import type { FocusTarget, HiddenMap, StructureKind } from "../types/structure";
 import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
 import { Fascia } from "./Fascia";
@@ -50,7 +50,7 @@ type AnatomySceneProps = {
   selectedId: string | null;
   showMuscles: boolean;
   showAllMuscles: boolean;
-  hiddenMuscleIds: string[];
+  hiddenIds: HiddenMap;
   showLandmarks: boolean;
   showLigaments: boolean;
   showFascia: boolean;
@@ -71,7 +71,7 @@ export function AnatomyScene({
   selectedId,
   showMuscles,
   showAllMuscles,
-  hiddenMuscleIds,
+  hiddenIds,
   showLandmarks,
   showLigaments,
   showFascia,
@@ -113,17 +113,24 @@ export function AnatomyScene({
         <Skeleton />
         <Fascia
           layerVisible={showFascia}
+          selectedId={selectedKind === "fascia" ? selectedId : null}
+          hiddenIds={hiddenIds.fascia}
           chainLayerOn={showChains}
           activeChainIds={activeChainIds}
           chainSide={chainSide}
         />
-        <Ligaments visible={showLigaments} />
+        <Ligaments
+          visible={showLigaments}
+          selectedId={selectedKind === "ligament" ? selectedId : null}
+          hiddenIds={hiddenIds.ligament}
+        />
         <VisceraLayer
           url="/models/organs.glb"
           parts={organs}
           kind="organ"
           visible={showOrgans}
           selectedId={selectedKind === "organ" ? selectedId : null}
+          hiddenIds={hiddenIds.organ}
         />
         <VisceraLayer
           url="/models/vessels.glb"
@@ -131,6 +138,7 @@ export function AnatomyScene({
           kind="vessel"
           visible={showVessels}
           selectedId={selectedKind === "vessel" ? selectedId : null}
+          hiddenIds={hiddenIds.vessel}
         />
         <VisceraLayer
           url="/models/nerves.glb"
@@ -138,12 +146,13 @@ export function AnatomyScene({
           kind="nerve"
           visible={showNerves}
           selectedId={selectedKind === "nerve" ? selectedId : null}
+          hiddenIds={hiddenIds.nerve}
         />
         <MuscleLayer
           selectedMuscleId={muscle?.id ?? null}
           showMuscles={showMuscles}
           showAllMuscles={showAllMuscles}
-          hiddenMuscleIds={hiddenMuscleIds}
+          hiddenMuscleIds={hiddenIds.muscle}
           chainLayerOn={showChains}
           activeChainIds={activeChainIds}
           chainSide={chainSide}

@@ -5,37 +5,49 @@ import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
 import { SidePanel } from "./components/SidePanel";
 import { muscleIdsForChains, type ChainSide } from "./data/chains";
+import { connective, getConnectiveById } from "./data/loadConnective";
 import { muscles, getMuscleById } from "./data/loadMuscles";
 import { nerves, organs, vessels, getVisceraById } from "./data/loadViscera";
 import { AnatomyScene } from "./scene/AnatomyScene";
-import type { SelectionState } from "./types/muscle";
-import type { StructureKind } from "./types/structure";
+import type { StructureKind, SelectionState, HiddenMap } from "./types/structure";
+import { EMPTY_HIDDEN } from "./types/structure";
 import "./App.css";
 
 const ALL_VISCERA = [...nerves, ...organs, ...vessels];
+
+function toggleHidden(prev: HiddenMap, kind: StructureKind, id: string, hide: boolean): HiddenMap {
+  const next = new Set(prev[kind]);
+  if (hide) next.add(id);
+  else next.delete(id);
+  return { ...prev, [kind]: [...next] };
+}
 
 export function App() {
   const [selection, setSelection] = useState<SelectionState>(null);
   const [resetToken, setResetToken] = useState(0);
   const [layers, setLayers] = useState<LayerState>(DEFAULT_LAYERS);
   const [showAllMuscles, setShowAllMuscles] = useState(false);
-  const [hiddenMuscleIds, setHiddenMuscleIds] = useState<string[]>([]);
+  const [hiddenIds, setHiddenIds] = useState<HiddenMap>(EMPTY_HIDDEN);
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
   const [chainSide, setChainSide] = useState<ChainSide>("both");
 
   const selectedMuscle =
     selection?.kind === "muscle" ? getMuscleById(selection.id) : null;
   const selectedViscera =
-    selection && selection.kind !== "muscle"
+    selection && (selection.kind === "nerve" || selection.kind === "organ" || selection.kind === "vessel")
       ? getVisceraById(selection.kind, selection.id)
       : null;
-  const focus = selectedMuscle ?? selectedViscera;
+  const selectedConnective =
+    selection && (selection.kind === "ligament" || selection.kind === "fascia")
+      ? getConnectiveById(selection.kind, selection.id)
+      : null;
+  const focus = selectedMuscle ?? selectedViscera ?? selectedConnective;
 
   function reset() {
     setSelection(null);
     setResetToken((token) => token + 1);
     setShowAllMuscles(false);
-    setHiddenMuscleIds([]);
+    setHiddenIds(EMPTY_HIDDEN);
     setActiveChainIds([]);
     setChainSide("both");
     setLayers(DEFAULT_LAYERS);
@@ -57,6 +69,8 @@ export function App() {
     if (kind === "nerve") setLayers((prev) => ({ ...prev, nerves: true }));
     if (kind === "organ") setLayers((prev) => ({ ...prev, organs: true }));
     if (kind === "vessel") setLayers((prev) => ({ ...prev, vessels: true }));
+    if (kind === "ligament") setLayers((prev) => ({ ...prev, ligaments: true }));
+    if (kind === "fascia") setLayers((prev) => ({ ...prev, fascias: true }));
   }
 
   function onActiveChainsChange(ids: string[]) {
@@ -64,7 +78,10 @@ export function App() {
     if (ids.length > 0) {
       setLayers((prev) => ({ ...prev, chains: true }));
       const ensure = new Set(muscleIdsForChains(ids));
-      setHiddenMuscleIds((prev) => prev.filter((id) => !ensure.has(id)));
+      setHiddenIds((prev) => ({
+        ...prev,
+        muscle: prev.muscle.filter((id) => !ensure.has(id)),
+      }));
     } else {
       setChainSide("both");
     }
@@ -80,6 +97,7 @@ export function App() {
         <SearchBar
           muscles={muscles}
           viscera={ALL_VISCERA}
+          connective={connective}
           selectedId={selection?.id ?? null}
           selectedKind={selection?.kind ?? null}
           resetToken={resetToken}
@@ -109,7 +127,7 @@ export function App() {
               selectedId={selection?.id ?? null}
               showMuscles={layers.muscles}
               showAllMuscles={showAllMuscles}
-              hiddenMuscleIds={hiddenMuscleIds}
+              hiddenIds={hiddenIds}
               showLandmarks={layers.landmarks}
               showLigaments={layers.ligaments}
               showFascia={layers.fascias}
@@ -134,11 +152,12 @@ export function App() {
         <SidePanel
           muscle={selectedMuscle}
           viscera={selectedViscera}
+          connective={selectedConnective}
           kind={selection?.kind ?? null}
           showAllMuscles={showAllMuscles}
-          hiddenMuscleIds={hiddenMuscleIds}
+          hiddenIds={hiddenIds}
           onShowAllMuscles={onShowAllMuscles}
-          onHiddenChange={setHiddenMuscleIds}
+          onHiddenChange={(kind, id, hide) => setHiddenIds((prev) => toggleHidden(prev, kind, id, hide))}
           showChains={layers.chains}
           activeChainIds={activeChainIds}
           chainSide={chainSide}

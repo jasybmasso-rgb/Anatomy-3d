@@ -53,7 +53,8 @@ NERVE_INCLUSION = (
     "Nerfs crâniens / orbitaires BodyParts3D 4.0 (optique, trochléaire, oculomoteur, "
     "ophtalmique, ciliaires). Les grands troncs périphériques (plexus brachial, "
     "médian, ulnaire, radial, sciatique, fémoral, tibial, fibulaire, phrénique…) "
-    "sont des tubes schématiques synthetic-v2 : BP3D 4.0 n’a pas ces maillages."
+    "sont des tubes schématiques synthetic-v2 plus fins, calés sur le trajet usuel : "
+    "BP3D 4.0 n’a pas ces maillages."
 )
 
 # Exact English names (isa_parts_list_e.txt) for searchable key vessels.
@@ -394,7 +395,7 @@ ORGAN_RGB = {
     "brain": (232, 196, 186),
     "default": (196, 140, 120),
 }
-NERVE_RGB = (232, 210, 126, 255)
+NERVE_RGB = (246, 214, 72, 255)
 ARTERY_RGB = (188, 42, 42, 255)
 VEIN_RGB = (42, 74, 168, 255)
 
@@ -609,8 +610,9 @@ def _write_glb(
     }
     if kind == "nerve":
         payload["syntheticDisclaimer"] = (
-            "Les pièces source=synthetic-v2 sont des tubes loftés entre repères osseux, "
-            "pas des nerfs segmentés. Les maillages crâniens BP3D restent source=bodyparts3d."
+            "Les pièces source=synthetic-v2 sont des tubes loftés le long du trajet "
+            "anatomique usuel (repères osseux), pas des nerfs segmentés. "
+            "Les maillages crâniens BP3D restent source=bodyparts3d."
         )
     out_cat.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"wrote {out_glb} ({size_mb:.2f} MiB), {len(catalog)} parts, {faces} faces", flush=True)

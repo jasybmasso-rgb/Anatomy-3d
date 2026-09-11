@@ -91,7 +91,7 @@ Catalogues des trois couches viscérales **séparées** (`nerves.glb`, `organs.g
 | `organTone` | Teinte viscérale (foie, cœur, poumon…). |
 | `focus` | Cible caméra. |
 
-**Nerfs :** maillages crâniens / orbitaires BP3D 4.0 + tubes schématiques pour sciatique, médian, plexi, etc. (BP3D n’a pas les nerfs périphériques). **Organes :** viscères nommés ; poumons = arbre bronchique (pas de parenchyme nommé). **Vaisseaux :** circulation seulement (aorte, carotides, caves, coronaires…) + arbres artériel/veineux résiduels.
+**Nerfs :** maillages crâniens / orbitaires BP3D 4.0 (fidélité conservée) + tubes schématiques plus fins pour sciatique, médian, plexi, etc., calés sur le trajet anatomique usuel (BP3D n’a pas les nerfs périphériques). Couleur atlas or-jaune, distincte de l’ivoire osseux, du tan glandulaire et des vaisseaux. **Organes :** viscères nommés ; poumons = arbre bronchique (pas de parenchyme nommé). **Vaisseaux :** circulation seulement (aorte, carotides, caves, coronaires…) + arbres artériel/veineux résiduels.
 
 ## Ce qui n’est pas ici (volontairement)
 

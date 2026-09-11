@@ -590,6 +590,13 @@
   cursor: pointer;
 }
 
+.hidden-chip-kind {
+  color: #c4b4a4;
+  font-style: normal;
+  font-size: 0.65rem;
+  opacity: 0.85;
+}
+
 .hidden-chip-more {
   color: #8b9bb4;
   font-size: 0.75rem;

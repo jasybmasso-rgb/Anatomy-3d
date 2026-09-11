@@ -17,7 +17,7 @@ Les chaînes myofasciales (Tom Myers) sont une couche pédagogique. iOS / IPA ho
 
 Le squelette affiché est un **GLB fusionné** (`public/models/skeleton.glb`, normales incluses) dérivé de **BodyParts3D** (os + cartilage hyalin / fibrocartilage disponible, réduction 99 %). Voir `docs/ATTRIBUTION.md` pour le crédit **CC BY-SA 2.1 Japon** et les implications share-alike.
 
-Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments, fascias, **nerfs**, **organes** et **vaisseaux sanguins** (trois interrupteurs distincts — jamais organes+circulation fusionnés). Les nerfs périphériques majeurs absents de BodyParts3D 4.0 sont des tubes schématiques.
+Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments, fascias, **nerfs**, **organes** et **vaisseaux sanguins** (trois interrupteurs distincts — jamais organes+circulation fusionnés). Les nerfs périphériques majeurs absents de BodyParts3D 4.0 sont des tubes schématiques plus fins, calés sur le trajet usuel (couleur or-jaune atlas). Ligaments, fascias, nerfs, organes et vaisseaux sont sélectionnables comme les muscles.
 
 Reconstruction du GLB :
 
@@ -27,8 +27,10 @@ bash scripts/build-skeleton-glb.sh
 
 ## Prérequis
 
-- Node.js 20+ recommandé
+- **Node.js 22+** recommandé (Capacitor 8 / `@capacitor/cli` déclarent `engines.node >= 22`). Node 20 suffit pour le bundle web et pour une partie des dépendances ; Node 18 n’empêche pas `npm install` mais affiche des avertissements `EBADENGINE`.
 - npm
+
+Ne pas lancer `npm audit fix --force` : cela rétrograderait Capacitor 8 vers 6. L’avis `uuid` vient de `@capacitor/cli` → `xcode` (outillage de build), pas du runtime web.
 
 ## Installation et lancement
 

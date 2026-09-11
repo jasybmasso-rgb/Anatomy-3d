@@ -1,5 +1,5 @@
 import type { Muscle } from "../types/muscle";
-import type { StructureKind, VisceraPart } from "../types/structure";
+import type { ConnectivePart, StructureKind, VisceraPart } from "../types/structure";
 import { normalizeSearch } from "./search";
 
 export type SearchHit = {
@@ -28,31 +28,40 @@ const KIND_ORDER: Record<StructureKind, number> = {
   nerve: 1,
   organ: 2,
   vessel: 3,
+  ligament: 4,
+  fascia: 5,
+};
+
+type NamedPart = {
+  id: string;
+  name: string;
+  nameLatin: string;
+  aliases: string[];
+  kind: StructureKind;
 };
 
 export function searchStructures(
   muscles: Muscle[],
   viscera: VisceraPart[],
+  connective: ConnectivePart[],
   query: string,
 ): SearchHit[] {
   const needle = normalizeSearch(query);
   if (!needle) return [];
 
   const rows: { hit: SearchHit; rank: number }[] = [];
-  for (const muscle of muscles) {
-    const rank = rankRow(muscle.id, muscle.name, muscle.nameLatin, muscle.aliases, needle);
-    if (rank === null) continue;
-    rows.push({
-      rank,
-      hit: {
-        kind: "muscle",
-        id: muscle.id,
-        name: muscle.name,
-        nameLatin: muscle.nameLatin,
-      },
-    });
-  }
-  for (const part of viscera) {
+  const parts: NamedPart[] = [
+    ...muscles.map((muscle) => ({
+      id: muscle.id,
+      name: muscle.name,
+      nameLatin: muscle.nameLatin,
+      aliases: muscle.aliases,
+      kind: "muscle" as const,
+    })),
+    ...viscera,
+    ...connective,
+  ];
+  for (const part of parts) {
     const rank = rankRow(part.id, part.name, part.nameLatin, part.aliases, needle);
     if (rank === null) continue;
     rows.push({
