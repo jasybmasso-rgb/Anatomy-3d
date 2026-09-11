@@ -48,6 +48,16 @@ npm run preview
 
 `npm run build` lance la vérification TypeScript puis le bundle Vite.
 
+## APK Android (test sideload)
+
+Application Capacitor (`ca.anatomy3d.app`). APK **debug** pour installation hors Play Store :
+
+```bash
+npm run apk:debug
+```
+
+Sortie : `android/app/build/outputs/apk/debug/app-debug.apk`. Guide d’installation (sources inconnues, Chromebook) : `docs/GUIDE-ANDROID-APK.md`.
+
 ## Structure utile
 
 | Chemin | Rôle |
