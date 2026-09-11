@@ -44,27 +44,27 @@ const GLSL_MUSCLE_ALBEDO = /* glsl */ `
 vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix, float tendonAmt) {
   float along = clamp(uv.x, 0.0, 1.0);
   vec2 circ = fiberCirc(uv.y);
-  float belly = pow(sin(3.14159265 * along), 1.08);
-  float endCap = 1.0 - smoothstep(0.0, 0.16, min(along, 1.0 - along));
-  float tendon = clamp(max(endCap * 0.72, tendonAmt), 0.0, 1.0);
+  float belly = pow(sin(3.14159265 * along), 0.82);
+  // Mild UV fallback only — painted apo / inscriptions live in tendonAmt.
+  float endCap = 1.0 - smoothstep(0.0, 0.10, min(along, 1.0 - along));
+  float tendon = clamp(mix(endCap * 0.34, 1.0, clamp(tendonAmt, 0.0, 1.0)), 0.0, 1.0);
 
-  vec3 tendonCol = vec3(0.97, 0.94, 0.88);
-  vec3 midCol = vec3(0.72, 0.13, 0.10);
-  vec3 bellyCol = vec3(0.46, 0.045, 0.042);
-  float flesh = 1.0 - smoothstep(0.12, 0.78, tendon);
-  vec3 base = mix(tendonCol, mix(midCol, bellyCol, smoothstep(0.12, 1.0, belly)), flesh);
+  vec3 tendonCol = vec3(0.96, 0.93, 0.86);
+  vec3 midCol = vec3(0.82, 0.11, 0.08);
+  vec3 bellyCol = vec3(0.58, 0.035, 0.032);
+  float flesh = 1.0 - smoothstep(0.05, 0.62, tendon);
+  vec3 base = mix(tendonCol, mix(midCol, bellyCol, smoothstep(0.18, 1.0, belly)), flesh);
 
-  float density = mix(78.0, 16.0, belly * flesh);
+  float density = mix(86.0, 18.0, belly * flesh);
   float warp = fiberFbm(circ * 2.2 + vec2(along * 2.8, 4.1)) - 0.5;
   vec2 fuv = circ * density + vec2(warp * 2.1, along * 1.6);
   float n = fiberFbm(fuv);
   n = n * 0.62 + fiberFbm(fuv * 2.35 + vec2(along * 3.4, 9.0)) * 0.38;
   float ridge = smoothstep(0.32, 0.74, n);
-  float contrast = mix(0.10, 0.07, belly) * flesh;
-  float shade = mix(1.0 - contrast, 1.0 + contrast * 0.32, ridge);
+  float contrast = mix(0.13, 0.09, belly) * flesh;
+  float shade = mix(1.0 - contrast, 1.0 + contrast * 0.28, ridge);
   vec3 col = base * shade;
-  col = mix(col, tendonCol, tendon * 0.92);
-  col = mix(col, mix(col, tendonCol, 0.35), (1.0 - tendon) * ridge * 0.12);
+  col = mix(col, mix(col, tendonCol, 0.22), (1.0 - tendon) * ridge * 0.10);
   float lum = dot(col, vec3(0.32, 0.5, 0.18));
   vec3 chainCol = tint * mix(0.4, 1.2, lum);
   col = mix(col, chainCol, clamp(tintMix, 0.0, 1.0));
@@ -72,8 +72,8 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix, float tendonAmt)
 }
 float pedagogicalMuscleRoughness(vec2 uv, float tendonAmt) {
   float along = clamp(uv.x, 0.0, 1.0);
-  float belly = pow(sin(3.14159265 * along), 1.08);
-  return mix(mix(0.38, 0.62, belly), 0.34, clamp(tendonAmt, 0.0, 1.0));
+  float belly = pow(sin(3.14159265 * along), 0.82);
+  return mix(mix(0.40, 0.64, belly), 0.32, clamp(tendonAmt, 0.0, 1.0));
 }
 `;
 
@@ -224,6 +224,85 @@ export function applyFiberUVs(geometry: THREE.BufferGeometry, fiberAxis?: THREE.
   geometry.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
 }
 
+/**
+ * Tendon weight for the muscle shader.
+ * Pale vertex colors (aponévroses, inscriptions) dominate.
+ * Fusiform muscles also get white at thin tapered ends — not a blanket UV wash.
+ */
+export function applyTendonAttribute(geometry: THREE.BufferGeometry, fiberAxis?: THREE.Vector3) {
+  const pos = geometry.getAttribute("position") as THREE.BufferAttribute | undefined;
+  if (!pos) return;
+  const color = geometry.getAttribute("color");
+  const uv = geometry.getAttribute("uv");
+  const arr = new Float32Array(pos.count);
+
+  if (color) {
+    for (let i = 0; i < pos.count; i += 1) {
+      let r = color.getX(i);
+      let g = color.getY(i);
+      let b = color.getZ(i);
+      if (r > 1.01 || g > 1.01 || b > 1.01) {
+        r /= 255;
+        g /= 255;
+        b /= 255;
+      }
+      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+      const chroma = Math.max(r, g, b) - Math.min(r, g, b);
+      const pale = THREE.MathUtils.smoothstep(0.58, 0.86, lum);
+      const unsaturated = 1 - THREE.MathUtils.smoothstep(0.18, 0.42, chroma);
+      arr[i] = pale * unsaturated;
+    }
+  }
+
+  const groups = collectHalves(pos);
+  for (const indices of groups) {
+    const hint = fiberAxis?.clone();
+    if (hint && hint.lengthSq() < 1e-10) hint.set(0, 0, 0);
+    const axis = pcaLongAxis(pos, indices, hint && hint.lengthSq() > 0 ? hint : undefined);
+    if (axis.lengthSq() < 1e-10) axis.set(0, 1, 0);
+    _centroid.set(0, 0, 0);
+    for (const i of indices) {
+      _centroid.x += pos.getX(i);
+      _centroid.y += pos.getY(i);
+      _centroid.z += pos.getZ(i);
+    }
+    _centroid.multiplyScalar(1 / Math.max(indices.length, 1));
+
+    let minAlong = Number.POSITIVE_INFINITY;
+    let maxAlong = Number.NEGATIVE_INFINITY;
+    let maxRad = 0;
+    const rad = new Float32Array(indices.length);
+    for (let k = 0; k < indices.length; k += 1) {
+      const i = indices[k];
+      _p.fromBufferAttribute(pos, i);
+      _p.sub(_centroid);
+      const along = _p.dot(axis);
+      if (along < minAlong) minAlong = along;
+      if (along > maxAlong) maxAlong = along;
+      _radial.copy(_p).addScaledVector(axis, -along);
+      rad[k] = _radial.length();
+      if (rad[k] > maxRad) maxRad = rad[k];
+    }
+    const span = Math.max(maxAlong - minAlong, 1e-5);
+    const sheetLike = span / Math.max(maxRad * 2, 1e-5) > 7.5;
+    for (let k = 0; k < indices.length; k += 1) {
+      const i = indices[k];
+      const u = uv
+        ? THREE.MathUtils.clamp(uv.getX(i), 0, 1)
+        : THREE.MathUtils.clamp((_p.fromBufferAttribute(pos, i).sub(_centroid).dot(axis) - minAlong) / span, 0, 1);
+      const rn = rad[k] / Math.max(maxRad, 1e-5);
+      const end = 1 - THREE.MathUtils.smoothstep(0, sheetLike ? 0.055 : 0.13, Math.min(u, 1 - u));
+      const taper = Math.pow(1 - rn, 1.45);
+      const geom = sheetLike
+        ? end * taper * 0.22
+        : THREE.MathUtils.clamp(end * (0.42 + 0.58 * taper) + Math.pow(Math.max(0, 0.18 - rn), 1.25) * 0.28, 0, 1);
+      arr[i] = Math.max(arr[i], geom);
+    }
+  }
+
+  geometry.setAttribute("tendon", new THREE.BufferAttribute(arr, 1));
+}
+
 /** Longest AABB axis — fallback for ligaments when PCA is overkill. */
 export function inferLongAxis(geometry: THREE.BufferGeometry): THREE.Vector3 {
   if (!geometry.boundingBox) geometry.computeBoundingBox();
@@ -288,8 +367,6 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
       {
         vec2 fiberUv = vMapUv;
         vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, uTint, uTintMix, clamp(vTendon, 0.0, 1.0));
-        vec3 tendonCol = vec3(0.97, 0.94, 0.88);
-        fiberAlbedo = mix(fiberAlbedo, tendonCol, smoothstep(0.18, 0.82, clamp(vTendon, 0.0, 1.0)));
         float selected = clamp(uSelected, 0.0, 1.0);
         fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.18, 1.08, 0.88), selected * 0.38);
         #ifndef FLAT_SHADED
@@ -312,7 +389,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v10-tendon";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v11-chart";
   return material;
 }
 

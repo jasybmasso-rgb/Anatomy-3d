@@ -29,16 +29,16 @@ function supportsWebGL(): boolean {
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.78} />
-      <hemisphereLight args={["#e8f0fa", "#5a4a3c", 1.15]} />
+      <ambientLight intensity={0.58} />
+      <hemisphereLight args={["#e8f0fa", "#5a4a3c", 0.92]} />
       <directionalLight
         position={[2.4, 3.2, 2.2]}
-        intensity={1.75}
+        intensity={1.32}
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
       />
-      <directionalLight position={[-2.2, 1.4, -1.2]} intensity={0.45} />
+      <directionalLight position={[-2.2, 1.4, -1.2]} intensity={0.36} />
     </>
   );
 }
@@ -50,6 +50,7 @@ type AnatomySceneProps = {
   selectedId: string | null;
   showMuscles: boolean;
   showAllMuscles: boolean;
+  pinnedMuscleId: string | null;
   hiddenIds: HiddenMap;
   showLandmarks: boolean;
   showLigaments: boolean;
@@ -71,6 +72,7 @@ export function AnatomyScene({
   selectedId,
   showMuscles,
   showAllMuscles,
+  pinnedMuscleId,
   hiddenIds,
   showLandmarks,
   showLigaments,
@@ -150,6 +152,7 @@ export function AnatomyScene({
         />
         <MuscleLayer
           selectedMuscleId={muscle?.id ?? null}
+          pinnedMuscleId={pinnedMuscleId}
           showMuscles={showMuscles}
           showAllMuscles={showAllMuscles}
           hiddenMuscleIds={hiddenIds.muscle}

@@ -30,6 +30,7 @@ export function App() {
   const [hiddenIds, setHiddenIds] = useState<HiddenMap>(EMPTY_HIDDEN);
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
   const [chainSide, setChainSide] = useState<ChainSide>("both");
+  const [pinnedMuscleId, setPinnedMuscleId] = useState<string | null>(null);
 
   const selectedMuscle =
     selection?.kind === "muscle" ? getMuscleById(selection.id) : null;
@@ -51,6 +52,7 @@ export function App() {
     setActiveChainIds([]);
     setChainSide("both");
     setLayers(DEFAULT_LAYERS);
+    setPinnedMuscleId(null);
   }
 
   function setLayer(id: LayerId, value: boolean) {
@@ -65,7 +67,10 @@ export function App() {
 
   function onSelectStructure(kind: StructureKind, id: string) {
     setSelection({ kind, id });
-    if (kind === "muscle") setLayers((prev) => ({ ...prev, muscles: true }));
+    if (kind === "muscle") {
+      setPinnedMuscleId(id);
+      setLayers((prev) => ({ ...prev, muscles: true }));
+    }
     if (kind === "nerve") setLayers((prev) => ({ ...prev, nerves: true }));
     if (kind === "organ") setLayers((prev) => ({ ...prev, organs: true }));
     if (kind === "vessel") setLayers((prev) => ({ ...prev, vessels: true }));
@@ -127,6 +132,7 @@ export function App() {
               selectedId={selection?.id ?? null}
               showMuscles={layers.muscles}
               showAllMuscles={showAllMuscles}
+              pinnedMuscleId={pinnedMuscleId}
               hiddenIds={hiddenIds}
               showLandmarks={layers.landmarks}
               showLigaments={layers.ligaments}

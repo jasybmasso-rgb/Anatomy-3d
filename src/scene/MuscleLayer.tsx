@@ -6,6 +6,7 @@ import { muscles } from "../data/loadMuscles";
 import { setPickMeshes } from "./structurePick";
 import {
   applyFiberUVs,
+  applyTendonAttribute,
   clipPlanesForSide,
   createFiberMuscleMaterial,
   setMuscleTint,
@@ -14,6 +15,7 @@ import {
 
 export type MuscleLayerProps = {
   selectedMuscleId: string | null;
+  pinnedMuscleId: string | null;
   showMuscles: boolean;
   showAllMuscles: boolean;
   hiddenMuscleIds: string[];
@@ -43,17 +45,17 @@ const THIN_SHEETS = new Set([
 
 /** Superficial → drawn later. Deep wall stays behind even if sheets kiss. */
 const WALL_ORDER: Record<string, number> = {
-  "transverse-de-l-abdomen": 2,
-  "oblique-interne": 3,
+  "transverse-de-l-abdomen": 1,
+  "oblique-interne": 2,
   "droit-abdomen": 4,
-  "oblique-externe": 6,
+  "oblique-externe": 7,
 };
 
 const WALL_OFFSET: Record<string, number> = {
-  "transverse-de-l-abdomen": 4,
-  "oblique-interne": 2,
+  "transverse-de-l-abdomen": 8,
+  "oblique-interne": 4,
   "droit-abdomen": 0,
-  "oblique-externe": -2,
+  "oblique-externe": -4,
 };
 
 function visibleIds(props: MuscleLayerProps): Set<string> {
@@ -67,6 +69,9 @@ function visibleIds(props: MuscleLayerProps): Set<string> {
   if (props.showMuscles && props.selectedMuscleId && !hidden.has(props.selectedMuscleId)) {
     shown.add(props.selectedMuscleId);
   }
+  if (props.showMuscles && props.pinnedMuscleId && !hidden.has(props.pinnedMuscleId)) {
+    shown.add(props.pinnedMuscleId);
+  }
   if (props.chainLayerOn) {
     for (const muscle of muscles) {
       if (hidden.has(muscle.id)) continue;
@@ -74,36 +79,6 @@ function visibleIds(props: MuscleLayerProps): Set<string> {
     }
   }
   return shown;
-}
-
-function applyTendonAttribute(geometry: THREE.BufferGeometry) {
-  if (geometry.getAttribute("tendon")) return;
-  const pos = geometry.getAttribute("position");
-  const color = geometry.getAttribute("color");
-  const uv = geometry.getAttribute("uv");
-  const arr = new Float32Array(pos.count);
-  if (color) {
-    for (let i = 0; i < pos.count; i += 1) {
-      let r = color.getX(i);
-      let g = color.getY(i);
-      let b = color.getZ(i);
-      if (r > 1.01 || g > 1.01 || b > 1.01) {
-        r /= 255;
-        g /= 255;
-        b /= 255;
-      }
-      const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-      arr[i] = THREE.MathUtils.smoothstep(0.48, 0.86, lum);
-    }
-  }
-  if (uv) {
-    for (let i = 0; i < pos.count; i += 1) {
-      const along = THREE.MathUtils.clamp(uv.getX(i), 0, 1);
-      const end = 1 - THREE.MathUtils.smoothstep(0, 0.16, Math.min(along, 1 - along));
-      arr[i] = Math.max(arr[i], end * 0.82);
-    }
-  }
-  geometry.setAttribute("tendon", new THREE.BufferAttribute(arr, 1));
 }
 
 export function MuscleLayer(props: MuscleLayerProps) {
@@ -132,7 +107,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
           obj.geometry.computeVertexNormals();
         }
         applyFiberUVs(obj.geometry, hint.lengthSq() > 1e-8 ? hint : undefined);
-        applyTendonAttribute(obj.geometry);
+        applyTendonAttribute(obj.geometry, hint.lengthSq() > 1e-8 ? hint : undefined);
         obj.userData.pick = "muscle";
         obj.userData.muscleId = muscle.id;
         obj.raycast = THREE.Mesh.prototype.raycast;

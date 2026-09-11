@@ -47,7 +47,7 @@ Catalogue des pièces du `ligaments.glb` (même espace que le squelette). Toggle
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` / `joint` | Localisation. |
-| `source` | `bodyparts3d` ou `synthetic-v2`. |
+| `source` | `bodyparts3d` ou `synthetic-v3`. |
 | `notes` | Inclusion / précision. Les synthétiques sont des approximations pédagogiques. |
 | `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
@@ -62,7 +62,7 @@ Catalogue du `fascia.glb`. Toggle « Afficher les fascias » **off** par défaut
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` | Localisation. |
-| `source` | `bodyparts3d` ou `synthetic-v2`. |
+| `source` | `bodyparts3d` ou `synthetic-v3`. |
 | `notes` | Inclusion / approximation. |
 | `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
@@ -85,7 +85,7 @@ Catalogues des trois couches viscérales **séparées** (`nerves.glb`, `organs.g
 | `aliases` | Recherche (anglais BP3D, synonymes). |
 | `region` | tête / cou / tronc / membre. |
 | `notes` | Inclusion, lacunes BP3D, schéma. |
-| `source` | `bodyparts3d` ou `synthetic-v2` (troncs nerveux pédagogiques). |
+| `source` | `bodyparts3d` ou `synthetic-v3` (troncs nerveux pédagogiques, racines foraminales). |
 | `kind` | `nerve` \| `organ` \| `vessel`. |
 | `vesselKind` | `artery` (rouge) ou `vein` (bleu) — vaisseaux seulement. |
 | `organTone` | Teinte viscérale (foie, cœur, poumon…). |

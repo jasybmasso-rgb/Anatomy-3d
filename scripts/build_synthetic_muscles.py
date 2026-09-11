@@ -328,15 +328,15 @@ def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trime
         sx,
         y_top=0.272,
         y_bot=0.010,
-        depth=0.0095,
+        depth=0.0135,
         n_along=18,
         n_across=11,
         linea=0.0065,
         diagonal=0.90,
-        x_scale=0.97,
-        flank_depth=0.0070,
+        x_scale=0.90,
+        flank_depth=0.010,
     )
-    sheet = grid_sheet(grid, thickness=0.0038)
+    sheet = grid_sheet(grid, thickness=0.0036)
     v = np.asarray(sheet.vertices)
     # Aponeurosis (white) as the sheet reaches the rectus sheath.
     w = np.clip((0.058 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0)
@@ -350,15 +350,15 @@ def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
         sx,
         y_top=0.278,
         y_bot=0.008,
-        depth=0.0185,
+        depth=0.0240,
         n_along=16,
         n_across=11,
         linea=0.0058,
         diagonal=0.0,
-        x_scale=0.88,
-        flank_depth=0.014,
+        x_scale=0.80,
+        flank_depth=0.020,
     )
-    sheet = grid_sheet(grid, thickness=0.0032)
+    sheet = grid_sheet(grid, thickness=0.0028)
     v = np.asarray(sheet.vertices)
     w = np.clip((0.055 - np.abs(v[:, 0])) / 0.020, 0.0, 1.0)
     paint_tendon(sheet, w)
@@ -384,20 +384,41 @@ def _eo_aponeurosis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh
 
 
 def enhance_external_oblique(mesh: trimesh.Trimesh, p: dict[str, np.ndarray] | None = None) -> trimesh.Trimesh:
-    """Keep BP3D fleshy flank; snap medial sheet onto the wall as white aponeurosis."""
+    """Keep BP3D fleshy flank; snap medial sheet onto the wall as white aponeurosis.
+
+    BP3D EO is a thick volume whose posterior flank sits *behind* the synthetic
+    internal oblique / transversus. Flatten the abdominal portion onto a shell
+    superficial to those layers so stacking is TV → IO → rectus → EO.
+    """
     m = mesh.copy()
     v = np.asarray(m.vertices, dtype=np.float64).copy()
     xabs = np.abs(v[:, 0])
     y = v[:, 1]
+    sx = np.sign(v[:, 0])
+    sx[sx == 0] = 1.0
     z_wall = np.interp(y, _WALL_Y, _WALL_Z)
-    abdomen = ((y > -0.03) & (y < 0.335) & (v[:, 2] > -0.03)).astype(np.float64)
+    z_flank = np.interp(y, _FLANK_Y, _FLANK_Z)
+    x_lat = np.interp(y, _FLANK_Y, _FLANK_X) * 1.06
+    abdomen = ((y > -0.03) & (y < 0.335) & (v[:, 2] > -0.06)).astype(np.float64)
     # White only over rectus (|x| ≲ 5–6 cm). Flank stays red.
     w = np.clip((0.058 - xabs) / 0.016, 0.0, 1.0) * abdomen
-    target_z = z_wall + 0.016
-    v[:, 2] = v[:, 2] * (1.0 - w) + target_z * w
-    # Pull remaining anterior blobs down onto the wall (BP3D EO is a thick volume).
-    too_front = np.clip((v[:, 2] - (z_wall + 0.024)) / 0.05, 0.0, 1.0) * abdomen * (1.0 - 0.35 * w)
-    v[:, 2] -= too_front * (v[:, 2] - (z_wall + 0.007))
+    target_z_apo = z_wall + 0.0165
+    v[:, 2] = v[:, 2] * (1.0 - w) + target_z_apo * w
+
+    # s=0 lateral flank, s=1 medial (rectus edge). Outer envelope, proud of IO.
+    denom = np.maximum(x_lat - 0.058, 0.02)
+    s = np.clip((x_lat - xabs) / denom, 0.0, 1.0)
+    z_shell = z_flank * (1.0 - s**1.18) + (z_wall + 0.013) * (s**1.18) + 0.011
+    x_shell = sx * (x_lat * (1.0 - s**0.88) + 0.062 * (s**0.88))
+    flank = abdomen * (1.0 - w)
+
+    too_deep = np.clip((z_shell - 0.003 - v[:, 2]) / 0.045, 0.0, 1.0) * flank
+    v[:, 2] += too_deep * (z_shell - v[:, 2])
+    too_front = np.clip((v[:, 2] - (z_shell + 0.007)) / 0.04, 0.0, 1.0) * flank
+    v[:, 2] -= too_front * (v[:, 2] - z_shell)
+    too_medial = np.clip((np.abs(x_shell) - 0.004 - xabs) / 0.028, 0.0, 1.0) * flank
+    v[:, 0] += too_medial * (x_shell - v[:, 0]) * 0.7
+
     m.vertices = v
     paint_tendon(m, w)
     if p is not None:
