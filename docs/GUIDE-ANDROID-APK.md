@@ -6,7 +6,13 @@ Cette version embarque le build Vite (WebView + WebGL) et les maillages GLB. Les
 
 ## Télécharger l’APK
 
-L’APK de cette exécution d’agent : artefact `Anatomy-3d-1.0-debug-anatomy-pass-atlas.apk` (**~87 Mo**, 86 Mio). Il n’est pas versionné dans Git.
+Lien public (GitHub Release, prerelease `apk-anatomy-pass-atlas`) — **enregistrer le fichier**, pas un artefact Cursor :
+
+**https://github.com/jasybmasso-rgb/Anatomy-3d/releases/download/apk-anatomy-pass-atlas/Anatomy-3d-1.0-debug-anatomy-pass-atlas.apk**
+
+Page de la release : https://github.com/jasybmasso-rgb/Anatomy-3d/releases/tag/apk-anatomy-pass-atlas
+
+Fichier : `Anatomy-3d-1.0-debug-anatomy-pass-atlas.apk` (**~87 Mo**). Il n’est pas versionné dans Git ; le CDN GitHub envoie `Content-Disposition: attachment` pour forcer le téléchargement.
 
 Cette build embarque les maillages à jour : fascias calés, ligaments sans têtes de champignon, nerfs synthetic-v3 (racines foraminales, sciatique sous le piriforme), paroi abdominale empilée, shader fibres rouges / tendons blancs, plus `nerves.glb`, `organs.glb` et `vessels.glb`.
 
@@ -21,8 +27,8 @@ L’APK se trouve alors ici :
 
 ## Téléphone Android
 
-1. Copiez l’APK sur l’appareil (USB, Drive, courriel, etc.).
-2. Ouvrez le fichier. Android affiche un avertissement **sources inconnues** / **installer des applications inconnues**.
+1. Ouvrez le lien GitHub ci-dessus dans le navigateur (Chrome, Firefox). Le fichier doit se **télécharger** (pas s’installer tout de suite). S’il s’ouvre quand même : appuyez longuement → **Télécharger le lien** / **Enregistrer le fichier**.
+2. Ouvrez le fichier depuis Téléchargements. Android affiche un avertissement **sources inconnues** / **installer des applications inconnues**.
 3. Autorisez l’installation pour l’app qui ouvre le fichier (Fichiers, Chrome, Drive…).
 4. Installez, puis ouvrez **Anatomy-3d**.
 
