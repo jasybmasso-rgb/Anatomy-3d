@@ -18,6 +18,8 @@ export type MyofascialChain = {
   tint: string;
   muscleIds: string[];
   fasciaIds?: string[];
+  /** SPL only: stations on the opposite side of the named spiral (Myers helix). */
+  contraMuscleIds?: string[];
 };
 
 export type ChainsFile = {
@@ -54,6 +56,9 @@ const FASCIA_IDS = new Set([
   "fascia-crural-d",
   "fascia-crural-g",
   "fascia-thoracolombaire",
+  "sacro-tubereux-d",
+  "sacro-tubereux-g",
+  "fascia-nuchal",
 ]);
 
 function filterFascia(ids: string[] | undefined, sigle: string): string[] {
@@ -92,11 +97,33 @@ export const chains: MyofascialChain[] = file.chains.map((chain) => ({
   ...chain,
   muscleIds: filterKnown(chain.muscleIds, chain.sigle),
   fasciaIds: filterFascia(chain.fasciaIds, chain.sigle),
+  contraMuscleIds: chain.contraMuscleIds
+    ? filterKnown(chain.contraMuscleIds, `${chain.sigle}-contra`)
+    : undefined,
 }));
 
 export function getChainById(id: string | null | undefined): MyofascialChain | null {
   if (!id) return null;
   return chains.find((chain) => chain.id === id) ?? null;
+}
+
+/** Opposite-side SPL stations when a unilateral spiral is selected. */
+export function contraMuscleIdsForChains(activeIds: string[]): Set<string> {
+  const ids = new Set<string>();
+  for (const chain of chains) {
+    if (!activeIds.includes(chain.id)) continue;
+    for (const id of chain.contraMuscleIds ?? []) ids.add(id);
+  }
+  return ids;
+}
+
+/** Clip side for a muscle. SPL uses Myers crossed laterality; other chains stay ipsilateral. */
+export function chainClipSide(muscleId: string, side: ChainSide, activeIds: string[]): ChainSide {
+  if (side === "both") return "both";
+  if (contraMuscleIdsForChains(activeIds).has(muscleId)) {
+    return side === "right" ? "left" : "right";
+  }
+  return side;
 }
 
 export function chainsForMuscle(muscleId: string, activeIds: string[]): MyofascialChain[] {

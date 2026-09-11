@@ -29,6 +29,7 @@ export function Ligaments({ visible }: { visible: boolean }) {
         cache.set(key, mat);
       }
       obj.userData.pick = "ligament";
+      obj.raycast = () => {};
       obj.castShadow = false;
       obj.receiveShadow = false;
       obj.material = mat;

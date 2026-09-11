@@ -20,19 +20,22 @@ from build_muscles_glb import (  # noqa: E402
     OUT_META,
     _catalog_row,
 )
-from build_synthetic_muscles import MASTICATION_KEYS, SYNTH_NOTES, build  # noqa: E402
+from build_synthetic_muscles import (  # noqa: E402
+    SYNTH_KEYS,
+    SYNTH_NOTES,
+    build,
+    enhance_external_oblique,
+    load_lm,
+)
 from muscle_catalog import catalog_entry  # noqa: E402
-
-SYNTH_KEYS = {
-    "grand-dorsal": "latissimus dorsi",
-    "droit-abdomen": "rectus abdominis",
-    **MASTICATION_KEYS,
-}
 
 INCLUSION = (
     INCLUSION_RULES
     + " Temporalis, masseter and pterygoids are landmark-anchored synthetics "
-    "(BP3D 4.0 excludes facial / mastication meshes from this atlas)."
+    "(BP3D 4.0 excludes facial / mastication meshes from this atlas). "
+    "Internal oblique and transversus abdominis are nested synthetic sheets "
+    "(transversus deep → internal oblique → external oblique; rectus in the sheath). "
+    "External oblique keeps the BP3D fleshy belly plus a white aponeurosis over rectus."
 )
 
 
@@ -59,10 +62,20 @@ def main() -> int:
         print("missing muscles.glb", file=sys.stderr)
         return 1
     scene = trimesh.load(OUT_GLB, force="scene")
+    landmarks = load_lm()
     synth = build()
+    eo_mesh = None
+    if "oblique-externe" in scene.geometry:
+        eo_mesh = enhance_external_oblique(scene.geometry["oblique-externe"], landmarks)
+        _ = eo_mesh.vertex_normals
+        eo_mesh.metadata["name"] = "oblique-externe"
+        scene.delete_geometry("oblique-externe")
+        scene.add_geometry(eo_mesh, node_name="oblique-externe", geom_name="oblique-externe")
+        print(f"  + {'oblique-externe':32s}  {len(eo_mesh.faces):6d} faces  BP3D+aponeurosis", flush=True)
     for muscle_id, mesh in synth.items():
         _ = mesh.vertex_normals
-        mesh.visual.vertex_colors = [196, 72, 58, 255]
+        if getattr(mesh.visual, "vertex_colors", None) is None or len(getattr(mesh.visual, "vertex_colors", [])) == 0:
+            mesh.visual.vertex_colors = [196, 72, 58, 255]
         mesh.metadata["name"] = muscle_id
         if muscle_id in scene.geometry:
             scene.delete_geometry(muscle_id)
@@ -83,6 +96,18 @@ def main() -> int:
         muscle, entry = _muscle_row(muscle_id, mesh)
         by_id[muscle_id] = muscle
         mesh_by_id[muscle_id] = entry
+
+    if eo_mesh is not None and "oblique-externe" in mesh_by_id:
+        mesh_by_id["oblique-externe"].update(
+            {
+                "vertexCount": int(len(eo_mesh.vertices)),
+                "faceCount": int(len(eo_mesh.faces)),
+                "notes": (
+                    "BodyParts3D fleshy belly plus schematic white aponeurosis "
+                    "passing superficial to rectus (anterior sheath)."
+                ),
+            }
+        )
 
     muscles_out = sorted(by_id.values(), key=lambda m: m["name"].lower())
     catalog = sorted(mesh_by_id.values(), key=lambda m: m["id"])

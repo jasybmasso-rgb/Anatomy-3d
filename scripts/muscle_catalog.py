@@ -38,6 +38,8 @@ NAMES: dict[str, tuple[str, str, list[str], Region]] = {
     "tibialis anterior": ("Tibial antérieur", "Musculus tibialis anterior", ["tibialis anterior"], "membre-inférieur"),
     "tibialis posterior": ("Tibial postérieur", "Musculus tibialis posterior", ["tibialis posterior"], "membre-inférieur"),
     "external oblique": ("Oblique externe", "Musculus obliquus externus abdominis", ["grand oblique"], "tronc"),
+    "internal oblique": ("Oblique interne", "Musculus obliquus internus abdominis", ["petit oblique", "oblique interne"], "tronc"),
+    "transversus abdominis": ("Transverse de l’abdomen", "Musculus transversus abdominis", ["transverse abdominal", "TVA", "transversus"], "tronc"),
     "supraspinatus": ("Supra-épineux", "Musculus supraspinatus", ["sus-épineux"], "épaule"),
     "infraspinatus": ("Infra-épineux", "Musculus infraspinatus", ["sous-épineux"], "épaule"),
     "subscapularis": ("Subscapulaire", "Musculus subscapularis", ["sous-scapulaire"], "épaule"),
@@ -368,6 +370,20 @@ _a("soleus", "Tête et face postérieure de la fibula, ligne soléaire du tibia,
 _a("tibialis anterior", "Condyle tibial latéral et face latérale du tibia, membrane interosseuse.", "Cunéiforme médial et base du 1er métatarsien.", ["Flexion dorsale de cheville", "Inversion du pied"])
 _a("tibialis posterior", "Tibia, fibula et membrane interosseuse (loge postérieure profonde).", "Naviculaire, cunéiformes et bases métatarsiennes 2–4.", ["Inversion du pied", "Flexion plantaire accessoire"], ["Soutien de la voûte médiale"])
 _a("external oblique", "Face externe des côtes 5–12.", "Ligne blanche, crête iliaque, ligament inguinal.", ["Flexion du tronc (bilatéral)", "Rotation controlatérale"], ["Expiration forcée", "Stabilisation abdominale"])
+_a(
+    "internal oblique",
+    "Fascia thoraco-lombaire, deux tiers antérieurs de la crête iliaque, tiers latéral du ligament inguinal.",
+    "Bords inférieurs des côtes 10–12, ligne blanche (aponévrose de la gaine du droit) et crête pubienne (tendon conjoint).",
+    ["Flexion du tronc (bilatéral)", "Rotation homolatérale"],
+    ["Expiration forcée", "Stabilisation abdominale"],
+)
+_a(
+    "transversus abdominis",
+    "Face interne des cartilages costaux 7–12, fascia thoraco-lombaire, crête iliaque et ligament inguinal.",
+    "Ligne blanche et crête pubienne (gaine postérieure du droit au-dessus de la ligne arquée).",
+    ["Rentrée abdominale / ceinture (augmente la pression intra-abdominale)"],
+    ["Expiration forcée", "Stabilisation lombo-pelvienne"],
+)
 _a("supraspinatus", "Fosse supra-épineuse de la scapula.", "Facette supérieure du tubercule majeur.", ["Amorcer l’abduction du bras"], ["Coaptation de la tête humérale"])
 _a("infraspinatus", "Fosse infra-épineuse.", "Facette moyenne du tubercule majeur.", ["Rotation latérale du bras"], ["Coaptation gléno-humérale"])
 _a("subscapularis", "Fosse subscapulaire.", "Tubercule mineur de l’humérus.", ["Rotation médiale du bras"], ["Coaptation gléno-humérale"])

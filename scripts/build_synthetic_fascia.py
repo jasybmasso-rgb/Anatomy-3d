@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from mesh_primitives import grid_sheet, wrap_panel
+from mesh_primitives import fascicle_bundle, grid_sheet, loft_ribbon, wrap_panel
 
 ROOT = Path(__file__).resolve().parents[1]
 LANDMARKS = ROOT / "src" / "data" / "landmarks.json"
@@ -148,4 +148,40 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         "tronc",
         tlf_sheet(p),
     )
+
+    # Nuchal ligament (midline) — SPL occipital/nuchal station.
+    inion = p["inion"]
+    c7 = p["c7"]
+    nuchal_path = np.linspace(inion + np.array([0.0, 0.0, -0.004]), c7 + np.array([0.0, 0.008, -0.012]), 14)
+    add(
+        "fascia-nuchal",
+        "Ligament nuchal (schéma)",
+        "Ligamentum nuchae",
+        "cou",
+        loft_ribbon(nuchal_path, width=0.018, thickness=0.0032, binormal=np.array([1.0, 0.0, 0.0])),
+    )
+
+    for suf, side in (("d", "droit"), ("g", "gauche")):
+        sx = -1.0 if suf == "d" else 1.0
+        isch = p[f"tuberosite-ischiatique-{suf}"]
+        sac = off(p["sacrum"], x=sx * 0.016, y=0.012, z=-0.018)
+        add(
+            f"sacro-tubereux-{suf}",
+            f"Ligament sacro-tubéreux {side}",
+            "Ligamentum sacrotuberale",
+            "bassin",
+            fascicle_bundle(
+                isch,
+                sac,
+                sag=np.array([sx * 0.004, 0.012, -0.018]),
+                n_fibers=7,
+                radius_end=0.0024,
+                radius_mid=0.0012,
+                spread_end=0.010,
+                spread_mid=0.0016,
+                samples=22,
+                radial=7,
+                rings=2,
+            ),
+        )
     return meshes, catalog

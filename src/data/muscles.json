@@ -1125,16 +1125,16 @@
     ],
     "focus": {
       "position": [
-        -0.04575,
-        0.14927,
-        0.13601
+        -0.02583,
+        0.15213,
+        0.10765
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.03526,
-      0.95344,
-      0.29952
+      -0.00136,
+      0.94031,
+      0.34033
     ],
     "meshSource": "synthetic"
   },
@@ -1690,16 +1690,16 @@
     ],
     "focus": {
       "position": [
-        -0.14501,
-        0.31679,
-        0.00303
+        -0.12478,
+        0.30582,
+        0.00078
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.24864,
-      0.94068,
-      0.23086
+      -0.35339,
+      0.90965,
+      0.21832
     ],
     "meshSource": "synthetic"
   },
@@ -2718,16 +2718,16 @@
     ],
     "focus": {
       "position": [
-        -0.0696,
-        0.61314,
-        0.0534
+        -0.05648,
+        0.62663,
+        0.05711
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      0.01686,
-      0.99984,
-      0.00645
+      -0.30749,
+      0.86908,
+      -0.38748
     ],
     "meshSource": "synthetic"
   },
@@ -2851,6 +2851,40 @@
       -0.62297
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "oblique-interne",
+    "name": "Oblique interne",
+    "nameLatin": "Musculus obliquus internus abdominis",
+    "aliases": [
+      "petit oblique",
+      "oblique interne"
+    ],
+    "region": "tronc",
+    "origin": "Fascia thoraco-lombaire, deux tiers antérieurs de la crête iliaque, tiers latéral du ligament inguinal.",
+    "insertion": "Bords inférieurs des côtes 10–12, ligne blanche (aponévrose de la gaine du droit) et crête pubienne (tendon conjoint).",
+    "actions": [
+      "Flexion du tronc (bilatéral)",
+      "Rotation homolatérale"
+    ],
+    "secondaryActions": [
+      "Expiration forcée",
+      "Stabilisation abdominale"
+    ],
+    "focus": {
+      "position": [
+        -0.0564,
+        0.14,
+        0.04975
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.06663,
+      0.98218,
+      0.17575
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "oblique-superieur-de-la-tete",
@@ -3455,16 +3489,16 @@
     ],
     "focus": {
       "position": [
-        -0.05164,
-        0.65155,
-        0.04115
+        -0.04438,
+        0.6477,
+        0.03618
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      0.18303,
-      0.97176,
-      -0.14895
+      0.58275,
+      -0.07616,
+      -0.80908
     ],
     "meshSource": "synthetic"
   },
@@ -3486,16 +3520,16 @@
     ],
     "focus": {
       "position": [
-        -0.04677,
-        0.5895,
-        0.04403
+        -0.02046,
+        0.59789,
+        0.05824
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      0.30739,
-      0.87225,
-      0.38039
+      -0.14111,
+      0.97848,
+      0.15055
     ],
     "meshSource": "synthetic"
   },
@@ -4353,16 +4387,16 @@
     ],
     "focus": {
       "position": [
-        -0.0703,
-        0.66413,
-        0.03643
+        -0.07199,
+        0.6698,
+        0.04869
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.06916,
-      0.92689,
-      -0.3689
+      -0.10574,
+      0.74705,
+      -0.6563
     ],
     "meshSource": "synthetic"
   },
@@ -4485,6 +4519,40 @@
       -0.14078
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "transverse-de-l-abdomen",
+    "name": "Transverse de l’abdomen",
+    "nameLatin": "Musculus transversus abdominis",
+    "aliases": [
+      "transverse abdominal",
+      "TVA",
+      "transversus"
+    ],
+    "region": "tronc",
+    "origin": "Face interne des cartilages costaux 7–12, fascia thoraco-lombaire, crête iliaque et ligament inguinal.",
+    "insertion": "Ligne blanche et crête pubienne (gaine postérieure du droit au-dessus de la ligne arquée).",
+    "actions": [
+      "Rentrée abdominale / ceinture (augmente la pression intra-abdominale)"
+    ],
+    "secondaryActions": [
+      "Expiration forcée",
+      "Stabilisation lombo-pelvienne"
+    ],
+    "focus": {
+      "position": [
+        -0.05316,
+        0.143,
+        0.04559
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.02648,
+      0.9692,
+      0.24485
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "transverse-du-thorax",

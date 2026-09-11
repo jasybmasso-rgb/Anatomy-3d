@@ -61,6 +61,7 @@ export function Skeleton() {
         position={[0, FLOOR_Y, 0]}
         receiveShadow
         userData={{ pick: "ignore" }}
+        raycast={() => null}
       >
         <circleGeometry args={[1.8, 48]} />
         <meshStandardMaterial color="#1b2432" roughness={1} metalness={0} />

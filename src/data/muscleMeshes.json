@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas).",
-  "count": 157,
+  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi, rectus abdominis, internal oblique and transversus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas). Internal oblique and transversus abdominis are nested synthetic sheets (transversus deep → internal oblique → external oblique; rectus in the sheath). External oblique keeps the BP3D fleshy belly plus a white aponeurosis over rectus.",
+  "count": 159,
   "countBodyparts3d": 151,
-  "countSynthetic": 6,
+  "countSynthetic": 8,
   "muscles": [
     {
       "id": "abducteur-de-l-hallux",
@@ -1287,26 +1287,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -1e-05,
-        0.14927,
-        0.13601
+        -0.0,
+        0.15213,
+        0.10765
       ],
       "focus": {
         "position": [
-          -0.04575,
-          0.14927,
-          0.13601
+          -0.02583,
+          0.15213,
+          0.10765
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.03526,
-        0.95344,
-        0.29952
+        -0.00136,
+        0.94031,
+        0.34033
       ],
-      "vertexCount": 816,
-      "faceCount": 1360,
-      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+      "vertexCount": 1376,
+      "faceCount": 2284,
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "droit-anterieur-de-la-tete",
@@ -2089,26 +2089,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        8e-05,
-        0.31679,
-        0.00324
+        0.00011,
+        0.30582,
+        0.00095
       ],
       "focus": {
         "position": [
-          -0.14501,
-          0.31679,
-          0.00303
+          -0.12478,
+          0.30582,
+          0.00078
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.24864,
-        0.94068,
-        0.23086
+        -0.35339,
+        0.90965,
+        0.21832
       ],
-      "vertexCount": 1690,
-      "faceCount": 3132,
-      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+      "vertexCount": 2638,
+      "faceCount": 4868,
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "grand-droit-posterieur-de-la-tete",
@@ -3247,26 +3247,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.0,
-        0.61314,
-        0.0534
+        -0.00044,
+        0.6271,
+        0.05845
       ],
       "focus": {
         "position": [
-          -0.0696,
-          0.61314,
-          0.0534
+          -0.05648,
+          0.62663,
+          0.05711
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        0.01686,
-        0.99984,
-        0.00645
+        -0.30749,
+        0.86908,
+        -0.38748
       ],
       "vertexCount": 420,
       "faceCount": 696,
-      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "moyen-fessier",
@@ -3373,8 +3373,9 @@
         0.99568,
         0.03982
       ],
-      "vertexCount": 5791,
-      "faceCount": 9000
+      "vertexCount": 6183,
+      "faceCount": 9624,
+      "notes": "BodyParts3D fleshy belly plus schematic white aponeurosis passing superficial to rectus (anterior sheath)."
     },
     {
       "id": "oblique-inferieur-de-la-tete",
@@ -3411,6 +3412,36 @@
       ],
       "vertexCount": 1395,
       "faceCount": 2076
+    },
+    {
+      "id": "oblique-interne",
+      "source": "synthetic",
+      "sourceNames": [
+        "oblique-interne"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.0,
+        0.14,
+        0.04975
+      ],
+      "focus": {
+        "position": [
+          -0.0564,
+          0.14,
+          0.04975
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.06663,
+        0.98218,
+        0.17575
+      ],
+      "vertexCount": 720,
+      "faceCount": 1224,
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "oblique-superieur-de-la-tete",
@@ -4141,26 +4172,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.0,
-        0.65155,
-        0.04115
+        0.00057,
+        0.64882,
+        0.03585
       ],
       "focus": {
         "position": [
-          -0.05164,
-          0.65155,
-          0.04115
+          -0.04438,
+          0.6477,
+          0.03618
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        0.18303,
-        0.97176,
-        -0.14895
+        0.58275,
+        -0.07616,
+        -0.80908
       ],
       "vertexCount": 160,
       "faceCount": 200,
-      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "pterygoide-medial",
@@ -4171,26 +4202,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.0,
-        0.5895,
-        0.04403
+        0.00074,
+        0.59761,
+        0.05814
       ],
       "focus": {
         "position": [
-          -0.04677,
-          0.5895,
-          0.04403
+          -0.02046,
+          0.59789,
+          0.05824
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        0.30739,
-        0.87225,
-        0.38039
+        -0.14111,
+        0.97848,
+        0.15055
       ],
       "vertexCount": 160,
       "faceCount": 200,
-      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "pubo-coccygien",
@@ -5215,26 +5246,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.0,
-        0.66413,
-        0.03643
+        -0.00046,
+        0.66973,
+        0.0488
       ],
       "focus": {
         "position": [
-          -0.0703,
-          0.66413,
-          0.03643
+          -0.07199,
+          0.6698,
+          0.04869
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.06916,
-        0.92689,
-        -0.3689
+        -0.10574,
+        0.74705,
+        -0.6563
       ],
       "vertexCount": 412,
       "faceCount": 660,
-      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "tenseur-du-fascia-lata",
@@ -5379,6 +5410,36 @@
       ],
       "vertexCount": 4730,
       "faceCount": 9000
+    },
+    {
+      "id": "transverse-de-l-abdomen",
+      "source": "synthetic",
+      "sourceNames": [
+        "transverse-de-l-abdomen"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.0,
+        0.143,
+        0.04559
+      ],
+      "focus": {
+        "position": [
+          -0.05316,
+          0.143,
+          0.04559
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.02648,
+        0.9692,
+        0.24485
+      ],
+      "vertexCount": 640,
+      "faceCount": 1080,
+      "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
       "id": "transverse-du-thorax",

@@ -52,6 +52,7 @@ export function Fascia({ layerVisible, chainLayerOn, activeChainIds, chainSide }
       obj.userData.pick = "fascia";
       obj.userData.fasciaId = id;
       obj.userData.source = byId.get(id)?.source ?? "bodyparts3d";
+      obj.raycast = () => {};
       obj.castShadow = false;
       obj.receiveShadow = false;
       obj.renderOrder = 2;

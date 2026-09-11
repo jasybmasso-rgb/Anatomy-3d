@@ -69,6 +69,12 @@ export function ChainPicker({
       {activeChainIds.length > 0 ? (
         <ChainSideControl chainSide={chainSide} onSideChange={onSideChange} compact={compact} />
       ) : null}
+      {activeChainIds.includes("spl") && chainSide !== "both" ? (
+        <p className="chain-disclaimer">
+          SPL unilatérale : latéralité croisée (hélice de Myers), pas un filtre gauche/droite
+          simple.
+        </p>
+      ) : null}
       {groups.map((group) => (
         <div key={group} className="chain-group">
           {compact ? null : <p className="chain-group-label">{GROUP_LABEL[group]}</p>}
@@ -123,6 +129,12 @@ export function ChainDetails({
       <p className="panel-kicker">Chaînes myofaciales</p>
       <p className="chain-disclaimer">{chainsDisclaimer.fr}</p>
       <ChainSideControl chainSide={chainSide} onSideChange={onSideChange} />
+      {activeChainIds.includes("spl") && chainSide !== "both" ? (
+        <p className="chain-disclaimer">
+          SPL unilatérale : latéralité croisée (hélice de Myers), pas un filtre gauche/droite
+          simple.
+        </p>
+      ) : null}
       <ul className="chain-detail-list">
         {selected.map((chain) => (
           <li key={chain.id}>

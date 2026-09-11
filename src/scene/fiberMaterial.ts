@@ -264,9 +264,17 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
   material.onBeforeCompile = (shader) => {
     shader.uniforms.uTint = { value: material.userData.uTint };
     shader.uniforms.uTintMix = material.userData.uTintMix;
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <common>",
+      `#include <common>\nattribute float tendon;\nvarying float vTendon;`,
+    );
+    shader.vertexShader = shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `#include <begin_vertex>\nvTendon = tendon;`,
+    );
     shader.fragmentShader = shader.fragmentShader.replace(
       "uniform vec3 diffuse;",
-      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;",
+      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nvarying float vTendon;",
     );
     shader.fragmentShader = patchAfterCommon(
       shader.fragmentShader,
@@ -278,6 +286,8 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
       {
         vec2 fiberUv = vMapUv;
         vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, uTint, uTintMix);
+        vec3 tendonCol = vec3(0.94, 0.88, 0.76);
+        fiberAlbedo = mix(fiberAlbedo, tendonCol, clamp(vTendon, 0.0, 1.0));
         diffuseColor *= vec4(fiberAlbedo, 1.0);
       }
       `,
@@ -285,12 +295,12 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     shader.fragmentShader = shader.fragmentShader.replace(
       "#include <roughnessmap_fragment>",
       `#include <roughnessmap_fragment>
-       roughnessFactor = pedagogicalMuscleRoughness(vMapUv);
+       roughnessFactor = mix(pedagogicalMuscleRoughness(vMapUv), 0.36, clamp(vTendon, 0.0, 1.0));
       `,
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v6";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v7-tendon";
   return material;
 }
 

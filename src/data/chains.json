@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "model": "Tom Myers — Anatomy Trains (modèle pédagogique de continuités myofasciales)",
   "disclaimer": {
     "fr": "Les chaînes affichées suivent le modèle pédagogique des méridiens myofasciaux popularisé par Tom Myers (Anatomy Trains). Ce n’est pas une carte anatomique unique, ni un protocole clinique : fascias, muscles et variations individuelles sont plus complexes que des lignes dessinées. S’en servir comme grille de lecture du mouvement, pas comme vérité exclusive.",
@@ -122,8 +122,8 @@
         "en": "Spiral Line"
       },
       "description": {
-        "fr": "Hélice autour du tronc et des membres : splénius, rhomboïdes, dentelé antérieur, oblique, tenseur du fascia lata, jambier antérieur et long fibulaire. Rotations et contre-rotations.",
-        "en": "Helix around trunk and limbs: splenius, rhomboids, serratus anterior, oblique, TFL, tibialis anterior and fibularis longus. Rotations and counter-rotations."
+        "fr": "Hélice autour du tronc et des membres (latéralité croisée de Myers) : splénius homolatéral, rhomboïdes et dentelé controlatéraux, oblique externe controlatéral puis oblique interne homolatéral, TFL / jambier / long fibulaire / biceps fémoral du même côté. En unilatéral, ce n’est pas un filtre gauche/droite simple.",
+        "en": "Helix around trunk and limbs (Myers crossed laterality): ipsilateral splenius, contralateral rhomboids and serratus, contralateral external oblique then ipsilateral internal oblique, same-side TFL / tibialis / fibularis / biceps femoris. Unilateral SPL is not a simple L/R clip."
       },
       "tint": "#7b5ea7",
       "muscleIds": [
@@ -133,17 +133,32 @@
         "petit-rhomboide",
         "dentele-anterieur",
         "oblique-externe",
-        "droit-abdomen",
+        "oblique-interne",
         "tenseur-du-fascia-lata",
         "biceps-femoral",
         "tibial-anterieur",
-        "long-fibulaire"
+        "long-fibulaire",
+        "iliocostal-lombaire",
+        "iliocostal-thoracique",
+        "longissimus-du-thorax",
+        "epineux-du-thorax",
+        "semi-epineux-de-la-tete"
+      ],
+      "contraMuscleIds": [
+        "grand-rhomboide",
+        "petit-rhomboide",
+        "dentele-anterieur",
+        "oblique-externe"
       ],
       "fasciaIds": [
         "tractus-ilio-tibial-d",
         "tractus-ilio-tibial-g",
         "fascia-lata-d",
-        "fascia-lata-g"
+        "fascia-lata-g",
+        "fascia-thoracolombaire",
+        "sacro-tubereux-d",
+        "sacro-tubereux-g",
+        "fascia-nuchal"
       ]
     },
     {
