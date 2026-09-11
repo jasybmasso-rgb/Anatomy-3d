@@ -9,6 +9,7 @@ import {
   clipPlanesForSide,
   createFiberMuscleMaterial,
   setMuscleTint,
+  setMuscleSelected,
 } from "./fiberMaterial";
 
 export type MuscleLayerProps = {
@@ -151,17 +152,16 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const selected = entry.id === props.selectedMuscleId;
       const tintHex = chainOn ? tintForMuscle(entry.id, props.activeChainIds) : null;
       const tint = tintHex ? new THREE.Color(tintHex) : null;
-      setMuscleTint(entry.material, tint, tint ? (selected ? 0.42 : 0.78) : 0);
+      setMuscleTint(entry.material, tint, tint ? (selected ? 0.48 : 0.78) : 0);
+      setMuscleSelected(entry.material, selected);
       entry.material.transparent = false;
       entry.material.opacity = 1;
       entry.material.depthWrite = true;
       const side = chainOn ? chainClipSide(entry.id, props.chainSide, props.activeChainIds) : "both";
       entry.material.clippingPlanes = clipPlanesForSide(side);
-      entry.material.emissive.set(selected ? "#4a1810" : "#000000");
-      entry.material.emissiveIntensity = selected ? 0.16 : 0;
       entry.object.traverse((obj) => {
         if (obj instanceof THREE.Mesh) {
-          obj.renderOrder = selected ? 6 : 5;
+          obj.renderOrder = selected ? 8 : 5;
           obj.castShadow = true;
         }
       });

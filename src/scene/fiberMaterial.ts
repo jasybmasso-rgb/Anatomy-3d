@@ -260,10 +260,12 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
   });
   material.userData.uTint = new THREE.Color(1, 1, 1);
   material.userData.uTintMix = { value: 0 };
+  material.userData.uSelected = { value: 0 };
   material.userData.kind = "muscle";
   material.onBeforeCompile = (shader) => {
     shader.uniforms.uTint = { value: material.userData.uTint };
     shader.uniforms.uTintMix = material.userData.uTintMix;
+    shader.uniforms.uSelected = material.userData.uSelected;
     shader.vertexShader = shader.vertexShader.replace(
       "#include <common>",
       `#include <common>\nattribute float tendon;\nvarying float vTendon;`,
@@ -274,7 +276,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     );
     shader.fragmentShader = shader.fragmentShader.replace(
       "uniform vec3 diffuse;",
-      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nvarying float vTendon;",
+      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;\nvarying float vTendon;",
     );
     shader.fragmentShader = patchAfterCommon(
       shader.fragmentShader,
@@ -288,6 +290,15 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
         vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, uTint, uTintMix);
         vec3 tendonCol = vec3(0.94, 0.88, 0.76);
         fiberAlbedo = mix(fiberAlbedo, tendonCol, clamp(vTendon, 0.0, 1.0));
+        float selected = clamp(uSelected, 0.0, 1.0);
+        fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.22, 1.12, 0.92), selected * 0.72);
+        #ifndef FLAT_SHADED
+        vec3 nView = normalize(vNormal);
+        float fres = pow(1.0 - abs(nView.z), 2.35);
+        fiberAlbedo += vec3(1.0, 0.78, 0.32) * fres * selected * 0.92;
+        #else
+        fiberAlbedo += vec3(0.55, 0.28, 0.08) * selected * 0.22;
+        #endif
         diffuseColor *= vec4(fiberAlbedo, 1.0);
       }
       `,
@@ -296,11 +307,12 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
       "#include <roughnessmap_fragment>",
       `#include <roughnessmap_fragment>
        roughnessFactor = mix(pedagogicalMuscleRoughness(vMapUv), 0.36, clamp(vTendon, 0.0, 1.0));
+       roughnessFactor = mix(roughnessFactor, 0.28, clamp(uSelected, 0.0, 1.0) * 0.55);
       `,
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v8-tendon";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v9-selected";
   return material;
 }
 
@@ -356,4 +368,12 @@ export function setMuscleTint(material: THREE.MeshPhysicalMaterial, tint: THREE.
   } else {
     material.color.set("#ffffff");
   }
+}
+
+export function setMuscleSelected(material: THREE.MeshPhysicalMaterial, selected: boolean) {
+  const sel = material.userData.uSelected as { value: number } | undefined;
+  if (sel) sel.value = selected ? 1 : 0;
+  material.emissive.set(selected ? "#ff9a4a" : "#000000");
+  material.emissiveIntensity = selected ? 0.42 : 0;
+  material.clearcoat = selected ? 0.22 : 0.05;
 }

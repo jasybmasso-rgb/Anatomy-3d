@@ -14,13 +14,15 @@ const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
 const DAMPING = 0.08;
 const FOCUS_DAMP = 8;
+/** Seconds: remaining zoom is eased over ~this window (not the old sluggish lag). */
+const ZOOM_TAU = 0.07;
+const ZOOM_KICK = 0.34;
 const SKIP_PICK = new Set(["ignore", "floor", "shadow"]);
 const _ndc = new THREE.Vector2();
 const _viewDir = new THREE.Vector3();
 const _plane = new THREE.Plane();
 const _planeHit = new THREE.Vector3();
 const _offset = new THREE.Vector3();
-const _pivot = new THREE.Vector3();
 
 function zoomLogFromWheel(event: WheelEvent) {
   let dy = event.deltaY;
@@ -177,6 +179,8 @@ export function CameraRig({
   const applyFocusRef = useRef<(point: THREE.Vector3, smooth?: boolean) => void>(() => undefined);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const pinchDist = useRef(0);
+  const zoomPending = useRef(0);
+  const zoomPivot = useRef(new THREE.Vector3());
 
   function stopScriptedMotion() {
     animating.current = false;
@@ -226,8 +230,11 @@ export function CameraRig({
       if (!orbit) return;
       animating.current = false;
       pointerFromClient(clientX, clientY, element, pointer.current);
-      cursorOnTargetPlane(raycaster.current, pointer.current, camera, orbit, _pivot);
-      applyDollyToward(camera, orbit, logDelta, _pivot);
+      cursorOnTargetPlane(raycaster.current, pointer.current, camera, orbit, zoomPivot.current);
+      zoomPending.current += logDelta;
+      const kick = zoomPending.current * ZOOM_KICK;
+      zoomPending.current -= kick;
+      applyDollyToward(camera, orbit, kick, zoomPivot.current);
     };
 
     const onWheel = (event: WheelEvent) => {
@@ -267,7 +274,7 @@ export function CameraRig({
       if (next < 4) return;
       const ratio = pinchDist.current / next;
       pinchDist.current = next;
-      const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.78, 1.28));
+      const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.82, 1.22));
       if (Math.abs(logDelta) < 1e-5) return;
       const pts = [...pointers.current.values()];
       queueZoom((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2, logDelta);
@@ -300,6 +307,13 @@ export function CameraRig({
     const orbit = controls.current;
     if (!orbit) return;
     const dtClamped = Math.min(dt, 0.05);
+
+    if (Math.abs(zoomPending.current) > 1e-5) {
+      const k = 1 - Math.exp(-dtClamped / ZOOM_TAU);
+      const step = zoomPending.current * k;
+      zoomPending.current -= step;
+      applyDollyToward(camera, orbit, step, zoomPivot.current);
+    }
 
     if (animating.current) {
       const k = ease(dtClamped, FOCUS_DAMP);
