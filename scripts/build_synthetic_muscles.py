@@ -111,15 +111,29 @@ def nearest_bone(point: np.ndarray, sx: float | None = None, extra: float = 0.0)
     return p
 
 
-def _wall_z(y: float) -> float:
+# Taut anterior wall (pubis → umbilicus → costal arch → xiphoid), slightly
+# proud of the bony ring. Not the subcostal "hole" at y≈0.26 which has no sternum.
+_WALL_Y = np.array([-0.02, 0.04, 0.10, 0.16, 0.22, 0.28, 0.318], dtype=np.float64)
+_WALL_Z = np.array([0.058, 0.074, 0.086, 0.092, 0.112, 0.152, 0.170], dtype=np.float64)
+_FLANK_Y = np.array([-0.02, 0.04, 0.10, 0.16, 0.22, 0.28, 0.34], dtype=np.float64)
+_FLANK_X = np.array([0.118, 0.128, 0.122, 0.116, 0.124, 0.132, 0.126], dtype=np.float64)
+_FLANK_Z = np.array([0.042, 0.058, 0.044, 0.052, 0.082, 0.112, 0.098], dtype=np.float64)
+
+
+def _wall_z(y: float | np.ndarray) -> np.ndarray | float:
     """Anterior abdominal wall (midline) from pubis to xiphoid."""
-    return float(
-        np.interp(
-            y,
-            np.array([-0.025, 0.04, 0.10, 0.18, 0.26, 0.318]),
-            np.array([0.050, 0.068, 0.074, 0.102, 0.148, 0.166]),
-        )
-    )
+    out = np.interp(y, _WALL_Y, _WALL_Z)
+    return out if isinstance(y, np.ndarray) else float(out)
+
+
+def _flank_x(y: float | np.ndarray) -> np.ndarray | float:
+    out = np.interp(y, _FLANK_Y, _FLANK_X)
+    return out if isinstance(y, np.ndarray) else float(out)
+
+
+def _flank_z(y: float | np.ndarray) -> np.ndarray | float:
+    out = np.interp(y, _FLANK_Y, _FLANK_Z)
+    return out if isinstance(y, np.ndarray) else float(out)
 
 
 def _lat_wrap_path(origin: np.ndarray, insert: np.ndarray, sx: float, n: int = 26) -> np.ndarray:
@@ -150,7 +164,7 @@ def _latissimus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
         else:
             pt = mix(l1, l5, t_lumbar or 0.0)
             z = -0.028 - 0.004 * (t_lumbar or 0.0)
-        return np.array([sx * 0.0045, float(pt[1]), z], dtype=np.float64)
+        return np.array([sx * 0.0026, float(pt[1]), z], dtype=np.float64)
 
     # T7 ≈ 6/11 along T1→T12.
     spine = [
@@ -212,56 +226,59 @@ def _latissimus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
 
 
 def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Wide paramedian belly; medial edge is the linea alba."""
-    pub = off(p["symphyse-pubienne"], x=sx * 0.006, y=0.012, z=0.018)
-    xiph = off(p["xiphoide"], x=sx * 0.010, z=0.004)
-    costal = off(p["xiphoide"], x=sx * 0.042, y=-0.016, z=-0.004)
-    bands = (0.20, 0.42, 0.64)  # tendinous inscriptions (six-pack)
+    """Wide paramedian belly; medial edge meets the linea alba."""
+    pub = off(p["symphyse-pubienne"], x=sx * 0.004, y=0.012, z=0.012)
+    xiph = off(p["xiphoide"], x=sx * 0.012, z=0.002)
+    costal = off(p["xiphoide"], x=sx * 0.048, y=-0.018, z=-0.006)
+    # Three inscriptions → four pads / side; the upper three pairs are the six-pack.
+    bands = (0.18, 0.40, 0.62)
 
-    n_along = 36
-    n_across = 8
+    n_along = 40
+    n_across = 10
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         t = i / (n_along - 1)
-        ins = max(np.exp(-(((t - b) / 0.038) ** 2)) for b in bands)
-        end = np.exp(-(t / 0.07) ** 2) + np.exp(-(((1.0 - t) / 0.08) ** 2))
-        pinch = max(ins, 0.55 * end)
-        y = float(mix(pub, mix(xiph, costal, 0.28), t)[1])
-        z = _wall_z(y) + 0.007 * (1.0 - 0.62 * pinch)
-        inner = 0.0065
-        width = 0.050 * (1.0 - 0.22 * pinch)
+        ins = max(np.exp(-(((t - b) / 0.028) ** 2)) for b in bands)
+        end = np.exp(-(t / 0.065) ** 2) + np.exp(-(((1.0 - t) / 0.075) ** 2))
+        pinch = max(ins, 0.62 * end)
+        y = float(mix(pub, mix(xiph, costal, 0.30), t)[1])
+        z = float(_wall_z(y)) + 0.0055 * (1.0 - 0.78 * pinch)
+        inner = 0.0042
+        width = 0.058 * (1.0 - 0.38 * pinch)
         for j in range(n_across):
             s = j / (n_across - 1)
-            x = sx * (inner + s * width)
+            # Round the lateral profile (less boxy).
+            bulge = 0.55 + 0.45 * np.sin(s * np.pi)
+            x = sx * (inner + s * width * (0.82 + 0.18 * bulge))
             grid[i, j] = np.array([x, y, z], dtype=np.float64)
 
-    sheet = grid_sheet(grid, thickness=0.0115)
+    sheet = grid_sheet(grid, thickness=0.0125)
     v = np.asarray(sheet.vertices)
     y0, y1 = float(v[:, 1].min()), float(v[:, 1].max())
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
     w = np.zeros(len(v), dtype=np.float64)
     for b in bands:
-        w = np.maximum(w, np.exp(-(((t - b) / 0.022) ** 2)))
-    w = np.maximum(w, 0.9 * np.exp(-(t / 0.048) ** 2))
-    w = np.maximum(w, 0.9 * np.exp(-(((1.0 - t) / 0.052) ** 2)))
-    w = np.maximum(w, np.clip((0.009 - np.abs(v[:, 0])) / 0.005, 0.0, 1.0))
+        w = np.maximum(w, np.exp(-(((t - b) / 0.016) ** 2)))
+    w = np.maximum(w, 0.95 * np.exp(-(t / 0.042) ** 2))
+    w = np.maximum(w, 0.95 * np.exp(-(((1.0 - t) / 0.046) ** 2)))
     paint_tendon(sheet, w)
     return sheet
 
 
 def _linea_alba(p: dict[str, np.ndarray]) -> trimesh.Trimesh:
-    pub = off(p["symphyse-pubienne"], y=0.010, z=0.020)
-    xiph = off(p["xiphoide"], z=0.006)
-    n_along, n_across = 28, 4
+    pub = off(p["symphyse-pubienne"], y=0.010, z=0.014)
+    xiph = off(p["xiphoide"], z=0.004)
+    n_along, n_across = 30, 4
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         t = i / (n_along - 1)
         y = float(mix(pub, xiph, t)[1])
-        z = _wall_z(y) + 0.009
+        z = float(_wall_z(y)) + 0.0075
+        half = 0.0044
         for j in range(n_across):
             s = j / (n_across - 1)
-            grid[i, j] = np.array([-0.007 + s * 0.014, y, z], dtype=np.float64)
-    sheet = grid_sheet(grid, thickness=0.0036)
+            grid[i, j] = np.array([-half + s * 2.0 * half, y, z], dtype=np.float64)
+    sheet = grid_sheet(grid, thickness=0.0032)
     paint_solid(sheet, TENDON_WHITE)
     return sheet
 
@@ -270,107 +287,109 @@ def _abdominal_wrap(
     sx: float,
     y_top: float,
     y_bot: float,
-    x_lat: float,
     depth: float,
     *,
     n_along: int = 16,
     n_across: int = 9,
-    linea: float = 0.007,
+    linea: float = 0.006,
     diagonal: float = 0.0,
+    x_scale: float = 1.0,
 ) -> np.ndarray:
-    """Flank → linea alba sheet. diagonal>0 skews fibers superomedial (IO); <0 inferomedial (EO)."""
+    """Flank → linea alba on the torso envelope.
+
+    diagonal>0 skews fibers superomedial (IO); <0 inferomedial (EO).
+    depth>0 sits deep to the rectus wall.
+    """
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         ty = i / (n_along - 1)
         y = y_top * (1.0 - ty) + y_bot * ty
-        z_ant = _wall_z(y) - depth
-        x_flank = x_lat * (0.94 + 0.06 * np.sin(ty * np.pi))
-        z_flank = mix(np.array([0.0, 0.0, z_ant]), np.array([0.0, 0.0, -0.018]), 0.42)[2]
-        z_flank = float(z_flank) * 0.35 + z_ant * 0.18 - 0.012
+        z_ant = float(_wall_z(y)) - depth
+        x_lat = float(_flank_x(y)) * x_scale * (0.96 + 0.04 * np.sin(ty * np.pi))
+        z_lat = float(_flank_z(y)) - depth * 0.45
         for j in range(n_across):
             s = j / (n_across - 1)
-            y_fiber = y + diagonal * (0.5 - s) * 0.055
-            x = sx * mix(x_flank, linea, s**0.82)
-            z = mix(z_flank, z_ant, s**1.28)
+            y_fiber = y + diagonal * (0.5 - s) * 0.048
+            # Quarter-ellipse: lateral (s=0) → anterior midline (s=1).
+            x = sx * mix(x_lat, linea, s**0.88)
+            z = mix(z_lat, z_ant, s**1.22)
             grid[i, j] = np.array([x, y_fiber, z], dtype=np.float64)
     return grid
 
 
 def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Intermediate abdominal wall: iliac crest / inguinal → ribs 10–12 and linea alba."""
-    # Superomedial fibers; sits deep to EO, superficial to transversus.
+    """Intermediate wall: iliac crest / inguinal → ribs 10–12 and linea alba."""
     grid = _abdominal_wrap(
         sx,
-        y_top=0.268,
-        y_bot=0.012,
-        x_lat=0.118,
-        depth=0.0075,
+        y_top=0.272,
+        y_bot=0.010,
+        depth=0.0048,
         n_along=18,
-        n_across=10,
-        linea=0.007,
-        diagonal=0.85,
+        n_across=11,
+        linea=0.006,
+        diagonal=0.90,
+        x_scale=1.0,
     )
-    sheet = grid_sheet(grid, thickness=0.0058)
+    sheet = grid_sheet(grid, thickness=0.0054)
     v = np.asarray(sheet.vertices)
-    w = np.clip((0.052 - np.abs(v[:, 0])) / 0.028, 0.0, 1.0)
+    w = np.clip((0.050 - np.abs(v[:, 0])) / 0.024, 0.0, 1.0)
     paint_tendon(sheet, w)
     return sheet
 
 
 def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Deepest abdominal wall: horizontal fibers, posterior rectus sheath at the midline."""
+    """Deepest wall: horizontal fibers; posterior rectus sheath at the midline."""
     grid = _abdominal_wrap(
         sx,
         y_top=0.278,
         y_bot=0.008,
-        x_lat=0.112,
-        depth=0.0155,
+        depth=0.0105,
         n_along=16,
-        n_across=10,
-        linea=0.006,
+        n_across=11,
+        linea=0.0055,
         diagonal=0.0,
+        x_scale=0.96,
     )
-    sheet = grid_sheet(grid, thickness=0.0046)
+    sheet = grid_sheet(grid, thickness=0.0042)
     v = np.asarray(sheet.vertices)
-    w = np.clip((0.048 - np.abs(v[:, 0])) / 0.026, 0.0, 1.0)
+    w = np.clip((0.048 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0)
     paint_tendon(sheet, w)
     return sheet
 
 
 def _eo_aponeurosis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     """White anterior rectus sheath: EO aponeurosis passing superficial to rectus."""
-    grid = _abdominal_wrap(
-        sx,
-        y_top=0.300,
-        y_bot=0.004,
-        x_lat=0.062,
-        depth=-0.0035,  # negative depth = more anterior than the wall / rectus
-        n_along=14,
-        n_across=7,
-        linea=0.005,
-        diagonal=-0.55,
-    )
-    # Start the sheet from the lateral rectus border, not the far flank (BP3D has the fleshy EO).
-    for i in range(grid.shape[0]):
-        y = grid[i, 0, 1]
-        z = _wall_z(y) + 0.011
-        for j in range(grid.shape[1]):
-            s = j / (grid.shape[1] - 1)
-            grid[i, j, 0] = sx * mix(0.058, 0.005, s)
-            grid[i, j, 2] = z - 0.0015 * (1.0 - s)
-    sheet = grid_sheet(grid, thickness=0.0028)
+    n_along, n_across = 16, 8
+    grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
+    y_top, y_bot = 0.302, 0.006
+    for i in range(n_along):
+        ty = i / (n_along - 1)
+        y = y_top * (1.0 - ty) + y_bot * ty + (-0.55) * 0.0
+        z = float(_wall_z(y)) + 0.012
+        for j in range(n_across):
+            s = j / (n_across - 1)
+            y_fiber = y + (-0.50) * (0.5 - s) * 0.040
+            grid[i, j] = np.array([sx * mix(0.060, 0.0048, s), y_fiber, z - 0.0012 * (1.0 - s)], dtype=np.float64)
+    sheet = grid_sheet(grid, thickness=0.0024)
     paint_solid(sheet, TENDON_WHITE)
     return sheet
 
 
 def enhance_external_oblique(mesh: trimesh.Trimesh, p: dict[str, np.ndarray] | None = None) -> trimesh.Trimesh:
-    """Keep BP3D fleshy EO; paint only the medial aponeurosis white and lift it over rectus."""
+    """Keep BP3D fleshy flank; snap medial sheet onto the wall as white aponeurosis."""
     m = mesh.copy()
     v = np.asarray(m.vertices, dtype=np.float64).copy()
     xabs = np.abs(v[:, 0])
-    # Fleshy flank stays red; white only where the aponeurosis covers rectus.
-    w = np.clip((0.050 - xabs) / 0.020, 0.0, 1.0)
-    v[:, 2] += 0.0065 * (w**1.1)
+    y = v[:, 1]
+    z_wall = np.interp(y, _WALL_Y, _WALL_Z)
+    abdomen = ((y > -0.03) & (y < 0.335) & (v[:, 2] > -0.03)).astype(np.float64)
+    # White only over rectus (|x| ≲ 5–6 cm). Flank stays red.
+    w = np.clip((0.058 - xabs) / 0.016, 0.0, 1.0) * abdomen
+    target_z = z_wall + 0.012
+    v[:, 2] = v[:, 2] * (1.0 - w) + target_z * w
+    # Pull remaining anterior blobs down onto the wall (BP3D EO is a thick volume).
+    too_front = np.clip((v[:, 2] - (z_wall + 0.024)) / 0.05, 0.0, 1.0) * abdomen * (1.0 - 0.35 * w)
+    v[:, 2] -= too_front * (v[:, 2] - (z_wall + 0.007))
     m.vertices = v
     paint_tendon(m, w)
     if p is not None:
@@ -380,10 +399,12 @@ def enhance_external_oblique(mesh: trimesh.Trimesh, p: dict[str, np.ndarray] | N
 
 
 def _temporalis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Fan on the temporal fossa → coronoid, snapped to the outer cranial table."""
+    """Fan on the temporal fossa (up to the superior temporal line) → coronoid."""
     coronoid = most_lateral(sx, 0.624, 0.086, ywin=0.014, zwin=0.030, extra=0.0018)
     origins = [
-        most_lateral(sx, 0.738, 0.004, extra=0.0012),
+        most_lateral(sx, 0.754, 0.022, ywin=0.012, zwin=0.028, extra=0.0010),
+        most_lateral(sx, 0.746, 0.052, extra=0.0011),
+        most_lateral(sx, 0.742, -0.008, extra=0.0011),
         most_lateral(sx, 0.728, 0.038, extra=0.0012),
         most_lateral(sx, 0.712, -0.012, extra=0.0011),
         most_lateral(sx, 0.698, 0.048, extra=0.0011),
@@ -403,7 +424,7 @@ def _temporalis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
 def _masseter_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     zyg_ant = most_lateral(sx, 0.644, 0.092, ywin=0.012, zwin=0.028, extra=0.0016)
     zyg_post = most_lateral(sx, 0.656, 0.052, ywin=0.012, zwin=0.024, extra=0.0016)
-    angle = most_lateral(sx, 0.576, 0.076, ywin=0.014, zwin=0.028, extra=0.0018)
+    angle = most_lateral(sx, 0.572, 0.068, ywin=0.014, zwin=0.028, extra=0.0016)
     ramus = most_lateral(sx, 0.604, 0.074, ywin=0.012, zwin=0.024, extra=0.0016)
     super_paths = []
     for t in (0.08, 0.34, 0.58, 0.86):
@@ -460,11 +481,11 @@ def build() -> dict[str, trimesh.Trimesh]:
     y0, y1 = float(v[:, 1].min()), float(v[:, 1].max())
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
     w = np.zeros(len(v), dtype=np.float64)
-    for b in (0.20, 0.42, 0.64):
-        w = np.maximum(w, np.exp(-(((t - b) / 0.022) ** 2)))
-    w = np.maximum(w, 0.9 * np.exp(-(t / 0.048) ** 2))
-    w = np.maximum(w, 0.9 * np.exp(-(((1.0 - t) / 0.052) ** 2)))
-    w = np.maximum(w, np.clip((0.0095 - np.abs(v[:, 0])) / 0.005, 0.0, 1.0))
+    for b in (0.18, 0.40, 0.62):
+        w = np.maximum(w, np.exp(-(((t - b) / 0.016) ** 2)))
+    w = np.maximum(w, 0.95 * np.exp(-(t / 0.042) ** 2))
+    w = np.maximum(w, 0.95 * np.exp(-(((1.0 - t) / 0.046) ** 2)))
+    w = np.maximum(w, np.clip((0.0055 - np.abs(v[:, 0])) / 0.003, 0.0, 1.0))
     paint_tendon(rectus, w)
     return {
         "grand-dorsal": _bilateral(_latissimus_side, p),

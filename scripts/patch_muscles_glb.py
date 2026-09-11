@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import trimesh
@@ -27,6 +29,15 @@ from build_synthetic_muscles import (  # noqa: E402
     enhance_external_oblique,
     load_lm,
 )
+
+# Pre-enhance BP3D EO (before the aponeurosis sheet was concatenated).
+_BP3D_EO_COMMIT = "73069cc"
+
+_FIBER_AXIS_OVERRIDE = {
+    "transverse-de-l-abdomen": [1.0, 0.04, 0.02],
+    "oblique-interne": [0.72, 0.68, 0.12],
+    "droit-abdomen": [0.0, 0.98, 0.20],
+}
 from muscle_catalog import catalog_entry  # noqa: E402
 
 INCLUSION = (
@@ -54,7 +65,32 @@ def _muscle_row(muscle_id: str, mesh: trimesh.Trimesh) -> dict:
         muscle.pop("heads", None)
     if not muscle.get("secondaryActions"):
         muscle.pop("secondaryActions", None)
+    axis = _FIBER_AXIS_OVERRIDE.get(muscle_id)
+    if axis:
+        muscle["fiberAxis"] = axis
+        entry["fiberAxis"] = axis
     return muscle, entry
+
+
+def _load_bp3d_external_oblique(fallback: trimesh.Trimesh) -> trimesh.Trimesh:
+    """Always start EO enhance from the BP3D belly, not a previously patched mesh."""
+    try:
+        blob = subprocess.check_output(
+            ["git", "show", f"{_BP3D_EO_COMMIT}:public/models/muscles.glb"],
+        cwd=OUT_GLB.parents[2],
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        print("  ! git EO source unavailable — using current mesh", flush=True)
+        return fallback
+    with tempfile.NamedTemporaryFile(suffix=".glb", delete=True) as tmp:
+        tmp.write(blob)
+        tmp.flush()
+        scene = trimesh.load(tmp.name, force="scene")
+    mesh = scene.geometry.get("oblique-externe")
+    if mesh is None:
+        return fallback
+    print(f"  · BP3D EO from {_BP3D_EO_COMMIT}  {len(mesh.faces)} faces", flush=True)
+    return mesh
 
 
 def main() -> int:
@@ -66,7 +102,8 @@ def main() -> int:
     synth = build()
     eo_mesh = None
     if "oblique-externe" in scene.geometry:
-        eo_mesh = enhance_external_oblique(scene.geometry["oblique-externe"], landmarks)
+        source_eo = _load_bp3d_external_oblique(scene.geometry["oblique-externe"])
+        eo_mesh = enhance_external_oblique(source_eo, landmarks)
         _ = eo_mesh.vertex_normals
         eo_mesh.metadata["name"] = "oblique-externe"
         scene.delete_geometry("oblique-externe")

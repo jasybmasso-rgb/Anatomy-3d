@@ -30,6 +30,7 @@ type MuscleEntry = {
 };
 
 const CLICK_PX = 10;
+const CYCLE_PX = 14;
 const THIN_SHEETS = new Set([
   "droit-abdomen",
   "oblique-interne",
@@ -41,6 +42,20 @@ const THIN_SHEETS = new Set([
   "pterygoide-medial",
   "pterygoide-lateral",
 ]);
+
+function clippingPlanesOf(obj: THREE.Object3D): THREE.Plane[] {
+  if (!(obj instanceof THREE.Mesh)) return [];
+  const mat = obj.material;
+  if (!mat || Array.isArray(mat)) return [];
+  return (mat.clippingPlanes as THREE.Plane[] | null) ?? [];
+}
+
+function isHitClipped(hit: THREE.Intersection): boolean {
+  for (const plane of clippingPlanesOf(hit.object)) {
+    if (plane.distanceToPoint(hit.point) < 0) return true;
+  }
+  return false;
+}
 
 function visibleIds(props: MuscleLayerProps): Set<string> {
   const hidden = new Set(props.hiddenMuscleIds);
@@ -91,6 +106,8 @@ export function MuscleLayer(props: MuscleLayerProps) {
   const pointer = useMemo(() => new THREE.Vector2(), []);
   const onSelectRef = useRef(props.onSelect);
   onSelectRef.current = props.onSelect;
+  const pickTargets = useRef<THREE.Mesh[]>([]);
+  const lastClick = useRef<{ x: number; y: number; ids: string[]; index: number } | null>(null);
 
   const entries = useMemo(() => {
     const list: MuscleEntry[] = [];
@@ -112,6 +129,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         applyTendonAttribute(obj.geometry);
         obj.userData.pick = "muscle";
         obj.userData.muscleId = muscle.id;
+        obj.raycast = THREE.Mesh.prototype.raycast;
         obj.castShadow = true;
         obj.receiveShadow = false;
         obj.material = material;
@@ -122,8 +140,6 @@ export function MuscleLayer(props: MuscleLayerProps) {
     }
     return list;
   }, [gltf]);
-
-  const meshList = useMemo(() => entries.flatMap((entry) => entry.meshes), [entries]);
 
   useEffect(() => {
     const shown = visibleIds(props);
@@ -150,6 +166,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         }
       });
     }
+    pickTargets.current = entries.flatMap((entry) => (entry.object.visible ? entry.meshes : []));
   }, [entries, props]);
 
   useEffect(() => {
@@ -172,23 +189,21 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const h = Math.max(rect.height, 1);
       pointer.set(((event.clientX - rect.left) / w) * 2 - 1, -((event.clientY - rect.top) / h) * 2 + 1);
       raycaster.setFromCamera(pointer, camera);
-      const targets = meshList.filter((mesh) => {
-        if (!mesh.visible) return false;
-        let node: THREE.Object3D | null = mesh;
-        while (node) {
-          if (!node.visible) return false;
-          node = node.parent;
-        }
-        return mesh.userData.pick === "muscle";
-      });
+      const targets = pickTargets.current.filter((mesh) => mesh.userData.pick === "muscle");
       const hits = raycaster.intersectObjects(targets, false);
+      const ids: string[] = [];
       for (const hit of hits) {
+        if (isHitClipped(hit)) continue;
         const id = hit.object.userData.muscleId;
-        if (typeof id === "string") {
-          onSelectRef.current(id);
-          break;
-        }
+        if (typeof id === "string" && !ids.includes(id)) ids.push(id);
       }
+      if (ids.length === 0) return;
+      const prev = lastClick.current;
+      const near = prev !== null && (event.clientX - prev.x) ** 2 + (event.clientY - prev.y) ** 2 <= CYCLE_PX * CYCLE_PX;
+      const sameStack = near && prev !== null && prev.ids.length === ids.length && prev.ids.every((id, i) => id === ids[i]);
+      const index = sameStack && prev ? (prev.index + 1) % ids.length : 0;
+      lastClick.current = { x: event.clientX, y: event.clientY, ids, index };
+      onSelectRef.current(ids[index]);
     };
 
     element.addEventListener("pointerdown", onPointerDown);
@@ -197,7 +212,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
       element.removeEventListener("pointerdown", onPointerDown);
       element.removeEventListener("pointerup", onPointerUp);
     };
-  }, [camera, gl, meshList, pointer, raycaster]);
+  }, [camera, gl, pointer, raycaster]);
 
   return (
     <group name="muscles">

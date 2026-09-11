@@ -13,7 +13,6 @@ export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
 const DAMPING = 0.08;
-const ZOOM_PIXEL_SCALE = 0.0044;
 const FOCUS_DAMP = 8;
 const SKIP_PICK = new Set(["ignore", "floor", "shadow"]);
 const _ndc = new THREE.Vector2();
@@ -23,11 +22,19 @@ const _planeHit = new THREE.Vector3();
 const _offset = new THREE.Vector3();
 const _pivot = new THREE.Vector3();
 
-function normalizedWheelDelta(event: WheelEvent) {
+function zoomLogFromWheel(event: WheelEvent) {
   let dy = event.deltaY;
   if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) dy *= 16;
   else if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) dy *= 80;
-  return THREE.MathUtils.clamp(dy, -140, 140);
+  const pinch = event.ctrlKey || event.metaKey;
+  const mag = Math.abs(dy);
+  // Chromebook / Linux trackpads send tiny pixel deltas; ctrl+wheel is pinch-zoom.
+  let scale: number;
+  if (pinch) scale = 0.032;
+  else if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL && mag < 10) scale = 0.030;
+  else if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL && mag < 40) scale = 0.016;
+  else scale = 0.011;
+  return THREE.MathUtils.clamp(dy, -180, 180) * scale;
 }
 
 /** Camera offset so the selected muscle faces the viewer (L/R, A/P, region). */
@@ -228,7 +235,7 @@ export function CameraRig({
       if (!orbit || !orbit.enabled) return;
       event.preventDefault();
       event.stopPropagation();
-      queueZoom(event.clientX, event.clientY, normalizedWheelDelta(event) * ZOOM_PIXEL_SCALE);
+      queueZoom(event.clientX, event.clientY, zoomLogFromWheel(event));
     };
 
     const onDblClick = (event: MouseEvent) => {
@@ -260,7 +267,7 @@ export function CameraRig({
       if (next < 4) return;
       const ratio = pinchDist.current / next;
       pinchDist.current = next;
-      const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.86, 1.16));
+      const logDelta = Math.log(THREE.MathUtils.clamp(ratio, 0.78, 1.28));
       if (Math.abs(logDelta) < 1e-5) return;
       const pts = [...pointers.current.values()];
       queueZoom((pts[0].x + pts[1].x) / 2, (pts[0].y + pts[1].y) / 2, logDelta);

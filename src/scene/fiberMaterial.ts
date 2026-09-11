@@ -46,13 +46,13 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 tint, float tintMix) {
   vec2 circ = fiberCirc(uv.y);
   float belly = pow(sin(3.14159265 * along), 1.42);
   float tendon = 1.0 - belly;
-  float endCap = 1.0 - smoothstep(0.0, 0.18, min(along, 1.0 - along));
+  float endCap = 1.0 - smoothstep(0.0, 0.10, min(along, 1.0 - along));
 
   vec3 tendonCol = vec3(0.94, 0.88, 0.76);
   vec3 midCol = vec3(0.62, 0.14, 0.10);
   vec3 bellyCol = vec3(0.33, 0.038, 0.036);
   vec3 base = mix(tendonCol, mix(midCol, bellyCol, smoothstep(0.18, 1.0, belly)), smoothstep(0.0, 0.42, belly));
-  base = mix(base, vec3(0.97, 0.93, 0.84), endCap * 0.92);
+  base = mix(base, vec3(0.97, 0.93, 0.84), endCap * 0.38);
 
   // Wider spacing in the belly, denser toward origin / insertion.
   float density = mix(72.0, 17.0, belly);
@@ -300,7 +300,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v7-tendon";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v8-tendon";
   return material;
 }
 
