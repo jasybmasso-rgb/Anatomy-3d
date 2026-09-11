@@ -1,3 +1,4 @@
+import type { ChainSide } from "../data/chains";
 import type { Muscle, MuscleRegion } from "../types/muscle";
 import { ChainDetails } from "./ChainPicker";
 import { MuscleVisibilityPanel } from "./MuscleVisibilityPanel";
@@ -13,6 +14,7 @@ const REGION_LABEL: Record<MuscleRegion, string> = {
   main: "Main",
   pied: "Pied",
   périnée: "Périnée",
+  tête: "Tête",
 };
 
 type SidePanelProps = {
@@ -23,6 +25,8 @@ type SidePanelProps = {
   onHiddenChange: (ids: string[]) => void;
   showChains: boolean;
   activeChainIds: string[];
+  chainSide: ChainSide;
+  onChainSideChange: (side: ChainSide) => void;
 };
 
 export function SidePanel({
@@ -33,17 +37,26 @@ export function SidePanel({
   onHiddenChange,
   showChains,
   activeChainIds,
+  chainSide,
+  onChainSideChange,
 }: SidePanelProps) {
   return (
     <aside className="panel" aria-label={muscle ? `Fiche : ${muscle.name}` : "Fiche du muscle"}>
       <MuscleVisibilityPanel
         muscles={allMuscles}
+        selected={muscle}
         showAllMuscles={showAllMuscles}
         hiddenMuscleIds={hiddenMuscleIds}
         onShowAll={onShowAllMuscles}
         onHiddenChange={onHiddenChange}
       />
-      {showChains ? <ChainDetails activeChainIds={activeChainIds} /> : null}
+      {showChains ? (
+        <ChainDetails
+          activeChainIds={activeChainIds}
+          chainSide={chainSide}
+          onSideChange={onChainSideChange}
+        />
+      ) : null}
       {muscle ? (
         <>
           <p className="panel-kicker">{REGION_LABEL[muscle.region]}</p>
@@ -111,9 +124,8 @@ export function SidePanel({
             {showAllMuscles ? "Tous les muscles" : "Squelette seulement"}
           </h2>
           <p className="panel-empty-body">
-            Recherchez un muscle pour la fiche (origines, insertions, mouvements). Cochez
-            « Afficher tous les muscles » pour le jeu complet, puis masquez-en pour lire les
-            couches profondes.
+            Cliquez un muscle dans la scène, ou recherchez-le, pour la fiche (origines,
+            insertions, mouvements). Cochez « Afficher tous les muscles » pour le jeu complet.
           </p>
         </>
       )}

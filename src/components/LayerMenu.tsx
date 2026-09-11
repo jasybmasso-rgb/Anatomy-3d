@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import type { ChainSide } from "../data/chains";
 import { ChainPicker } from "./ChainPicker";
 
 export type LayerId =
@@ -46,6 +47,8 @@ type LayerMenuProps = {
   onShowAllMuscles: (value: boolean) => void;
   activeChainIds: string[];
   onActiveChainsChange: (ids: string[]) => void;
+  chainSide: ChainSide;
+  onChainSideChange: (side: ChainSide) => void;
 };
 
 export function LayerMenu({
@@ -55,6 +58,8 @@ export function LayerMenu({
   onShowAllMuscles,
   activeChainIds,
   onActiveChainsChange,
+  chainSide,
+  onChainSideChange,
 }: LayerMenuProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -92,8 +97,8 @@ export function LayerMenu({
       {open ? (
         <div className="layer-menu-panel" id={menuId} role="group" aria-label="Couches anatomiques">
           <p className="layer-menu-note">
-            Le squelette (os et cartilage) reste toujours visible. Masquage fin des muscles dans le
-            panneau.
+            Le squelette (os et cartilage) reste toujours visible. Cliquez un muscle pour le
+            sélectionner, puis masquez-le dans le panneau.
           </p>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (
@@ -123,6 +128,8 @@ export function LayerMenu({
                     compact
                     activeChainIds={activeChainIds}
                     onChange={onActiveChainsChange}
+                    chainSide={chainSide}
+                    onSideChange={onChainSideChange}
                   />
                 ) : null}
               </li>

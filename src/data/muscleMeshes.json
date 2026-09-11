@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices.",
-  "count": 153,
+  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi and rectus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas).",
+  "count": 157,
   "countBodyparts3d": 151,
-  "countSynthetic": 2,
+  "countSynthetic": 6,
   "muscles": [
     {
       "id": "abducteur-de-l-hallux",
@@ -1287,26 +1287,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.00016,
-        0.17934,
-        0.1387
+        -1e-05,
+        0.15074,
+        0.13506
       ],
       "focus": {
         "position": [
-          -0.02182,
-          0.17934,
-          0.1387
+          -0.04555,
+          0.15074,
+          0.13506
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.04304,
-        0.92503,
-        0.37745
+        -0.03501,
+        0.95324,
+        0.30017
       ],
-      "vertexCount": 396,
-      "faceCount": 760,
-      "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+      "vertexCount": 816,
+      "faceCount": 1360,
+      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {
       "id": "droit-anterieur-de-la-tete",
@@ -2089,26 +2089,26 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.00098,
-        0.11619,
-        -0.03079
+        0.00013,
+        0.31962,
+        0.02395
       ],
       "focus": {
         "position": [
-          -0.16247,
-          0.11606,
-          -0.03166
+          -0.13971,
+          0.31961,
+          0.02361
         ],
         "distance": 0.62
       },
       "fiberAxis": [
-        -0.69352,
-        0.70069,
-        0.16753
+        -0.29508,
+        0.91774,
+        0.26586
       ],
-      "vertexCount": 960,
-      "faceCount": 1800,
-      "notes": "Educational multi-lobe stand-in — BodyParts3D 4.0 has no mesh for this muscle."
+      "vertexCount": 1690,
+      "faceCount": 3132,
+      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {
       "id": "grand-droit-posterieur-de-la-tete",
@@ -3239,6 +3239,36 @@
       "faceCount": 9000
     },
     {
+      "id": "masseter",
+      "source": "synthetic",
+      "sourceNames": [
+        "masseter"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.00032,
+        0.61947,
+        0.06481
+      ],
+      "focus": {
+        "position": [
+          -0.05586,
+          0.61957,
+          0.06466
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.08908,
+        0.93555,
+        0.34178
+      ],
+      "vertexCount": 364,
+      "faceCount": 592,
+      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+    },
+    {
       "id": "moyen-fessier",
       "source": "bodyparts3d",
       "sourceNames": [
@@ -4101,6 +4131,66 @@
       ],
       "vertexCount": 1676,
       "faceCount": 1292
+    },
+    {
+      "id": "pterygoide-lateral",
+      "source": "synthetic",
+      "sourceNames": [
+        "pterygoide-lateral"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.0005,
+        0.6555,
+        0.06853
+      ],
+      "focus": {
+        "position": [
+          -0.04339,
+          0.65555,
+          0.06842
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        -0.58022,
+        -0.01448,
+        -0.81433
+      ],
+      "vertexCount": 92,
+      "faceCount": 84,
+      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
+    },
+    {
+      "id": "pterygoide-medial",
+      "source": "synthetic",
+      "sourceNames": [
+        "pterygoide-medial"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.00037,
+        0.59939,
+        0.06719
+      ],
+      "focus": {
+        "position": [
+          -0.02796,
+          0.5995,
+          0.06706
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.08986,
+        0.86434,
+        0.49482
+      ],
+      "vertexCount": 160,
+      "faceCount": 200,
+      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {
       "id": "pubo-coccygien",
@@ -5115,6 +5205,36 @@
       ],
       "vertexCount": 1685,
       "faceCount": 1756
+    },
+    {
+      "id": "temporal",
+      "source": "synthetic",
+      "sourceNames": [
+        "temporal"
+      ],
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.00048,
+        0.66988,
+        0.05087
+      ],
+      "focus": {
+        "position": [
+          -0.05394,
+          0.66962,
+          0.05099
+        ],
+        "distance": 0.62
+      },
+      "fiberAxis": [
+        0.00478,
+        0.93793,
+        -0.3468
+      ],
+      "vertexCount": 344,
+      "faceCount": 528,
+      "notes": "Educational landmark-anchored mesh — BodyParts3D 4.0 has no dedicated OBJ for this muscle. Attachments follow classical O/I; shape is a schematic solid, not a cadaver segmentation."
     },
     {
       "id": "tenseur-du-fascia-lata",

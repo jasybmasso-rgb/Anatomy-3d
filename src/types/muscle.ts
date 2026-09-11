@@ -7,7 +7,8 @@ export type MuscleRegion =
   | "dos"
   | "main"
   | "pied"
-  | "périnée";
+  | "périnée"
+  | "tête";
 
 export type MuscleHead = {
   name: string;

@@ -4,7 +4,7 @@ import { ChainLegend } from "./components/ChainPicker";
 import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
 import { SidePanel } from "./components/SidePanel";
-import { muscleIdsForChains } from "./data/chains";
+import { muscleIdsForChains, type ChainSide } from "./data/chains";
 import { muscles, getMuscleById } from "./data/loadMuscles";
 import { AnatomyScene } from "./scene/AnatomyScene";
 import type { SelectionState } from "./types/muscle";
@@ -17,6 +17,7 @@ export function App() {
   const [showAllMuscles, setShowAllMuscles] = useState(false);
   const [hiddenMuscleIds, setHiddenMuscleIds] = useState<string[]>([]);
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
+  const [chainSide, setChainSide] = useState<ChainSide>("both");
   const selected = getMuscleById(selection.selectedMuscleId);
 
   function reset() {
@@ -25,6 +26,7 @@ export function App() {
     setShowAllMuscles(false);
     setHiddenMuscleIds([]);
     setActiveChainIds([]);
+    setChainSide("both");
     setLayers(DEFAULT_LAYERS);
   }
 
@@ -38,12 +40,19 @@ export function App() {
     if (value) setLayers((prev) => ({ ...prev, muscles: true }));
   }
 
+  function onSelectMuscle(id: string) {
+    setSelection({ selectedMuscleId: id });
+    setLayers((prev) => ({ ...prev, muscles: true }));
+  }
+
   function onActiveChainsChange(ids: string[]) {
     setActiveChainIds(ids);
     if (ids.length > 0) {
       setLayers((prev) => ({ ...prev, chains: true }));
       const ensure = new Set(muscleIdsForChains(ids));
       setHiddenMuscleIds((prev) => prev.filter((id) => !ensure.has(id)));
+    } else {
+      setChainSide("both");
     }
   }
 
@@ -58,7 +67,7 @@ export function App() {
           muscles={muscles}
           selectedId={selection.selectedMuscleId}
           resetToken={resetToken}
-          onSelect={(id) => setSelection({ selectedMuscleId: id })}
+          onSelect={onSelectMuscle}
         />
         <LayerMenu
           layers={layers}
@@ -67,6 +76,8 @@ export function App() {
           onShowAllMuscles={onShowAllMuscles}
           activeChainIds={activeChainIds}
           onActiveChainsChange={onActiveChainsChange}
+          chainSide={chainSide}
+          onChainSideChange={setChainSide}
         />
         <button type="button" className="reset-btn" onClick={reset}>
           Réinitialiser
@@ -85,13 +96,16 @@ export function App() {
               showFascia={layers.fascias}
               showChains={layers.chains}
               activeChainIds={activeChainIds}
+              chainSide={chainSide}
               resetToken={resetToken}
+              onSelectMuscle={onSelectMuscle}
             />
           </SceneErrorBoundary>
           <ChainLegend activeChainIds={layers.chains ? activeChainIds : []} />
           {!selected ? (
             <p className="viewport-hint">
-              Molette : zoom fluide vers le curseur · Clic droit : panoramique · Double-clic : recentrer
+              Clic : sélectionner · Molette / pincement : zoom · Un doigt : orbite · Deux doigts :
+              panoramique
             </p>
           ) : null}
         </div>
@@ -103,6 +117,8 @@ export function App() {
           onHiddenChange={setHiddenMuscleIds}
           showChains={layers.chains}
           activeChainIds={activeChainIds}
+          chainSide={chainSide}
+          onChainSideChange={setChainSide}
         />
       </div>
     </div>

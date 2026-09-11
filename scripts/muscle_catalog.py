@@ -112,6 +112,10 @@ NAMES: dict[str, tuple[str, str, list[str], Region]] = {
     "obliquus capitis superior": ("Oblique supérieur de la tête", "Musculus obliquus capitis superior", ["OCS"], "cou"),
     "platysma": ("Peaucier du cou", "Platysma", ["platysma"], "cou"),
     "digastric": ("Digastrique", "Musculus digastricus", ["digastrique"], "cou"),
+    "temporalis": ("Temporal", "Musculus temporalis", ["temporal", "temporalis"], "tête"),
+    "masseter": ("Masséter", "Musculus masseter", ["masseter", "masséter"], "tête"),
+    "medial pterygoid": ("Ptérygoïdien médial", "Musculus pterygoideus medialis", ["ptérygoïdien interne"], "tête"),
+    "lateral pterygoid": ("Ptérygoïdien latéral", "Musculus pterygoideus lateralis", ["ptérygoïdien externe"], "tête"),
     "mylohyoid": ("Mylo-hyoïdien", "Musculus mylohyoideus", ["mylohyoid"], "cou"),
     "geniohyoid": ("Génio-hyoïdien", "Musculus geniohyoideus", ["geniohyoid"], "cou"),
     "stylohyoid": ("Stylo-hyoïdien", "Musculus stylohyoideus", ["stylohyoid"], "cou"),
@@ -371,6 +375,42 @@ _a("teres major", "Angle inférieur de la scapula.", "Lèvre médiale du sillon 
 _a("teres minor", "Bord latéral de la scapula.", "Facette inférieure du tubercule majeur.", ["Rotation latérale du bras"], ["Coaptation"])
 _a("latissimus dorsi", "Épineuses T7–L5, fascia thoraco-lombaire, crête iliaque, côtes inférieures.", "Fond du sillon intertuberculaire de l’humérus.", ["Adduction, extension et rotation médiale du bras"], ["Abaissement de la scapula / inspirateur accessoire"])
 _a("rectus abdominis", "Crête et symphyse pubiennes.", "Processus xiphoïde et cartilages costaux 5–7.", ["Flexion du tronc"], ["Rétroversion du bassin", "Expiration forcée"])
+_a(
+    "temporalis",
+    "Fosse temporale (ligne temporale, pariétal, temporal, frontal) et fascia temporal.",
+    "Processus coronoïde et crête antérieure de la branche mandibulaire.",
+    ["Élévation de la mandibule (occlusion)"],
+    ["Rétrusion (fibres postérieures)"],
+)
+_a(
+    "masseter",
+    "Arc zygomatique (chef superficiel : bord inférieur ; chef profond : face médiale).",
+    "Angle et face latérale de la branche mandibulaire.",
+    ["Élévation de la mandibule (occlusion puissante)"],
+    ["Protrusion (chef superficiel)"],
+    [
+        _h("Chef superficiel", "Bord inférieur de l’arc zygomatique.", "Angle de la mandibule."),
+        _h("Chef profond", "Face médiale de l’arc zygomatique.", "Branche mandibulaire (face latérale)."),
+    ],
+)
+_a(
+    "medial pterygoid",
+    "Fosse ptérygoïde (processus ptérygoïde du sphénoïde) et tubérosité maxillaire.",
+    "Face médiale de l’angle mandibulaire.",
+    ["Élévation de la mandibule"],
+    ["Diduction / protrusion (avec le ptérygoïdien latéral)"],
+)
+_a(
+    "lateral pterygoid",
+    "Chef supérieur : grande aile du sphénoïde. Chef inférieur : lame ptérygoïdienne latérale.",
+    "Fovéa ptérygoïdienne du condyle et disque / capsule de l’ATM.",
+    ["Protrusion et diduction de la mandibule"],
+    ["Début de l’ouverture (chef inférieur)"],
+    [
+        _h("Chef supérieur", "Grande aile du sphénoïde (face infratemporale).", "Disque et capsule de l’ATM."),
+        _h("Chef inférieur", "Face latérale de la lame ptérygoïdienne latérale.", "Fovéa ptérygoïdienne du condyle."),
+    ],
+)
 _a("brachialis", "Face antérieure de la moitié distale de l’humérus.", "Tubérosité ulnaire (processus coronoïde).", ["Flexion du coude (principal fléchisseur, avant-bras en pronation ou supination)"])
 _a("brachioradialis", "Crête supra-condylaire latérale de l’humérus.", "Processus styloïde du radius.", ["Flexion du coude"], ["Ramène l’avant-bras en position neutre (semi-pronation)"])
 _a("coracobrachialis", "Processus coracoïde.", "Face médiale du tiers moyen de l’humérus.", ["Flexion et adduction de l’épaule"])

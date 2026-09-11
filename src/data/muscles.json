@@ -1125,16 +1125,16 @@
     ],
     "focus": {
       "position": [
-        -0.02182,
-        0.17934,
-        0.1387
+        -0.04555,
+        0.15074,
+        0.13506
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.04304,
-      0.92503,
-      0.37745
+      -0.03501,
+      0.95324,
+      0.30017
     ],
     "meshSource": "synthetic"
   },
@@ -1690,16 +1690,16 @@
     ],
     "focus": {
       "position": [
-        -0.16247,
-        0.11606,
-        -0.03166
+        -0.13971,
+        0.31961,
+        0.02361
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.69352,
-      0.70069,
-      0.16753
+      -0.29508,
+      0.91774,
+      0.26586
     ],
     "meshSource": "synthetic"
   },
@@ -2688,6 +2688,50 @@
     "meshSource": "bodyparts3d"
   },
   {
+    "id": "masseter",
+    "name": "Masséter",
+    "nameLatin": "Musculus masseter",
+    "aliases": [
+      "masseter",
+      "masséter"
+    ],
+    "region": "tête",
+    "origin": "Arc zygomatique (chef superficiel : bord inférieur ; chef profond : face médiale).",
+    "insertion": "Angle et face latérale de la branche mandibulaire.",
+    "actions": [
+      "Élévation de la mandibule (occlusion puissante)"
+    ],
+    "secondaryActions": [
+      "Protrusion (chef superficiel)"
+    ],
+    "heads": [
+      {
+        "name": "Chef superficiel",
+        "origin": "Bord inférieur de l’arc zygomatique.",
+        "insertion": "Angle de la mandibule."
+      },
+      {
+        "name": "Chef profond",
+        "origin": "Face médiale de l’arc zygomatique.",
+        "insertion": "Branche mandibulaire (face latérale)."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.05586,
+        0.61957,
+        0.06466
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.08908,
+      0.93555,
+      0.34178
+    ],
+    "meshSource": "synthetic"
+  },
+  {
     "id": "moyen-fessier",
     "name": "Moyen fessier",
     "nameLatin": "Musculus gluteus medius",
@@ -3380,6 +3424,80 @@
       -0.91386
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "pterygoide-lateral",
+    "name": "Ptérygoïdien latéral",
+    "nameLatin": "Musculus pterygoideus lateralis",
+    "aliases": [
+      "ptérygoïdien externe"
+    ],
+    "region": "tête",
+    "origin": "Chef supérieur : grande aile du sphénoïde. Chef inférieur : lame ptérygoïdienne latérale.",
+    "insertion": "Fovéa ptérygoïdienne du condyle et disque / capsule de l’ATM.",
+    "actions": [
+      "Protrusion et diduction de la mandibule"
+    ],
+    "secondaryActions": [
+      "Début de l’ouverture (chef inférieur)"
+    ],
+    "heads": [
+      {
+        "name": "Chef supérieur",
+        "origin": "Grande aile du sphénoïde (face infratemporale).",
+        "insertion": "Disque et capsule de l’ATM."
+      },
+      {
+        "name": "Chef inférieur",
+        "origin": "Face latérale de la lame ptérygoïdienne latérale.",
+        "insertion": "Fovéa ptérygoïdienne du condyle."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.04339,
+        0.65555,
+        0.06842
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.58022,
+      -0.01448,
+      -0.81433
+    ],
+    "meshSource": "synthetic"
+  },
+  {
+    "id": "pterygoide-medial",
+    "name": "Ptérygoïdien médial",
+    "nameLatin": "Musculus pterygoideus medialis",
+    "aliases": [
+      "ptérygoïdien interne"
+    ],
+    "region": "tête",
+    "origin": "Fosse ptérygoïde (processus ptérygoïde du sphénoïde) et tubérosité maxillaire.",
+    "insertion": "Face médiale de l’angle mandibulaire.",
+    "actions": [
+      "Élévation de la mandibule"
+    ],
+    "secondaryActions": [
+      "Diduction / protrusion (avec le ptérygoïdien latéral)"
+    ],
+    "focus": {
+      "position": [
+        -0.02796,
+        0.5995,
+        0.06706
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.08986,
+      0.86434,
+      0.49482
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "pubo-coccygien",
@@ -4215,6 +4333,38 @@
       0.12019
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "temporal",
+    "name": "Temporal",
+    "nameLatin": "Musculus temporalis",
+    "aliases": [
+      "temporal",
+      "temporalis"
+    ],
+    "region": "tête",
+    "origin": "Fosse temporale (ligne temporale, pariétal, temporal, frontal) et fascia temporal.",
+    "insertion": "Processus coronoïde et crête antérieure de la branche mandibulaire.",
+    "actions": [
+      "Élévation de la mandibule (occlusion)"
+    ],
+    "secondaryActions": [
+      "Rétrusion (fibres postérieures)"
+    ],
+    "focus": {
+      "position": [
+        -0.05394,
+        0.66962,
+        0.05099
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.00478,
+      0.93793,
+      -0.3468
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "tenseur-du-fascia-lata",

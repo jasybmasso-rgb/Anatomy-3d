@@ -69,6 +69,8 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         catalog.append(entry(id_, name, latin, region, joint, mesh))
 
     def bundle(id_, name, latin, region, joint, a, b, **kw):
+        if "spread_end" in kw:
+            kw["spread_end"] = float(kw["spread_end"]) * 1.35
         add(id_, name, latin, region, joint, fascicle_bundle(a, b, **kw))
 
     def S(key: str, suf: str) -> np.ndarray:

@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "model": "Tom Myers — Anatomy Trains (modèle pédagogique de continuités myofasciales)",
   "disclaimer": {
     "fr": "Les chaînes affichées suivent le modèle pédagogique des méridiens myofasciaux popularisé par Tom Myers (Anatomy Trains). Ce n’est pas une carte anatomique unique, ni un protocole clinique : fascias, muscles et variations individuelles sont plus complexes que des lignes dessinées. S’en servir comme grille de lecture du mouvement, pas comme vérité exclusive.",
@@ -43,6 +43,9 @@
         "petit-droit-posterieur-de-la-tete",
         "oblique-inferieur-de-la-tete",
         "oblique-superieur-de-la-tete"
+      ],
+      "fasciaIds": [
+        "fascia-thoracolombaire"
       ]
     },
     {
@@ -69,7 +72,8 @@
         "droit-abdomen",
         "sterno-cleido-mastoidien",
         "peaucier-du-cou"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "ll",
@@ -99,6 +103,14 @@
         "splenius-de-la-tete",
         "splenius-du-cou",
         "sterno-cleido-mastoidien"
+      ],
+      "fasciaIds": [
+        "tractus-ilio-tibial-d",
+        "tractus-ilio-tibial-g",
+        "fascia-lata-d",
+        "fascia-lata-g",
+        "fascia-crural-d",
+        "fascia-crural-g"
       ]
     },
     {
@@ -126,6 +138,12 @@
         "biceps-femoral",
         "tibial-anterieur",
         "long-fibulaire"
+      ],
+      "fasciaIds": [
+        "tractus-ilio-tibial-d",
+        "tractus-ilio-tibial-g",
+        "fascia-lata-d",
+        "fascia-lata-g"
       ]
     },
     {
@@ -174,7 +192,8 @@
         "thyro-hyoidien",
         "genio-hyoidien",
         "mylo-hyoidien"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "sfal",
@@ -198,7 +217,8 @@
         "court-abducteur-du-pouce",
         "opposant-du-pouce",
         "court-flechisseur-du-pouce"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "dfal",
@@ -221,7 +241,8 @@
         "flechisseur-profond-des-doigts",
         "long-flechisseur-du-pouce",
         "adducteur-du-pouce"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "sbal",
@@ -246,7 +267,8 @@
         "court-extenseur-radial-du-carpe",
         "extenseur-du-petit-doigt",
         "extenseur-de-l-index"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "dbal",
@@ -274,7 +296,8 @@
         "abducteur-du-petit-doigt",
         "opposant-du-petit-doigt",
         "court-flechisseur-du-petit-doigt"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "ffl",
@@ -294,7 +317,8 @@
         "droit-abdomen",
         "long-adducteur",
         "grand-adducteur"
-      ]
+      ],
+      "fasciaIds": []
     },
     {
       "id": "bfl",
@@ -313,6 +337,9 @@
         "grand-dorsal",
         "grand-fessier",
         "vaste-lateral"
+      ],
+      "fasciaIds": [
+        "fascia-thoracolombaire"
       ]
     },
     {
@@ -334,6 +361,12 @@
         "oblique-externe",
         "sartorius",
         "tenseur-du-fascia-lata"
+      ],
+      "fasciaIds": [
+        "fascia-lata-d",
+        "fascia-lata-g",
+        "tractus-ilio-tibial-d",
+        "tractus-ilio-tibial-g"
       ]
     }
   ]

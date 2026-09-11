@@ -1,6 +1,7 @@
 import { ContactShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
+import type { ChainSide } from "../data/chains";
 import type { Muscle } from "../types/muscle";
 import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
@@ -48,7 +49,9 @@ type AnatomySceneProps = {
   showFascia: boolean;
   showChains: boolean;
   activeChainIds: string[];
+  chainSide: ChainSide;
   resetToken: number;
+  onSelectMuscle: (id: string) => void;
 };
 
 export function AnatomyScene({
@@ -61,7 +64,9 @@ export function AnatomyScene({
   showFascia,
   showChains,
   activeChainIds,
+  chainSide,
   resetToken,
+  onSelectMuscle,
 }: AnatomySceneProps) {
   if (typeof window !== "undefined" && !supportsWebGL()) {
     return (
@@ -80,9 +85,9 @@ export function AnatomyScene({
     <Canvas
       className="anatomy-canvas"
       shadows
-      style={{ width: "100%", height: "100%", display: "block" }}
+      style={{ width: "100%", height: "100%", display: "block", touchAction: "none" }}
       camera={{ position: DEFAULT_EYE, fov: 38, near: 0.05, far: 40 }}
-      gl={{ antialias: true, alpha: false }}
+      gl={{ antialias: true, alpha: false, localClippingEnabled: true }}
       dpr={[1, 2]}
     >
       <color attach="background" args={[SCENE_BG]} />
@@ -90,7 +95,12 @@ export function AnatomyScene({
       <Lights />
       <Suspense fallback={null}>
         <Skeleton />
-        <Fascia visible={showFascia} />
+        <Fascia
+          layerVisible={showFascia}
+          chainLayerOn={showChains}
+          activeChainIds={activeChainIds}
+          chainSide={chainSide}
+        />
         <Ligaments visible={showLigaments} />
         <MuscleLayer
           selectedMuscleId={muscle?.id ?? null}
@@ -99,6 +109,8 @@ export function AnatomyScene({
           hiddenMuscleIds={hiddenMuscleIds}
           chainLayerOn={showChains}
           activeChainIds={activeChainIds}
+          chainSide={chainSide}
+          onSelect={onSelectMuscle}
         />
         <LandmarkLayer visible={showLandmarks} />
       </Suspense>

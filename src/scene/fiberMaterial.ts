@@ -7,6 +7,8 @@ const _normal = new THREE.Vector3();
 const _binormal = new THREE.Vector3();
 const _helper = new THREE.Vector3();
 const _size = new THREE.Vector3();
+const _axis = new THREE.Vector3();
+const _covCol = new THREE.Vector3();
 
 const GLSL_NOISE = /* glsl */ `
 float fiberHash(vec2 p) {
@@ -79,16 +81,16 @@ const GLSL_LIGAMENT_ALBEDO = /* glsl */ `
 vec3 pedagogicalLigamentAlbedo(vec2 uv) {
   float along = clamp(uv.x, 0.0, 1.0);
   vec2 circ = fiberCirc(uv.y);
-  float density = 48.0;
+  float density = 44.0;
   float warp = fiberFbm(circ * 1.8 + vec2(along * 2.4, 2.7)) - 0.5;
   vec2 fuv = circ * density + vec2(warp * 1.6, along * 2.0);
   float n = fiberFbm(fuv) * 0.7 + fiberFbm(fuv * 2.2 + 5.0) * 0.3;
   float ridge = smoothstep(0.34, 0.7, n);
-  vec3 base = vec3(0.86, 0.76, 0.62);
-  vec3 fiber = vec3(0.93, 0.86, 0.74);
-  vec3 col = mix(base * 0.92, fiber, ridge * 0.55);
-  float endFlare = 1.0 - smoothstep(0.0, 0.12, min(along, 1.0 - along));
-  col = mix(col, vec3(0.91, 0.82, 0.68), endFlare * 0.25);
+  vec3 base = vec3(0.72, 0.38, 0.07);
+  vec3 fiber = vec3(0.96, 0.74, 0.22);
+  vec3 col = mix(base, fiber, ridge * 0.72);
+  float endFlare = 1.0 - smoothstep(0.0, 0.16, min(along, 1.0 - along));
+  col = mix(col, vec3(0.93, 0.62, 0.16), endFlare * 0.55);
   return clamp(col, 0.0, 1.0);
 }
 `;
@@ -121,17 +123,68 @@ function collectHalves(pos: THREE.BufferAttribute): number[][] {
   return [all];
 }
 
-/** U along origin→insertion, V around the belly. Split L/R for bilateral meshes. */
-export function applyFiberUVs(geometry: THREE.BufferGeometry, fiberAxis: THREE.Vector3) {
+/** Longest principal axis of the given vertices (model space, not world +Y). */
+export function pcaLongAxis(
+  pos: THREE.BufferAttribute,
+  indices: number[],
+  hint?: THREE.Vector3,
+): THREE.Vector3 {
+  _centroid.set(0, 0, 0);
+  for (const i of indices) {
+    _centroid.x += pos.getX(i);
+    _centroid.y += pos.getY(i);
+    _centroid.z += pos.getZ(i);
+  }
+  _centroid.multiplyScalar(1 / Math.max(indices.length, 1));
+
+  let xx = 0;
+  let xy = 0;
+  let xz = 0;
+  let yy = 0;
+  let yz = 0;
+  let zz = 0;
+  for (const i of indices) {
+    const dx = pos.getX(i) - _centroid.x;
+    const dy = pos.getY(i) - _centroid.y;
+    const dz = pos.getZ(i) - _centroid.z;
+    xx += dx * dx;
+    xy += dx * dy;
+    xz += dx * dz;
+    yy += dy * dy;
+    yz += dy * dz;
+    zz += dz * dz;
+  }
+
+  _axis.copy(hint && hint.lengthSq() > 1e-8 ? hint : _helper.set(0, 1, 0));
+  if (_axis.lengthSq() < 1e-10) _axis.set(0, 1, 0);
+  _axis.normalize();
+  for (let iter = 0; iter < 14; iter += 1) {
+    _covCol.set(
+      xx * _axis.x + xy * _axis.y + xz * _axis.z,
+      xy * _axis.x + yy * _axis.y + yz * _axis.z,
+      xz * _axis.x + yz * _axis.y + zz * _axis.z,
+    );
+    if (_covCol.lengthSq() < 1e-12) break;
+    _axis.copy(_covCol).normalize();
+  }
+  if (hint && hint.lengthSq() > 1e-8 && _axis.dot(hint) < 0) _axis.negate();
+  return _axis.clone();
+}
+
+/** U along the mesh long axis (PCA, aligned with O→I hint), V around the belly. */
+export function applyFiberUVs(geometry: THREE.BufferGeometry, fiberAxis?: THREE.Vector3) {
   const pos = geometry.getAttribute("position");
   if (!pos) return;
-  const axis = fiberAxis.clone().normalize();
-  if (axis.lengthSq() < 1e-10) axis.set(0, 1, 0);
+  const hint = fiberAxis?.clone();
+  if (hint && hint.lengthSq() < 1e-10) hint.set(0, 0, 0);
 
   const uv = new Float32Array(pos.count * 2);
   const groups = collectHalves(pos as THREE.BufferAttribute);
 
   for (const indices of groups) {
+    const axis = pcaLongAxis(pos as THREE.BufferAttribute, indices, hint && hint.lengthSq() > 0 ? hint : undefined);
+    if (axis.lengthSq() < 1e-10) axis.set(0, 1, 0);
+
     _centroid.set(0, 0, 0);
     for (const i of indices) {
       _centroid.x += pos.getX(i);
@@ -171,7 +224,7 @@ export function applyFiberUVs(geometry: THREE.BufferGeometry, fiberAxis: THREE.V
   geometry.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
 }
 
-/** Longest AABB axis — good enough for ligaments and unknown fiber direction. */
+/** Longest AABB axis — fallback for ligaments when PCA is overkill. */
 export function inferLongAxis(geometry: THREE.BufferGeometry): THREE.Vector3 {
   if (!geometry.boundingBox) geometry.computeBoundingBox();
   const box = geometry.boundingBox;
@@ -182,6 +235,12 @@ export function inferLongAxis(geometry: THREE.BufferGeometry): THREE.Vector3 {
   return new THREE.Vector3(0, 0, 1);
 }
 
+export function clipPlanesForSide(side: "both" | "left" | "right"): THREE.Plane[] {
+  if (side === "right") return [new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0.01)];
+  if (side === "left") return [new THREE.Plane(new THREE.Vector3(1, 0, 0), 0.01)];
+  return [];
+}
+
 export type FiberMaterialKind = "muscle" | "ligament";
 
 export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
@@ -190,11 +249,14 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     map: getDummyMap(),
     roughness: 0.52,
     metalness: 0.0,
-    transparent: true,
-    opacity: 0.96,
+    transparent: false,
+    opacity: 1,
+    depthWrite: true,
     clearcoat: 0.05,
     side: THREE.FrontSide,
     vertexColors: false,
+    clippingPlanes: [],
+    clipShadows: true,
   });
   material.userData.uTint = new THREE.Color(1, 1, 1);
   material.userData.uTintMix = { value: 0 };
@@ -228,7 +290,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhysicalMaterial {
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v5";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v6";
   return material;
 }
 
@@ -236,16 +298,16 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
   const material = new THREE.MeshPhysicalMaterial({
     color: "#ffffff",
     map: getDummyMap(),
-    roughness: schematic ? 0.58 : 0.5,
-    metalness: 0.0,
+    roughness: schematic ? 0.52 : 0.46,
+    metalness: 0.04,
     transparent: true,
-    opacity: schematic ? 0.82 : 0.94,
+    opacity: schematic ? 0.92 : 0.96,
     depthTest: !schematic,
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,
-    emissive: schematic ? "#4a3018" : "#3a2414",
-    emissiveIntensity: schematic ? 0.14 : 0.16,
+    emissive: schematic ? "#7a3a08" : "#5a2a06",
+    emissiveIntensity: schematic ? 0.28 : 0.2,
   });
   material.userData.kind = "ligament";
   material.onBeforeCompile = (shader) => {
@@ -265,7 +327,7 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     material.userData.shader = shader;
   };
   material.customProgramCacheKey = () =>
-    schematic ? "anatomy-fiber-ligament-synth-v3" : "anatomy-fiber-ligament-bp3d-v3";
+    schematic ? "anatomy-fiber-ligament-synth-v4" : "anatomy-fiber-ligament-bp3d-v4";
   return material;
 }
 

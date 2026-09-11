@@ -48,7 +48,7 @@ def main() -> int:
         if name in by_id:
             scene.delete_geometry(name)
     for part_id, mesh in synth_meshes:
-        mesh.visual.vertex_colors = [210, 176, 148, 160]
+        mesh.visual.vertex_colors = [210, 120, 36, 200]
         _ = mesh.vertex_normals
         mesh.metadata["name"] = part_id
         scene.add_geometry(mesh, node_name=part_id, geom_name=part_id)

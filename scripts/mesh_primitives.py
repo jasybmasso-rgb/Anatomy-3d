@@ -187,6 +187,43 @@ def _profile_thin_mid(t: np.ndarray, end: float, mid: float) -> np.ndarray:
     return end * (1.0 - belly) + mid * belly
 
 
+def attachment_pad(
+    center: Sequence[float],
+    tangent: Sequence[float],
+    *,
+    major: float = 0.011,
+    minor: float = 0.0065,
+    thickness: float = 0.0026,
+    bone_normal: Sequence[float] | None = None,
+) -> trimesh.Trimesh:
+    """Flattened oval footprint that sits on bone — not a conical fiber tip."""
+    c = np.asarray(center, dtype=np.float64)
+    t = np.asarray(tangent, dtype=np.float64)
+    tn = np.linalg.norm(t)
+    t = t / tn if tn > 1e-9 else np.array([0.0, 1.0, 0.0])
+    if bone_normal is None:
+        n = -t
+    else:
+        n = np.asarray(bone_normal, dtype=np.float64)
+        nn = np.linalg.norm(n)
+        n = n / nn if nn > 1e-9 else -t
+    x, y, z = _orthonormal_frame(n)
+    # Flatten along the incoming fiber so the pad reads as a bony flare.
+    mesh = trimesh.creation.cylinder(radius=1.0, height=max(thickness, 0.0016), sections=22)
+    scale = np.eye(4)
+    scale[0, 0] = major
+    scale[1, 1] = minor
+    scale[2, 2] = 1.0
+    mesh.apply_transform(scale)
+    rot = np.eye(4)
+    rot[:3, 0] = x
+    rot[:3, 1] = y
+    rot[:3, 2] = z
+    mesh.apply_transform(rot)
+    mesh.apply_translation(c + n * (thickness * 0.15))
+    return mesh
+
+
 def fascicle_bundle(
     a: Sequence[float],
     b: Sequence[float],
@@ -196,7 +233,7 @@ def fascicle_bundle(
     n_fibers: int = 12,
     radius_end: float = 0.00185,
     radius_mid: float = 0.00105,
-    spread_end: float = 0.0084,
+    spread_end: float = 0.0115,
     spread_mid: float = 0.0017,
     samples: int = 28,
     radial: int = 8,
@@ -263,6 +300,13 @@ def fascicle_bundle(
             r = r * (0.92 + 0.08 * scale)
             parts.append(loft_tube(path, r, radial=radial, caps=True))
             fiber_index += 1
+    # Flattened bony footprints so endings blend onto landmarks instead of tapering to a point.
+    t0 = center[1] - center[0]
+    t1 = center[-1] - center[-2]
+    pad_major = max(spread_end * 1.15, 0.0075)
+    pad_minor = max(spread_end * 0.62, 0.0044)
+    parts.append(attachment_pad(pa, t0, major=pad_major, minor=pad_minor, bone_normal=-t0))
+    parts.append(attachment_pad(pb, t1, major=pad_major, minor=pad_minor, bone_normal=t1))
     merged = trimesh.util.concatenate(parts)
     merged.merge_vertices()
     return merged
