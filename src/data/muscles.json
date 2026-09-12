@@ -1125,16 +1125,16 @@
     ],
     "focus": {
       "position": [
-        -0.02182,
-        0.17934,
-        0.1387
+        -0.02431,
+        0.15209,
+        0.10874
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.04304,
-      0.92503,
-      0.37745
+      0.0,
+      0.98,
+      0.18
     ],
     "meshSource": "synthetic"
   },
@@ -1690,16 +1690,16 @@
     ],
     "focus": {
       "position": [
-        -0.16247,
-        0.11606,
-        -0.03166
+        -0.1145,
+        0.29156,
+        -0.00222
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.69352,
-      0.70069,
-      0.16753
+      0.0,
+      0.88,
+      0.28
     ],
     "meshSource": "synthetic"
   },
@@ -2688,6 +2688,50 @@
     "meshSource": "bodyparts3d"
   },
   {
+    "id": "masseter",
+    "name": "Masséter",
+    "nameLatin": "Musculus masseter",
+    "aliases": [
+      "masseter",
+      "masséter"
+    ],
+    "region": "tête",
+    "origin": "Arc zygomatique (chef superficiel : bord inférieur ; chef profond : face médiale).",
+    "insertion": "Angle et face latérale de la branche mandibulaire.",
+    "actions": [
+      "Élévation de la mandibule (occlusion puissante)"
+    ],
+    "secondaryActions": [
+      "Protrusion (chef superficiel)"
+    ],
+    "heads": [
+      {
+        "name": "Chef superficiel",
+        "origin": "Bord inférieur de l’arc zygomatique.",
+        "insertion": "Angle de la mandibule."
+      },
+      {
+        "name": "Chef profond",
+        "origin": "Face médiale de l’arc zygomatique.",
+        "insertion": "Branche mandibulaire (face latérale)."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.05641,
+        0.62629,
+        0.05836
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.29606,
+      0.8528,
+      -0.4302
+    ],
+    "meshSource": "synthetic"
+  },
+  {
     "id": "moyen-fessier",
     "name": "Moyen fessier",
     "nameLatin": "Musculus gluteus medius",
@@ -2767,18 +2811,18 @@
     ],
     "focus": {
       "position": [
-        -0.05131,
-        0.13029,
-        0.13463
+        -0.05899,
+        0.18644,
+        0.11364
       ],
       "distance": 0.62
     },
     "fiberAxis": [
-      -0.08391,
-      0.99568,
-      0.03982
+      0.0,
+      -0.92,
+      0.18
     ],
-    "meshSource": "bodyparts3d"
+    "meshSource": "synthetic"
   },
   {
     "id": "oblique-inferieur-de-la-tete",
@@ -2807,6 +2851,40 @@
       -0.62297
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "oblique-interne",
+    "name": "Oblique interne",
+    "nameLatin": "Musculus obliquus internus abdominis",
+    "aliases": [
+      "petit oblique",
+      "oblique interne"
+    ],
+    "region": "tronc",
+    "origin": "Fascia thoraco-lombaire, deux tiers antérieurs de la crête iliaque, tiers latéral du ligament inguinal.",
+    "insertion": "Bords inférieurs des côtes 10–12, ligne blanche (aponévrose de la gaine du droit) et crête pubienne (tendon conjoint).",
+    "actions": [
+      "Flexion du tronc (bilatéral)",
+      "Rotation homolatérale"
+    ],
+    "secondaryActions": [
+      "Expiration forcée",
+      "Stabilisation abdominale"
+    ],
+    "focus": {
+      "position": [
+        -0.08718,
+        0.13369,
+        0.06126
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.0,
+      0.92,
+      0.18
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "oblique-superieur-de-la-tete",
@@ -3380,6 +3458,80 @@
       -0.91386
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "pterygoide-lateral",
+    "name": "Ptérygoïdien latéral",
+    "nameLatin": "Musculus pterygoideus lateralis",
+    "aliases": [
+      "ptérygoïdien externe"
+    ],
+    "region": "tête",
+    "origin": "Chef supérieur : grande aile du sphénoïde. Chef inférieur : lame ptérygoïdienne latérale.",
+    "insertion": "Fovéa ptérygoïdienne du condyle et disque / capsule de l’ATM.",
+    "actions": [
+      "Protrusion et diduction de la mandibule"
+    ],
+    "secondaryActions": [
+      "Début de l’ouverture (chef inférieur)"
+    ],
+    "heads": [
+      {
+        "name": "Chef supérieur",
+        "origin": "Grande aile du sphénoïde (face infratemporale).",
+        "insertion": "Disque et capsule de l’ATM."
+      },
+      {
+        "name": "Chef inférieur",
+        "origin": "Face latérale de la lame ptérygoïdienne latérale.",
+        "insertion": "Fovéa ptérygoïdienne du condyle."
+      }
+    ],
+    "focus": {
+      "position": [
+        -0.04438,
+        0.6477,
+        0.03618
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      0.58275,
+      -0.07616,
+      -0.80908
+    ],
+    "meshSource": "synthetic"
+  },
+  {
+    "id": "pterygoide-medial",
+    "name": "Ptérygoïdien médial",
+    "nameLatin": "Musculus pterygoideus medialis",
+    "aliases": [
+      "ptérygoïdien interne"
+    ],
+    "region": "tête",
+    "origin": "Fosse ptérygoïde (processus ptérygoïde du sphénoïde) et tubérosité maxillaire.",
+    "insertion": "Face médiale de l’angle mandibulaire.",
+    "actions": [
+      "Élévation de la mandibule"
+    ],
+    "secondaryActions": [
+      "Diduction / protrusion (avec le ptérygoïdien latéral)"
+    ],
+    "focus": {
+      "position": [
+        -0.02046,
+        0.59789,
+        0.05824
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.14111,
+      0.97848,
+      0.15055
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "pubo-coccygien",
@@ -4217,6 +4369,38 @@
     "meshSource": "bodyparts3d"
   },
   {
+    "id": "temporal",
+    "name": "Temporal",
+    "nameLatin": "Musculus temporalis",
+    "aliases": [
+      "temporal",
+      "temporalis"
+    ],
+    "region": "tête",
+    "origin": "Fosse temporale (ligne temporale, pariétal, temporal, frontal) et fascia temporal.",
+    "insertion": "Processus coronoïde et crête antérieure de la branche mandibulaire.",
+    "actions": [
+      "Élévation de la mandibule (occlusion)"
+    ],
+    "secondaryActions": [
+      "Rétrusion (fibres postérieures)"
+    ],
+    "focus": {
+      "position": [
+        -0.07062,
+        0.67518,
+        0.04868
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      -0.04539,
+      0.81955,
+      -0.5712
+    ],
+    "meshSource": "synthetic"
+  },
+  {
     "id": "tenseur-du-fascia-lata",
     "name": "Tenseur du fascia lata",
     "nameLatin": "Musculus tensor fasciae latae",
@@ -4335,6 +4519,40 @@
       -0.14078
     ],
     "meshSource": "bodyparts3d"
+  },
+  {
+    "id": "transverse-de-l-abdomen",
+    "name": "Transverse de l’abdomen",
+    "nameLatin": "Musculus transversus abdominis",
+    "aliases": [
+      "transverse abdominal",
+      "TVA",
+      "transversus"
+    ],
+    "region": "tronc",
+    "origin": "Face interne des cartilages costaux 7–12, fascia thoraco-lombaire, crête iliaque et ligament inguinal.",
+    "insertion": "Ligne blanche et crête pubienne (gaine postérieure du droit au-dessus de la ligne arquée).",
+    "actions": [
+      "Rentrée abdominale / ceinture (augmente la pression intra-abdominale)"
+    ],
+    "secondaryActions": [
+      "Expiration forcée",
+      "Stabilisation lombo-pelvienne"
+    ],
+    "focus": {
+      "position": [
+        -0.04656,
+        0.143,
+        0.0561
+      ],
+      "distance": 0.62
+    },
+    "fiberAxis": [
+      1.0,
+      0.04,
+      0.02
+    ],
+    "meshSource": "synthetic"
   },
   {
     "id": "transverse-du-thorax",

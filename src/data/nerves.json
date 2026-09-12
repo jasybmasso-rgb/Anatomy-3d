@@ -1,0 +1,2156 @@
+{
+  "version": 1,
+  "defaultVisible": false,
+  "inclusionRules": "Nerfs crâniens / orbitaires BodyParts3D 4.0 (optique, trochléaire, oculomoteur, ophtalmique, ciliaires). Les grands troncs périphériques (plexus brachial, médian, ulnaire, radial, sciatique, fémoral, tibial, fibulaire, phrénique…) sont des tubes schématiques synthetic-v3+ plus fins, avec racines foraminales visibles et trajets calés sur l’anatomie usuelle (sciatique sous le piriforme, tunnel cubital, sillon spiral, ligament inguinal…). BP3D 4.0 n’a pas ces maillages.",
+  "count": 63,
+  "countBodyparts3d": 35,
+  "countSynthetic": 28,
+  "nerves": [
+    {
+      "id": "branche-communicante-du-nerf-naso-ciliaire-avec-ganglion-ciliaire-gauche",
+      "name": "Branche communicante du nerf naso-ciliaire avec ganglion ciliaire gauche",
+      "nameLatin": "communicating branch of left nasociliary nerve with left ciliary ganglion",
+      "aliases": [
+        "communicating branch of left nasociliary nerve with left ciliary ganglion"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "communicating branch of left nasociliary nerve with left ciliary ganglion"
+      ],
+      "fmaIds": [
+        "FMA52674"
+      ],
+      "fileIds": [
+        "FJ1311"
+      ],
+      "centroid": [
+        0.02054,
+        0.66264,
+        0.0861
+      ],
+      "focus": {
+        "position": [
+          0.02054,
+          0.66264,
+          0.0861
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 164,
+      "faceCount": 230,
+      "kind": "nerve"
+    },
+    {
+      "id": "branche-communicante-du-nerf-naso-ciliaire-avec-ganglion-ciliaire-droit",
+      "name": "Branche communicante du nerf naso-ciliaire avec ganglion ciliaire droit",
+      "nameLatin": "communicating branch of right nasociliary nerve with right ciliary ganglion",
+      "aliases": [
+        "communicating branch of right nasociliary nerve with right ciliary ganglion"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "communicating branch of right nasociliary nerve with right ciliary ganglion"
+      ],
+      "fmaIds": [
+        "FMA52673"
+      ],
+      "fileIds": [
+        "FJ1362"
+      ],
+      "centroid": [
+        -0.02114,
+        0.66285,
+        0.08557
+      ],
+      "focus": {
+        "position": [
+          -0.02114,
+          0.66285,
+          0.08557
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 181,
+      "faceCount": 240,
+      "kind": "nerve"
+    },
+    {
+      "id": "branche-inferieure-du-nerf-oculomoteur-gauche",
+      "name": "Branche inférieure du nerf oculomoteur gauche",
+      "nameLatin": "inferior branch of left oculomotor nerve",
+      "aliases": [
+        "inferior branch of left oculomotor nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "inferior branch of left oculomotor nerve"
+      ],
+      "fmaIds": [
+        "FMA52577"
+      ],
+      "fileIds": [
+        "FJ1293"
+      ],
+      "centroid": [
+        0.02279,
+        0.65367,
+        0.09184
+      ],
+      "focus": {
+        "position": [
+          0.02279,
+          0.65367,
+          0.09184
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1286,
+      "faceCount": 1654,
+      "kind": "nerve"
+    },
+    {
+      "id": "branche-inferieure-du-nerf-oculomoteur-droite",
+      "name": "Branche inférieure du nerf oculomoteur droite",
+      "nameLatin": "inferior branch of right oculomotor nerve",
+      "aliases": [
+        "inferior branch of right oculomotor nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "inferior branch of right oculomotor nerve"
+      ],
+      "fmaIds": [
+        "FMA52576"
+      ],
+      "fileIds": [
+        "FJ1344"
+      ],
+      "centroid": [
+        -0.02376,
+        0.65405,
+        0.09122
+      ],
+      "focus": {
+        "position": [
+          -0.02376,
+          0.65405,
+          0.09122
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1182,
+      "faceCount": 1570,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-anterieure-ethmoidal-gauche",
+      "name": "Nerf antérieure ethmoïdal gauche",
+      "nameLatin": "left anterior ethmoidal nerve",
+      "aliases": [
+        "left anterior ethmoidal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left anterior ethmoidal nerve"
+      ],
+      "fmaIds": [
+        "FMA52677"
+      ],
+      "fileIds": [
+        "FJ1283"
+      ],
+      "centroid": [
+        0.01306,
+        0.6636,
+        0.09823
+      ],
+      "focus": {
+        "position": [
+          0.01306,
+          0.6636,
+          0.09823
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 169,
+      "faceCount": 290,
+      "kind": "nerve"
+    },
+    {
+      "id": "ganglion-ciliaire-gauche",
+      "name": "Ganglion ciliaire gauche",
+      "nameLatin": "left ciliary ganglion",
+      "aliases": [
+        "left ciliary ganglion"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left ciliary ganglion"
+      ],
+      "fmaIds": [
+        "FMA53550"
+      ],
+      "fileIds": [
+        "FJ1288"
+      ],
+      "centroid": [
+        0.02397,
+        0.66114,
+        0.08894
+      ],
+      "focus": {
+        "position": [
+          0.02397,
+          0.66114,
+          0.08894
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 94,
+      "faceCount": 180,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-frontal-gauche",
+      "name": "Nerf frontal gauche",
+      "nameLatin": "left frontal nerve",
+      "aliases": [
+        "left frontal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left frontal nerve"
+      ],
+      "fmaIds": [
+        "FMA52640"
+      ],
+      "fileIds": [
+        "FJ1290"
+      ],
+      "centroid": [
+        0.02153,
+        0.66993,
+        0.08736
+      ],
+      "focus": {
+        "position": [
+          0.02153,
+          0.66993,
+          0.08736
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 631,
+      "faceCount": 1258,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-infra-trochleaire-gauche",
+      "name": "Nerf infra-trochléaire gauche",
+      "nameLatin": "left infratrochlear nerve",
+      "aliases": [
+        "left infratrochlear nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left infratrochlear nerve"
+      ],
+      "fmaIds": [
+        "FMA52699"
+      ],
+      "fileIds": [
+        "FJ1296"
+      ],
+      "centroid": [
+        0.0082,
+        0.66173,
+        0.12767
+      ],
+      "focus": {
+        "position": [
+          0.0082,
+          0.66173,
+          0.12767
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 138,
+      "faceCount": 250,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-lacrymal-gauche",
+      "name": "Nerf lacrymal gauche",
+      "nameLatin": "left lacrimal nerve",
+      "aliases": [
+        "left lacrimal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left lacrimal nerve"
+      ],
+      "fmaIds": [
+        "FMA52630"
+      ],
+      "fileIds": [
+        "FJ1300"
+      ],
+      "centroid": [
+        0.03563,
+        0.66642,
+        0.10232
+      ],
+      "focus": {
+        "position": [
+          0.03563,
+          0.66642,
+          0.10232
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 909,
+      "faceCount": 1799,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-ciliaire-long-gauche",
+      "name": "Nerf ciliaire long gauche",
+      "nameLatin": "left long ciliary nerve",
+      "aliases": [
+        "left long ciliary nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left long ciliary nerve"
+      ],
+      "fmaIds": [
+        "FMA82735"
+      ],
+      "fileIds": [
+        "FJ1318"
+      ],
+      "centroid": [
+        0.02122,
+        0.65992,
+        0.09439
+      ],
+      "focus": {
+        "position": [
+          0.02122,
+          0.65992,
+          0.09439
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 202,
+      "faceCount": 294,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-naso-ciliaire-gauche",
+      "name": "Nerf naso-ciliaire gauche",
+      "nameLatin": "left nasociliary nerve",
+      "aliases": [
+        "left nasociliary nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left nasociliary nerve"
+      ],
+      "fmaIds": [
+        "FMA52670"
+      ],
+      "fileIds": [
+        "FJ1310"
+      ],
+      "centroid": [
+        0.01183,
+        0.6628,
+        0.10549
+      ],
+      "focus": {
+        "position": [
+          0.01183,
+          0.6628,
+          0.10549
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 503,
+      "faceCount": 834,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-ophtalmique-gauche",
+      "name": "Nerf ophtalmique gauche",
+      "nameLatin": "left ophthalmic nerve",
+      "aliases": [
+        "left ophthalmic nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left ophthalmic nerve"
+      ],
+      "fmaIds": [
+        "FMA52623"
+      ],
+      "fileIds": [
+        "FJ1312"
+      ],
+      "centroid": [
+        0.01884,
+        0.66159,
+        0.06435
+      ],
+      "focus": {
+        "position": [
+          0.01884,
+          0.66159,
+          0.06435
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 890,
+      "faceCount": 1776,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-optique-gauche",
+      "name": "Nerf optique gauche",
+      "nameLatin": "left optic nerve",
+      "aliases": [
+        "left optic nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left optic nerve"
+      ],
+      "fmaIds": [
+        "FMA50878"
+      ],
+      "fileIds": [
+        "FJ1313",
+        "FJ1772"
+      ],
+      "centroid": [
+        0.01456,
+        0.66596,
+        0.07937
+      ],
+      "focus": {
+        "position": [
+          0.01456,
+          0.66596,
+          0.07937
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1135,
+      "faceCount": 2200,
+      "kind": "nerve"
+    },
+    {
+      "id": "tractus-optique-gauche",
+      "name": "Tractus optique gauche",
+      "nameLatin": "left optic tract",
+      "aliases": [
+        "left optic tract"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left optic tract"
+      ],
+      "fmaIds": [
+        "FMA67936"
+      ],
+      "fileIds": [
+        "FJ1773"
+      ],
+      "centroid": [
+        0.01399,
+        0.676,
+        0.04355
+      ],
+      "focus": {
+        "position": [
+          0.01399,
+          0.676,
+          0.04355
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 912,
+      "faceCount": 1800,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-posterieure-ethmoidal-gauche",
+      "name": "Nerf postérieure ethmoïdal gauche",
+      "nameLatin": "left posterior ethmoidal nerve",
+      "aliases": [
+        "left posterior ethmoidal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left posterior ethmoidal nerve"
+      ],
+      "fmaIds": [
+        "FMA52716"
+      ],
+      "fileIds": [
+        "FJ1315"
+      ],
+      "centroid": [
+        0.01302,
+        0.66346,
+        0.0907
+      ],
+      "focus": {
+        "position": [
+          0.01302,
+          0.66346,
+          0.0907
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 151,
+      "faceCount": 222,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-supra-orbitaire-gauche",
+      "name": "Nerf supra-orbitaire gauche",
+      "nameLatin": "left supra-orbital nerve",
+      "aliases": [
+        "left supra-orbital nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left supra-orbital nerve"
+      ],
+      "fmaIds": [
+        "FMA52657"
+      ],
+      "fileIds": [
+        "FJ1325"
+      ],
+      "centroid": [
+        0.02614,
+        0.68305,
+        0.12226
+      ],
+      "focus": {
+        "position": [
+          0.02614,
+          0.68305,
+          0.12226
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 908,
+      "faceCount": 1800,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-supra-trochleaire-gauche",
+      "name": "Nerf supra-trochléaire gauche",
+      "nameLatin": "left supratrochlear nerve",
+      "aliases": [
+        "left supratrochlear nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left supratrochlear nerve"
+      ],
+      "fmaIds": [
+        "FMA52644"
+      ],
+      "fileIds": [
+        "FJ1326"
+      ],
+      "centroid": [
+        0.0139,
+        0.67602,
+        0.12048
+      ],
+      "focus": {
+        "position": [
+          0.0139,
+          0.67602,
+          0.12048
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 913,
+      "faceCount": 1799,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-trochleaire-gauche",
+      "name": "Nerf trochléaire gauche",
+      "nameLatin": "left trochlear nerve",
+      "aliases": [
+        "left trochlear nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left trochlear nerve"
+      ],
+      "fmaIds": [
+        "FMA50882"
+      ],
+      "fileIds": [
+        "FJ1330"
+      ],
+      "centroid": [
+        0.01528,
+        0.66579,
+        0.08312
+      ],
+      "focus": {
+        "position": [
+          0.01528,
+          0.66579,
+          0.08312
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 912,
+      "faceCount": 1800,
+      "kind": "nerve"
+    },
+    {
+      "id": "chiasma-optique",
+      "name": "Chiasma optique",
+      "nameLatin": "optic chiasm",
+      "aliases": [
+        "optic chiasm"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "optic chiasm"
+      ],
+      "fmaIds": [
+        "FMA62045"
+      ],
+      "fileIds": [
+        "FJ1771",
+        "FJ1818"
+      ],
+      "centroid": [
+        -0.00043,
+        0.67568,
+        0.0619
+      ],
+      "focus": {
+        "position": [
+          -0.00043,
+          0.67568,
+          0.0619
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 909,
+      "faceCount": 1788,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-anterieure-ethmoidal-droit",
+      "name": "Nerf antérieure ethmoïdal droit",
+      "nameLatin": "right anterior ethmoidal nerve",
+      "aliases": [
+        "right anterior ethmoidal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right anterior ethmoidal nerve"
+      ],
+      "fmaIds": [
+        "FMA52676"
+      ],
+      "fileIds": [
+        "FJ1333"
+      ],
+      "centroid": [
+        -0.01396,
+        0.66365,
+        0.09834
+      ],
+      "focus": {
+        "position": [
+          -0.01396,
+          0.66365,
+          0.09834
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 154,
+      "faceCount": 236,
+      "kind": "nerve"
+    },
+    {
+      "id": "ganglion-ciliaire-droit",
+      "name": "Ganglion ciliaire droit",
+      "nameLatin": "right ciliary ganglion",
+      "aliases": [
+        "right ciliary ganglion"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right ciliary ganglion"
+      ],
+      "fmaIds": [
+        "FMA53549"
+      ],
+      "fileIds": [
+        "FJ1339"
+      ],
+      "centroid": [
+        -0.02498,
+        0.66116,
+        0.08852
+      ],
+      "focus": {
+        "position": [
+          -0.02498,
+          0.66116,
+          0.08852
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 125,
+      "faceCount": 246,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-frontal-droit",
+      "name": "Nerf frontal droit",
+      "nameLatin": "right frontal nerve",
+      "aliases": [
+        "right frontal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right frontal nerve"
+      ],
+      "fmaIds": [
+        "FMA52639"
+      ],
+      "fileIds": [
+        "FJ1341"
+      ],
+      "centroid": [
+        -0.02261,
+        0.66977,
+        0.08691
+      ],
+      "focus": {
+        "position": [
+          -0.02261,
+          0.66977,
+          0.08691
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 631,
+      "faceCount": 1258,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-infra-trochleaire-droit",
+      "name": "Nerf infra-trochléaire droit",
+      "nameLatin": "right infratrochlear nerve",
+      "aliases": [
+        "right infratrochlear nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right infratrochlear nerve"
+      ],
+      "fmaIds": [
+        "FMA52698"
+      ],
+      "fileIds": [
+        "FJ1347"
+      ],
+      "centroid": [
+        -0.00976,
+        0.66177,
+        0.12755
+      ],
+      "focus": {
+        "position": [
+          -0.00976,
+          0.66177,
+          0.12755
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 166,
+      "faceCount": 250,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-lacrymal-droit",
+      "name": "Nerf lacrymal droit",
+      "nameLatin": "right lacrimal nerve",
+      "aliases": [
+        "right lacrimal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right lacrimal nerve"
+      ],
+      "fmaIds": [
+        "FMA52629"
+      ],
+      "fileIds": [
+        "FJ1351"
+      ],
+      "centroid": [
+        -0.03655,
+        0.66635,
+        0.10152
+      ],
+      "focus": {
+        "position": [
+          -0.03655,
+          0.66635,
+          0.10152
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 918,
+      "faceCount": 1799,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-ciliaire-long-droit",
+      "name": "Nerf ciliaire long droit",
+      "nameLatin": "right long ciliary nerve",
+      "aliases": [
+        "right long ciliary nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right long ciliary nerve"
+      ],
+      "fmaIds": [
+        "FMA82734"
+      ],
+      "fileIds": [
+        "FJ1369"
+      ],
+      "centroid": [
+        -0.02227,
+        0.6599,
+        0.09386
+      ],
+      "focus": {
+        "position": [
+          -0.02227,
+          0.6599,
+          0.09386
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 211,
+      "faceCount": 332,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-naso-ciliaire-droit",
+      "name": "Nerf naso-ciliaire droit",
+      "nameLatin": "right nasociliary nerve",
+      "aliases": [
+        "right nasociliary nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right nasociliary nerve"
+      ],
+      "fmaIds": [
+        "FMA52669"
+      ],
+      "fileIds": [
+        "FJ1361"
+      ],
+      "centroid": [
+        -0.01369,
+        0.66295,
+        0.10358
+      ],
+      "focus": {
+        "position": [
+          -0.01369,
+          0.66295,
+          0.10358
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 507,
+      "faceCount": 786,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-ophtalmique-droit",
+      "name": "Nerf ophtalmique droit",
+      "nameLatin": "right ophthalmic nerve",
+      "aliases": [
+        "right ophthalmic nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right ophthalmic nerve"
+      ],
+      "fmaIds": [
+        "FMA52622"
+      ],
+      "fileIds": [
+        "FJ1363"
+      ],
+      "centroid": [
+        -0.01978,
+        0.66158,
+        0.06401
+      ],
+      "focus": {
+        "position": [
+          -0.01978,
+          0.66158,
+          0.06401
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 890,
+      "faceCount": 1776,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-optique-droit",
+      "name": "Nerf optique droit",
+      "nameLatin": "right optic nerve",
+      "aliases": [
+        "right optic nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right optic nerve"
+      ],
+      "fmaIds": [
+        "FMA50875"
+      ],
+      "fileIds": [
+        "FJ1364",
+        "FJ1819"
+      ],
+      "centroid": [
+        -0.01421,
+        0.66676,
+        0.07744
+      ],
+      "focus": {
+        "position": [
+          -0.01421,
+          0.66676,
+          0.07744
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1131,
+      "faceCount": 2200,
+      "kind": "nerve"
+    },
+    {
+      "id": "tractus-optique-droit",
+      "name": "Tractus optique droit",
+      "nameLatin": "right optic tract",
+      "aliases": [
+        "right optic tract"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right optic tract"
+      ],
+      "fmaIds": [
+        "FMA62382"
+      ],
+      "fileIds": [
+        "FJ1820"
+      ],
+      "centroid": [
+        -0.01488,
+        0.67602,
+        0.04273
+      ],
+      "focus": {
+        "position": [
+          -0.01488,
+          0.67602,
+          0.04273
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 912,
+      "faceCount": 1800,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-posterieure-ethmoidal-droit",
+      "name": "Nerf postérieure ethmoïdal droit",
+      "nameLatin": "right posterior ethmoidal nerve",
+      "aliases": [
+        "right posterior ethmoidal nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right posterior ethmoidal nerve"
+      ],
+      "fmaIds": [
+        "FMA52715"
+      ],
+      "fileIds": [
+        "FJ1366"
+      ],
+      "centroid": [
+        -0.01417,
+        0.66347,
+        0.09067
+      ],
+      "focus": {
+        "position": [
+          -0.01417,
+          0.66347,
+          0.09067
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 142,
+      "faceCount": 200,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-supra-orbitaire-droit",
+      "name": "Nerf supra-orbitaire droit",
+      "nameLatin": "right supra-orbital nerve",
+      "aliases": [
+        "right supra-orbital nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right supra-orbital nerve"
+      ],
+      "fmaIds": [
+        "FMA52656"
+      ],
+      "fileIds": [
+        "FJ1376"
+      ],
+      "centroid": [
+        -0.02725,
+        0.68303,
+        0.12165
+      ],
+      "focus": {
+        "position": [
+          -0.02725,
+          0.68303,
+          0.12165
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 909,
+      "faceCount": 1799,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-supra-trochleaire-droit",
+      "name": "Nerf supra-trochléaire droit",
+      "nameLatin": "right supratrochlear nerve",
+      "aliases": [
+        "right supratrochlear nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right supratrochlear nerve"
+      ],
+      "fmaIds": [
+        "FMA52643"
+      ],
+      "fileIds": [
+        "FJ1377"
+      ],
+      "centroid": [
+        -0.01468,
+        0.67602,
+        0.12153
+      ],
+      "focus": {
+        "position": [
+          -0.01468,
+          0.67602,
+          0.12153
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 913,
+      "faceCount": 1799,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-trochleaire-droit",
+      "name": "Nerf trochléaire droit",
+      "nameLatin": "right trochlear nerve",
+      "aliases": [
+        "right trochlear nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right trochlear nerve"
+      ],
+      "fmaIds": [
+        "FMA50881"
+      ],
+      "fileIds": [
+        "FJ1381"
+      ],
+      "centroid": [
+        -0.01638,
+        0.66571,
+        0.08229
+      ],
+      "focus": {
+        "position": [
+          -0.01638,
+          0.66571,
+          0.08229
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 910,
+      "faceCount": 1800,
+      "kind": "nerve"
+    },
+    {
+      "id": "branche-superieure-du-nerf-oculomoteur-gauche",
+      "name": "Branche supérieure du nerf oculomoteur gauche",
+      "nameLatin": "superior branch of left oculomotor nerve",
+      "aliases": [
+        "superior branch of left oculomotor nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "superior branch of left oculomotor nerve"
+      ],
+      "fmaIds": [
+        "FMA52575"
+      ],
+      "fileIds": [
+        "FJ1321"
+      ],
+      "centroid": [
+        0.02308,
+        0.66575,
+        0.09228
+      ],
+      "focus": {
+        "position": [
+          0.02308,
+          0.66575,
+          0.09228
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 611,
+      "faceCount": 810,
+      "kind": "nerve"
+    },
+    {
+      "id": "branche-superieure-du-nerf-oculomoteur-droite",
+      "name": "Branche supérieure du nerf oculomoteur droite",
+      "nameLatin": "superior branch of right oculomotor nerve",
+      "aliases": [
+        "superior branch of right oculomotor nerve"
+      ],
+      "region": "tête",
+      "notes": "Maillage BodyParts3D (nerf crânien / orbitaire).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "superior branch of right oculomotor nerve"
+      ],
+      "fmaIds": [
+        "FMA52574"
+      ],
+      "fileIds": [
+        "FJ1372"
+      ],
+      "centroid": [
+        -0.02423,
+        0.6656,
+        0.09173
+      ],
+      "focus": {
+        "position": [
+          -0.02423,
+          0.6656,
+          0.09173
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 593,
+      "faceCount": 848,
+      "kind": "nerve"
+    },
+    {
+      "id": "plexus-brachial-d",
+      "name": "Plexus brachial droit",
+      "nameLatin": "Plexus brachialis",
+      "aliases": [
+        "brachial plexus",
+        "plexus brachial droit",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "T1"
+      ],
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "plexus-brachial-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.0481,
+        0.49503,
+        0.02644
+      ],
+      "focus": {
+        "position": [
+          -0.0481,
+          0.49503,
+          0.02644
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 797,
+      "faceCount": 1580,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-axillaire-d",
+      "name": "Nerf axillaire droit",
+      "nameLatin": "Nervus axillaris",
+      "aliases": [
+        "axillary nerve",
+        "circonflexe"
+      ],
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-axillaire-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.16692,
+        0.45708,
+        0.02615
+      ],
+      "focus": {
+        "position": [
+          -0.16692,
+          0.45708,
+          0.02615
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 192,
+      "faceCount": 380,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-musculo-cutane-d",
+      "name": "Nerf musculo-cutané droit",
+      "nameLatin": "Nervus musculocutaneus",
+      "aliases": [
+        "musculocutaneous nerve"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-musculo-cutane-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.20017,
+        0.31508,
+        0.03658
+      ],
+      "focus": {
+        "position": [
+          -0.20017,
+          0.31508,
+          0.03658
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 192,
+      "faceCount": 380,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-median-d",
+      "name": "Nerf médian droit",
+      "nameLatin": "Nervus medianus",
+      "aliases": [
+        "median nerve"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-median-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.20904,
+        0.19862,
+        0.05012
+      ],
+      "focus": {
+        "position": [
+          -0.20904,
+          0.19862,
+          0.05012
+        ],
+        "distance": 0.564
+      },
+      "vertexCount": 372,
+      "faceCount": 740,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-ulnaire-d",
+      "name": "Nerf ulnaire droit",
+      "nameLatin": "Nervus ulnaris",
+      "aliases": [
+        "ulnar nerve",
+        "cubital"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-ulnaire-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.19015,
+        0.20032,
+        0.02728
+      ],
+      "focus": {
+        "position": [
+          -0.19015,
+          0.20032,
+          0.02728
+        ],
+        "distance": 0.566
+      },
+      "vertexCount": 462,
+      "faceCount": 920,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-radial-d",
+      "name": "Nerf radial droit",
+      "nameLatin": "Nervus radialis",
+      "aliases": [
+        "radial nerve"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-radial-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.20702,
+        0.27986,
+        0.02006
+      ],
+      "focus": {
+        "position": [
+          -0.20702,
+          0.27986,
+          0.02006
+        ],
+        "distance": 0.573
+      },
+      "vertexCount": 462,
+      "faceCount": 920,
+      "kind": "nerve"
+    },
+    {
+      "id": "plexus-lombaire-d",
+      "name": "Plexus lombaire droit",
+      "nameLatin": "Plexus lumbalis",
+      "aliases": [
+        "lumbar plexus",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "plexus-lombaire-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.03527,
+        0.11107,
+        0.0234
+      ],
+      "focus": {
+        "position": [
+          -0.03527,
+          0.11107,
+          0.0234
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 465,
+      "faceCount": 920,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-femoral-d",
+      "name": "Nerf fémoral droit",
+      "nameLatin": "Nervus femoralis",
+      "aliases": [
+        "femoral nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-femoral-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.04995,
+        -0.04799,
+        0.06123
+      ],
+      "focus": {
+        "position": [
+          -0.04995,
+          -0.04799,
+          0.06123
+        ],
+        "distance": 0.679
+      },
+      "vertexCount": 555,
+      "faceCount": 1100,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-obturateur-d",
+      "name": "Nerf obturateur droit",
+      "nameLatin": "Nervus obturatorius",
+      "aliases": [
+        "obturator nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-obturateur-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.03494,
+        0.00887,
+        0.02478
+      ],
+      "focus": {
+        "position": [
+          -0.03494,
+          0.00887,
+          0.02478
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 555,
+      "faceCount": 1100,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-sciatique-d",
+      "name": "Nerf sciatique droit",
+      "nameLatin": "Nervus ischiadicus",
+      "aliases": [
+        "sciatic nerve",
+        "ischiatique",
+        "L4",
+        "L5",
+        "S1",
+        "S2",
+        "S3",
+        "piriforme"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-sciatique-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.04808,
+        -0.05649,
+        -0.0239
+      ],
+      "focus": {
+        "position": [
+          -0.04808,
+          -0.05649,
+          -0.0239
+        ],
+        "distance": 0.625
+      },
+      "vertexCount": 1397,
+      "faceCount": 2780,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-tibial-d",
+      "name": "Nerf tibial droit",
+      "nameLatin": "Nervus tibialis",
+      "aliases": [
+        "tibial nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-tibial-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.06289,
+        -0.66613,
+        0.0131
+      ],
+      "focus": {
+        "position": [
+          -0.06289,
+          -0.66613,
+          0.0131
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 192,
+      "faceCount": 380,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-fibulaire-d",
+      "name": "Nerf fibulaire commun droit",
+      "nameLatin": "Nervus fibularis communis",
+      "aliases": [
+        "common peroneal",
+        "fibular nerve",
+        "péronier"
+      ],
+      "region": "membre-inférieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-fibulaire-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.10104,
+        -0.56571,
+        0.01466
+      ],
+      "focus": {
+        "position": [
+          -0.10104,
+          -0.56571,
+          0.01466
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 282,
+      "faceCount": 560,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-gluteal-inf-d",
+      "name": "Nerf glutéal inférieur droit",
+      "nameLatin": "Nervus gluteus inferior",
+      "aliases": [
+        "inferior gluteal nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-gluteal-inf-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.10771,
+        -0.07253,
+        -0.01073
+      ],
+      "focus": {
+        "position": [
+          -0.10771,
+          -0.07253,
+          -0.01073
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 102,
+      "faceCount": 200,
+      "kind": "nerve"
+    },
+    {
+      "id": "plexus-brachial-g",
+      "name": "Plexus brachial gauche",
+      "nameLatin": "Plexus brachialis",
+      "aliases": [
+        "brachial plexus",
+        "plexus brachial gauche",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "T1"
+      ],
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "plexus-brachial-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.04743,
+        0.49491,
+        0.02662
+      ],
+      "focus": {
+        "position": [
+          0.04743,
+          0.49491,
+          0.02662
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 797,
+      "faceCount": 1580,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-axillaire-g",
+      "name": "Nerf axillaire gauche",
+      "nameLatin": "Nervus axillaris",
+      "aliases": [
+        "axillary nerve",
+        "circonflexe"
+      ],
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-axillaire-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.16728,
+        0.45706,
+        0.02748
+      ],
+      "focus": {
+        "position": [
+          0.16728,
+          0.45706,
+          0.02748
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 192,
+      "faceCount": 380,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-musculo-cutane-g",
+      "name": "Nerf musculo-cutané gauche",
+      "nameLatin": "Nervus musculocutaneus",
+      "aliases": [
+        "musculocutaneous nerve"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-musculo-cutane-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.2009,
+        0.31508,
+        0.03749
+      ],
+      "focus": {
+        "position": [
+          0.2009,
+          0.31508,
+          0.03749
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 192,
+      "faceCount": 380,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-median-g",
+      "name": "Nerf médian gauche",
+      "nameLatin": "Nervus medianus",
+      "aliases": [
+        "median nerve"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-median-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.2096,
+        0.19865,
+        0.05131
+      ],
+      "focus": {
+        "position": [
+          0.2096,
+          0.19865,
+          0.05131
+        ],
+        "distance": 0.564
+      },
+      "vertexCount": 372,
+      "faceCount": 740,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-ulnaire-g",
+      "name": "Nerf ulnaire gauche",
+      "nameLatin": "Nervus ulnaris",
+      "aliases": [
+        "ulnar nerve",
+        "cubital"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-ulnaire-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.19058,
+        0.20028,
+        0.02821
+      ],
+      "focus": {
+        "position": [
+          0.19058,
+          0.20028,
+          0.02821
+        ],
+        "distance": 0.567
+      },
+      "vertexCount": 462,
+      "faceCount": 920,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-radial-g",
+      "name": "Nerf radial gauche",
+      "nameLatin": "Nervus radialis",
+      "aliases": [
+        "radial nerve"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-radial-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.20794,
+        0.2799,
+        0.02123
+      ],
+      "focus": {
+        "position": [
+          0.20794,
+          0.2799,
+          0.02123
+        ],
+        "distance": 0.573
+      },
+      "vertexCount": 462,
+      "faceCount": 920,
+      "kind": "nerve"
+    },
+    {
+      "id": "plexus-lombaire-g",
+      "name": "Plexus lombaire gauche",
+      "nameLatin": "Plexus lumbalis",
+      "aliases": [
+        "lumbar plexus",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "plexus-lombaire-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.03389,
+        0.11104,
+        0.02346
+      ],
+      "focus": {
+        "position": [
+          0.03389,
+          0.11104,
+          0.02346
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 465,
+      "faceCount": 920,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-femoral-g",
+      "name": "Nerf fémoral gauche",
+      "nameLatin": "Nervus femoralis",
+      "aliases": [
+        "femoral nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-femoral-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.04948,
+        -0.04807,
+        0.06154
+      ],
+      "focus": {
+        "position": [
+          0.04948,
+          -0.04807,
+          0.06154
+        ],
+        "distance": 0.68
+      },
+      "vertexCount": 555,
+      "faceCount": 1100,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-obturateur-g",
+      "name": "Nerf obturateur gauche",
+      "nameLatin": "Nervus obturatorius",
+      "aliases": [
+        "obturator nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-obturateur-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.03478,
+        0.00887,
+        0.02445
+      ],
+      "focus": {
+        "position": [
+          0.03478,
+          0.00887,
+          0.02445
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 555,
+      "faceCount": 1100,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-sciatique-g",
+      "name": "Nerf sciatique gauche",
+      "nameLatin": "Nervus ischiadicus",
+      "aliases": [
+        "sciatic nerve",
+        "ischiatique",
+        "L4",
+        "L5",
+        "S1",
+        "S2",
+        "S3",
+        "piriforme"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-sciatique-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.0485,
+        -0.05643,
+        -0.02378
+      ],
+      "focus": {
+        "position": [
+          0.0485,
+          -0.05643,
+          -0.02378
+        ],
+        "distance": 0.624
+      },
+      "vertexCount": 1397,
+      "faceCount": 2780,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-tibial-g",
+      "name": "Nerf tibial gauche",
+      "nameLatin": "Nervus tibialis",
+      "aliases": [
+        "tibial nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-tibial-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.0632,
+        -0.6658,
+        0.01269
+      ],
+      "focus": {
+        "position": [
+          0.0632,
+          -0.6658,
+          0.01269
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 192,
+      "faceCount": 380,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-fibulaire-g",
+      "name": "Nerf fibulaire commun gauche",
+      "nameLatin": "Nervus fibularis communis",
+      "aliases": [
+        "common peroneal",
+        "fibular nerve",
+        "péronier"
+      ],
+      "region": "membre-inférieur",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-fibulaire-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.10263,
+        -0.56558,
+        0.01518
+      ],
+      "focus": {
+        "position": [
+          0.10263,
+          -0.56558,
+          0.01518
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 282,
+      "faceCount": 560,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-gluteal-inf-g",
+      "name": "Nerf glutéal inférieur gauche",
+      "nameLatin": "Nervus gluteus inferior",
+      "aliases": [
+        "inferior gluteal nerve"
+      ],
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-gluteal-inf-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.10822,
+        -0.07222,
+        -0.00949
+      ],
+      "focus": {
+        "position": [
+          0.10822,
+          -0.07222,
+          -0.00949
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 102,
+      "faceCount": 200,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-phrenique-d",
+      "name": "Nerf phrénique droit",
+      "nameLatin": "Nervus phrenicus",
+      "aliases": [
+        "phrenic nerve"
+      ],
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-phrenique-d",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        -0.02538,
+        0.48488,
+        0.07047
+      ],
+      "focus": {
+        "position": [
+          -0.02538,
+          0.48488,
+          0.07047
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 524,
+      "faceCount": 1040,
+      "kind": "nerve"
+    },
+    {
+      "id": "nerf-phrenique-g",
+      "name": "Nerf phrénique gauche",
+      "nameLatin": "Nervus phrenicus",
+      "aliases": [
+        "phrenic nerve"
+      ],
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur des repères osseux et, pour le sciatique, le corridor infrapiriforme. Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas les nerfs périphériques (sciatique, médian, plexus, etc.).",
+      "source": "synthetic-v3+",
+      "sourceName": "nerf-phrenique-g",
+      "fmaIds": [],
+      "fileIds": [],
+      "centroid": [
+        0.02526,
+        0.48482,
+        0.0706
+      ],
+      "focus": {
+        "position": [
+          0.02526,
+          0.48482,
+          0.0706
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 524,
+      "faceCount": 1040,
+      "kind": "nerve"
+    }
+  ],
+  "syntheticDisclaimer": "Les pièces source=synthetic-v3+ sont des tubes loftés le long du trajet anatomique usuel (repères osseux, sorties foraminales, sciatique sous le piriforme), pas des nerfs segmentés. Les maillages crâniens BP3D restent source=bodyparts3d."
+}

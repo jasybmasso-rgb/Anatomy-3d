@@ -1,6 +1,6 @@
 # Notes pédagogiques — lignes type « Anatomy Trains »
 
-**Statut :** recherche pour la **Phase 2**. Ne pas implémenter dans le MVP.
+**Statut :** implémenté dans l’UI (Couches → Chaînes myofaciales) via `src/data/chains.json`. Données pédagogiques originales, sans extraits d’ouvrage.
 
 ## Avertissement
 

@@ -1,0 +1,13 @@
+{
+  "glbBytes": 2070716,
+  "glbMiB": 1.97,
+  "partCount": 26,
+  "countBodyparts3d": 26,
+  "countSynthetic": 0,
+  "vertexCount": 41538,
+  "faceCount": 73297,
+  "maxFacesPerPart": 4500,
+  "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 tubes are original educational approximations",
+  "alignedTo": "public/models/skeleton.glb",
+  "inclusionRules": "Organes visc\u00e9raux BodyParts3D 4.0 (reins, rate, estomac, pancr\u00e9as, vessie, v\u00e9sicule, \u0153sophage, trach\u00e9e, prostate, testicules, surr\u00e9nales, thymus, foie par segments, c\u0153ur parois/cavit\u00e9s, intestin, arbre bronchique comme stand-in pulmonaire, enc\u00e9phale / cervelet). Absent de BP3D 4.0 : parenchyme pulmonaire nomm\u00e9, foie d\u2019un seul tenant, c\u0153ur d\u2019un seul tenant. Les art\u00e8res/veines et le muscle diaphragme sont exclus (couches Vaisseaux / Muscles)."
+}

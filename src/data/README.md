@@ -19,7 +19,7 @@ Tableau de **22 muscles** (Phase 1). Chaque objet :
 | `meshHint` | `string` | Indice de forme de repli si le GLB n’expose pas le nœud. |
 | `meshSource` | `bodyparts3d` \| `synthetic` | Provenance du maillage 3D. |
 
-Maillages : `public/models/muscles.glb` (nœud = `id`) + catalogue `src/data/muscleMeshes.json`. **20** muscles BP3D ; **grand dorsal** et **droit de l’abdomen** synthétiques (absents de BP3D 4.0). L’UI n’affiche que le muscle sélectionné.
+Maillages : `public/models/muscles.glb` (nœud = `id`) + catalogue `src/data/muscleMeshes.json`. **20** muscles BP3D ; **grand dorsal** et **droit de l’abdomen** synthétiques (absents de BP3D 4.0). L’UI peut afficher le muscle sélectionné ou tout le jeu (`Afficher tous les muscles`), avec masquage fin.
 
 Import applicatif : `src/types/muscle.ts` + `src/data/loadMuscles.ts`.
 
@@ -47,7 +47,7 @@ Catalogue des pièces du `ligaments.glb` (même espace que le squelette). Toggle
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` / `joint` | Localisation. |
-| `source` | `bodyparts3d` ou `synthetic-v2`. |
+| `source` | `bodyparts3d` ou `synthetic-v3`. |
 | `notes` | Inclusion / précision. Les synthétiques sont des approximations pédagogiques. |
 | `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
@@ -62,7 +62,7 @@ Catalogue du `fascia.glb`. Toggle « Afficher les fascias » **off** par défaut
 | `id` | Clé stable. |
 | `name` / `nameLatin` | Noms FR et latin. |
 | `region` | Localisation. |
-| `source` | `bodyparts3d` ou `synthetic-v2`. |
+| `source` | `bodyparts3d` ou `synthetic-v3`. |
 | `notes` | Inclusion / approximation. |
 | `fmaId` / `fileIds` | Identifiants BodyParts3D (vides si synthétique). |
 
@@ -70,10 +70,31 @@ BP3D 4.0 n’a quasiment pas de nappes fasciales distinctes : les parents « inv
 
 La recherche normalise accents / casse sur `name`, `nameLatin`, `aliases` et `id` (`src/lib/search.ts`).
 
+## `chains.json`
+
+Lignes pédagogiques type Anatomy Trains (Tom Myers) : `id`, `sigle`, noms FR+EN, courte description originale, `tint`, `muscleIds[]` mappés au catalogue. Disclaimer dans le fichier. L’UI (Couches → Chaînes myofaciales) permet la multi-sélection.
+
+## `nerves.json` / `organs.json` / `vessels.json`
+
+Catalogues des trois couches viscérales **séparées** (`nerves.glb`, `organs.glb`, `vessels.glb`), même espace que le squelette. Toggles Couches **off** par défaut. Jamais fusionner organes et vaisseaux.
+
+| Champ | Rôle |
+| --- | --- |
+| `id` | Clé stable (nœud GLB). |
+| `name` / `nameLatin` | Nom FR et libellé source / latin. |
+| `aliases` | Recherche (anglais BP3D, synonymes). |
+| `region` | tête / cou / tronc / membre. |
+| `notes` | Inclusion, lacunes BP3D, schéma. |
+| `source` | `bodyparts3d` ou `synthetic-v3` (troncs nerveux pédagogiques, racines foraminales). |
+| `kind` | `nerve` \| `organ` \| `vessel`. |
+| `vesselKind` | `artery` (rouge) ou `vein` (bleu) — vaisseaux seulement. |
+| `organTone` | Teinte viscérale (foie, cœur, poumon…). |
+| `focus` | Cible caméra. |
+
+**Nerfs :** maillages crâniens / orbitaires BP3D 4.0 (fidélité conservée) + tubes schématiques plus fins pour sciatique, médian, plexi, etc., calés sur le trajet anatomique usuel (BP3D n’a pas les nerfs périphériques). Couleur atlas or-jaune, distincte de l’ivoire osseux, du tan glandulaire et des vaisseaux. **Organes :** viscères nommés ; poumons = arbre bronchique (pas de parenchyme nommé). **Vaisseaux :** circulation seulement (aorte, carotides, caves, coronaires…) + arbres artériel/veineux résiduels.
+
 ## Ce qui n’est pas ici (volontairement)
 
-- Chaînes myofasciales → plus tard, fichier séparé (Phase 2).
-- Nerfs → Phase 3.
-- Listes de sélection multiple → Phase 4 (l’UI ne lit qu’un `id` à la fois).
+- Atlas neurologique complet (dermatomes, neurodynamique).
 
-Ne pas fusionner ces domaines dans `muscles.json` : garder des identifiants de muscles stables pour les relier ensuite.
+Ne pas fusionner ces domaines dans `muscles.json` : garder des identifiants de muscles stables pour les relier.

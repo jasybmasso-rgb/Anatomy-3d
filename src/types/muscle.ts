@@ -7,7 +7,8 @@ export type MuscleRegion =
   | "dos"
   | "main"
   | "pied"
-  | "périnée";
+  | "périnée"
+  | "tête";
 
 export type MuscleHead = {
   name: string;
@@ -35,6 +36,4 @@ export type Muscle = {
   meshSource?: "bodyparts3d" | "synthetic";
 };
 
-export type SelectionState = {
-  selectedMuscleId: string | null;
-};
+export type { SelectionState } from "./structure";

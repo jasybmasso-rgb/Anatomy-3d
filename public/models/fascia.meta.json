@@ -1,12 +1,12 @@
 {
-  "glbBytes": 996504,
-  "glbMiB": 0.95,
-  "partCount": 7,
+  "glbBytes": 1174240,
+  "glbMiB": 1.12,
+  "partCount": 10,
   "countBodyparts3d": 2,
-  "countSynthetic": 5,
+  "countSynthetic": 8,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 wrap sheets are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Investing-fascia / fascia-lata parents map to those same files and are not duplicated. Flexor retinacula of the wrist remain in ligaments.glb. Excluded: tensor fasciae latae (muscle), nasal septum, brain septa, skin, fat. BodyParts3D 4.0 has no dedicated thoracolumbar / crural fascia meshes. Fascia lata and crural fascia are open wrap sheets (not cylinders) that follow the lateral / anterolateral limb contour (source=synthetic-v2). Thoracolumbar fascia is a posterior grid sheet. Antebrachial sleeves, palmar / plantar aponeuroses and linea alba from earlier versions are omitted (quality > quantity).",
+  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Fascia lata, crural fascia, thoracolumbar fascia, nuchal ligament and sacrotuberous ligaments are schematic sheets snapped to the body envelope (source=synthetic-v3).",
   "gaps": [
     "fascia cervicale / nuchal",
     "r\u00e9tinaculums de cheville (hors ligaments)",

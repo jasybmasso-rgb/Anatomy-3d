@@ -1,32 +1,26 @@
-"""Schematic major-joint ligaments: tapered rounded fascicle bundles (synthetic-v2).
+"""Schematic major-joint ligaments: flared fascicle bundles (synthetic-v3).
 
-Not cadaver meshes. Landmark-anchored, labeled source=synthetic-v2.
+Not cadaver meshes. Landmark-anchored. No mushroom-cap ends.
 Spine sticks and menisci are omitted on purpose (quality > quantity).
 """
 
 from __future__ import annotations
 
-import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import trimesh
 
-from mesh_primitives import fascicle_bundle, torus_ring
-
-ROOT = Path(__file__).resolve().parents[1]
-LANDMARKS = ROOT / "src" / "data" / "landmarks.json"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from body_surface import fix_landmarks, load_lm  # noqa: E402
+from mesh_primitives import fascicle_bundle, torus_ring  # noqa: E402
 
 NOTE = (
-    "Schéma pédagogique (synthetic-v2) : faisceaux de fascicules arrondis "
-    "(section circulaire, éventail aux insertions, plus mince au milieu) entre "
-    "repères osseux vérifiés. Ce n’est pas une segmentation cadavérique."
+    "Schéma pédagogique (synthetic-v3) : faisceaux de fascicules qui s’évasent "
+    "en nappe sur l’os (pas de tête de champignon), courbure articulaire, plus "
+    "mince au milieu. Ce n’est pas une segmentation cadavérique."
 )
-
-
-def load_lm() -> dict[str, np.ndarray]:
-    data = json.loads(LANDMARKS.read_text(encoding="utf-8"))
-    return {item["id"]: np.array(item["position"], dtype=float) for item in data["landmarks"]}
 
 
 def mirror(p: np.ndarray) -> np.ndarray:
@@ -49,7 +43,7 @@ def entry(id_: str, name: str, latin: str, region: str, joint: str, mesh: trimes
         "region": region,
         "joint": joint,
         "notes": NOTE,
-        "source": "synthetic-v2",
+        "source": "synthetic-v3",
         "sourceName": id_,
         "fmaId": "",
         "fileIds": [],
@@ -58,7 +52,7 @@ def entry(id_: str, name: str, latin: str, region: str, joint: str, mesh: trimes
 
 
 def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
-    p = load_lm()
+    p = fix_landmarks(load_lm())
     meshes: list[tuple[str, trimesh.Trimesh]] = []
     catalog: list[dict] = []
 
@@ -71,19 +65,10 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
     def bundle(id_, name, latin, region, joint, a, b, **kw):
         add(id_, name, latin, region, joint, fascicle_bundle(a, b, **kw))
 
-    def S(key: str, suf: str) -> np.ndarray:
-        if key in p:
-            return p[key]
-        if suf == "g" and key.endswith("-g"):
-            right = key[:-2] + "-d"
-            if right in p:
-                return mirror(p[right])
-        raise KeyError(key)
-
     for suf, side in (("d", "droit"), ("g", "gauche")):
         sx = -1.0 if suf == "d" else 1.0
-        lat_f = S("condyle-lat-femur-d", suf) if suf == "d" else mirror(p["condyle-lat-femur-d"])
-        med_f = S("condyle-med-femur-d", suf) if suf == "d" else mirror(p["condyle-med-femur-d"])
+        lat_f = p["condyle-lat-femur-d"] if suf == "d" else mirror(p["condyle-lat-femur-d"])
+        med_f = p["condyle-med-femur-d"] if suf == "d" else mirror(p["condyle-med-femur-d"])
         pat = p[f"patella-{suf}"]
         tub = p[f"tuberosite-tibiale-{suf}"]
         fib = p[f"tete-fibula-{suf}"]
@@ -91,36 +76,42 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         tibia_post = off(mix(tub, pat, 0.38), z=-0.038)
         acl_from = off(mix(lat_f, med_f, 0.32), z=-0.004)
         pcl_from = off(mix(med_f, lat_f, 0.28), z=-0.012)
+        knee_c = off(mix(lat_f, med_f, 0.5), y=-0.012, z=-0.01)
 
         bundle(
             f"lca-{suf}", f"LCA {side}", "Ligamentum cruciatum anterius", "genou", "genou",
             acl_from, off(tibia_ant, x=sx * 0.004, z=0.006),
-            sag=[0, -0.008, -0.012], n_fibers=6, radius_end=0.00205, radius_mid=0.00115,
-            spread_end=0.0048, spread_mid=0.0016, radial=10,
+            sag=[0, -0.01, -0.016], wrap=off(knee_c, z=-0.006),
+            n_fibers=11, radius_end=0.0017, radius_mid=0.00095,
+            spread_end=0.0062, spread_mid=0.0014, radial=8,
         )
         bundle(
             f"lcp-{suf}", f"LCP {side}", "Ligamentum cruciatum posterius", "genou", "genou",
             pcl_from, tibia_post,
-            sag=[0, -0.006, 0.01], n_fibers=6, radius_end=0.00215, radius_mid=0.0012,
-            spread_end=0.0052, spread_mid=0.0017, radial=10,
+            sag=[0, -0.008, 0.012], wrap=off(knee_c, z=-0.018),
+            n_fibers=11, radius_end=0.00175, radius_mid=0.00098,
+            spread_end=0.0066, spread_mid=0.0015, radial=8,
         )
         bundle(
             f"llim-{suf}", f"LLI {side}", "Ligamentum collaterale tibiale", "genou", "genou",
             med_f, off(tub, x=sx * -0.018, y=0.015),
-            sag=[sx * -0.006, 0.0, 0.004], n_fibers=7, radius_end=0.00235, radius_mid=0.00125,
-            spread_end=0.0062, spread_mid=0.0020, radial=10,
+            sag=[sx * -0.01, 0.0, 0.006], wrap=off(med_f, x=sx * -0.012, y=-0.02, z=0.004),
+            n_fibers=13, radius_end=0.0019, radius_mid=0.0010,
+            spread_end=0.0088, spread_mid=0.0017, radial=8,
         )
         bundle(
             f"lle-{suf}", f"LLE {side}", "Ligamentum collaterale fibulare", "genou", "genou",
             lat_f, fib,
-            sag=[sx * 0.008, 0.0, 0.0], n_fibers=5, radius_end=0.00185, radius_mid=0.00105,
-            spread_end=0.0036, spread_mid=0.0013, radial=10,
+            sag=[sx * 0.012, 0.0, 0.0], wrap=off(lat_f, x=sx * 0.014, y=-0.018),
+            n_fibers=10, radius_end=0.00155, radius_mid=0.00088,
+            spread_end=0.0052, spread_mid=0.00115, radial=8,
         )
         bundle(
             f"patellaire-{suf}", f"Ligament patellaire {side}", "Ligamentum patellae", "genou", "genou",
             pat, tub,
-            sag=[0, 0, 0.006], n_fibers=8, radius_end=0.0024, radius_mid=0.0014,
-            spread_end=0.0085, spread_mid=0.0034, radial=10,
+            sag=[0, 0, 0.01], wrap=off(mix(pat, tub, 0.5), z=0.012),
+            n_fibers=14, radius_end=0.00195, radius_mid=0.00112,
+            spread_end=0.011, spread_mid=0.0026, radial=8,
         )
 
         eias = p[f"eias-{suf}"]
@@ -134,27 +125,31 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"ilio-femoral-sup-{suf}", f"Ilio-fémoral supérieur {side}",
             "Ligamentum iliofemorale (pars transversa)", "hanche", "hanche",
             mix(eias, eiia, 0.25), mix(head, gt, 0.55),
-            sag=[0, 0.01, 0.008], n_fibers=7, radius_end=0.0024, radius_mid=0.0013,
-            spread_end=0.007, spread_mid=0.0022, radial=10,
+            sag=[0, 0.012, 0.01], wrap=off(head, y=0.016, z=0.01),
+            n_fibers=12, radius_end=0.0019, radius_mid=0.00105,
+            spread_end=0.0092, spread_mid=0.0018, radial=8,
         )
         bundle(
             f"ilio-femoral-inf-{suf}", f"Ilio-fémoral inférieur {side}",
             "Ligamentum iliofemorale (pars descendens)", "hanche", "hanche",
             mix(eias, eiia, 0.45), off(mix(head, gt, 0.35), y=-0.02),
-            sag=[0, -0.012, 0.006], n_fibers=6, radius_end=0.00225, radius_mid=0.00125,
-            spread_end=0.0062, spread_mid=0.0020, radial=10,
+            sag=[0, -0.014, 0.008], wrap=off(head, y=-0.01, z=0.008),
+            n_fibers=11, radius_end=0.0018, radius_mid=0.0010,
+            spread_end=0.0084, spread_mid=0.0017, radial=8,
         )
         bundle(
             f"pubo-femoral-{suf}", f"Pubo-fémoral {side}", "Ligamentum pubofemorale", "hanche", "hanche",
             mix(pub, cox, 0.42), off(head, y=-0.025, z=0.01),
-            sag=[0, -0.01, 0.008], n_fibers=5, radius_end=0.0020, radius_mid=0.0011,
-            spread_end=0.005, spread_mid=0.0016, radial=10,
+            sag=[0, -0.012, 0.01], wrap=off(head, y=-0.02, z=0.014),
+            n_fibers=10, radius_end=0.00165, radius_mid=0.00092,
+            spread_end=0.007, spread_mid=0.0014, radial=8,
         )
         bundle(
             f"ischio-femoral-{suf}", f"Ischio-fémoral {side}", "Ligamentum ischiofemorale", "hanche", "hanche",
             isch, off(gt, z=-0.025),
-            sag=[0, 0.008, -0.012], n_fibers=6, radius_end=0.00215, radius_mid=0.0012,
-            spread_end=0.0055, spread_mid=0.0018, radial=10,
+            sag=[0, 0.01, -0.016], wrap=off(head, z=-0.02, y=0.006),
+            n_fibers=11, radius_end=0.00175, radius_mid=0.00098,
+            spread_end=0.0076, spread_mid=0.0015, radial=8,
         )
 
         acr = p[f"acromion-{suf}"]
@@ -164,55 +159,59 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         hum = p[f"tete-humerus-{suf}"]
         cor = off(mix(mix(scap, acr, 0.45), clav_acr, 0.25), z=0.022, y=-0.008)
         glen = mix(scap, acr, 0.62)
-        # Three glenohumeral bands (SGHL / MGHL / IGHL), not a flat capsule billboard.
         bundle(
             f"gleno-hum-sup-{suf}", f"Gléno-huméral supérieur {side}",
             "Ligamentum glenohumerale superius", "épaule", "épaule",
             off(glen, y=0.012, z=0.004), off(hum, y=0.016),
-            sag=[0, 0.006, 0.004], n_fibers=5, radius_end=0.0019, radius_mid=0.00105,
-            spread_end=0.0044, spread_mid=0.0015, radial=10,
+            sag=[0, 0.008, 0.006], wrap=off(mix(glen, hum, 0.5), y=0.01, z=0.006),
+            n_fibers=10, radius_end=0.00155, radius_mid=0.00088,
+            spread_end=0.006, spread_mid=0.0013, radial=8,
         )
         bundle(
             f"gleno-hum-moy-{suf}", f"Gléno-huméral moyen {side}",
             "Ligamentum glenohumerale medium", "épaule", "épaule",
             off(glen, z=0.008), off(hum, z=0.006),
-            sag=[0, -0.004, 0.006], n_fibers=5, radius_end=0.00195, radius_mid=0.0011,
-            spread_end=0.0046, spread_mid=0.0015, radial=10,
+            sag=[0, -0.005, 0.008], wrap=off(mix(glen, hum, 0.5), z=0.01),
+            n_fibers=10, radius_end=0.0016, radius_mid=0.0009,
+            spread_end=0.0062, spread_mid=0.0013, radial=8,
         )
         bundle(
             f"gleno-hum-inf-{suf}", f"Gléno-huméral inférieur {side}",
             "Ligamentum glenohumerale inferius", "épaule", "épaule",
             off(glen, y=-0.01), off(hum, y=-0.012, z=0.002),
-            sag=[0, -0.008, 0.003], n_fibers=6, radius_end=0.00205, radius_mid=0.00115,
-            spread_end=0.0055, spread_mid=0.0018, radial=10,
+            sag=[0, -0.01, 0.004], wrap=off(mix(glen, hum, 0.5), y=-0.01),
+            n_fibers=11, radius_end=0.00165, radius_mid=0.00092,
+            spread_end=0.0072, spread_mid=0.0015, radial=8,
         )
         bundle(
             f"coraco-humeral-{suf}", f"Coraco-huméral {side}",
             "Ligamentum coracohumerale", "épaule", "épaule",
             cor, off(hum, y=0.012),
-            sag=[0, 0.008, 0.004], n_fibers=5, radius_end=0.0019, radius_mid=0.00105,
-            spread_end=0.0042, spread_mid=0.0014, radial=10,
+            sag=[0, 0.01, 0.006], wrap=off(mix(cor, hum, 0.45), y=0.01),
+            n_fibers=10, radius_end=0.00155, radius_mid=0.00088,
+            spread_end=0.0058, spread_mid=0.00125, radial=8,
         )
         bundle(
             f"coraco-acromial-{suf}", f"Coraco-acromial {side}",
             "Ligamentum coracoacromiale", "épaule", "épaule",
             cor, acr,
-            sag=[0, 0.006, 0.01], n_fibers=5, radius_end=0.00205, radius_mid=0.00115,
-            spread_end=0.005, spread_mid=0.0017, radial=10,
+            sag=[0, 0.008, 0.012], wrap=off(mix(cor, acr, 0.5), z=0.01, y=0.006),
+            n_fibers=10, radius_end=0.00165, radius_mid=0.00092,
+            spread_end=0.0068, spread_mid=0.0014, radial=8,
         )
         bundle(
             f"acromio-clav-{suf}", f"Acromio-claviculaire {side}",
             "Ligamentum acromioclaviculare", "épaule", "épaule",
             clav_acr, acr,
-            sag=[0, 0.004, 0.003], n_fibers=5, radius_end=0.00185, radius_mid=0.00105,
-            spread_end=0.004, spread_mid=0.0014, radial=10,
+            sag=[0, 0.005, 0.004], n_fibers=9, radius_end=0.0015, radius_mid=0.00085,
+            spread_end=0.0054, spread_mid=0.0012, radial=8,
         )
         bundle(
             f"coraco-clav-{suf}", f"Coraco-claviculaire {side}",
             "Ligamenta trapezoidum et conoideum", "épaule", "épaule",
             mix(clav_acr, clav_st, 0.2), cor,
-            sag=[0, -0.006, 0.0], n_fibers=6, radius_end=0.0020, radius_mid=0.0011,
-            spread_end=0.005, spread_mid=0.0016, radial=10,
+            sag=[0, -0.008, 0.0], n_fibers=11, radius_end=0.0016, radius_mid=0.0009,
+            spread_end=0.0068, spread_mid=0.00135, radial=8,
         )
 
         ole = p[f"olecrane-{suf}"]
@@ -220,19 +219,26 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         sty_r = p[f"styloide-radial-{suf}"]
         epi_m = p["epicondyle-med-humerus-d"] if suf == "d" else mirror(p["epicondyle-med-humerus-d"])
         epi_l = p["epicondyle-lat-humerus-d"] if suf == "d" else mirror(p["epicondyle-lat-humerus-d"])
+        # Guard: medial epicondyle bbox used to sit on the humeral head.
+        if abs(float(epi_m[1] - ole[1])) > 0.08:
+            epi_m = off(ole, x=-sx * 0.024, y=0.008, z=-0.008)
+        if abs(float(epi_l[1] - ole[1])) > 0.08:
+            epi_l = off(ole, x=sx * 0.028, y=0.004, z=0.004)
         ulna_prox = mix(ole, sty_u, 0.11)
         rad_head = mix(ole, sty_r, 0.13)
         bundle(
             f"lliu-{suf}", f"LCU {side}", "Ligamentum collaterale ulnare", "coude", "coude",
             epi_m, ulna_prox,
-            sag=[sx * -0.004, -0.004, 0.003], n_fibers=6, radius_end=0.0019, radius_mid=0.00105,
-            spread_end=0.0046, spread_mid=0.0015, radial=10,
+            sag=[sx * -0.006, -0.006, 0.004], wrap=off(mix(epi_m, ulna_prox, 0.45), x=sx * -0.006),
+            n_fibers=11, radius_end=0.0015, radius_mid=0.00085,
+            spread_end=0.0062, spread_mid=0.00125, radial=8,
         )
         bundle(
             f"llir-{suf}", f"LCR {side}", "Ligamentum collaterale radiale", "coude", "coude",
             epi_l, mix(rad_head, ole, 0.25),
-            sag=[sx * 0.004, -0.003, 0.002], n_fibers=5, radius_end=0.00175, radius_mid=0.001,
-            spread_end=0.0036, spread_mid=0.0012, radial=10,
+            sag=[sx * 0.006, -0.004, 0.003], wrap=off(mix(epi_l, rad_head, 0.4), x=sx * 0.006),
+            n_fibers=10, radius_end=0.0014, radius_mid=0.0008,
+            spread_end=0.0052, spread_mid=0.0011, radial=8,
         )
         axis = sty_r - ole
         add(
@@ -251,26 +257,30 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         bundle(
             f"lfta-{suf}", f"LTFA {side}", "Ligamentum talofibulare anterius", "cheville", "cheville",
             mal_l, off(tal, z=0.018, y=0.004),
-            sag=[0, -0.004, 0.006], n_fibers=5, radius_end=0.0017, radius_mid=0.00095,
-            spread_end=0.0034, spread_mid=0.00115, radial=10,
+            sag=[0, -0.005, 0.008], wrap=off(mix(mal_l, tal, 0.5), z=0.01),
+            n_fibers=10, radius_end=0.00135, radius_mid=0.00078,
+            spread_end=0.0048, spread_mid=0.0010, radial=8,
         )
         bundle(
             f"lfcal-{suf}", f"LCF {side}", "Ligamentum calcaneofibulare", "cheville", "cheville",
             mal_l, cal,
-            sag=[sx * 0.006, -0.006, 0.0], n_fibers=5, radius_end=0.0017, radius_mid=0.00095,
-            spread_end=0.0032, spread_mid=0.0011, radial=10,
+            sag=[sx * 0.008, -0.008, 0.0], wrap=off(mix(mal_l, cal, 0.45), x=sx * 0.008),
+            n_fibers=10, radius_end=0.00135, radius_mid=0.00078,
+            spread_end=0.0046, spread_mid=0.00095, radial=8,
         )
         bundle(
             f"lftp-{suf}", f"LTFP {side}", "Ligamentum talofibulare posterius", "cheville", "cheville",
             mal_l, off(tal, z=-0.016),
-            sag=[0, -0.003, -0.005], n_fibers=5, radius_end=0.0017, radius_mid=0.00095,
-            spread_end=0.0032, spread_mid=0.0011, radial=10,
+            sag=[0, -0.004, -0.007], wrap=off(mix(mal_l, tal, 0.5), z=-0.01),
+            n_fibers=10, radius_end=0.00135, radius_mid=0.00078,
+            spread_end=0.0046, spread_mid=0.00095, radial=8,
         )
         bundle(
             f"deltoide-{suf}", f"Ligament deltoïde {side}", "Ligamentum deltoideum", "cheville", "cheville",
             mal_m, mix(off(tal, z=0.012), cal, 0.35),
-            sag=[sx * -0.004, -0.005, 0.004], n_fibers=7, radius_end=0.0021, radius_mid=0.00115,
-            spread_end=0.006, spread_mid=0.0020, radial=10,
+            sag=[sx * -0.006, -0.006, 0.006], wrap=off(mix(mal_m, tal, 0.4), x=sx * -0.006),
+            n_fibers=13, radius_end=0.0017, radius_mid=0.00092,
+            spread_end=0.0082, spread_mid=0.0016, radial=8,
         )
 
     return meshes, catalog
