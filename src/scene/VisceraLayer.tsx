@@ -3,7 +3,9 @@ import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import type { VisceraPart } from "../types/structure";
 import { attachFatRaycast } from "./fatRaycast";
+import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
 import { setPickMeshes } from "./structurePick";
+import { getDeviceProfile } from "./deviceProfile";
 
 const ORGAN_TONE: Record<string, string> = {
   kidney: "#a84840",
@@ -23,27 +25,38 @@ function visceraColor(part: VisceraPart): string {
   return ORGAN_TONE[part.organTone ?? "default"] ?? ORGAN_TONE.default;
 }
 
-function createVisceraMaterial(part: VisceraPart): THREE.MeshPhysicalMaterial {
+function createVisceraMaterial(part: VisceraPart): THREE.MeshStandardMaterial {
   const nerve = part.kind === "nerve";
   const vessel = part.kind === "vessel";
-  return new THREE.MeshPhysicalMaterial({
+  const physical = getDeviceProfile().physicalMaterials;
+  const opts = {
     color: visceraColor(part),
     roughness: nerve ? 0.38 : vessel ? 0.32 : 0.48,
     metalness: vessel ? 0.08 : 0.02,
-    clearcoat: nerve ? 0.22 : 0.08,
-    sheen: nerve ? 0.45 : 0,
-    sheenColor: new THREE.Color(nerve ? "#fff6b8" : "#000000"),
     side: nerve || vessel ? THREE.DoubleSide : THREE.FrontSide,
     transparent: part.kind === "organ",
     opacity: part.kind === "organ" ? 0.92 : 1,
     depthWrite: part.kind !== "organ",
-  });
+  } as const;
+  if (physical) {
+    return new THREE.MeshPhysicalMaterial({
+      ...opts,
+      clearcoat: nerve ? 0.22 : 0.08,
+      sheen: nerve ? 0.45 : 0,
+      sheenColor: new THREE.Color(nerve ? "#fff6b8" : "#000000"),
+    });
+  }
+  return new THREE.MeshStandardMaterial(opts);
 }
 
-function setSelected(material: THREE.MeshPhysicalMaterial, selected: boolean) {
+function setSelected(material: THREE.MeshStandardMaterial, selected: boolean) {
   material.emissive.set(selected ? "#ffcc66" : "#000000");
   material.emissiveIntensity = selected ? 0.38 : 0;
-  material.clearcoat = selected ? 0.28 : material.userData.baseClearcoat ?? 0.08;
+  if ("clearcoat" in material) {
+    (material as THREE.MeshPhysicalMaterial).clearcoat = selected
+      ? 0.28
+      : material.userData.baseClearcoat ?? 0.08;
+  }
 }
 
 type VisceraLayerProps = {
@@ -58,14 +71,15 @@ type VisceraLayerProps = {
 export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds }: VisceraLayerProps) {
   const gltf = useGLTF(url);
   const entries = useMemo(() => {
-    const list: { id: string; object: THREE.Object3D; material: THREE.MeshPhysicalMaterial; meshes: THREE.Mesh[] }[] =
+    const list: { id: string; object: THREE.Object3D; material: THREE.MeshStandardMaterial; meshes: THREE.Mesh[] }[] =
       [];
     for (const part of parts) {
       const src = gltf.scene.getObjectByName(part.id);
       if (!src) continue;
       const clone = src.clone(true);
       const material = createVisceraMaterial(part);
-      material.userData.baseClearcoat = material.clearcoat;
+      material.userData.baseClearcoat =
+        "clearcoat" in material ? (material as THREE.MeshPhysicalMaterial).clearcoat : 0.08;
       const meshes: THREE.Mesh[] = [];
       clone.traverse((obj) => {
         if (!(obj instanceof THREE.Mesh)) return;
@@ -85,6 +99,15 @@ export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds 
     }
     return list;
   }, [gltf, parts, kind]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      registerHighlight(kind, entry.id, (selected) => setSelected(entry.material, selected));
+    }
+    return () => {
+      for (const entry of entries) unregisterHighlight(kind, entry.id);
+    };
+  }, [entries, kind]);
 
   useEffect(() => {
     const hidden = new Set(hiddenIds);
@@ -108,6 +131,3 @@ export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds 
   );
 }
 
-useGLTF.preload("/models/nerves.glb");
-useGLTF.preload("/models/organs.glb");
-useGLTF.preload("/models/vessels.glb");

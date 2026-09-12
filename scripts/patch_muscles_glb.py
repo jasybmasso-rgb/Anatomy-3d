@@ -4,9 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 import trimesh
@@ -26,17 +24,15 @@ from build_synthetic_muscles import (  # noqa: E402
     SYNTH_KEYS,
     SYNTH_NOTES,
     build,
-    enhance_external_oblique,
     load_lm,
 )
 
-# Pre-enhance BP3D EO (before the aponeurosis sheet was concatenated).
-_BP3D_EO_COMMIT = "73069cc"
-
 _FIBER_AXIS_OVERRIDE = {
     "transverse-de-l-abdomen": [1.0, 0.04, 0.02],
-    "oblique-interne": [0.72, 0.68, 0.12],
-    "droit-abdomen": [0.0, 0.98, 0.20],
+    "oblique-interne": [0.0, 0.92, 0.18],
+    "oblique-externe": [0.0, -0.92, 0.18],
+    "droit-abdomen": [0.0, 0.98, 0.18],
+    "grand-dorsal": [0.0, 0.88, 0.28],
 }
 from muscle_catalog import catalog_entry  # noqa: E402
 
@@ -44,9 +40,10 @@ INCLUSION = (
     INCLUSION_RULES
     + " Temporalis, masseter and pterygoids are landmark-anchored synthetics "
     "(BP3D 4.0 excludes facial / mastication meshes from this atlas). "
-    "Internal oblique and transversus abdominis are nested synthetic sheets "
-    "(transversus deep → internal oblique → external oblique; rectus in the sheath). "
-    "External oblique keeps the BP3D fleshy belly plus a white aponeurosis over rectus."
+    "Internal / external oblique and transversus are nested synthetic sheets "
+    "(transversus deep → internal oblique → rectus in the sheath → external oblique "
+    "with rib digitations and a white aponeurosis staying superficial). "
+    "Latissimus is a T7–L5 fan with a white thoracolumbar origin."
 )
 
 
@@ -72,43 +69,13 @@ def _muscle_row(muscle_id: str, mesh: trimesh.Trimesh) -> dict:
     return muscle, entry
 
 
-def _load_bp3d_external_oblique(fallback: trimesh.Trimesh) -> trimesh.Trimesh:
-    """Always start EO enhance from the BP3D belly, not a previously patched mesh."""
-    try:
-        blob = subprocess.check_output(
-            ["git", "show", f"{_BP3D_EO_COMMIT}:public/models/muscles.glb"],
-        cwd=OUT_GLB.parents[2],
-        )
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        print("  ! git EO source unavailable — using current mesh", flush=True)
-        return fallback
-    with tempfile.NamedTemporaryFile(suffix=".glb", delete=True) as tmp:
-        tmp.write(blob)
-        tmp.flush()
-        scene = trimesh.load(tmp.name, force="scene")
-    mesh = scene.geometry.get("oblique-externe")
-    if mesh is None:
-        return fallback
-    print(f"  · BP3D EO from {_BP3D_EO_COMMIT}  {len(mesh.faces)} faces", flush=True)
-    return mesh
-
-
 def main() -> int:
     if not OUT_GLB.exists():
         print("missing muscles.glb", file=sys.stderr)
         return 1
     scene = trimesh.load(OUT_GLB, force="scene")
-    landmarks = load_lm()
+    _ = load_lm()
     synth = build()
-    eo_mesh = None
-    if "oblique-externe" in scene.geometry:
-        source_eo = _load_bp3d_external_oblique(scene.geometry["oblique-externe"])
-        eo_mesh = enhance_external_oblique(source_eo, landmarks)
-        _ = eo_mesh.vertex_normals
-        eo_mesh.metadata["name"] = "oblique-externe"
-        scene.delete_geometry("oblique-externe")
-        scene.add_geometry(eo_mesh, node_name="oblique-externe", geom_name="oblique-externe")
-        print(f"  + {'oblique-externe':32s}  {len(eo_mesh.faces):6d} faces  BP3D+aponeurosis", flush=True)
     for muscle_id, mesh in synth.items():
         _ = mesh.vertex_normals
         if getattr(mesh.visual, "vertex_colors", None) is None or len(getattr(mesh.visual, "vertex_colors", [])) == 0:
@@ -133,18 +100,6 @@ def main() -> int:
         muscle, entry = _muscle_row(muscle_id, mesh)
         by_id[muscle_id] = muscle
         mesh_by_id[muscle_id] = entry
-
-    if eo_mesh is not None and "oblique-externe" in mesh_by_id:
-        mesh_by_id["oblique-externe"].update(
-            {
-                "vertexCount": int(len(eo_mesh.vertices)),
-                "faceCount": int(len(eo_mesh.faces)),
-                "notes": (
-                    "BodyParts3D fleshy belly plus schematic white aponeurosis "
-                    "passing superficial to rectus (anterior sheath)."
-                ),
-            }
-        )
 
     muscles_out = sorted(by_id.values(), key=lambda m: m["name"].lower())
     catalog = sorted(mesh_by_id.values(), key=lambda m: m["id"])

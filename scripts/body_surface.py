@@ -145,13 +145,14 @@ def spinal_levels(p: dict[str, np.ndarray]) -> dict[str, np.ndarray]:
 def foramen(level: np.ndarray, sx: float, region: str) -> np.ndarray:
     """Pedagogical intervertebral / sacral foramen just off the vertebral body."""
     if region == "cervical":
-        return off(level, x=sx * 0.018, z=0.010)
+        # Pedicle / IVF: slightly caudal and posterior to the body centroid.
+        return off(level, x=sx * 0.022, y=-0.005, z=-0.002)
     if region == "thoracic":
-        return off(level, x=sx * 0.020, z=0.004)
+        return off(level, x=sx * 0.024, y=-0.004, z=-0.006)
     if region == "lumbar":
-        return off(level, x=sx * 0.028, z=-0.008)
-    # sacral: anterior foramen then heading toward the greater sciatic notch
-    return off(level, x=sx * 0.024, y=-0.006, z=0.004)
+        return off(level, x=sx * 0.034, y=-0.007, z=-0.016)
+    # Anterior sacral foramen, then the trunk heads toward the greater sciatic notch.
+    return off(level, x=sx * 0.028, y=-0.010, z=0.002)
 
 
 def piriformis_underside(sx: float) -> np.ndarray:

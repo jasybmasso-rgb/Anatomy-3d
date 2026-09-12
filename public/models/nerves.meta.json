@@ -1,6 +1,6 @@
 {
-  "glbBytes": 1557116,
-  "glbMiB": 1.48,
+  "glbBytes": 1588116,
+  "glbMiB": 1.51,
   "partCount": 63,
   "countBodyparts3d": 35,
   "countSynthetic": 28,
@@ -9,5 +9,5 @@
   "maxFacesPerPart": 2200,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 tubes are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "Nerfs cr\u00e2niens / orbitaires BodyParts3D 4.0 (optique, trochl\u00e9aire, oculomoteur, ophtalmique, ciliaires). Les grands troncs p\u00e9riph\u00e9riques (plexus brachial, m\u00e9dian, ulnaire, radial, sciatique, f\u00e9moral, tibial, fibulaire, phr\u00e9nique\u2026) sont des tubes sch\u00e9matiques synthetic-v3 plus fins, avec racines foraminales visibles et trajets cal\u00e9s sur l\u2019anatomie usuelle (sciatique sous le piriforme, tunnel cubital, sillon spiral, ligament inguinal\u2026). BP3D 4.0 n\u2019a pas ces maillages."
+  "inclusionRules": "Nerfs cr\u00e2niens / orbitaires BodyParts3D 4.0 (optique, trochl\u00e9aire, oculomoteur, ophtalmique, ciliaires). Les grands troncs p\u00e9riph\u00e9riques (plexus brachial, m\u00e9dian, ulnaire, radial, sciatique, f\u00e9moral, tibial, fibulaire, phr\u00e9nique\u2026) sont des tubes sch\u00e9matiques synthetic-v3+ plus fins, avec racines foraminales visibles et trajets cal\u00e9s sur l\u2019anatomie usuelle (sciatique sous le piriforme, tunnel cubital, sillon spiral, ligament inguinal\u2026). BP3D 4.0 n\u2019a pas ces maillages."
 }

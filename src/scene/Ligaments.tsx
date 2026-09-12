@@ -4,6 +4,7 @@ import * as THREE from "three";
 import { ligaments as catalog } from "../data/loadConnective";
 import { applyFiberUVs, createLigamentFiberMaterial, inferLongAxis } from "./fiberMaterial";
 import { attachFatRaycast } from "./fatRaycast";
+import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
 import { setPickMeshes } from "./structurePick";
 
 type LigamentEntry = {
@@ -60,6 +61,17 @@ export function Ligaments({ visible, selectedId, hiddenIds }: LigamentsProps) {
   }, [gltf]);
 
   useEffect(() => {
+    for (const entry of entries) {
+      registerHighlight("ligament", entry.id, (selected) =>
+        setLigamentSelected(entry.material, selected, entry.schematic),
+      );
+    }
+    return () => {
+      for (const entry of entries) unregisterHighlight("ligament", entry.id);
+    };
+  }, [entries]);
+
+  useEffect(() => {
     const hidden = new Set(hiddenIds);
     const pick: THREE.Mesh[] = [];
     for (const entry of entries) {
@@ -81,4 +93,3 @@ export function Ligaments({ visible, selectedId, hiddenIds }: LigamentsProps) {
   );
 }
 
-useGLTF.preload("/models/ligaments.glb");

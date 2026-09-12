@@ -10,29 +10,41 @@ import {
 import { fascias as catalog } from "../data/loadConnective";
 import { clipPlanesForSide } from "./fiberMaterial";
 import { attachFatRaycast } from "./fatRaycast";
+import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
 import { setPickMeshes } from "./structurePick";
 
-function materialFor(source: string, tintHex?: string | null, selected = false) {
+function materialFor(source: string) {
   const schematic = source.startsWith("synthetic");
-  const tint = tintHex ? new THREE.Color(tintHex) : null;
   return new THREE.MeshPhysicalMaterial({
-    color: tint ?? (schematic ? "#9bb6c8" : "#7f9eb5"),
-    emissive: selected
-      ? new THREE.Color("#ffcc66")
-      : tint
-        ? tint.clone().multiplyScalar(0.25)
-        : new THREE.Color("#1c3344"),
-    emissiveIntensity: selected ? 0.36 : tint ? 0.22 : schematic ? 0.08 : 0.16,
+    color: schematic ? "#9bb6c8" : "#7f9eb5",
+    emissive: new THREE.Color("#1c3344"),
+    emissiveIntensity: schematic ? 0.08 : 0.16,
     roughness: 0.48,
     metalness: 0.02,
     transparent: true,
-    opacity: tint ? 0.62 : schematic ? 0.38 : 0.58,
+    opacity: schematic ? 0.38 : 0.58,
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,
     clippingPlanes: [],
     clipShadows: true,
   });
+}
+
+function paintFascia(
+  material: THREE.MeshPhysicalMaterial,
+  source: string,
+  tintHex: string | null,
+  selected: boolean,
+) {
+  const schematic = source.startsWith("synthetic");
+  const tint = tintHex ? new THREE.Color(tintHex) : null;
+  material.color.copy(tint ?? (schematic ? new THREE.Color("#9bb6c8") : new THREE.Color("#7f9eb5")));
+  material.emissive.copy(
+    selected ? new THREE.Color("#ffcc66") : tint ? tint.clone().multiplyScalar(0.25) : new THREE.Color("#1c3344"),
+  );
+  material.emissiveIntensity = selected ? 0.36 : tint ? 0.22 : schematic ? 0.08 : 0.16;
+  material.opacity = tint ? 0.62 : schematic ? 0.38 : 0.58;
 }
 
 type FasciaProps = {
@@ -54,7 +66,13 @@ export function Fascia({
 }: FasciaProps) {
   const gltf = useGLTF("/models/fascia.glb");
   const entries = useMemo(() => {
-    const list: { id: string; object: THREE.Object3D; meshes: THREE.Mesh[]; source: string }[] = [];
+    const list: {
+      id: string;
+      object: THREE.Object3D;
+      meshes: THREE.Mesh[];
+      source: string;
+      material: THREE.MeshPhysicalMaterial;
+    }[] = [];
     const byId = new Map(catalog.map((part) => [part.id, part]));
     for (const part of catalog) {
       const src = gltf.scene.getObjectByName(part.id);
@@ -75,16 +93,29 @@ export function Fascia({
         obj.renderOrder = 2;
         meshes.push(obj);
       });
+      const source = String(byId.get(part.id)?.source ?? "bodyparts3d");
+      const material = materialFor(source);
+      for (const mesh of meshes) mesh.material = material;
       clone.visible = false;
       list.push({
         id: part.id,
         object: clone,
         meshes,
-        source: String(byId.get(part.id)?.source ?? "bodyparts3d"),
+        source,
+        material,
       });
     }
     return list;
   }, [gltf]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      registerHighlight("fascia", entry.id, (selected) => paintFascia(entry.material, entry.source, null, selected));
+    }
+    return () => {
+      for (const entry of entries) unregisterHighlight("fascia", entry.id);
+    };
+  }, [entries]);
 
   useEffect(() => {
     const hidden = new Set(hiddenIds);
@@ -98,9 +129,8 @@ export function Fascia({
       entry.object.visible = on;
       if (!on) continue;
       const tint = inChain ? tintForFascia(entry.id, activeChainIds) : null;
-      const mat = materialFor(entry.source, tint, entry.id === selectedId);
-      mat.clippingPlanes = planes;
-      for (const mesh of entry.meshes) mesh.material = mat;
+      paintFascia(entry.material, entry.source, tint, entry.id === selectedId);
+      entry.material.clippingPlanes = planes;
       pick.push(...entry.meshes);
     }
     setPickMeshes("fascia", pick);
@@ -116,4 +146,3 @@ export function Fascia({
   );
 }
 
-useGLTF.preload("/models/fascia.glb");

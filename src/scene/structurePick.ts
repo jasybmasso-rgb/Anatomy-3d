@@ -2,6 +2,7 @@ import { useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { StructureKind } from "../types/structure";
+import { applyImmediateHighlight, setHighlightInvalidate } from "./selectionHighlight";
 
 export type PickHit = {
   kind: StructureKind;
@@ -73,12 +74,17 @@ type StructurePickProps = {
 };
 
 export function StructurePick({ onSelect }: StructurePickProps) {
-  const { camera, gl } = useThree();
+  const { camera, gl, invalidate } = useThree();
   const raycaster = useMemo(() => new THREE.Raycaster(), []);
   const pointer = useMemo(() => new THREE.Vector2(), []);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
   const lastClick = useRef<{ x: number; y: number; keys: string[]; index: number } | null>(null);
+
+  useEffect(() => {
+    setHighlightInvalidate(() => invalidate());
+    return () => setHighlightInvalidate(null);
+  }, [invalidate]);
 
   useEffect(() => {
     const element = gl.domElement;
@@ -124,6 +130,7 @@ export function StructurePick({ onSelect }: StructurePickProps) {
       const index = sameStack && prev ? (prev.index + 1) % keys.length : 0;
       lastClick.current = { x: event.clientX, y: event.clientY, keys, index };
       const chosen = hits[index];
+      applyImmediateHighlight(chosen.kind, chosen.id);
       onSelectRef.current(chosen.kind, chosen.id);
     };
 

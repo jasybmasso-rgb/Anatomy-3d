@@ -136,6 +136,30 @@ def _flank_z(y: float | np.ndarray) -> np.ndarray | float:
     return out if isinstance(y, np.ndarray) else float(out)
 
 
+def _spinous_z(y: float) -> float:
+    """Approximate spinous-process z so L/R latissimus sheets meet on the raphe."""
+    ys = np.array([0.03, 0.07, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35], dtype=np.float64)
+    zs = np.array([-0.035, -0.025, -0.017, -0.012, -0.021, -0.035, -0.042, -0.042], dtype=np.float64)
+    return float(np.interp(y, ys, zs))
+
+
+def _torso_point(sx: float, x_abs: float, y: float, layer: float) -> np.ndarray:
+    """Point on the abdominal/flank envelope, then offset along the outward normal-ish +Z/X.
+
+    layer > 0 sits superficial (EO); layer < 0 sits deep (TA).
+    """
+    x_lat = float(_flank_x(y))
+    s = float(np.clip((x_lat - x_abs) / max(x_lat - 0.006, 0.02), 0.0, 1.0))
+    z = float(mix(_flank_z(y), _wall_z(y), s**1.15)) + layer
+    return np.array([sx * x_abs, y, z], dtype=np.float64)
+
+
+def _rib_slip(sx: float, y: float) -> np.ndarray:
+    """Lateral-anterior costal attachment, snapped to bone (ribs 5–12)."""
+    guess = np.array([sx * 0.122, y, float(_flank_z(y)) + 0.018], dtype=np.float64)
+    return nearest_bone(guess, sx, extra=0.0022)
+
+
 def _lat_wrap_path(origin: np.ndarray, insert: np.ndarray, sx: float, n: int = 26) -> np.ndarray:
     """C-shaped path: stay on the back, climb the flank, then tendon to the humerus."""
     back_x = sx * max(abs(float(origin[0])) + 0.05, 0.118)
@@ -152,7 +176,7 @@ def _lat_wrap_path(origin: np.ndarray, insert: np.ndarray, sx: float, n: int = 2
 
 
 def _latissimus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Thoracolumbar origin hugging the spinous line T7–L5, wrap to the humerus."""
+    """T7–L5 / iliac origin, white thoracolumbar raphe, fan wrapping to the humerus."""
     suf = "d" if sx < 0 else "g"
     t1, t12 = p["t1"], p["t12"]
     l1, l5 = p["l1"], p["l5"]
@@ -160,109 +184,127 @@ def _latissimus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     def spinous(t_thoracic: float | None = None, t_lumbar: float | None = None) -> np.ndarray:
         if t_thoracic is not None:
             pt = mix(t1, t12, t_thoracic)
-            z = -0.041 + 0.008 * t_thoracic
         else:
             pt = mix(l1, l5, t_lumbar or 0.0)
-            z = -0.028 - 0.004 * (t_lumbar or 0.0)
-        return np.array([sx * 0.0026, float(pt[1]), z], dtype=np.float64)
+        y = float(pt[1])
+        # Overlap L/R on the midline (0.4 mm) so the raphe has no gap.
+        return np.array([sx * 0.0004, y, _spinous_z(y) - 0.0035], dtype=np.float64)
 
-    # T7 ≈ 6/11 along T1→T12.
+    # T7 ≈ 6/11 along T1→T12, then every thoracic/lumbar step down to L5.
     spine = [
-        spinous(t_thoracic=0.52),  # T7
-        spinous(t_thoracic=0.62),  # T8
-        spinous(t_thoracic=0.72),  # T9
-        spinous(t_thoracic=0.82),  # T10
-        spinous(t_thoracic=0.91),  # T11
-        spinous(t_thoracic=1.00),  # T12
-        spinous(t_lumbar=0.00),  # L1
+        spinous(t_thoracic=0.52),
+        spinous(t_thoracic=0.62),
+        spinous(t_thoracic=0.72),
+        spinous(t_thoracic=0.82),
+        spinous(t_thoracic=0.91),
+        spinous(t_thoracic=1.00),
+        spinous(t_lumbar=0.00),
         spinous(t_lumbar=0.25),
         spinous(t_lumbar=0.50),
         spinous(t_lumbar=0.75),
-        spinous(t_lumbar=1.00),  # L5
+        spinous(t_lumbar=1.00),
     ]
-    sac = off(p["sacrum"], x=sx * 0.010, y=0.010, z=-0.038)
-    eips = off(p[f"eips-{suf}"], z=-0.016)
+    sac = off(p["sacrum"], x=sx * 0.006, y=0.008, z=-0.036)
+    eips = off(p[f"eips-{suf}"], z=-0.014)
     crest = p[f"crete-iliaque-{suf}"]
-    crest_post = mix(eips, crest, 0.38) + np.array([0.0, 0.006, -0.024])
-    crest_lat = off(crest, x=sx * 0.010, z=-0.014)
-    scap = off(p[f"angle-inf-scapula-{suf}"], x=sx * 0.008, y=-0.004, z=-0.014)
-    rib11 = np.array([sx * 0.122, 0.198, -0.010], dtype=np.float64)
-    rib9 = np.array([sx * 0.128, 0.246, -0.002], dtype=np.float64)
+    crest_post = mix(eips, crest, 0.38) + np.array([0.0, 0.006, -0.022])
+    crest_lat = off(crest, x=sx * 0.012, z=-0.010)
+    scap = off(p[f"angle-inf-scapula-{suf}"], x=sx * 0.010, y=-0.006, z=-0.012)
+    rib12 = _rib_slip(sx, 0.188)
+    rib12[2] = min(float(rib12[2]), -0.004)
+    rib10 = _rib_slip(sx, 0.236)
+    rib10[2] = min(float(rib10[2]), 0.002)
 
     head = p[f"tete-humerus-{suf}"]
-    insert = head + np.array([sx * 0.010, -0.032, 0.026])
+    insert = head + np.array([sx * 0.008, -0.028, 0.022])
 
-    # Posterior sheet along the spine so L/R meet at the thoracolumbar raphe.
-    n_along = len(spine)
-    n_across = 5
+    # Dense posterior sheet: midline (white) → mid-flank (red). Covers the ribs.
+    n_along = 16
+    n_across = 11
+    ys = np.linspace(float(spine[0][1]), float(spine[-1][1]), n_along)
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
-    for i, origin in enumerate(spine):
-        outer = origin + np.array([sx * 0.052, 0.0, 0.006])
+    for i, y in enumerate(ys):
+        mid = np.array([sx * 0.0004, y, _spinous_z(y) - 0.0035], dtype=np.float64)
+        # Wider in the mid-lumbar belt, taper cranially toward the axilla.
+        t = i / (n_along - 1)
+        half = 0.118 * (0.72 + 0.28 * np.sin(t * np.pi))
+        outer = np.array(
+            [sx * half, y, _spinous_z(y) + 0.010 + 0.016 * t],
+            dtype=np.float64,
+        )
         for j in range(n_across):
             s = j / (n_across - 1)
-            grid[i, j] = mix(origin, outer, s)
-    back_sheet = grid_sheet(grid, thickness=0.0056)
+            grid[i, j] = mix(mid, outer, s**0.92)
+    back_sheet = grid_sheet(grid, thickness=0.0092)
 
-    origins = spine + [sac, eips, crest_post, crest_lat, rib11, rib9, scap]
+    origins = spine + [sac, eips, crest_post, crest_lat, rib12, rib10, scap]
     paths = [_lat_wrap_path(origin, insert, sx) for origin in origins]
-    wrap = _sheet(paths, thickness=0.0064)
-    fold = _lat_wrap_path(rib9, insert, sx)
-    border = loft_tube(fold, np.linspace(0.0048, 0.0022, len(fold)), radial=8, caps=True)
+    wrap = _sheet(paths, thickness=0.0076)
+    fold = _lat_wrap_path(rib10, insert, sx)
+    border = loft_tube(fold, np.linspace(0.0044, 0.0020, len(fold)), radial=8, caps=True)
     tendon_path = bezier_cubic(
-        np.array([sx * 0.152, 0.39, 0.016]),
-        np.array([sx * 0.160, 0.43, 0.028]),
+        np.array([sx * 0.150, 0.40, 0.014]),
+        np.array([sx * 0.160, 0.44, 0.026]),
         insert + np.array([sx * 0.006, -0.006, 0.006]),
         insert,
         12,
     )
-    tendon = loft_tube(tendon_path, np.linspace(0.0050, 0.0026, 12), radial=8, caps=True)
+    tendon = loft_tube(tendon_path, np.linspace(0.0046, 0.0024, 12), radial=8, caps=True)
     mesh = _concat([back_sheet, wrap, border, tendon])
     v = np.asarray(mesh.vertices)
-    # Whitish tendon near the humeral insertion.
     dist = np.linalg.norm(v - insert[None, :], axis=1)
-    w = np.clip((0.055 - dist) / 0.040, 0.0, 1.0)
+    # White thoracolumbar band on the medial origin + humeral tendon.
+    medial = np.clip((0.030 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0)
+    lumbar = np.clip((0.34 - v[:, 1]) / 0.28, 0.0, 1.0)
+    w = np.clip(medial * (0.35 + 0.65 * lumbar), 0.0, 1.0)
+    w = np.maximum(w, np.clip((0.058 - dist) / 0.042, 0.0, 1.0))
     paint_tendon(mesh, w)
     return mesh
 
 
+def _rectus_inscription(t: float, bands: tuple[float, ...], sigma: float) -> float:
+    return float(max(np.exp(-(((t - b) / sigma) ** 2)) for b in bands))
+
+
 def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Wide paramedian belly; medial edge meets the linea alba."""
+    """Four rounded pads / side, bright inscriptions, medial edge on the linea alba."""
     pub = off(p["symphyse-pubienne"], x=sx * 0.004, y=0.012, z=0.012)
     xiph = off(p["xiphoide"], x=sx * 0.012, z=0.002)
-    costal = off(p["xiphoide"], x=sx * 0.048, y=-0.018, z=-0.006)
-    # Three inscriptions → four pads / side; the upper three pairs are the six-pack.
-    bands = (0.18, 0.40, 0.62)
+    costal = off(p["xiphoide"], x=sx * 0.050, y=-0.016, z=-0.006)
+    # Three inscriptions → four pads; upper three pairs read as the six-pack.
+    bands = (0.20, 0.42, 0.64)
 
-    n_along = 40
-    n_across = 10
+    n_along = 56
+    n_across = 14
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         t = i / (n_along - 1)
-        ins = max(np.exp(-(((t - b) / 0.028) ** 2)) for b in bands)
-        end = np.exp(-(t / 0.065) ** 2) + np.exp(-(((1.0 - t) / 0.075) ** 2))
-        pinch = max(ins, 0.62 * end)
-        y = float(mix(pub, mix(xiph, costal, 0.30), t)[1])
-        z = float(_wall_z(y)) + 0.0062 * (1.0 - 0.78 * pinch)
-        inner = 0.0042
-        width = 0.058 * (1.0 - 0.38 * pinch)
+        ins = _rectus_inscription(t, bands, 0.034)
+        end = np.exp(-(t / 0.072) ** 2) + np.exp(-(((1.0 - t) / 0.080) ** 2))
+        pinch = max(ins, 0.55 * end)
+        y = float(mix(pub, mix(xiph, costal, 0.28), t)[1])
+        # Pads swell anteriorly; inscriptions sit slightly flatter (tendinous).
+        z = float(_wall_z(y)) + 0.0078 * (1.0 - 0.70 * pinch)
+        inner = 0.0040
+        width = 0.056 * (1.0 - 0.32 * pinch)
         for j in range(n_across):
             s = j / (n_across - 1)
-            # Round the lateral profile (less boxy).
-            bulge = 0.55 + 0.45 * np.sin(s * np.pi)
-            x = sx * (inner + s * width * (0.82 + 0.18 * bulge))
+            # Smooth lateral falloff — no boxy slab.
+            bulge = np.sin(s * np.pi) ** 0.72
+            x = sx * (inner + s * width * (0.78 + 0.22 * bulge))
             grid[i, j] = np.array([x, y, z], dtype=np.float64)
 
-    sheet = grid_sheet(grid, thickness=0.0125)
+    sheet = grid_sheet(grid, thickness=0.0118)
     v = np.asarray(sheet.vertices)
     y0, y1 = float(v[:, 1].min()), float(v[:, 1].max())
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
     w = np.zeros(len(v), dtype=np.float64)
     for b in bands:
-        w = np.maximum(w, np.exp(-(((t - b) / 0.012) ** 2)))
-    w = np.maximum(w, 0.97 * np.exp(-(t / 0.038) ** 2))
-    w = np.maximum(w, 0.97 * np.exp(-(((1.0 - t) / 0.042) ** 2)))
-    # Linea alba edge (medial) stays tendinous.
-    w = np.maximum(w, np.clip((0.010 - np.abs(v[:, 0])) / 0.006, 0.0, 1.0) * 0.55)
+        # Wide, soft inscriptions (not a hard white stripe).
+        w = np.maximum(w, np.exp(-(((t - b) / 0.018) ** 2)))
+    w = np.maximum(w, 0.98 * np.exp(-(t / 0.046) ** 2))
+    w = np.maximum(w, 0.98 * np.exp(-(((1.0 - t) / 0.050) ** 2)))
+    w = np.maximum(w, np.clip((0.011 - np.abs(v[:, 0])) / 0.007, 0.0, 1.0) * 0.62)
     paint_tendon(sheet, w)
     return sheet
 
@@ -270,17 +312,17 @@ def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
 def _linea_alba(p: dict[str, np.ndarray]) -> trimesh.Trimesh:
     pub = off(p["symphyse-pubienne"], y=0.010, z=0.014)
     xiph = off(p["xiphoide"], z=0.004)
-    n_along, n_across = 30, 4
+    n_along, n_across = 40, 5
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         t = i / (n_along - 1)
         y = float(mix(pub, xiph, t)[1])
-        z = float(_wall_z(y)) + 0.0082
-        half = 0.0044
+        z = float(_wall_z(y)) + 0.0104
+        half = 0.0052 * (0.85 + 0.15 * np.sin(t * np.pi))
         for j in range(n_across):
             s = j / (n_across - 1)
             grid[i, j] = np.array([-half + s * 2.0 * half, y, z], dtype=np.float64)
-    sheet = grid_sheet(grid, thickness=0.0032)
+    sheet = grid_sheet(grid, thickness=0.0036)
     paint_solid(sheet, TENDON_WHITE)
     return sheet
 
@@ -315,7 +357,6 @@ def _abdominal_wrap(
         for j in range(n_across):
             s = j / (n_across - 1)
             y_fiber = y + diagonal * (0.5 - s) * 0.048
-            # Quarter-ellipse: lateral (s=0) → anterior midline (s=1).
             x = sx * mix(x_lat, linea, s**0.88)
             z = mix(z_lat, z_ant, s**1.18)
             grid[i, j] = np.array([x, y_fiber, z], dtype=np.float64)
@@ -323,23 +364,48 @@ def _abdominal_wrap(
 
 
 def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Intermediate wall: iliac crest / inguinal → ribs 10–12; under rectus at the linea."""
-    grid = _abdominal_wrap(
-        sx,
-        y_top=0.272,
-        y_bot=0.010,
-        depth=0.0135,
-        n_along=18,
-        n_across=11,
-        linea=0.0065,
-        diagonal=0.90,
-        x_scale=0.90,
-        flank_depth=0.010,
-    )
-    sheet = grid_sheet(grid, thickness=0.0036)
+    """Fan iliac crest / inguinal → ribs 10–12, fleshy red → white sheath."""
+    suf = "d" if sx < 0 else "g"
+    crest = p[f"crete-iliaque-{suf}"]
+    eias = p[f"eias-{suf}"]
+    pub = p["symphyse-pubienne"]
+    inguinal = mix(eias, pub, 0.42)
+    crest_post = mix(p[f"eips-{suf}"], crest, 0.55) + np.array([sx * 0.004, 0.004, -0.008])
+    rib12 = _rib_slip(sx, 0.196)
+    rib11 = _rib_slip(sx, 0.224)
+    rib10 = _rib_slip(sx, 0.252)
+
+    n_along, n_across = 18, 14
+    origins = [
+        mix(crest_post, crest, t) for t in np.linspace(0.0, 1.0, 6)
+    ] + [
+        mix(crest, eias, t) for t in np.linspace(0.2, 1.0, 6)
+    ] + [
+        mix(eias, inguinal, t) for t in np.linspace(0.2, 1.0, 6)
+    ]
+    dests = [
+        mix(rib12, rib11, t) for t in np.linspace(0.0, 1.0, 6)
+    ] + [
+        mix(rib11, rib10, t) for t in np.linspace(0.2, 1.0, 6)
+    ] + [
+        _torso_point(sx, 0.007, 0.255 - 0.185 * t, -0.0025)
+        for t in np.linspace(0.0, 1.0, 6)
+    ]
+
+    grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
+    for i in range(n_along):
+        o = origins[i]
+        d = dests[i]
+        for j in range(n_across):
+            s = j / (n_across - 1)
+            pt = mix(o, d, s**0.90)
+            x_abs = abs(float(pt[0]))
+            y = float(pt[1])
+            grid[i, j] = _torso_point(sx, min(x_abs, float(_flank_x(y)) * 0.90), y, -0.0045)
+
+    sheet = grid_sheet(grid, thickness=0.0040)
     v = np.asarray(sheet.vertices)
-    # Aponeurosis (white) as the sheet reaches the rectus sheath.
-    w = np.clip((0.058 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0)
+    w = np.clip((0.056 - np.abs(v[:, 0])) / 0.026, 0.0, 1.0) ** 1.15
     paint_tendon(sheet, w)
     return sheet
 
@@ -350,81 +416,98 @@ def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
         sx,
         y_top=0.278,
         y_bot=0.008,
-        depth=0.0240,
-        n_along=16,
-        n_across=11,
+        depth=0.0260,
+        n_along=18,
+        n_across=12,
         linea=0.0058,
         diagonal=0.0,
-        x_scale=0.80,
-        flank_depth=0.020,
+        x_scale=0.76,
+        flank_depth=0.022,
     )
-    sheet = grid_sheet(grid, thickness=0.0028)
+    sheet = grid_sheet(grid, thickness=0.0026)
     v = np.asarray(sheet.vertices)
-    w = np.clip((0.055 - np.abs(v[:, 0])) / 0.020, 0.0, 1.0)
+    w = np.clip((0.052 - np.abs(v[:, 0])) / 0.020, 0.0, 1.0)
     paint_tendon(sheet, w)
     return sheet
 
 
 def _eo_aponeurosis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     """White anterior rectus sheath: EO aponeurosis passing superficial to rectus."""
-    n_along, n_across = 16, 8
+    n_along, n_across = 22, 10
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
-    y_top, y_bot = 0.302, 0.006
+    y_top, y_bot = 0.308, 0.004
     for i in range(n_along):
         ty = i / (n_along - 1)
-        y = y_top * (1.0 - ty) + y_bot * ty + (-0.55) * 0.0
-        z = float(_wall_z(y)) + 0.016
+        y = y_top * (1.0 - ty) + y_bot * ty
+        z = float(_wall_z(y)) + 0.0188
         for j in range(n_across):
             s = j / (n_across - 1)
-            y_fiber = y + (-0.50) * (0.5 - s) * 0.040
-            grid[i, j] = np.array([sx * mix(0.060, 0.0048, s), y_fiber, z - 0.0012 * (1.0 - s)], dtype=np.float64)
-    sheet = grid_sheet(grid, thickness=0.0024)
+            # Hands-in-pockets: inferomedial fiber slant.
+            y_fiber = y + (-0.72) * (0.5 - s) * 0.046
+            grid[i, j] = np.array(
+                [sx * mix(0.064, 0.0044, s), y_fiber, z - 0.0010 * (1.0 - s)],
+                dtype=np.float64,
+            )
+    sheet = grid_sheet(grid, thickness=0.0026)
     paint_solid(sheet, TENDON_WHITE)
     return sheet
 
 
+def _external_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
+    """Sawtooth slips on ribs 5–12, inferomedial fibers, superficial white apo."""
+    suf = "d" if sx < 0 else "g"
+    crest = p[f"crete-iliaque-{suf}"]
+    eias = p[f"eias-{suf}"]
+    pub = p["symphyse-pubienne"]
+    inguinal = mix(eias, pub, 0.38)
+
+    # Digitations: peak on each rib 5–12, valley between (chart sawtooth).
+    rib_ys = np.linspace(0.392, 0.188, 8)
+    origins: list[np.ndarray] = []
+    for k, y_rib in enumerate(rib_ys):
+        peak = _rib_slip(sx, float(y_rib))
+        peak = peak + np.array([sx * 0.004, 0.002, 0.006])
+        origins.append(peak)
+        if k < len(rib_ys) - 1:
+            y_v = 0.5 * (float(y_rib) + float(rib_ys[k + 1]))
+            valley = _rib_slip(sx, y_v)
+            valley = valley + np.array([sx * 0.010, -0.010, 0.004])
+            origins.append(valley)
+
+    n_across = 14
+    grid = np.zeros((len(origins), n_across, 3), dtype=np.float64)
+    for i, o in enumerate(origins):
+        t_src = i / (len(origins) - 1)
+        # Higher slips run farther toward the linea; lower slips to the iliac crest.
+        dest_linea = _torso_point(sx, 0.008, float(o[1]) - 0.085, 0.018)
+        dest_crest = mix(inguinal, off(crest, x=sx * 0.010, z=0.006), t_src)
+        dest_crest = dest_crest + np.array([0.0, 0.0, 0.010])
+        dest = mix(dest_linea, dest_crest, t_src**1.15)
+        dest[1] = min(float(dest[1]), float(o[1]) - 0.018)
+        for j in range(n_across):
+            s = j / (n_across - 1)
+            pt = mix(o, dest, s**0.88)
+            x_abs = abs(float(pt[0]))
+            y = float(pt[1])
+            # Always superficial to IO / rectus.
+            layer = 0.012 + 0.007 * s
+            grid[i, j] = _torso_point(sx, min(x_abs, float(_flank_x(y)) * 1.04), y, layer)
+
+    flesh = grid_sheet(grid, thickness=0.0048)
+    v = np.asarray(flesh.vertices)
+    # Red digitations / flank; white as the sheet reaches the sheath.
+    w = np.clip((0.060 - np.abs(v[:, 0])) / 0.018, 0.0, 1.0) ** 1.05
+    paint_tendon(flesh, w)
+    apo = _eo_aponeurosis_side(p, sx)
+    return _concat([flesh, apo])
+
+
 def enhance_external_oblique(mesh: trimesh.Trimesh, p: dict[str, np.ndarray] | None = None) -> trimesh.Trimesh:
-    """Keep BP3D fleshy flank; snap medial sheet onto the wall as white aponeurosis.
-
-    BP3D EO is a thick volume whose posterior flank sits *behind* the synthetic
-    internal oblique / transversus. Flatten the abdominal portion onto a shell
-    superficial to those layers so stacking is TV → IO → rectus → EO.
-    """
-    m = mesh.copy()
-    v = np.asarray(m.vertices, dtype=np.float64).copy()
-    xabs = np.abs(v[:, 0])
-    y = v[:, 1]
-    sx = np.sign(v[:, 0])
-    sx[sx == 0] = 1.0
-    z_wall = np.interp(y, _WALL_Y, _WALL_Z)
-    z_flank = np.interp(y, _FLANK_Y, _FLANK_Z)
-    x_lat = np.interp(y, _FLANK_Y, _FLANK_X) * 1.06
-    abdomen = ((y > -0.03) & (y < 0.335) & (v[:, 2] > -0.06)).astype(np.float64)
-    # White only over rectus (|x| ≲ 5–6 cm). Flank stays red.
-    w = np.clip((0.058 - xabs) / 0.016, 0.0, 1.0) * abdomen
-    target_z_apo = z_wall + 0.0165
-    v[:, 2] = v[:, 2] * (1.0 - w) + target_z_apo * w
-
-    # s=0 lateral flank, s=1 medial (rectus edge). Outer envelope, proud of IO.
-    denom = np.maximum(x_lat - 0.058, 0.02)
-    s = np.clip((x_lat - xabs) / denom, 0.0, 1.0)
-    z_shell = z_flank * (1.0 - s**1.18) + (z_wall + 0.013) * (s**1.18) + 0.011
-    x_shell = sx * (x_lat * (1.0 - s**0.88) + 0.062 * (s**0.88))
-    flank = abdomen * (1.0 - w)
-
-    too_deep = np.clip((z_shell - 0.003 - v[:, 2]) / 0.045, 0.0, 1.0) * flank
-    v[:, 2] += too_deep * (z_shell - v[:, 2])
-    too_front = np.clip((v[:, 2] - (z_shell + 0.007)) / 0.04, 0.0, 1.0) * flank
-    v[:, 2] -= too_front * (v[:, 2] - z_shell)
-    too_medial = np.clip((np.abs(x_shell) - 0.004 - xabs) / 0.028, 0.0, 1.0) * flank
-    v[:, 0] += too_medial * (x_shell - v[:, 0]) * 0.7
-
-    m.vertices = v
-    paint_tendon(m, w)
-    if p is not None:
-        apo = _concat([_eo_aponeurosis_side(p, -1.0), _eo_aponeurosis_side(p, 1.0)])
-        m = _concat([m, apo])
-    return m
+    """EO is fully synthetic (digitations + superficial apo). `mesh` is ignored."""
+    del mesh
+    if p is None:
+        p = load_lm()
+    return _bilateral(_external_oblique_side, p)
 
 
 def _temporalis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
@@ -510,16 +593,17 @@ def build() -> dict[str, trimesh.Trimesh]:
     y0, y1 = float(v[:, 1].min()), float(v[:, 1].max())
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
     w = np.zeros(len(v), dtype=np.float64)
-    for b in (0.18, 0.40, 0.62):
-        w = np.maximum(w, np.exp(-(((t - b) / 0.012) ** 2)))
-    w = np.maximum(w, 0.97 * np.exp(-(t / 0.038) ** 2))
-    w = np.maximum(w, 0.97 * np.exp(-(((1.0 - t) / 0.042) ** 2)))
-    w = np.maximum(w, np.clip((0.0055 - np.abs(v[:, 0])) / 0.003, 0.0, 1.0))
+    for b in (0.20, 0.42, 0.64):
+        w = np.maximum(w, np.exp(-(((t - b) / 0.018) ** 2)))
+    w = np.maximum(w, 0.98 * np.exp(-(t / 0.046) ** 2))
+    w = np.maximum(w, 0.98 * np.exp(-(((1.0 - t) / 0.050) ** 2)))
+    w = np.maximum(w, np.clip((0.0058 - np.abs(v[:, 0])) / 0.0034, 0.0, 1.0))
     paint_tendon(rectus, w)
     return {
         "grand-dorsal": _bilateral(_latissimus_side, p),
         "droit-abdomen": rectus,
         "oblique-interne": _bilateral(_internal_oblique_side, p),
+        "oblique-externe": _bilateral(_external_oblique_side, p),
         "transverse-de-l-abdomen": _bilateral(_transversus_side, p),
         "temporal": _bilateral(_temporalis_side, p),
         "masseter": _bilateral(_masseter_side, p),
@@ -539,6 +623,7 @@ SYNTH_KEYS = {
     "grand-dorsal": "latissimus dorsi",
     "droit-abdomen": "rectus abdominis",
     "oblique-interne": "internal oblique",
+    "oblique-externe": "external oblique",
     "transverse-de-l-abdomen": "transversus abdominis",
     **MASTICATION_KEYS,
 }

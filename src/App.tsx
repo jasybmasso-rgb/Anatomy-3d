@@ -9,6 +9,7 @@ import { connective, getConnectiveById } from "./data/loadConnective";
 import { muscles, getMuscleById } from "./data/loadMuscles";
 import { nerves, organs, vessels, getVisceraById } from "./data/loadViscera";
 import { AnatomyScene } from "./scene/AnatomyScene";
+import { applyImmediateHighlight, clearImmediateHighlight } from "./scene/selectionHighlight";
 import type { StructureKind, SelectionState, HiddenMap } from "./types/structure";
 import { EMPTY_HIDDEN } from "./types/structure";
 import "./App.css";
@@ -45,6 +46,7 @@ export function App() {
   const focus = selectedMuscle ?? selectedViscera ?? selectedConnective;
 
   function reset() {
+    clearImmediateHighlight();
     setSelection(null);
     setResetToken((token) => token + 1);
     setShowAllMuscles(false);
@@ -66,6 +68,7 @@ export function App() {
   }
 
   function onSelectStructure(kind: StructureKind, id: string) {
+    applyImmediateHighlight(kind, id);
     setSelection({ kind, id });
     if (kind === "muscle") {
       setPinnedMuscleId(id);

@@ -3,6 +3,8 @@ import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
 import { muscles } from "../data/loadMuscles";
+import { getDeviceProfile } from "./deviceProfile";
+import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
 import { setPickMeshes } from "./structurePick";
 import {
   applyFiberUVs,
@@ -47,14 +49,14 @@ const WALL_ORDER: Record<string, number> = {
   "transverse-de-l-abdomen": 1,
   "oblique-interne": 2,
   "droit-abdomen": 4,
-  "oblique-externe": 7,
+  "oblique-externe": 9,
 };
 
 const WALL_OFFSET: Record<string, number> = {
-  "transverse-de-l-abdomen": 8,
-  "oblique-interne": 4,
+  "transverse-de-l-abdomen": 14,
+  "oblique-interne": 7,
   "droit-abdomen": 0,
-  "oblique-externe": -4,
+  "oblique-externe": -10,
 };
 
 function visibleIds(props: MuscleLayerProps): Set<string> {
@@ -119,7 +121,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         obj.userData.pick = "muscle";
         obj.userData.muscleId = muscle.id;
         obj.raycast = THREE.Mesh.prototype.raycast;
-        obj.castShadow = true;
+        obj.castShadow = getDeviceProfile().shadows;
         obj.receiveShadow = false;
         obj.material = material;
         meshes.push(obj);
@@ -129,6 +131,15 @@ export function MuscleLayer(props: MuscleLayerProps) {
     }
     return list;
   }, [gltf]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      registerHighlight("muscle", entry.id, (selected) => setMuscleSelected(entry.material, selected));
+    }
+    return () => {
+      for (const entry of entries) unregisterHighlight("muscle", entry.id);
+    };
+  }, [entries]);
 
   useEffect(() => {
     const shown = visibleIds(props);
@@ -149,8 +160,8 @@ export function MuscleLayer(props: MuscleLayerProps) {
       entry.material.clippingPlanes = clipPlanesForSide(side);
       entry.object.traverse((obj) => {
         if (obj instanceof THREE.Mesh) {
-          obj.renderOrder = selected ? 8 : (WALL_ORDER[entry.id] ?? 5);
-          obj.castShadow = true;
+          obj.renderOrder = selected ? 12 : (WALL_ORDER[entry.id] ?? 5);
+          obj.castShadow = getDeviceProfile().shadows;
         }
       });
     }

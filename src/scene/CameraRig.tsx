@@ -317,8 +317,13 @@ export function CameraRig({
       if (pointers.current.size === 2) beginTwoFinger();
     };
 
+    let lastMoveMs = 0;
     const onPointerMove = (event: PointerEvent) => {
       if (!pointers.current.has(event.pointerId)) return;
+      const now = performance.now();
+      // Android WebView can flood pointermove; skip crumbs under 8 ms.
+      if (now - lastMoveMs < 8 && pointers.current.size < 2) return;
+      lastMoveMs = now;
       pointers.current.set(event.pointerId, { x: event.clientX, y: event.clientY });
       if (pointers.current.size < 2 || !twoFingerPan.current) return;
       const orbit = controls.current;

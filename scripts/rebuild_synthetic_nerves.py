@@ -17,7 +17,7 @@ NERVE_INCLUSION = (
     "Nerfs crâniens / orbitaires BodyParts3D 4.0 (optique, trochléaire, oculomoteur, "
     "ophtalmique, ciliaires). Les grands troncs périphériques (plexus brachial, "
     "médian, ulnaire, radial, sciatique, fémoral, tibial, fibulaire, phrénique…) "
-    "sont des tubes schématiques synthetic-v3 plus fins, avec racines "
+    "sont des tubes schématiques synthetic-v3+ plus fins, avec racines "
     "foraminales visibles et trajets calés sur l’anatomie usuelle "
     "(sciatique sous le piriforme, tunnel cubital, sillon spiral, ligament "
     "inguinal…). BP3D 4.0 n’a pas ces maillages."
@@ -62,7 +62,7 @@ def main() -> int:
         {
             "inclusionRules": NERVE_INCLUSION,
             "syntheticDisclaimer": (
-                "Les pièces source=synthetic-v3 sont des tubes loftés le long du "
+                "Les pièces source=synthetic-v3+ sont des tubes loftés le long du "
                 "trajet anatomique usuel (repères osseux, sorties foraminales, "
                 "sciatique sous le piriforme), pas des nerfs segmentés. "
                 "Les maillages crâniens BP3D restent source=bodyparts3d."

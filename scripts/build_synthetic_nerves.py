@@ -3,8 +3,9 @@
 BodyParts3D 4.0 has almost no peripheral-nerve meshes (cranial/orbital only).
 These tubes are pedagogical approximations, not cadaver segmentations.
 
-v3: visible foraminal roots / exits from the vertebral column, thinner trunks,
-full textbook courses. Sciatic passes deep to piriformis (infrapiriform).
+v3+: tighter foraminal exits, thinner trunks, textbook courses past key
+muscles (sciatic infrapiriform, radial spiral groove, ulnar cubital tunnel,
+femoral under the inguinal ligament).
 """
 
 from __future__ import annotations
@@ -31,7 +32,7 @@ from mesh_primitives import bezier_cubic, loft_tube  # noqa: E402
 NOTE = (
     "Schéma pédagogique (synthetic-v3) : tube lofté le long du trajet "
     "anatomique usuel, avec racines / sorties foraminales visibles. Ancré sur "
-    "des repères osseux et, pour le sciatique, le bord inférieur du piriforme. "
+    "des repères osseux et, pour le sciatique, le corridor infrapiriforme. "
     "Ce n’est pas une segmentation cadavérique. BodyParts3D 4.0 n’expose pas "
     "les nerfs périphériques (sciatique, médian, plexus, etc.)."
 )
@@ -87,7 +88,7 @@ def _entry(part_id: str, name: str, latin: str, mesh: trimesh.Trimesh, aliases: 
         "aliases": aliases,
         "region": region_from_point(float(c[0]), float(c[1]), float(c[2])),
         "notes": NOTE,
-        "source": "synthetic-v3",
+        "source": "synthetic-v3+",
         "sourceName": part_id,
         "fmaIds": [],
         "fileIds": [],
@@ -163,8 +164,8 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"Plexus brachial {side}",
             "Plexus brachialis",
             merge_tubes(
-                roots_to([c5, c6, c7f, c8, t1f], scalene, 0.00135)
-                + [nerve_tube([scalene, retroclav, axilla], 0.0034, taper=0.88)]
+                roots_to([c5, c6, c7f, c8, t1f], scalene, 0.00110)
+                + [nerve_tube([scalene, retroclav, axilla], 0.0027, taper=0.88)]
             ),
             ["brachial plexus", f"plexus brachial {side}", "C5", "C6", "C7", "C8", "T1"],
         )
@@ -178,7 +179,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                     off(hum, x=sx * 0.006, y=-0.018, z=-0.014),
                     off(acrom, x=sx * 0.004, y=-0.016, z=0.002),
                 ],
-                0.0019,
+                0.00155,
             ),
             ["axillary nerve", "circonflexe"],
         )
@@ -192,7 +193,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                     off(mid_arm, x=sx * 0.005, z=0.016),
                     off(lat_ep, x=sx * 0.006, y=-0.028, z=0.016),
                 ],
-                0.0018,
+                0.00145,
             ),
             ["musculocutaneous nerve"],
         )
@@ -204,12 +205,12 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mix(hum, ole, 0.38), x=-sx * 0.008, z=0.010),
+                    off(mix(hum, ole, 0.38), x=-sx * 0.006, z=0.012),
                     cubital,
-                    off(mix(cubital, carpal, 0.55), z=0.010),
-                    off(carpal, z=0.008),
+                    off(mix(cubital, carpal, 0.55), z=0.012),
+                    off(carpal, z=0.009),
                 ],
-                0.0020,
+                0.00160,
             ),
             ["median nerve"],
         )
@@ -220,12 +221,13 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mix(hum, ole, 0.4), x=-sx * 0.014, z=-0.006),
-                    off(med_ep, z=-0.012),
+                    off(mix(hum, ole, 0.4), x=-sx * 0.016, z=-0.008),
+                    off(med_ep, y=0.004, z=-0.016),
+                    off(med_ep, y=-0.008, z=-0.010),
                     off(mix(med_ep, sty_u, 0.55), x=-sx * 0.005, z=0.003),
                     off(sty_u, z=0.006),
                 ],
-                0.0019,
+                0.00150,
             ),
             ["ulnar nerve", "cubital"],
         )
@@ -236,12 +238,13 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             nerve_tube(
                 [
                     axilla,
-                    off(mix(hum, ole, 0.28), z=-0.020),
-                    off(mix(hum, ole, 0.58), x=sx * 0.010, z=-0.016),
+                    off(mix(hum, ole, 0.22), z=-0.026),
+                    off(mix(hum, ole, 0.48), x=sx * 0.012, z=-0.022),
+                    off(mix(hum, ole, 0.68), x=sx * 0.010, z=-0.008),
                     off(lat_ep, y=-0.006, z=0.005),
                     off(sty_r, z=0.005),
                 ],
-                0.0019,
+                0.00150,
             ),
             ["radial nerve"],
         )
@@ -278,8 +281,8 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"Plexus lombaire {side}",
             "Plexus lumbalis",
             merge_tubes(
-                roots_to([l2, l3, l4], psoas, 0.0013)
-                + [nerve_tube([psoas, off(inguinal, y=0.018, z=0.008)], 0.0028, taper=0.86)]
+                roots_to([l2, l3, l4], psoas, 0.00105)
+                + [nerve_tube([psoas, off(inguinal, y=0.018, z=0.008)], 0.0022, taper=0.86)]
             ),
             ["lumbar plexus", "L1", "L2", "L3", "L4"],
         )
@@ -288,15 +291,15 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"Nerf fémoral {side}",
             "Nervus femoralis",
             merge_tubes(
-                roots_to([l2, l3, l4], off(inguinal, z=0.014), 0.00125)
+                roots_to([l2, l3, l4], off(inguinal, y=-0.002, z=0.012), 0.00100)
                 + [
                     nerve_tube(
                         [
-                            off(inguinal, z=0.014),
-                            off(mix(inguinal, pat, 0.42), z=0.024),
+                            off(inguinal, y=-0.002, z=0.012),
+                            off(mix(inguinal, pat, 0.42), z=0.022),
                             off(cond_m, z=0.016),
                         ],
-                        0.0022,
+                        0.00175,
                     )
                 ]
             ),
@@ -307,7 +310,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"Nerf obturateur {side}",
             "Nervus obturatorius",
             merge_tubes(
-                roots_to([l2, l3, l4], off(pub, x=sx * 0.020, z=0.006), 0.00115)
+                roots_to([l2, l3, l4], off(pub, x=sx * 0.020, z=0.006), 0.00095)
                 + [
                     nerve_tube(
                         [
@@ -315,7 +318,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                             off(mix(pub, hip, 0.55), x=sx * 0.014, z=0.002),
                             off(mix(hip, cond_m, 0.38), x=-sx * 0.006, z=0.004),
                         ],
-                        0.0017,
+                        0.00140,
                     )
                 ]
             ),
@@ -336,12 +339,12 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"Nerf sciatique {side}",
             "Nervus ischiadicus",
             merge_tubes(
-                roots_to([l4, l5f, s1, s2, s3], sacral_plexus, 0.00135)
+                roots_to([l4, l5f, s1, s2, s3], sacral_plexus, 0.00110)
                 + [
                     nerve_tube(
                         [sacral_plexus, behind, gsf, under_pir, deep_glute, mid_thigh, knee_post],
-                        0.0030,
-                        samples=12,
+                        0.00245,
+                        samples=14,
                         taper=0.78,
                     )
                 ]
@@ -358,7 +361,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                     off(mix(knee_post, mal_m, 0.5), z=-0.020),
                     off(mal_m, z=-0.010),
                 ],
-                0.0020,
+                0.00160,
             ),
             ["tibial nerve"],
         )
@@ -373,7 +376,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                     off(fib, x=sx * 0.007, y=-0.010, z=0.008),
                     off(mal_l, z=0.006),
                 ],
-                0.0018,
+                0.00145,
             ),
             ["common peroneal", "fibular nerve", "péronier"],
         )
@@ -386,7 +389,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                     under_pir,
                     off(gt, x=sx * 0.004, z=-0.016),
                 ],
-                0.0016,
+                0.00130,
             ),
             ["inferior gluteal nerve"],
         )
@@ -400,7 +403,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             f"Nerf phrénique {side}",
             "Nervus phrenicus",
             merge_tubes(
-                roots_to([c3, c4], off(p["c7"], x=sx * 0.014, z=0.024), 0.0011)
+                roots_to([c3, c4], off(p["c7"], x=sx * 0.014, z=0.024), 0.00090)
                 + [
                     nerve_tube(
                         [
@@ -409,7 +412,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                             off(p["manubrium"], x=sx * 0.024, z=0.016),
                             off(p["xiphoide"], x=sx * 0.032, y=-0.018, z=0.006),
                         ],
-                        0.0015,
+                        0.00120,
                     )
                 ]
             ),

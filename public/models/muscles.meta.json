@@ -1,11 +1,11 @@
 {
-  "glbBytes": 27296496,
-  "glbMiB": 26.03,
+  "glbBytes": 27213372,
+  "glbMiB": 25.95,
   "partCount": 159,
-  "countBodyparts3d": 151,
-  "countSynthetic": 8,
+  "countBodyparts3d": 150,
+  "countSynthetic": 9,
   "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic stand-ins are original educational approximations",
   "alignedTo": "public/models/skeleton.glb",
-  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi, rectus abdominis, internal oblique and transversus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x\u22640) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas). Internal oblique and transversus abdominis are nested synthetic sheets (transversus deep \u2192 internal oblique \u2192 external oblique; rectus in the sheath). External oblique keeps the BP3D fleshy belly plus a white aponeurosis over rectus.",
+  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi, rectus abdominis, internal oblique and transversus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x\u22640) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas). Internal / external oblique and transversus are nested synthetic sheets (transversus deep \u2192 internal oblique \u2192 rectus in the sheath \u2192 external oblique with rib digitations and a white aponeurosis staying superficial). Latissimus is a T7\u2013L5 fan with a white thoracolumbar origin.",
   "maxFacesPerMuscle": 9000
 }

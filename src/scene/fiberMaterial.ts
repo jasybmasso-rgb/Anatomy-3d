@@ -46,17 +46,18 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix) {
   vec2 circ = fiberCirc(uv.y);
   float lum = dot(painted, vec3(0.299, 0.587, 0.114));
   float chroma = max(max(painted.r, painted.g), painted.b) - min(min(painted.r, painted.g), painted.b);
-  float paintTendon = smoothstep(0.56, 0.84, lum) * (1.0 - smoothstep(0.16, 0.42, chroma));
-  float endCap = 1.0 - smoothstep(0.0, 0.11, min(along, 1.0 - along));
-  float tendon = clamp(max(paintTendon, endCap * 0.50 * (1.0 - paintTendon)), 0.0, 1.0);
+  float paintTendon = smoothstep(0.42, 0.78, lum) * (1.0 - smoothstep(0.10, 0.36, chroma));
+  float endCap = 1.0 - smoothstep(0.0, 0.14, min(along, 1.0 - along));
+  float tendon = clamp(max(paintTendon, endCap * 0.28 * (1.0 - paintTendon)), 0.0, 1.0);
+  float tMix = smoothstep(0.06, 0.92, tendon);
 
-  vec3 tendonCol = vec3(0.95, 0.91, 0.82);
-  vec3 fiberCol = vec3(0.80, 0.11, 0.075);
-  vec3 bellyCol = vec3(0.64, 0.045, 0.038);
+  vec3 tendonCol = vec3(0.97, 0.94, 0.88);
+  vec3 fiberCol = vec3(0.82, 0.105, 0.07);
+  vec3 bellyCol = vec3(0.62, 0.042, 0.036);
   float belly = pow(sin(3.14159265 * along), 0.82);
   vec3 flesh = mix(fiberCol, bellyCol, smoothstep(0.18, 1.0, belly));
-  flesh = mix(flesh, painted * vec3(1.2, 0.62, 0.55), 0.18);
-  vec3 base = mix(flesh, tendonCol, tendon);
+  flesh = mix(flesh, painted * vec3(1.15, 0.58, 0.52), 0.14);
+  vec3 base = mix(flesh, tendonCol, tMix);
 
   float density = mix(86.0, 18.0, belly * (1.0 - tendon));
   float warp = fiberFbm(circ * 2.2 + vec2(along * 2.8, 4.1)) - 0.5;
@@ -371,7 +372,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v12-phong-chart";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v13-phong-chart";
   return material;
 }
 
