@@ -7,6 +7,7 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
 import trimesh
 from trimesh.exchange.gltf import export_glb
 
@@ -40,11 +41,54 @@ INCLUSION = (
     INCLUSION_RULES
     + " Temporalis, masseter and pterygoids are landmark-anchored synthetics "
     "(BP3D 4.0 excludes facial / mastication meshes from this atlas). "
-    "Internal / external oblique and transversus are nested synthetic sheets "
-    "(transversus deep → internal oblique → rectus in the sheath → external oblique "
-    "with rib digitations and a white aponeurosis staying superficial). "
-    "Latissimus is a T7–L5 fan with a white thoracolumbar origin."
+    "Internal / external oblique show fleshy fibers only (no rectangular aponeurosis). "
+    "Transversus is a horizontal-fiber corset (iliac / inguinal / costal / TLF). "
+    "Latissimus is a T7–L5 fan sitting posterior to SPI and iliocostalis thoracis."
 )
+
+_DEEP_UNDER_LAT = (
+    "dentele-posterieur-inferieur",
+    "iliocostal-thoracique",
+    "iliocostal-lombaire",
+)
+
+
+def _push_under_latissimus(scene: trimesh.Scene, lat: trimesh.Trimesh, clearance: float = 0.0038) -> None:
+    """Project SPI / iliocostalis verts that still poke behind latissimus inward."""
+    from scipy.spatial import cKDTree
+
+    lat_v = np.asarray(lat.vertices, dtype=np.float64)
+    back = lat_v[(lat_v[:, 2] < 0.02) & (np.abs(lat_v[:, 0]) < 0.15)]
+    if len(back) < 24:
+        back = lat_v
+    tree = cKDTree(back[:, :2])
+    y0, y1 = float(back[:, 1].min()), float(back[:, 1].max())
+    xmax = float(np.abs(back[:, 0]).max())
+    for name in _DEEP_UNDER_LAT:
+        geom = scene.geometry.get(name)
+        if geom is None:
+            continue
+        v = np.asarray(geom.vertices, dtype=np.float64).copy()
+        mask = (
+            (v[:, 1] >= y0 - 0.010)
+            & (v[:, 1] <= y1 + 0.010)
+            & (np.abs(v[:, 0]) <= xmax + 0.010)
+            & (v[:, 2] < 0.035)
+        )
+        if not np.any(mask):
+            continue
+        dists, idxs = tree.query(v[mask, :2], k=1)
+        # Local posterior surface (nearest XY). Only nudge verts that actually poke out.
+        lat_z = back[idxs, 2]
+        target = lat_z + clearance
+        near = dists < 0.026
+        poke = near & (v[mask, 2] < lat_z + 0.0012)
+        if not np.any(poke):
+            continue
+        sel = np.where(mask)[0][poke]
+        v[sel, 2] = target[poke]
+        geom.vertices = v
+        print(f"  push {name}: {int(poke.sum())} verts under latissimus", flush=True)
 
 
 def _muscle_row(muscle_id: str, mesh: trimesh.Trimesh) -> dict:
@@ -85,6 +129,9 @@ def main() -> int:
             scene.delete_geometry(muscle_id)
         scene.add_geometry(mesh, node_name=muscle_id, geom_name=muscle_id)
         print(f"  + {muscle_id:32s}  {len(mesh.faces):6d} faces  synthetic", flush=True)
+    lat = synth.get("grand-dorsal")
+    if lat is not None:
+        _push_under_latissimus(scene, lat)
 
     OUT_GLB.write_bytes(export_glb(scene, include_normals=True))
     size_mb = OUT_GLB.stat().st_size / (1024 * 1024)

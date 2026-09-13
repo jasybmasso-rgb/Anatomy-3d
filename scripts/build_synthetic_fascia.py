@@ -22,7 +22,6 @@ from body_surface import (  # noqa: E402
     load_lm,
     mix,
     off,
-    posterior_back_grid,
     posterior_midline,
     wrap_limb_grid,
 )
@@ -58,45 +57,63 @@ def _mirror_x(grid: np.ndarray) -> np.ndarray:
 
 
 def tlf_sheet(p: dict[str, np.ndarray]) -> trimesh.Trimesh:
-    """Posterior layer of the thoracolumbar fascia: spinous T12–S1 → iliac crest."""
-    cloud = BodyCloud(BACK_MUSCLES, sx=None)
+    """Posterior TLF: molds the erector / latissimus envelope from ~T10 to the iliac crests."""
+    from scipy.spatial import cKDTree
+
+    cloud = BodyCloud(
+        [
+            "iliocostal-lombaire",
+            "iliocostal-thoracique",
+            "longissimus-du-thorax",
+            "dentele-posterieur-inferieur",
+            "grand-dorsal",
+        ],
+        sx=None,
+    )
     mask = (
-        (cloud.pts[:, 1] > 0.02)
-        & (cloud.pts[:, 1] < 0.26)
-        & (cloud.pts[:, 2] < 0.03)
-        & (np.abs(cloud.pts[:, 0]) < 0.16)
+        (cloud.pts[:, 1] > 0.00)
+        & (cloud.pts[:, 1] < 0.34)
+        & (cloud.pts[:, 2] < 0.055)
+        & (np.abs(cloud.pts[:, 0]) < 0.18)
     )
     if int(mask.sum()) >= 40:
         cloud.pts = cloud.pts[mask]
-        from scipy.spatial import cKDTree
-
         cloud.tree = cKDTree(cloud.pts)
-    t12, l5, sac = p["t12"], p["l5"], p["sacrum"]
-    crest = 0.5 * (p["crete-iliaque-d"] + p["crete-iliaque-g"])
-    ys = np.linspace(float(t12[1]) + 0.012, float(mix(l5, sac, 0.55)[1]), 14)
-    # Diamond: narrow at T12, wide over the lumbar belt, seats on the iliac crest.
-    t = np.linspace(0.0, 1.0, len(ys))
-    half = 0.042 + 0.078 * np.sin(np.clip(t, 0, 1) * np.pi) ** 0.85
-    half[-1] = max(float(np.abs(p["crete-iliaque-d"][0])) * 0.72, 0.07)
-    half[0] = 0.038
-    right = posterior_back_grid(cloud, ys, half, n_across=12, standoff=0.0026)
-    # Pull the lateral column onto the iliac crest at the bottom rows.
-    for i in range(len(ys) - 3, len(ys)):
-        s = (i - (len(ys) - 4)) / 3.0
-        crest_pt = mix(p["eips-d"], p["crete-iliaque-d"], 0.55 + 0.35 * s)
-        right[i, -1] = mix(right[i, -1], off(crest_pt, z=-0.008), 0.65)
-        right[i, -2] = mix(right[i, -2], off(crest_pt, x=0.01, z=-0.006), 0.4)
+
+    y_top = float(p["t12"][1]) + 0.052
+    y_bot = float(mix(p["l5"], p["sacrum"], 0.62)[1])
+    ys = np.linspace(y_top, y_bot, 18)
+    n_across = 14
+    right = np.zeros((len(ys), n_across, 3), dtype=np.float64)
+    lat = np.array([1.0, 0.0, 0.0], dtype=float)
+    ant = np.array([0.0, 0.0, 1.0], dtype=float)
+    for i, y in enumerate(ys):
+        t = i / (len(ys) - 1)
+        spin = posterior_midline(float(y), ywin=0.014)
+        center = np.array([0.0, float(y), 0.012], dtype=np.float64)
+        span = 1.08 + 0.40 * float(np.sin(np.clip(t, 0.0, 1.0) * np.pi) ** 0.80)
+        for j in range(n_across):
+            s = j / (n_across - 1)
+            th = -0.50 * np.pi + s * span
+            right[i, j] = cloud.envelope_point(
+                center, lat, ant, float(th), ywin=0.016, dtheta=0.42, standoff=0.0020
+            )
+        right[i, 0] = np.array([0.0, float(y), float(spin[2]) - 0.0016], dtype=np.float64)
+    for i in range(len(ys) - 4, len(ys)):
+        s = (i - (len(ys) - 5)) / 4.0
+        crest_pt = mix(p["eips-d"], p["crete-iliaque-d"], 0.32 + 0.58 * s)
+        right[i, -1] = mix(right[i, -1], off(crest_pt, z=-0.003), 0.74)
+        right[i, -2] = mix(right[i, -2], off(crest_pt, x=0.012, z=-0.002), 0.48)
     left = _mirror_x(right)
     grid = np.concatenate([left[:, :-1, :], right], axis=1)
-    # Scallop the lateral free edge so it doesn’t read as a hard box.
     cols = grid.shape[1]
     for i in range(grid.shape[0]):
         for j in range(cols):
             edge = min(j, cols - 1 - j) / max(cols / 2.0, 1)
-            jitter = 0.0022 * (1.0 - edge) * np.sin(i * 1.7 + j * 0.6)
+            jitter = 0.0018 * (1.0 - edge) * np.sin(i * 1.7 + j * 0.6)
             grid[i, j, 1] += jitter
-            grid[i, j, 2] -= 0.0012 * (1.0 - edge) * abs(np.sin(i * 0.9))
-    return grid_sheet(grid, thickness=0.0018)
+            grid[i, j, 2] -= 0.0008 * (1.0 - edge) * abs(np.sin(i * 0.9))
+    return grid_sheet(grid, thickness=0.0017)
 
 
 def nuchal_sheet(p: dict[str, np.ndarray]) -> trimesh.Trimesh:

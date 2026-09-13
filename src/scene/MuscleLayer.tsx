@@ -10,9 +10,11 @@ import {
   applyFiberUVs,
   clipPlanesForSide,
   createFiberMuscleMaterial,
+  setMuscleFleshOnly,
   setMuscleTint,
   setMuscleSelected,
 } from "./fiberMaterial";
+import { attachMuscleOutline, createMuscleOutlineMaterial } from "./muscleOutline";
 
 export type MuscleLayerProps = {
   selectedMuscleId: string | null;
@@ -44,19 +46,31 @@ const THIN_SHEETS = new Set([
   "pterygoide-lateral",
 ]);
 
-/** Superficial → drawn later. Deep wall stays behind even if sheets kiss. */
+const FLESH_ONLY = new Set(["oblique-externe", "oblique-interne"]);
+
+/** Superficial → drawn later. Deep wall / back stay behind even if sheets kiss. */
 const WALL_ORDER: Record<string, number> = {
   "transverse-de-l-abdomen": 1,
   "oblique-interne": 2,
+  "dentele-posterieur-inferieur": 2,
+  "iliocostal-thoracique": 2,
+  "iliocostal-lombaire": 2,
+  "longissimus-du-thorax": 2,
   "droit-abdomen": 4,
   "oblique-externe": 9,
+  "grand-dorsal": 11,
 };
 
 const WALL_OFFSET: Record<string, number> = {
   "transverse-de-l-abdomen": 14,
   "oblique-interne": 7,
+  "dentele-posterieur-inferieur": 12,
+  "iliocostal-thoracique": 12,
+  "iliocostal-lombaire": 10,
+  "longissimus-du-thorax": 10,
   "droit-abdomen": 0,
   "oblique-externe": -10,
+  "grand-dorsal": -16,
 };
 
 function visibleIds(props: MuscleLayerProps): Set<string> {
@@ -93,7 +107,9 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const clone = src.clone(true);
       const hint = new THREE.Vector3(...(muscle.fiberAxis ?? [0, 0, 0]));
       const material = createFiberMuscleMaterial();
+      const outlineMaterial = createMuscleOutlineMaterial();
       if (THIN_SHEETS.has(muscle.id)) material.side = THREE.DoubleSide;
+      if (FLESH_ONLY.has(muscle.id)) setMuscleFleshOnly(material, true);
       const wallOff = WALL_OFFSET[muscle.id];
       if (wallOff !== undefined) {
         material.polygonOffset = true;
@@ -103,6 +119,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const meshes: THREE.Mesh[] = [];
       clone.traverse((obj) => {
         if (!(obj instanceof THREE.Mesh)) return;
+        if (obj.name === "muscle-outline") return;
         obj.geometry = obj.geometry.clone();
         if (!obj.geometry.getAttribute("normal")) {
           obj.geometry.computeVertexNormals();
@@ -124,6 +141,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         obj.castShadow = getDeviceProfile().shadows;
         obj.receiveShadow = false;
         obj.material = material;
+        attachMuscleOutline(obj, outlineMaterial);
         meshes.push(obj);
       });
       clone.visible = false;
@@ -157,12 +175,18 @@ export function MuscleLayer(props: MuscleLayerProps) {
       entry.material.opacity = 1;
       entry.material.depthWrite = true;
       const side = chainOn ? chainClipSide(entry.id, props.chainSide, props.activeChainIds) : "both";
-      entry.material.clippingPlanes = clipPlanesForSide(side);
+      const planes = clipPlanesForSide(side);
+      entry.material.clippingPlanes = planes;
       entry.object.traverse((obj) => {
-        if (obj instanceof THREE.Mesh) {
-          obj.renderOrder = selected ? 12 : (WALL_ORDER[entry.id] ?? 5);
-          obj.castShadow = getDeviceProfile().shadows;
+        if (!(obj instanceof THREE.Mesh)) return;
+        if (obj.name === "muscle-outline") {
+          const outlineMat = obj.material as THREE.MeshBasicMaterial;
+          outlineMat.clippingPlanes = planes;
+          obj.renderOrder = selected ? 11 : Math.max((WALL_ORDER[entry.id] ?? 5) - 1, 0);
+          return;
         }
+        obj.renderOrder = selected ? 12 : (WALL_ORDER[entry.id] ?? 5);
+        obj.castShadow = getDeviceProfile().shadows;
       });
     }
     setPickMeshes(

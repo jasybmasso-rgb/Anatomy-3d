@@ -41,7 +41,7 @@ vec2 fiberCirc(float around) {
 `;
 
 const GLSL_MUSCLE_ALBEDO = /* glsl */ `
-vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix) {
+vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix, float fleshOnly) {
   float along = clamp(uv.x, 0.0, 1.0);
   vec2 circ = fiberCirc(uv.y);
   float lum = dot(painted, vec3(0.299, 0.587, 0.114));
@@ -49,6 +49,7 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix) {
   float paintTendon = smoothstep(0.42, 0.78, lum) * (1.0 - smoothstep(0.10, 0.36, chroma));
   float endCap = 1.0 - smoothstep(0.0, 0.14, min(along, 1.0 - along));
   float tendon = clamp(max(paintTendon, endCap * 0.28 * (1.0 - paintTendon)), 0.0, 1.0);
+  tendon *= (1.0 - clamp(fleshOnly, 0.0, 1.0));
   float tMix = smoothstep(0.06, 0.92, tendon);
 
   vec3 tendonCol = vec3(0.97, 0.94, 0.88);
@@ -337,14 +338,16 @@ export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
   material.userData.uTint = new THREE.Color(1, 1, 1);
   material.userData.uTintMix = { value: 0 };
   material.userData.uSelected = { value: 0 };
+  material.userData.uFleshOnly = { value: 0 };
   material.userData.kind = "muscle";
   material.onBeforeCompile = (shader) => {
     shader.uniforms.uTint = { value: material.userData.uTint };
     shader.uniforms.uTintMix = material.userData.uTintMix;
     shader.uniforms.uSelected = material.userData.uSelected;
+    shader.uniforms.uFleshOnly = material.userData.uFleshOnly;
     shader.fragmentShader = shader.fragmentShader.replace(
       "uniform vec3 diffuse;",
-      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;",
+      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;\nuniform float uFleshOnly;",
     );
     shader.fragmentShader = patchAfterCommon(
       shader.fragmentShader,
@@ -356,7 +359,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
       #include <color_fragment>
       {
         vec2 fiberUv = vUv;
-        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, diffuseColor.rgb, uTint, uTintMix);
+        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, diffuseColor.rgb, uTint, uTintMix, uFleshOnly);
         float selected = clamp(uSelected, 0.0, 1.0);
         fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.18, 1.08, 0.88), selected * 0.38);
         #ifndef FLAT_SHADED
@@ -372,7 +375,7 @@ export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v13-phong-chart";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v14-phong-chart";
   return material;
 }
 
@@ -435,4 +438,9 @@ export function setMuscleSelected(material: THREE.MeshPhongMaterial, selected: b
   if (sel) sel.value = selected ? 1 : 0;
   material.emissive.set(selected ? "#ff9a4a" : "#000000");
   material.emissiveIntensity = selected ? 0.28 : 0;
+}
+
+export function setMuscleFleshOnly(material: THREE.MeshPhongMaterial, fleshOnly: boolean) {
+  const ref = material.userData.uFleshOnly as { value: number } | undefined;
+  if (ref) ref.value = fleshOnly ? 1 : 0;
 }
