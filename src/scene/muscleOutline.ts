@@ -3,7 +3,7 @@ import { getDeviceProfile } from "./deviceProfile";
 
 /** Thin inverted-hull outline — cheap extra draw, readable when muscles overlap. */
 export function createMuscleOutlineMaterial(): THREE.MeshBasicMaterial {
-  const inflate = getDeviceProfile().lowEnd ? 0.00125 : 0.00155;
+  const inflate = getDeviceProfile().lowEnd ? 0.0020 : 0.0026;
   const material = new THREE.MeshBasicMaterial({
     color: "#0a0a0c",
     side: THREE.BackSide,

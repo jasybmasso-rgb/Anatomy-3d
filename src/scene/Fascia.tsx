@@ -22,7 +22,7 @@ function materialFor(source: string) {
     roughness: 0.48,
     metalness: 0.02,
     transparent: true,
-    opacity: schematic ? 0.38 : 0.58,
+    opacity: schematic ? 0.52 : 0.58,
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,
@@ -44,7 +44,7 @@ function paintFascia(
     selected ? new THREE.Color("#ffcc66") : tint ? tint.clone().multiplyScalar(0.25) : new THREE.Color("#1c3344"),
   );
   material.emissiveIntensity = selected ? 0.36 : tint ? 0.22 : schematic ? 0.08 : 0.16;
-  material.opacity = tint ? 0.62 : schematic ? 0.38 : 0.58;
+  material.opacity = tint ? 0.62 : schematic ? 0.52 : 0.58;
 }
 
 type FasciaProps = {
