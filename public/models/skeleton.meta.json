@@ -46,9 +46,9 @@
   "vertexCount": 284124,
   "faceCount": 513646,
   "boneCount": 203,
-  "glbBytes": 17019088,
-  "glbMiB": 16.23,
-  "cartilageCount": 52,
+  "glbBytes": 16953704,
+  "glbMiB": 16.17,
+  "cartilageCount": 47,
   "cartilageConcepts": [
     "cricoid cartilage",
     "epiglottis",
@@ -62,8 +62,6 @@
     "left fifth costal cartilage",
     "left first costal cartilage",
     "left fourth costal cartilage",
-    "left lateral nasal cartilage",
-    "left major alar cartilage",
     "left second costal cartilage",
     "left seventh costal cartilage",
     "left sixth costal cartilage",
@@ -74,13 +72,10 @@
     "right fifth costal cartilage",
     "right first costal cartilage",
     "right fourth costal cartilage",
-    "right lateral nasal cartilage",
-    "right major alar cartilage",
     "right second costal cartilage",
     "right seventh costal cartilage",
     "right sixth costal cartilage",
     "right third costal cartilage",
-    "septal nasal cartilage",
     "thyroid cartilage"
   ],
   "cartilageFiles": [
@@ -139,5 +134,6 @@
   ],
   "sourceZip": "https://dbarchive.biosciencedbc.jp/data/bodyparts3d/LATEST/isa_BP3D_4.0_obj_99.zip",
   "license": "CC BY-SA 2.1 Japan",
-  "attribution": "BodyParts3D, Copyright\u00a9 2008 The Database Center for Life Science licensed by CC Attribution-Share Alike 2.1 Japan"
+  "attribution": "BodyParts3D, Copyright\u00a9 2008 The Database Center for Life Science licensed by CC Attribution-Share Alike 2.1 Japan",
+  "nasalCartilage": "stripped"
 }

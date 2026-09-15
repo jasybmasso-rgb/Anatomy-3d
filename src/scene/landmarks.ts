@@ -34,7 +34,7 @@ export function mirrorX([x, y, z]: Vec3): Vec3 {
 /** Bassin si les pieds sont à Y = 0 (stature ~1,7 m). */
 export const PELVIS_Y_FROM_FEET = 0.9;
 const FOCUS_Y_MIN = FLOOR_Y + 0.04;
-const FOCUS_Y_MAX = 0.72;
+const FOCUS_Y_MAX = 0.86;
 
 /**
  * Convertit `focus.position` vers l’espace des landmarks (origine bassin).

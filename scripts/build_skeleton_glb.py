@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Filter BodyParts3D bone + cartilage OBJs, merge to a web GLB, emit landmarks.json.
 
-Cartilage (costal, intervertebral discs, laryngeal, nasal) is a second scene
-node in skeleton.glb — always visible with bone, not a Couches category.
+Cartilage (costal, intervertebral discs, laryngeal — not nasal) is a second
+scene node in skeleton.glb — always visible with bone, not a Couches category.
 Landmarks are derived from bone meshes only. Same worldMatrix for both.
 
 Source: BodyParts3D / Anatomography (DBCLS), CC BY-SA 2.1 Japan.
@@ -78,11 +78,6 @@ CARTILAGE_EXACT = {
     "left corniculate cartilage",
     "right cuneiform cartilage",
     "left cuneiform cartilage",
-    "septal nasal cartilage",
-    "right major alar cartilage",
-    "left major alar cartilage",
-    "right lateral nasal cartilage",
-    "left lateral nasal cartilage",
 }
 
 ABSTRACT_NAMES = {

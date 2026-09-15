@@ -4,5 +4,9 @@ export function stripAccents(value: string): string {
 }
 
 export function normalizeSearch(value: string): string {
-  return stripAccents(value).toLocaleLowerCase("fr-CA").trim();
+  return stripAccents(value)
+    .toLocaleLowerCase("fr-CA")
+    .replace(/[-'’]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
