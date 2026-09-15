@@ -250,7 +250,6 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
         )
 
         eias = S("eias-d", suf)
-        eips = S("eips-d", suf)
         isch = S("tuberosite-ischiatique-d", suf)
         hip = S("tete-femorale-d", suf)
         gt = S("grand-trochanter-d", suf)
@@ -325,15 +324,17 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
             ["obturator nerve"],
         )
 
-        # Sciatic: L4–S3 roots → greater sciatic foramen INFERIOR to piriformis
-        # → between ischium and GT (closer to ischium) → posterior thigh → popliteal split.
+        # Sciatic: L4–S3 → sacral plexus on the sacrum → oblique descending
+        # through the greater sciatic notch (NOT a 90° stub toward the iliac crest)
+        # → infrapiriform foramen (deep / inferior to piriformis) → ischium–GT corridor.
         under_pir = piriformis_underside(sx)
-        # Posterior greater-sciatic notch, then INFERIOR to piriformis (not through the belly).
-        behind = off(mix(sacrum, eips, 0.22), x=sx * 0.032, y=-0.006, z=-0.042)
-        gsf = off(mix(sacrum, eips, 0.38), x=sx * 0.026, y=-0.048, z=-0.034)
-        deep_glute = off(mix(isch, gt, 0.28), z=-0.034, y=-0.006)
-        mid_thigh = off(mix(isch, knee_post, 0.48), z=-0.032, x=sx * 0.006)
-        sacral_plexus = off(mix(s1, s2, 0.5), x=sx * 0.016, y=-0.004, z=-0.012)
+        sacral_plexus = off(mix(s1, s2, 0.45), x=sx * 0.014, y=-0.004, z=-0.008)
+        # Lateral sacral edge, already a bit caudal — ~45° inferolateral, stay near the sacrum.
+        sacral_edge = off(sacrum, x=sx * 0.026, y=-0.018, z=-0.016)
+        # Greater sciatic notch: still close to the sacrum, descending, not out to PSIS/crest.
+        notch = np.array([sx * 0.038, float(sacrum[1]) - 0.034, -0.020], dtype=float)
+        deep_glute = off(mix(isch, gt, 0.28), z=-0.020, y=-0.004)
+        mid_thigh = off(mix(isch, knee_post, 0.48), z=-0.028, x=sx * 0.006)
         add(
             f"nerf-sciatique-{suf}",
             f"Nerf sciatique {side}",
@@ -342,7 +343,7 @@ def build() -> tuple[list[tuple[str, trimesh.Trimesh]], list[dict]]:
                 roots_to([l4, l5f, s1, s2, s3], sacral_plexus, 0.00110)
                 + [
                     nerve_tube(
-                        [sacral_plexus, behind, gsf, under_pir, deep_glute, mid_thigh, knee_post],
+                        [sacral_plexus, sacral_edge, notch, under_pir, deep_glute, mid_thigh, knee_post],
                         0.00245,
                         samples=14,
                         taper=0.78,

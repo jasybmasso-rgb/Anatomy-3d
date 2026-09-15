@@ -258,6 +258,82 @@ def _anterior_costal(sx: float, x_abs: float, y: float) -> np.ndarray | None:
     return p
 
 
+def _chart_rib_slip(sx: float, y: float) -> np.ndarray:
+    """Pre-outer-ribs EO/IO costal slip (nearest anterolateral rib, not the thorax interior)."""
+    guess = np.array([sx * 0.122, y, float(_flank_z(y)) + 0.018], dtype=np.float64)
+    return nearest_bone(guess, sx, extra=0.0022)
+
+
+def _pubic_crest(sx: float, x_abs: float) -> np.ndarray:
+    """Superior-anterior pubic crest from the symphysis toward the pubic tubercle."""
+    v = _bone_verts()
+    x_abs = float(np.clip(x_abs, 0.002, 0.028))
+    mask = (
+        _side_mask(v, sx)
+        & (np.abs(np.abs(v[:, 0]) - x_abs) < 0.010)
+        & (v[:, 1] > -0.075)
+        & (v[:, 1] < -0.036)
+        & (v[:, 2] > 0.050)
+    )
+    pts = v[mask]
+    if len(pts) < 4:
+        mask = (
+            _side_mask(v, sx)
+            & (v[:, 1] > -0.078)
+            & (v[:, 1] < -0.032)
+            & (v[:, 2] > 0.048)
+            & (np.abs(v[:, 0]) < 0.048)
+        )
+        pts = v[mask]
+        if len(pts):
+            pts = pts[np.abs(np.abs(pts[:, 0]) - x_abs).argsort()[:14]]
+    if len(pts) == 0:
+        return np.array([sx * x_abs, -0.050, 0.084], dtype=np.float64)
+    # Superior-anterior table of the pubic body (the crest), then a hair proud.
+    score = 0.42 * pts[:, 1] + 0.58 * pts[:, 2]
+    p = pts[int(score.argmax())].copy()
+    p[0] = sx * x_abs
+    p[1] += 0.0024
+    p[2] += 0.0036
+    return p
+
+
+def _costal_insert(sx: float, x_abs: float) -> np.ndarray:
+    """Anterior table of the xiphoid and costal cartilages 5–7 — not past the cage."""
+    v = _bone_verts()
+    x_abs = float(np.clip(x_abs, 0.002, 0.068))
+    mask = (
+        _side_mask(v, sx)
+        & (np.abs(np.abs(v[:, 0]) - x_abs) < 0.011)
+        & (v[:, 1] > 0.276)
+        & (v[:, 1] < 0.350)
+        & (v[:, 2] > 0.105)
+        & (np.abs(v[:, 0]) < 0.078)
+    )
+    pts = v[mask]
+    if len(pts) < 6:
+        mask = (
+            (v[:, 1] > 0.268)
+            & (v[:, 1] < 0.358)
+            & (v[:, 2] > 0.098)
+            & (np.abs(np.abs(v[:, 0]) - x_abs) < 0.016)
+            & (np.abs(v[:, 0]) < 0.082)
+        )
+        pts = v[mask]
+    if len(pts) == 0:
+        y = 0.308 + 0.38 * x_abs
+        return np.array([sx * x_abs, y, float(_wall_z(y)) + 0.0012], dtype=np.float64)
+    zcut = np.percentile(pts[:, 2], 70)
+    ant = pts[pts[:, 2] >= zcut]
+    # Inferior among the anterior cloud = margin / xiphoid, not a float up the sternum.
+    ycut = np.percentile(ant[:, 1], 30)
+    band = ant[ant[:, 1] <= ycut + 0.012]
+    p = band[int(band[:, 2].argmax())].copy()
+    p[0] = sx * x_abs
+    p[2] += 0.0020
+    return p
+
+
 def _deep_back_cloud():
     """Bone + erectors / SPI — used so latissimus sits *behind* them."""
     global _DEEP_CLOUD
@@ -370,12 +446,8 @@ def _rectus_inscription(t: float, bands: tuple[float, ...], sigma: float) -> flo
 
 
 def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Four rounded pads / side. Superior end sits on xiphoid + costal cartilages 5–7."""
-    pub = off(p["symphyse-pubienne"], x=sx * 0.004, y=0.012, z=0.012)
-    xiph = p["xiphoide"]
-    y_top = float(xiph[1]) - 0.001
+    """Four pads / side. Origin on pubic crest + symphysis; insert on xiphoid + cartilages 5–7."""
     bands = (0.20, 0.42, 0.64)
-
     n_along = 56
     n_across = 14
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
@@ -384,30 +456,52 @@ def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
         ins = _rectus_inscription(t, bands, 0.034)
         end = np.exp(-(t / 0.072) ** 2) + np.exp(-(((1.0 - t) / 0.080) ** 2))
         pinch = max(ins, 0.55 * end)
-        y = float(mix(pub[1], y_top, t))
-        # Taper onto the costal cartilages (not a floating slab past the cage).
-        inner = 0.0040
-        width = 0.052 * (1.0 - 0.32 * pinch) * (1.0 - 0.28 * t**1.6)
-        z_wall = float(_wall_z(y)) + 0.0048 * (1.0 - 0.70 * pinch) * (1.0 - 0.55 * t**1.8)
+        # Pubic crest is ~2.2 cm wide; belly ~5.2 cm; costal 5–7 ~5.0 cm (not past the arch).
+        w_pub = 0.022 * (1.0 - 0.18 * pinch)
+        w_belly = 0.052 * (1.0 - 0.32 * pinch)
+        w_cost = 0.048 * (1.0 - 0.16 * pinch)
+        if t < 0.18:
+            width = mix(w_pub, w_belly, t / 0.18)
+        elif t > 0.78:
+            width = mix(w_belly, w_cost, (t - 0.78) / 0.22)
+        else:
+            width = w_belly
+        inner = 0.0034
         for j in range(n_across):
             s = j / (n_across - 1)
             bulge = np.sin(s * np.pi) ** 0.72
             x_abs = inner + s * width * (0.78 + 0.22 * bulge)
-            z = z_wall
-            if t > 0.68:
-                snap = _anterior_costal(sx, x_abs, y)
-                if snap is not None:
-                    z = min(z, float(snap[2]))
+            origin = _pubic_crest(sx, x_abs)
+            insert = _costal_insert(sx, x_abs)
+            y = float(mix(origin[1], insert[1], t))
+            z_mid = float(_wall_z(y)) + 0.0052 * (1.0 - 0.70 * pinch)
+            z = float(mix(origin[2], mix(z_mid, insert[2], t**1.25), min(1.0, 0.12 + 0.88 * t)))
+            if t < 0.10:
+                k = t / 0.10
+                y = float(mix(origin[1], y, k))
+                z = float(mix(origin[2], z, k))
+            if t > 0.86:
+                k = (t - 0.86) / 0.14
+                y = float(mix(y, insert[1], k))
+                z = float(mix(z, insert[2], k))
+                # Never sit proud of / through the costal outer table.
+                z = min(z, float(insert[2]) + 0.0006)
             grid[i, j] = np.array([sx * x_abs, y, z], dtype=np.float64)
 
-    sheet = grid_sheet(grid, thickness=0.0078)
+    sheet = grid_sheet(grid, thickness=0.0074)
     v = np.asarray(sheet.vertices)
     for i, pt in enumerate(v):
-        if pt[1] < 0.286:
-            continue
-        snap = _anterior_costal(1.0 if pt[0] >= 0 else -1.0, abs(float(pt[0])), float(pt[1]))
-        if snap is not None and pt[2] > float(snap[2]) + 0.0016:
-            v[i, 2] = float(snap[2]) + 0.0016
+        sx_v = 1.0 if pt[0] >= 0 else -1.0
+        x_abs = abs(float(pt[0]))
+        if pt[1] < -0.012:
+            crest = _pubic_crest(sx_v, x_abs)
+            v[i, 1] = min(float(v[i, 1]), float(crest[1]) + 0.004)
+            v[i, 2] = float(np.clip(v[i, 2], float(crest[2]) - 0.0012, float(crest[2]) + 0.0025))
+        if pt[1] > 0.268:
+            cap = _costal_insert(sx_v, min(x_abs, 0.058))
+            v[i, 2] = float(np.clip(v[i, 2], float(cap[2]) - 0.0008, float(cap[2]) + 0.0010))
+            if v[i, 1] > float(cap[1]) + 0.005:
+                v[i, 1] = float(cap[1]) + 0.003
     sheet.vertices = v
     y0, y1 = float(v[:, 1].min()), float(v[:, 1].max())
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)
@@ -422,22 +516,22 @@ def _rectus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
 
 
 def _linea_alba(p: dict[str, np.ndarray]) -> trimesh.Trimesh:
-    pub = off(p["symphyse-pubienne"], y=0.010, z=0.014)
-    xiph = p["xiphoide"]
+    pub = _pubic_crest(1.0, 0.0036)
+    xiph = _costal_insert(1.0, 0.0036)
     n_along, n_across = 40, 5
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         t = i / (n_along - 1)
-        y = min(float(mix(pub, xiph, t)[1]), float(xiph[1]) + 0.001)
-        z = float(_wall_z(y)) + 0.0048
-        snap = _anterior_costal(1.0, 0.004, y)
-        if snap is not None and t > 0.68:
-            z = min(z, float(snap[2]) + 0.0008)
-        half = 0.0052 * (0.85 + 0.15 * np.sin(t * np.pi))
+        y = float(mix(pub[1], xiph[1], t))
+        z = float(mix(pub[2], xiph[2], t**1.15))
+        z = min(z, float(_wall_z(y)) + 0.0060)
+        if t > 0.82:
+            z = min(z, float(xiph[2]) + 0.0006)
+        half = 0.0050 * (0.85 + 0.15 * np.sin(t * np.pi))
         for j in range(n_across):
             s = j / (n_across - 1)
             grid[i, j] = np.array([-half + s * 2.0 * half, y, z], dtype=np.float64)
-    sheet = grid_sheet(grid, thickness=0.0032)
+    sheet = grid_sheet(grid, thickness=0.0030)
     paint_solid(sheet, TENDON_WHITE)
     return sheet
 
@@ -479,27 +573,27 @@ def _abdominal_wrap(
 
 
 def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Fleshy IO only: iliac crest / inguinal → ribs 10–12 and linea semilunaris."""
+    """Iliac crest / inguinal → ribs 10–12; fleshy red then white aponeurosis to the linea."""
     suf = "d" if sx < 0 else "g"
     crest = p[f"crete-iliaque-{suf}"]
     eias = p[f"eias-{suf}"]
     pub = p["symphyse-pubienne"]
     inguinal = mix(eias, pub, 0.42)
     crest_post = mix(p[f"eips-{suf}"], crest, 0.55) + np.array([sx * 0.004, 0.004, -0.008])
-    rib12 = _outer_rib(sx, 0.196, prefer="antero_lateral", extra=0.0028)
-    rib11 = _outer_rib(sx, 0.224, prefer="antero_lateral", extra=0.0028)
-    rib10 = _outer_rib(sx, 0.252, prefer="antero_lateral", extra=0.0028)
+    rib12 = _chart_rib_slip(sx, 0.196)
+    rib11 = _chart_rib_slip(sx, 0.224)
+    rib10 = _chart_rib_slip(sx, 0.252)
 
-    n_along, n_across = 16, 12
+    n_along, n_across = 18, 14
     origins = (
         [mix(crest_post, crest, t) for t in np.linspace(0.0, 1.0, 6)]
-        + [mix(crest, eias, t) for t in np.linspace(0.15, 1.0, 5)]
-        + [mix(eias, inguinal, t) for t in np.linspace(0.15, 0.85, 5)]
+        + [mix(crest, eias, t) for t in np.linspace(0.2, 1.0, 6)]
+        + [mix(eias, inguinal, t) for t in np.linspace(0.2, 1.0, 6)]
     )
     dests = (
         [mix(rib12, rib11, t) for t in np.linspace(0.0, 1.0, 6)]
-        + [mix(rib11, rib10, t) for t in np.linspace(0.15, 1.0, 5)]
-        + [_torso_point(sx, 0.058, 0.22 - 0.12 * t, -0.0035) for t in np.linspace(0.0, 1.0, 5)]
+        + [mix(rib11, rib10, t) for t in np.linspace(0.2, 1.0, 6)]
+        + [_torso_point(sx, 0.007, 0.255 - 0.185 * t, -0.0025) for t in np.linspace(0.0, 1.0, 6)]
     )
 
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
@@ -509,13 +603,14 @@ def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trime
         for j in range(n_across):
             s = j / (n_across - 1)
             pt = mix(o, d, s**0.90)
-            x_abs = min(abs(float(pt[0])), float(_flank_x(pt[1])) * 0.96)
-            # Stop at the semilunar line — no rectangular aponeurosis over rectus.
-            x_abs = max(x_abs, 0.054)
+            x_abs = abs(float(pt[0]))
             y = float(pt[1])
-            grid[i, j] = _torso_point(sx, x_abs, y, -0.0040)
-    sheet = grid_sheet(grid, thickness=0.0042)
-    paint_solid(sheet)
+            grid[i, j] = _torso_point(sx, min(x_abs, float(_flank_x(y)) * 0.90), y, -0.0045)
+
+    sheet = grid_sheet(grid, thickness=0.0040)
+    v = np.asarray(sheet.vertices)
+    w = np.clip((0.056 - np.abs(v[:, 0])) / 0.026, 0.0, 1.0) ** 1.15
+    paint_tendon(sheet, w)
     return sheet
 
 
@@ -554,55 +649,83 @@ def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
                 z = float(mix(float(_flank_z(y)) - 0.018, float(_wall_z(y)) - 0.022, ss**1.12))
             grid[i, j] = np.array([sx * x_abs, y, z], dtype=np.float64)
     sheet = grid_sheet(grid, thickness=0.0032)
-    paint_solid(sheet)
+    v = np.asarray(sheet.vertices)
+    # Medial third becomes the posterior rectus sheath (tendinous / translucent).
+    w = np.clip((0.052 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0) ** 1.12
+    paint_tendon(sheet, w)
+    return sheet
+
+
+def _eo_aponeurosis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
+    """Anterior rectus sheath: EO apo along the wall, semilunar → linea, costal → pubis."""
+    n_along, n_across = 24, 12
+    grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
+    y_top = 0.306
+    y_bot = float(_pubic_crest(sx, 0.010)[1]) + 0.006
+    for i in range(n_along):
+        ty = i / (n_along - 1)
+        y = y_top * (1.0 - ty) + y_bot * ty
+        z = float(_wall_z(y)) + 0.0154
+        snap = _costal_insert(sx, 0.018) if y > 0.275 else None
+        if snap is not None:
+            z = min(z, float(snap[2]) + 0.006)
+        for j in range(n_across):
+            s = j / (n_across - 1)
+            # Hands-in-pockets: inferomedial fiber slant, not a flat rectangle.
+            y_fiber = y + (-0.72) * (0.5 - s) * 0.040
+            x_abs = mix(0.058, 0.0046, s**0.92)
+            grid[i, j] = np.array(
+                [sx * x_abs, y_fiber, z - 0.0012 * (1.0 - s)],
+                dtype=np.float64,
+            )
+    sheet = grid_sheet(grid, thickness=0.0022)
+    paint_solid(sheet, TENDON_WHITE)
     return sheet
 
 
 def _external_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Fleshy EO only: sawtooth slips on the *outer* ribs 5–12 → semilunar / iliac."""
+    """Sawtooth slips on ribs 5–12, inferomedial fibers, superficial white apo (pre-outer-ribs)."""
     suf = "d" if sx < 0 else "g"
     crest = p[f"crete-iliaque-{suf}"]
     eias = p[f"eias-{suf}"]
     pub = p["symphyse-pubienne"]
     inguinal = mix(eias, pub, 0.38)
 
-    rib_ys = np.linspace(0.388, 0.192, 8)
+    rib_ys = np.linspace(0.392, 0.188, 8)
     origins: list[np.ndarray] = []
     for k, y_rib in enumerate(rib_ys):
-        peak = _outer_rib(sx, float(y_rib), prefer="antero_lateral", extra=0.0038)
+        peak = _chart_rib_slip(sx, float(y_rib))
+        peak = peak + np.array([sx * 0.004, 0.002, 0.006])
         origins.append(peak)
         if k < len(rib_ys) - 1:
             y_v = 0.5 * (float(y_rib) + float(rib_ys[k + 1]))
-            valley = _outer_rib(sx, y_v, prefer="antero_lateral", extra=0.0024)
-            # Valley sits slightly more inferior on the intercostal outer table.
-            valley = valley + np.array([0.0, -0.006, 0.0])
+            valley = _chart_rib_slip(sx, y_v)
+            valley = valley + np.array([sx * 0.010, -0.010, 0.004])
             origins.append(valley)
 
-    n_across = 12
+    n_across = 14
     grid = np.zeros((len(origins), n_across, 3), dtype=np.float64)
     for i, o in enumerate(origins):
         t_src = i / (len(origins) - 1)
-        dest_semi = _torso_point(sx, 0.058, max(float(o[1]) - 0.090, 0.04), 0.010)
-        dest_crest = mix(inguinal, off(crest, x=sx * 0.010, z=0.004), t_src)
-        dest = mix(dest_semi, dest_crest, t_src**1.20)
-        dest[1] = min(float(dest[1]), float(o[1]) - 0.016)
-        dest = _project_outside_thorax(dest, sx, standoff=0.0024)
+        dest_linea = _torso_point(sx, 0.008, float(o[1]) - 0.085, 0.018)
+        dest_crest = mix(inguinal, off(crest, x=sx * 0.010, z=0.006), t_src)
+        dest_crest = dest_crest + np.array([0.0, 0.0, 0.010])
+        dest = mix(dest_linea, dest_crest, t_src**1.15)
+        dest[1] = min(float(dest[1]), float(o[1]) - 0.018)
         for j in range(n_across):
             s = j / (n_across - 1)
             pt = mix(o, dest, s**0.88)
-            pt = _project_outside_thorax(pt, sx, standoff=0.0028)
-            x_abs = min(abs(float(pt[0])), float(_flank_x(pt[1])) * 1.02)
-            x_abs = max(x_abs, 0.056)
+            x_abs = abs(float(pt[0]))
             y = float(pt[1])
-            layer = 0.008 + 0.004 * s
-            grid[i, j] = _torso_point(sx, x_abs, y, layer)
-            # Keep the first third of each slip on the outer rib (don't remap through the cage).
-            if s < 0.34:
-                grid[i, j] = _project_outside_thorax(mix(o, grid[i, j], s / 0.34), sx, standoff=0.0032)
+            layer = 0.012 + 0.007 * s
+            grid[i, j] = _torso_point(sx, min(x_abs, float(_flank_x(y)) * 1.04), y, layer)
 
-    flesh = grid_sheet(grid, thickness=0.0046)
-    paint_solid(flesh)
-    return flesh
+    flesh = grid_sheet(grid, thickness=0.0048)
+    v = np.asarray(flesh.vertices)
+    w = np.clip((0.060 - np.abs(v[:, 0])) / 0.018, 0.0, 1.0) ** 1.05
+    paint_tendon(flesh, w)
+    apo = _eo_aponeurosis_side(p, sx)
+    return _concat([flesh, apo])
 
 
 def enhance_external_oblique(mesh: trimesh.Trimesh, p: dict[str, np.ndarray] | None = None) -> trimesh.Trimesh:
@@ -692,17 +815,6 @@ def build() -> dict[str, trimesh.Trimesh]:
     p = load_lm()
     _ = _bone_verts()
     rectus = _concat([_rectus_side(p, -1.0), _rectus_side(p, 1.0), _linea_alba(p)])
-    rv = np.asarray(rectus.vertices)
-    for i, pt in enumerate(rv):
-        if pt[1] < 0.288:
-            continue
-        snap = _anterior_costal(1.0 if pt[0] >= 0 else -1.0, max(abs(float(pt[0])), 0.004), float(pt[1]))
-        cap = 0.171
-        if snap is not None:
-            cap = min(cap, float(snap[2]) + 0.0010)
-        if pt[2] > cap:
-            rv[i, 2] = cap
-    rectus.vertices = rv
     v = np.asarray(rectus.vertices)
     y0, y1 = float(v[:, 1].min()), float(v[:, 1].max())
     t = (v[:, 1] - y0) / max(y1 - y0, 1e-6)

@@ -41,7 +41,7 @@ vec2 fiberCirc(float around) {
 `;
 
 const GLSL_MUSCLE_ALBEDO = /* glsl */ `
-vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix, float fleshOnly) {
+vec4 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix, float tendonAlpha) {
   float along = clamp(uv.x, 0.0, 1.0);
   vec2 circ = fiberCirc(uv.y);
   float lum = dot(painted, vec3(0.299, 0.587, 0.114));
@@ -49,7 +49,6 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix, fl
   float paintTendon = smoothstep(0.42, 0.78, lum) * (1.0 - smoothstep(0.10, 0.36, chroma));
   float endCap = 1.0 - smoothstep(0.0, 0.14, min(along, 1.0 - along));
   float tendon = clamp(max(paintTendon, endCap * 0.28 * (1.0 - paintTendon)), 0.0, 1.0);
-  tendon *= (1.0 - clamp(fleshOnly, 0.0, 1.0));
   float tMix = smoothstep(0.06, 0.92, tendon);
 
   vec3 tendonCol = vec3(0.97, 0.94, 0.88);
@@ -72,7 +71,8 @@ vec3 pedagogicalMuscleAlbedo(vec2 uv, vec3 painted, vec3 tint, float tintMix, fl
   float pl = dot(col, vec3(0.32, 0.5, 0.18));
   vec3 chainCol = tint * mix(0.4, 1.2, pl);
   col = mix(col, chainCol, clamp(tintMix, 0.0, 1.0));
-  return clamp(col, 0.0, 1.0);
+  float alpha = mix(1.0, clamp(tendonAlpha, 0.12, 1.0), tMix);
+  return vec4(clamp(col, 0.0, 1.0), alpha);
 }
 `;
 
@@ -338,16 +338,16 @@ export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
   material.userData.uTint = new THREE.Color(1, 1, 1);
   material.userData.uTintMix = { value: 0 };
   material.userData.uSelected = { value: 0 };
-  material.userData.uFleshOnly = { value: 0 };
+  material.userData.uTendonAlpha = { value: 1 };
   material.userData.kind = "muscle";
   material.onBeforeCompile = (shader) => {
     shader.uniforms.uTint = { value: material.userData.uTint };
     shader.uniforms.uTintMix = material.userData.uTintMix;
     shader.uniforms.uSelected = material.userData.uSelected;
-    shader.uniforms.uFleshOnly = material.userData.uFleshOnly;
+    shader.uniforms.uTendonAlpha = material.userData.uTendonAlpha;
     shader.fragmentShader = shader.fragmentShader.replace(
       "uniform vec3 diffuse;",
-      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;\nuniform float uFleshOnly;",
+      "uniform vec3 diffuse;\nuniform vec3 uTint;\nuniform float uTintMix;\nuniform float uSelected;\nuniform float uTendonAlpha;",
     );
     shader.fragmentShader = patchAfterCommon(
       shader.fragmentShader,
@@ -359,23 +359,24 @@ export function createFiberMuscleMaterial(): THREE.MeshPhongMaterial {
       #include <color_fragment>
       {
         vec2 fiberUv = vUv;
-        vec3 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, diffuseColor.rgb, uTint, uTintMix, uFleshOnly);
+        vec4 fiberAlbedo = pedagogicalMuscleAlbedo(fiberUv, diffuseColor.rgb, uTint, uTintMix, uTendonAlpha);
         float selected = clamp(uSelected, 0.0, 1.0);
-        fiberAlbedo = mix(fiberAlbedo, fiberAlbedo * vec3(1.18, 1.08, 0.88), selected * 0.38);
+        fiberAlbedo.rgb = mix(fiberAlbedo.rgb, fiberAlbedo.rgb * vec3(1.18, 1.08, 0.88), selected * 0.38);
         #ifndef FLAT_SHADED
         vec3 nView = normalize(vNormal);
         float fres = pow(1.0 - abs(nView.z), 2.15);
-        fiberAlbedo += vec3(1.0, 0.76, 0.28) * fres * selected * 0.85;
+        fiberAlbedo.rgb += vec3(1.0, 0.76, 0.28) * fres * selected * 0.85;
         #else
-        fiberAlbedo += vec3(0.45, 0.22, 0.06) * selected * 0.16;
+        fiberAlbedo.rgb += vec3(0.45, 0.22, 0.06) * selected * 0.16;
         #endif
-        diffuseColor.rgb = fiberAlbedo;
+        diffuseColor.rgb = fiberAlbedo.rgb;
+        diffuseColor.a *= fiberAlbedo.a;
       }
       `,
     );
     material.userData.shader = shader;
   };
-  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v14-phong-chart";
+  material.customProgramCacheKey = () => "anatomy-fiber-muscle-v15-phong-apo";
   return material;
 }
 
@@ -440,7 +441,7 @@ export function setMuscleSelected(material: THREE.MeshPhongMaterial, selected: b
   material.emissiveIntensity = selected ? 0.28 : 0;
 }
 
-export function setMuscleFleshOnly(material: THREE.MeshPhongMaterial, fleshOnly: boolean) {
-  const ref = material.userData.uFleshOnly as { value: number } | undefined;
-  if (ref) ref.value = fleshOnly ? 1 : 0;
+export function setMuscleTendonAlpha(material: THREE.MeshPhongMaterial, alpha: number) {
+  const ref = material.userData.uTendonAlpha as { value: number } | undefined;
+  if (ref) ref.value = alpha;
 }

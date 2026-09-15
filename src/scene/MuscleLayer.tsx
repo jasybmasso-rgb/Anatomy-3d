@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
@@ -10,11 +11,11 @@ import {
   applyFiberUVs,
   clipPlanesForSide,
   createFiberMuscleMaterial,
-  setMuscleFleshOnly,
+  setMuscleTendonAlpha,
   setMuscleTint,
   setMuscleSelected,
 } from "./fiberMaterial";
-import { attachMuscleOutline, createMuscleOutlineMaterial } from "./muscleOutline";
+import { attachMuscleOutline, createMuscleOutlineMaterials, setOutlineResolution } from "./muscleOutline";
 
 export type MuscleLayerProps = {
   selectedMuscleId: string | null;
@@ -46,7 +47,7 @@ const THIN_SHEETS = new Set([
   "pterygoide-lateral",
 ]);
 
-const FLESH_ONLY = new Set(["oblique-externe", "oblique-interne"]);
+const APO_TRANSPARENT = new Set(["oblique-externe", "oblique-interne", "transverse-de-l-abdomen"]);
 
 /** Superficial → drawn later. Deep wall / back stay behind even if sheets kiss. */
 const WALL_ORDER: Record<string, number> = {
@@ -98,6 +99,12 @@ function visibleIds(props: MuscleLayerProps): Set<string> {
 
 export function MuscleLayer(props: MuscleLayerProps) {
   const gltf = useGLTF("/models/muscles.glb");
+  const size = useThree((state) => state.size);
+  const dpr = useThree((state) => state.viewport.dpr);
+
+  useEffect(() => {
+    setOutlineResolution(size.width * dpr, size.height * dpr);
+  }, [size.width, size.height, dpr]);
 
   const entries = useMemo(() => {
     const list: MuscleEntry[] = [];
@@ -107,9 +114,14 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const clone = src.clone(true);
       const hint = new THREE.Vector3(...(muscle.fiberAxis ?? [0, 0, 0]));
       const material = createFiberMuscleMaterial();
-      const outlineMaterial = createMuscleOutlineMaterial();
+      const outlineMaterials = createMuscleOutlineMaterials();
       if (THIN_SHEETS.has(muscle.id)) material.side = THREE.DoubleSide;
-      if (FLESH_ONLY.has(muscle.id)) setMuscleFleshOnly(material, true);
+      if (APO_TRANSPARENT.has(muscle.id)) {
+        setMuscleTendonAlpha(material, 0.34);
+        material.transparent = true;
+        material.depthWrite = true;
+        material.opacity = 1;
+      }
       const wallOff = WALL_OFFSET[muscle.id];
       if (wallOff !== undefined) {
         material.polygonOffset = true;
@@ -141,7 +153,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         obj.castShadow = getDeviceProfile().shadows;
         obj.receiveShadow = false;
         obj.material = material;
-        attachMuscleOutline(obj, outlineMaterial);
+        attachMuscleOutline(obj, outlineMaterials);
         meshes.push(obj);
       });
       clone.visible = false;
@@ -171,20 +183,27 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const tint = tintHex ? new THREE.Color(tintHex) : null;
       setMuscleTint(entry.material, tint, tint ? (selected ? 0.48 : 0.78) : 0);
       setMuscleSelected(entry.material, selected);
-      entry.material.transparent = false;
+      const apo = APO_TRANSPARENT.has(entry.id);
+      entry.material.transparent = apo;
       entry.material.opacity = 1;
       entry.material.depthWrite = true;
       const side = chainOn ? chainClipSide(entry.id, props.chainSide, props.activeChainIds) : "both";
       const planes = clipPlanesForSide(side);
       entry.material.clippingPlanes = planes;
       entry.object.traverse((obj) => {
-        if (!(obj instanceof THREE.Mesh)) return;
+        if (!(obj instanceof THREE.Mesh) && obj.type !== "LineSegments2") return;
         if (obj.name === "muscle-outline") {
-          const outlineMat = obj.material as THREE.MeshBasicMaterial;
-          outlineMat.clippingPlanes = planes;
-          obj.renderOrder = selected ? 11 : Math.max((WALL_ORDER[entry.id] ?? 5) - 1, 0);
+          const raw = (obj as THREE.Mesh).material;
+          const mats = Array.isArray(raw) ? raw : [raw];
+          for (const mat of mats) {
+            if (mat && "clippingPlanes" in mat) {
+              (mat as THREE.Material & { clippingPlanes: THREE.Plane[] }).clippingPlanes = planes;
+            }
+          }
+          obj.renderOrder = selected ? 14 : Math.max((WALL_ORDER[entry.id] ?? 5) + 3, 3);
           return;
         }
+        if (!(obj instanceof THREE.Mesh)) return;
         obj.renderOrder = selected ? 12 : (WALL_ORDER[entry.id] ?? 5);
         obj.castShadow = getDeviceProfile().shadows;
       });

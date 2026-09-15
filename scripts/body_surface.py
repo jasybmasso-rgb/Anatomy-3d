@@ -160,27 +160,29 @@ def piriformis_underside(sx: float) -> np.ndarray:
     scene = _muscle_scene()
     mesh = scene.geometry.get("piriforme")
     if mesh is None:
-        return np.array([sx * 0.055, -0.03, -0.022], dtype=float)
+        return np.array([sx * 0.052, -0.038, -0.018], dtype=float)
     v = np.asarray(mesh.vertices, dtype=np.float64)
     side = v[v[:, 0] * sx > 0.018]
     if len(side) < 12:
-        return np.array([sx * 0.055, -0.03, -0.022], dtype=float)
+        return np.array([sx * 0.052, -0.038, -0.018], dtype=float)
     xabs = np.abs(side[:, 0])
-    # Medial–mid belly sits over the greater sciatic foramen, not the GT.
-    gsf = side[(xabs > 0.028) & (xabs < 0.085)]
+    # Medial–mid belly over the greater sciatic foramen (not the GT, not the PSIS).
+    gsf = side[(xabs > 0.040) & (xabs < 0.072)]
+    if len(gsf) < 8:
+        gsf = side[(xabs > 0.028) & (xabs < 0.085)]
     if len(gsf) < 8:
         gsf = side
-    ycut = float(np.percentile(gsf[:, 1], 18))
+    ycut = float(np.percentile(gsf[:, 1], 16))
     band = gsf[gsf[:, 1] <= ycut]
     if len(band) < 4:
         band = gsf
-    zcut = float(np.percentile(band[:, 2], 22))
-    deep = band[band[:, 2] <= zcut]
-    p = deep.mean(0) if len(deep) else band.mean(0)
-    # Force the corridor inferior and posterior to the muscle (infrapiriform).
-    p[1] = min(float(p[1]), float(side[:, 1].min()) - 0.012)
-    p[2] = min(float(p[2]), -0.032)
-    return p + np.array([sx * 0.008, 0.0, -0.006], dtype=float)
+    p = band.mean(0)
+    # Just inferior and slightly deep/posterior to the belly — not 6 cm behind the sacrum.
+    p[1] = float(p[1]) - 0.005
+    z_deep = float(np.percentile(band[:, 2], 18))
+    p[2] = min(float(p[2]), z_deep) - 0.003
+    p[2] = float(np.clip(p[2], -0.030, -0.010))
+    return p
 
 
 class BodyCloud:

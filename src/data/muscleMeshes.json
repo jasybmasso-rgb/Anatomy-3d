@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi, rectus abdominis, internal oblique and transversus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas). Internal / external oblique show fleshy fibers only (no rectangular aponeurosis). Transversus is a horizontal-fiber corset (iliac / inguinal / costal / TLF). Latissimus is a T7–L5 fan sitting posterior to SPI and iliocostalis thoracis.",
+  "inclusionRules": "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique OBJ files, grouped by muscle (laterality merged; named heads concatenated). Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, abstract compartment parents. Latissimus dorsi, rectus abdominis, internal oblique and transversus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices. Temporalis, masseter and pterygoids are landmark-anchored synthetics (BP3D 4.0 excludes facial / mastication meshes from this atlas). Internal / external oblique keep fleshy fibers plus a translucent aponeurosis (anterior / posterior rectus sheath). Transversus is a horizontal-fiber corset (iliac / inguinal / costal / TLF) with a tendinous medial sheath. Latissimus is a T7–L5 fan sitting posterior to SPI and iliocostalis thoracis.",
   "count": 159,
   "countBodyparts3d": 150,
   "countSynthetic": 9,
@@ -1287,15 +1287,15 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.0,
-        0.15361,
-        0.10574
+        1e-05,
+        0.1384,
+        0.11963
       ],
       "focus": {
         "position": [
-          -0.02076,
-          0.1536,
-          0.10577
+          -0.02127,
+          0.13848,
+          0.11923
         ],
         "distance": 0.62
       },
@@ -1304,7 +1304,7 @@
         0.98,
         0.18
       ],
-      "vertexCount": 3536,
+      "vertexCount": 3519,
       "faceCount": 6344,
       "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
@@ -2091,13 +2091,13 @@
       "centroid": [
         4e-05,
         0.28072,
-        -0.00408
+        -0.00387
       ],
       "focus": {
         "position": [
-          -0.11073,
-          0.28081,
-          -0.0043
+          -0.11066,
+          0.28075,
+          -0.00411
         ],
         "distance": 0.62
       },
@@ -3349,15 +3349,15 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        -0.00019,
-        0.21856,
-        0.0921
+        0.00021,
+        0.16606,
+        0.10863
       ],
       "focus": {
         "position": [
-          -0.11169,
-          0.2186,
-          0.09197
+          -0.05334,
+          0.16623,
+          0.10873
         ],
         "distance": 0.62
       },
@@ -3366,8 +3366,8 @@
         -0.92,
         0.18
       ],
-      "vertexCount": 720,
-      "faceCount": 1232,
+      "vertexCount": 1992,
+      "faceCount": 3480,
       "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
@@ -3415,15 +3415,15 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.00025,
-        0.13536,
-        0.05764
+        0.0,
+        0.13378,
+        0.06127
       ],
       "focus": {
         "position": [
-          -0.10073,
-          0.13549,
-          0.05775
+          -0.08718,
+          0.13369,
+          0.06126
         ],
         "distance": 0.62
       },
@@ -3432,8 +3432,8 @@
         0.92,
         0.18
       ],
-      "vertexCount": 768,
-      "faceCount": 1286,
+      "vertexCount": 1006,
+      "faceCount": 1672,
       "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {

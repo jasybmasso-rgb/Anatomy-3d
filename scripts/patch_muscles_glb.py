@@ -41,8 +41,9 @@ INCLUSION = (
     INCLUSION_RULES
     + " Temporalis, masseter and pterygoids are landmark-anchored synthetics "
     "(BP3D 4.0 excludes facial / mastication meshes from this atlas). "
-    "Internal / external oblique show fleshy fibers only (no rectangular aponeurosis). "
-    "Transversus is a horizontal-fiber corset (iliac / inguinal / costal / TLF). "
+    "Internal / external oblique keep fleshy fibers plus a translucent aponeurosis "
+    "(anterior / posterior rectus sheath). Transversus is a horizontal-fiber corset "
+    "(iliac / inguinal / costal / TLF) with a tendinous medial sheath. "
     "Latissimus is a T7–L5 fan sitting posterior to SPI and iliocostalis thoracis."
 )
 
