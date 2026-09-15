@@ -19,10 +19,9 @@ export function setOutlineResolution(width: number, height: number) {
 }
 
 function createHullMaterial(): THREE.MeshBasicMaterial {
-  const low = getDeviceProfile().lowEnd;
-  const pixels = low ? 2.4 : 2.8;
+  const pixels = getDeviceProfile().lowEnd ? 4.2 : 5.2;
   const material = new THREE.MeshBasicMaterial({
-    color: "#0a0a0c",
+    color: "#000000",
     side: THREE.BackSide,
     depthWrite: false,
     depthTest: true,
@@ -37,29 +36,32 @@ function createHullMaterial(): THREE.MeshBasicMaterial {
     material.userData.shader = shader;
     shader.vertexShader = `uniform float uPixels;\nuniform vec2 uResolution;\n${shader.vertexShader}`;
     shader.vertexShader = shader.vertexShader.replace(
+      "#include <begin_vertex>",
+      `#include <begin_vertex>
+       transformed += normalize(objectNormal) * 0.0014;`,
+    );
+    shader.vertexShader = shader.vertexShader.replace(
       "#include <project_vertex>",
       `#include <project_vertex>
        {
          vec3 nView = normalize(transformedNormal);
          vec2 nSS = nView.xy;
-         float nLen = length(nSS);
-         if (nLen > 1e-5) nSS /= nLen;
-         else nSS = vec2(1.0, 0.0);
+         float nLen = max(length(nSS), 1e-5);
+         nSS /= nLen;
          float px = uPixels * gl_Position.w * 2.0 / max(uResolution.y, 1.0);
          gl_Position.xy += nSS * px;
        }`,
     );
   };
-  material.customProgramCacheKey = () => `anatomy-muscle-outline-hull-ss-${pixels}`;
+  material.customProgramCacheKey = () => `anatomy-muscle-outline-hull-ss-v4-${pixels}`;
   outlineHullMaterials.push(material);
   return material;
 }
 
 function createEdgeMaterial(): LineMaterial {
-  const low = getDeviceProfile().lowEnd;
   const mat = new LineMaterial({
-    color: 0x0a0a0c,
-    linewidth: low ? 1.8 : 2.4,
+    color: 0x000000,
+    linewidth: getDeviceProfile().lowEnd ? 2.8 : 3.4,
     dashed: false,
     worldUnits: false,
     depthTest: true,
@@ -68,7 +70,11 @@ function createEdgeMaterial(): LineMaterial {
     toneMapped: false,
   });
   mat.resolution.copy(sharedResolution);
+  mat.clipping = true;
   mat.clippingPlanes = [];
+  mat.polygonOffset = true;
+  mat.polygonOffsetFactor = -6;
+  mat.polygonOffsetUnits = -6;
   outlineLineMaterials.push(mat);
   return mat;
 }
@@ -93,9 +99,7 @@ export function attachMuscleOutline(mesh: THREE.Mesh, materials: MuscleOutlineBu
   hull.renderOrder = (mesh.renderOrder ?? 0) + 2;
   mesh.add(hull);
 
-  if (getDeviceProfile().lowEnd) return;
-
-  const threshold = 32;
+  const threshold = getDeviceProfile().lowEnd ? 38 : 28;
   const edges = new THREE.EdgesGeometry(mesh.geometry, threshold);
   const pos = edges.getAttribute("position");
   if (pos && pos.count >= 2) {
@@ -104,8 +108,8 @@ export function attachMuscleOutline(mesh: THREE.Mesh, materials: MuscleOutlineBu
     const lines = new LineSegments2(lg, materials.edges);
     lines.name = "muscle-outline";
     lines.raycast = () => {};
-    lines.frustumCulled = true;
-    lines.renderOrder = (mesh.renderOrder ?? 0) + 3;
+    lines.frustumCulled = false;
+    lines.renderOrder = (mesh.renderOrder ?? 0) + 4;
     mesh.add(lines);
   }
   edges.dispose();

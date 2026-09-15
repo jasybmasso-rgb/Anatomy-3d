@@ -1,5 +1,5 @@
 import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
@@ -99,12 +99,10 @@ function visibleIds(props: MuscleLayerProps): Set<string> {
 
 export function MuscleLayer(props: MuscleLayerProps) {
   const gltf = useGLTF("/models/muscles.glb");
-  const size = useThree((state) => state.size);
-  const dpr = useThree((state) => state.viewport.dpr);
 
-  useEffect(() => {
-    setOutlineResolution(size.width * dpr, size.height * dpr);
-  }, [size.width, size.height, dpr]);
+  useFrame(({ size: frameSize, viewport }) => {
+    setOutlineResolution(frameSize.width * viewport.dpr, frameSize.height * viewport.dpr);
+  });
 
   const entries = useMemo(() => {
     const list: MuscleEntry[] = [];
@@ -117,7 +115,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const outlineMaterials = createMuscleOutlineMaterials();
       if (THIN_SHEETS.has(muscle.id)) material.side = THREE.DoubleSide;
       if (APO_TRANSPARENT.has(muscle.id)) {
-        setMuscleTendonAlpha(material, 0.34);
+        setMuscleTendonAlpha(material, 0.42);
         material.transparent = true;
         material.depthWrite = true;
         material.opacity = 1;
