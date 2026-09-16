@@ -78,7 +78,10 @@ export function SidePanel({
   const title = muscle?.name ?? viscera?.name ?? connective?.name;
   const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? null;
   return (
-    <aside className="panel" aria-label={title ? `Fiche : ${title}` : "Fiche anatomique"}>
+    <aside
+      className={`panel${showFicheFullscreen ? " panel-has-toolbar" : ""}`}
+      aria-label={title ? `Fiche : ${title}` : "Fiche anatomique"}
+    >
       {showFicheFullscreen ? (
         <div className="panel-toolbar">
           <FullscreenToggle

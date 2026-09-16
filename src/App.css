@@ -272,10 +272,15 @@
   z-index: 3;
   display: flex;
   justify-content: flex-end;
-  margin: -1.15rem -1.2rem 1rem;
+  align-items: center;
+  margin: 0 0 0.85rem;
   padding: 0.7rem 1.2rem 0.65rem;
   background: #121926;
   border-bottom: 1px solid #243044;
+}
+
+.panel-has-toolbar {
+  padding-top: 0;
 }
 
 .fs-btn-panel {
@@ -325,7 +330,7 @@
 }
 
 .app[data-layout="fiche"] .panel-toolbar {
-  margin-top: calc(-1.15rem + env(safe-area-inset-top, 0px));
+  padding-top: max(0.7rem, env(safe-area-inset-top, 0px));
   padding-left: max(1.2rem, env(safe-area-inset-left, 0px));
   padding-right: max(1.2rem, env(safe-area-inset-right, 0px));
 }
