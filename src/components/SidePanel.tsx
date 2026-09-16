@@ -11,6 +11,7 @@ import type {
 } from "../types/structure";
 import { STRUCTURE_KIND_LABEL } from "../types/structure";
 import { ChainDetails } from "./ChainPicker";
+import { FullscreenToggle } from "./FullscreenToggle";
 import { MuscleVisibilityPanel } from "./MuscleVisibilityPanel";
 
 const REGION_LABEL: Record<string, string> = {
@@ -52,6 +53,9 @@ type SidePanelProps = {
   activeChainIds: string[];
   chainSide: ChainSide;
   onChainSideChange: (side: ChainSide) => void;
+  ficheFullscreen: boolean;
+  showFicheFullscreen: boolean;
+  onToggleFicheFullscreen: () => void;
 };
 
 export function SidePanel({
@@ -67,11 +71,24 @@ export function SidePanel({
   activeChainIds,
   chainSide,
   onChainSideChange,
+  ficheFullscreen,
+  showFicheFullscreen,
+  onToggleFicheFullscreen,
 }: SidePanelProps) {
   const title = muscle?.name ?? viscera?.name ?? connective?.name;
   const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? null;
   return (
     <aside className="panel" aria-label={title ? `Fiche : ${title}` : "Fiche anatomique"}>
+      {showFicheFullscreen ? (
+        <div className="panel-toolbar">
+          <FullscreenToggle
+            className="fs-btn-panel"
+            active={ficheFullscreen}
+            enterLabel="Fiche en plein écran"
+            onToggle={onToggleFicheFullscreen}
+          />
+        </div>
+      ) : null}
       <MuscleVisibilityPanel
         muscles={allMuscles}
         viscera={[...nerves, ...organs, ...vessels]}

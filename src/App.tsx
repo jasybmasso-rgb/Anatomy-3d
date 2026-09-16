@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FullscreenToggle } from "./components/FullscreenToggle";
 import { LayerMenu, DEFAULT_LAYERS, type LayerId, type LayerState } from "./components/LayerMenu";
 import { ChainLegend } from "./components/ChainPicker";
 import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
@@ -8,6 +9,7 @@ import { muscleIdsForChains, type ChainSide } from "./data/chains";
 import { connective, getConnectiveById } from "./data/loadConnective";
 import { muscles, getMuscleById } from "./data/loadMuscles";
 import { nerves, organs, vessels, getVisceraById } from "./data/loadViscera";
+import { useCompactLayout, useLayoutMode } from "./lib/useLayoutMode";
 import { AnatomyScene } from "./scene/AnatomyScene";
 import { applyImmediateHighlight, clearImmediateHighlight } from "./scene/selectionHighlight";
 import type { StructureKind, SelectionState, HiddenMap } from "./types/structure";
@@ -32,6 +34,9 @@ export function App() {
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
   const [chainSide, setChainSide] = useState<ChainSide>("both");
   const [pinnedMuscleId, setPinnedMuscleId] = useState<string | null>(null);
+  const compact = useCompactLayout();
+  const { mode: layoutMode, exit: exitLayout, toggle: toggleLayout } = useLayoutMode();
+  const showFicheFullscreen = compact || layoutMode === "fiche";
 
   const selectedMuscle =
     selection?.kind === "muscle" ? getMuscleById(selection.id) : null;
@@ -55,6 +60,7 @@ export function App() {
     setChainSide("both");
     setLayers(DEFAULT_LAYERS);
     setPinnedMuscleId(null);
+    exitLayout();
   }
 
   function setLayer(id: LayerId, value: boolean) {
@@ -96,7 +102,7 @@ export function App() {
   }
 
   return (
-    <div className="app">
+    <div className="app" data-layout={layoutMode}>
       <header className="topbar">
         <div className="brand">
           <p className="brand-mark">Anatomy-3d</p>
@@ -157,6 +163,12 @@ export function App() {
               panoramique
             </p>
           ) : null}
+          <FullscreenToggle
+            className="fs-btn-viewport"
+            active={layoutMode === "viewport"}
+            enterLabel="Plein écran"
+            onToggle={() => toggleLayout("viewport")}
+          />
         </div>
         <SidePanel
           muscle={selectedMuscle}
@@ -171,6 +183,9 @@ export function App() {
           activeChainIds={activeChainIds}
           chainSide={chainSide}
           onChainSideChange={setChainSide}
+          ficheFullscreen={layoutMode === "fiche"}
+          showFicheFullscreen={showFicheFullscreen}
+          onToggleFicheFullscreen={() => toggleLayout("fiche")}
         />
       </div>
     </div>
