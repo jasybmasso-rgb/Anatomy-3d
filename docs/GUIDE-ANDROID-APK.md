@@ -6,15 +6,15 @@ Cette version embarque le build Vite (WebView + WebGL) et les maillages GLB. Les
 
 ## Télécharger l’APK
 
-Lien public (GitHub Release, prerelease `apk-anatomy-pass-atlas`) — **enregistrer le fichier**, pas un artefact Cursor :
+Lien public (GitHub Release, prerelease `apk-mobile-fullscreen`, 16 sept. 2026) — **enregistrer le fichier**, pas un artefact Cursor :
 
-**https://github.com/jasybmasso-rgb/Anatomy-3d/releases/download/apk-anatomy-pass-atlas/Anatomy-3d-1.0-debug-anatomy-pass-atlas.apk**
+**https://github.com/jasybmasso-rgb/Anatomy-3d/releases/download/apk-mobile-fullscreen/Anatomy-3d-1.0-debug-mobile-fs.apk**
 
-Page de la release : https://github.com/jasybmasso-rgb/Anatomy-3d/releases/tag/apk-anatomy-pass-atlas
+Page de la release : https://github.com/jasybmasso-rgb/Anatomy-3d/releases/tag/apk-mobile-fullscreen
 
-Fichier : `Anatomy-3d-1.0-debug-anatomy-pass-atlas.apk` (**~87 Mo**). Il n’est pas versionné dans Git ; le CDN GitHub envoie `Content-Disposition: attachment` pour forcer le téléchargement.
+Fichier : `Anatomy-3d-1.0-debug-mobile-fs.apk` (**~60 Mo**). Il n’est pas versionné dans Git ; le CDN GitHub envoie `Content-Disposition: attachment` pour forcer le téléchargement.
 
-Cette build embarque les maillages à jour : fascias calés, ligaments sans têtes de champignon, nerfs synthetic-v3 (racines foraminales, sciatique sous le piriforme), paroi abdominale empilée, shader fibres rouges / tendons blancs, plus `nerves.glb`, `organs.glb` et `vessels.glb`.
+Cette build (commit `8dd44e2`) remplace `apk-anatomy-pass-atlas`. Elle inclut le **plein écran mobile** (vue 3D + fiche anatomique), **sans contours noirs**, plus les correctifs EO / aponévroses / droit / sciatique, les maillages atlas (fascias calés, ligaments, nerfs synthetic-v3, paroi empilée, shader fibres/tendons) et `nerves.glb`, `organs.glb`, `vessels.glb`.
 
 ```bash
 npm install
