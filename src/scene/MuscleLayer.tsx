@@ -47,6 +47,12 @@ const THIN_SHEETS = new Set([
 
 const APO_TRANSPARENT = new Set(["oblique-externe", "oblique-interne", "transverse-de-l-abdomen"]);
 
+/**
+ * Shared uniform `uTendonAlpha` for the OE / OI / TA aponeuroses.
+ * 0.5 = 50% opacity on tendon-painted vertices; fleshy fibers stay at alpha 1.
+ */
+const APONEUROSIS_OPACITY = 0.5;
+
 /** Superficial → drawn later. Deep wall / back stay behind even if sheets kiss. */
 const WALL_ORDER: Record<string, number> = {
   "transverse-de-l-abdomen": 1,
@@ -108,7 +114,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
       const material = createFiberMuscleMaterial();
       if (THIN_SHEETS.has(muscle.id)) material.side = THREE.DoubleSide;
       if (APO_TRANSPARENT.has(muscle.id)) {
-        setMuscleTendonAlpha(material, 0.42);
+        setMuscleTendonAlpha(material, APONEUROSIS_OPACITY);
         material.transparent = true;
         material.depthWrite = true;
         material.opacity = 1;
@@ -126,7 +132,11 @@ export function MuscleLayer(props: MuscleLayerProps) {
         if (!obj.geometry.getAttribute("normal")) {
           obj.geometry.computeVertexNormals();
         }
-        applyFiberUVs(obj.geometry, hint.lengthSq() > 1e-8 ? hint : undefined);
+        applyFiberUVs(
+          obj.geometry,
+          hint.lengthSq() > 1e-8 ? hint : undefined,
+          muscle.id === "oblique-externe",
+        );
         if (!obj.geometry.getAttribute("color")) {
           const n = obj.geometry.getAttribute("position").count;
           const rgb = new Float32Array(n * 3);

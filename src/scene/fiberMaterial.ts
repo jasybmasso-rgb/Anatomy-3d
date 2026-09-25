@@ -170,8 +170,26 @@ export function pcaLongAxis(
   return _axis.clone();
 }
 
-/** U along the mesh long axis (PCA, aligned with O→I hint), V around the belly. */
-export function applyFiberUVs(geometry: THREE.BufferGeometry, fiberAxis?: THREE.Vector3) {
+/**
+ * Hint authored on the patient-right half: +X means toward the midline.
+ * The left half flips X so an inferomedial external oblique stays inferomedial.
+ */
+function lockedFiberAxis(hint: THREE.Vector3, meanX: number): THREE.Vector3 {
+  const axis = hint.clone();
+  if (Math.abs(axis.x) > 1e-5) axis.x = Math.abs(axis.x) * (meanX >= 0 ? -1 : 1);
+  if (axis.lengthSq() < 1e-10) axis.set(0, -1, 0);
+  return axis.normalize();
+}
+
+/** U along the mesh long axis (PCA, aligned with O→I hint), V around the belly.
+ *  lockHint forces that axis (mirrored per side) instead of the PCA long axis —
+ *  used so the external oblique striations run hands-in-pockets, not vertically.
+ */
+export function applyFiberUVs(
+  geometry: THREE.BufferGeometry,
+  fiberAxis?: THREE.Vector3,
+  lockHint = false,
+) {
   const pos = geometry.getAttribute("position");
   if (!pos) return;
   const hint = fiberAxis?.clone();
@@ -181,7 +199,15 @@ export function applyFiberUVs(geometry: THREE.BufferGeometry, fiberAxis?: THREE.
   const groups = collectHalves(pos as THREE.BufferAttribute);
 
   for (const indices of groups) {
-    const axis = pcaLongAxis(pos as THREE.BufferAttribute, indices, hint && hint.lengthSq() > 0 ? hint : undefined);
+    let axis: THREE.Vector3;
+    if (lockHint && hint && hint.lengthSq() > 1e-8) {
+      let meanX = 0;
+      for (const i of indices) meanX += pos.getX(i);
+      meanX /= Math.max(indices.length, 1);
+      axis = lockedFiberAxis(hint, meanX);
+    } else {
+      axis = pcaLongAxis(pos as THREE.BufferAttribute, indices, hint && hint.lengthSq() > 0 ? hint : undefined);
+    }
     if (axis.lengthSq() < 1e-10) axis.set(0, 1, 0);
 
     _centroid.set(0, 0, 0);

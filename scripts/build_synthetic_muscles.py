@@ -656,74 +656,222 @@ def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
     return sheet
 
 
+# Rib 12 (posterior) → rib 5 (anterior). Heights sit between serratus slips.
+# notch_depth is how far the valley between this rib and the next one drops.
+_EO_RIBS: tuple[tuple[float, float, float], ...] = (
+    (0.172, -0.014, 0.042),
+    (0.198, -0.006, 0.048),
+    (0.230, 0.000, 0.056),
+    (0.262, 0.004, 0.060),
+    (0.294, 0.006, 0.058),
+    (0.318, 0.008, 0.054),
+    (0.344, 0.010, 0.048),
+    (0.378, 0.012, 0.042),
+)
+
+# Anterior surface of rectus — the EO aponeurosis lies just in front of it.
+_RECTUS_Y = np.array([-0.055, 0.00, 0.06, 0.12, 0.18, 0.24, 0.30], dtype=np.float64)
+_RECTUS_Z = np.array([0.100, 0.098, 0.106, 0.118, 0.136, 0.160, 0.172], dtype=np.float64)
+
+
+def _rectus_ant_z(y: float) -> float:
+    return float(np.interp(y, _RECTUS_Y, _RECTUS_Z))
+
+
+def _eo_seat(sx: float, x_abs: float, y: float, lift: float = 0.008) -> np.ndarray:
+    """Flank envelope laterally, just superficial to rectus when medial.
+
+    Does not project onto the rib cage — that shove was pinning the aponeurosis
+    on the flank instead of letting it cross the rectus.
+    """
+    y = float(y)
+    x_lat = float(_flank_x(y))
+    x_abs = float(np.clip(x_abs, 0.0035, x_lat * 1.06 + 0.012))
+    span = max(x_lat - 0.006, 0.02)
+    s = float(np.clip((x_lat - x_abs) / span, 0.0, 1.0))
+    z = float(mix(_flank_z(y), _rectus_ant_z(y), s**1.08))
+    x_abs = x_abs + lift * (1.0 - s) * 0.70
+    z = z + 0.0035 + lift * (0.35 + 0.40 * s)
+    return np.array([sx * x_abs, y, z], dtype=np.float64)
+
+
+def _eo_rib_anchor(sx: float, y: float, z_bias: float) -> np.ndarray:
+    """Outer lateral rib, proud of serratus — digitation tip on the profile."""
+    v = _cage_pts()
+    mask = (
+        _side_mask(v, sx)
+        & (np.abs(v[:, 1] - y) < 0.016)
+        & (v[:, 2] > -0.005)
+        & (np.abs(v[:, 0]) > 0.075)
+        & (np.abs(v[:, 0]) < 0.152)
+    )
+    pts = v[mask]
+    if len(pts) < 8:
+        mask = (
+            _side_mask(v, sx)
+            & (np.abs(v[:, 1] - y) < 0.030)
+            & (v[:, 2] > -0.02)
+            & (np.abs(v[:, 0]) > 0.06)
+            & (np.abs(v[:, 0]) < 0.158)
+        )
+        pts = v[mask]
+    if len(pts) == 0:
+        return _eo_seat(sx, 0.128, y, 0.012)
+    score = np.abs(pts[:, 0]) * 1.35 + 0.20 * pts[:, 2]
+    p = pts[int(score.argmax())].copy()
+    p[0] += sx * 0.012
+    p[2] += 0.008 + z_bias
+    p[1] = y
+    p = _project_outside_thorax(p, sx, standoff=0.0045)
+    p[1] = y
+    p[0] += sx * 0.004
+    return p
+
+
+def _eo_crest(sx: float, z: float) -> np.ndarray:
+    """External lip of the iliac crest at this anteroposterior station."""
+    v = _bone_verts()
+    mask = (
+        _side_mask(v, sx)
+        & (np.abs(v[:, 2] - z) < 0.016)
+        & (v[:, 1] > 0.025)
+        & (v[:, 1] < 0.125)
+        & (np.abs(v[:, 0]) > 0.072)
+        & (np.abs(v[:, 0]) < 0.158)
+    )
+    pts = v[mask]
+    if len(pts) < 6:
+        mask = (
+            _side_mask(v, sx)
+            & (np.abs(v[:, 2] - z) < 0.032)
+            & (v[:, 1] > 0.02)
+            & (v[:, 1] < 0.13)
+            & (np.abs(v[:, 0]) > 0.065)
+            & (np.abs(v[:, 0]) < 0.160)
+        )
+        pts = v[mask]
+    if len(pts) == 0:
+        return np.array([sx * 0.112, 0.082, z], dtype=np.float64)
+    score = pts[:, 1] + 0.06 * np.abs(pts[:, 0])
+    p = pts[int(score.argmax())].copy()
+    p[1] += 0.0035
+    p[0] += sx * 0.0035
+    p[2] += 0.0030
+    return p
+
+
+def _eo_transition(sx: float, u: float) -> np.ndarray:
+    """Fleshy → aponeurotic border. u=0 superior (semilunar), u=1 ASIS."""
+    u = float(np.clip(u, 0.0, 1.0))
+    y = float(mix(0.228, 0.052, u**0.88))
+    x_abs = float(mix(0.050, 0.120, u**0.76))
+    pt = _eo_seat(sx, x_abs, y, lift=0.011)
+    if u > 0.84:
+        z = float(mix(0.055, 0.090, (u - 0.84) / 0.16))
+        crest = _eo_crest(sx, z)
+        pt = mix(pt, crest, ((u - 0.84) / 0.16) ** 0.85)
+    return pt
+
+
+def _eo_origin(sx: float, t: float) -> np.ndarray:
+    """Serrated costal border, rib 12 (t=0) → rib 5 (t=1), valleys between slips."""
+    ribs = _EO_RIBS
+    n = len(ribs)
+    x = float(np.clip(t, 0.0, 1.0)) * (n - 1)
+    i = min(int(np.floor(x)), n - 2)
+    local = x - i
+    y0, z0, depth = ribs[i]
+    y1, z1, _depth1 = ribs[i + 1]
+    y = float(mix(y0, y1, local))
+    z_bias = float(mix(z0, z1, local))
+    notch = float(np.sin(local * np.pi) ** 1.55)
+    base = _eo_rib_anchor(sx, y, z_bias)
+    base[1] -= depth * notch
+    # Tuck the valley medially so each slip reads as its own finger.
+    base[0] -= sx * 0.022 * notch
+    base[2] -= 0.006 * notch
+    return base
+
+
+def _eo_dest(sx: float, t: float) -> np.ndarray:
+    """Posterior fibers reach the iliac crest; anterior fibers stop at the apo line."""
+    t = float(np.clip(t, 0.0, 1.0))
+    if t < 0.58:
+        u = t / 0.58
+        # Lateral lip of the crest (not the posterior medial ilium).
+        z = float(mix(0.030, 0.090, u**0.90))
+        return _eo_crest(sx, z)
+    u = (t - 0.58) / 0.42
+    return _eo_transition(sx, 1.0 - u)
+
+
 def _eo_aponeurosis_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Anterior rectus sheath: EO apo along the wall, semilunar → linea, costal → pubis."""
-    n_along, n_across = 24, 12
+    """Inferomedial sheet over the rectus: semilunar → linea, ASIS → pubic crest.
+
+    Painted tendon-white so the shared uTendonAlpha uniform can make it 50% opaque.
+    A slim lateral blend stays red where it meets the fleshy belly.
+    """
+    del p
+    n_along, n_across = 22, 14
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
-    y_top = 0.306
-    y_bot = float(_pubic_crest(sx, 0.010)[1]) + 0.006
     for i in range(n_along):
-        ty = i / (n_along - 1)
-        y = y_top * (1.0 - ty) + y_bot * ty
-        z = float(_wall_z(y)) + 0.0154
-        snap = _costal_insert(sx, 0.018) if y > 0.275 else None
-        if snap is not None:
-            z = min(z, float(snap[2]) + 0.006)
+        u = i / (n_along - 1)
+        lat = _eo_transition(sx, u)
+        y_lat = float(lat[1])
+        pub = _pubic_crest(sx, float(mix(0.020, 0.006, u)))
+        y_med = float(mix(y_lat - 0.010, float(pub[1]) + 0.003, u**1.02))
+        y_med = min(y_med, y_lat - 0.003)
+        med = _eo_seat(sx, 0.0046, max(y_med, float(pub[1]) + 0.002), lift=0.013)
+        if u > 0.72:
+            k = (u - 0.72) / 0.28
+            med = mix(med, pub + np.array([0.0, 0.0022, 0.0035]), k**0.75)
         for j in range(n_across):
             s = j / (n_across - 1)
-            # Hands-in-pockets: inferomedial fiber slant, not a flat rectangle.
-            y_fiber = y + (-0.72) * (0.5 - s) * 0.040
-            x_abs = mix(0.058, 0.0046, s**0.92)
-            grid[i, j] = np.array(
-                [sx * x_abs, y_fiber, z - 0.0012 * (1.0 - s)],
-                dtype=np.float64,
-            )
-    sheet = grid_sheet(grid, thickness=0.0022)
-    paint_solid(sheet, TENDON_WHITE)
+            y = float(mix(y_lat, float(med[1]), s**0.94))
+            x_abs = float(mix(abs(float(lat[0])), abs(float(med[0])), s**0.90))
+            pt = _eo_seat(sx, x_abs, y, lift=0.012)
+            if s < 0.10:
+                pt = mix(lat, pt, s / 0.10)
+            elif s > 0.90:
+                pt = mix(pt, med, (s - 0.90) / 0.10)
+            grid[i, j] = pt
+    sheet = grid_sheet(grid, thickness=0.0017)
+    v = np.asarray(sheet.vertices)
+    x = np.abs(v[:, 0])
+    x_trans = np.interp(v[:, 1], [-0.04, 0.04, 0.10, 0.18, 0.26], [0.118, 0.112, 0.090, 0.066, 0.056])
+    blend = np.clip((x_trans - x) / 0.016, 0.0, 1.0) ** 0.55
+    medial = np.clip((x_trans - 0.014 - x) / 0.010, 0.0, 1.0)
+    paint_tendon(sheet, np.maximum(blend, medial))
     return sheet
 
 
 def _external_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Sawtooth slips on ribs 5–12, inferomedial fibers, superficial white apo (pre-outer-ribs)."""
-    suf = "d" if sx < 0 else "g"
-    crest = p[f"crete-iliaque-{suf}"]
-    eias = p[f"eias-{suf}"]
-    pub = p["symphyse-pubienne"]
-    inguinal = mix(eias, pub, 0.38)
+    """Chart EO: costal digitations, hands-in-pockets fibers, iliac crest, anterior apo.
 
-    rib_ys = np.linspace(0.392, 0.188, 8)
-    origins: list[np.ndarray] = []
-    for k, y_rib in enumerate(rib_ys):
-        peak = _chart_rib_slip(sx, float(y_rib))
-        peak = peak + np.array([sx * 0.004, 0.002, 0.006])
-        origins.append(peak)
-        if k < len(rib_ys) - 1:
-            y_v = 0.5 * (float(y_rib) + float(rib_ys[k + 1]))
-            valley = _chart_rib_slip(sx, y_v)
-            valley = valley + np.array([sx * 0.010, -0.010, 0.004])
-            origins.append(valley)
-
-    n_across = 14
-    grid = np.zeros((len(origins), n_across, 3), dtype=np.float64)
-    for i, o in enumerate(origins):
-        t_src = i / (len(origins) - 1)
-        dest_linea = _torso_point(sx, 0.008, float(o[1]) - 0.085, 0.018)
-        dest_crest = mix(inguinal, off(crest, x=sx * 0.010, z=0.006), t_src)
-        dest_crest = dest_crest + np.array([0.0, 0.0, 0.010])
-        dest = mix(dest_linea, dest_crest, t_src**1.15)
-        dest[1] = min(float(dest[1]), float(o[1]) - 0.018)
+    Fleshy belly stays fully red (opaque). Only the aponeurosis is tendon-white.
+    """
+    n_along, n_across = 40, 16
+    grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
+    for i in range(n_along):
+        t = i / (n_along - 1)
+        origin = _eo_origin(sx, t)
+        dest = _eo_dest(sx, t)
         for j in range(n_across):
             s = j / (n_across - 1)
-            pt = mix(o, dest, s**0.88)
-            x_abs = abs(float(pt[0]))
-            y = float(pt[1])
-            layer = 0.012 + 0.007 * s
-            grid[i, j] = _torso_point(sx, min(x_abs, float(_flank_x(y)) * 1.04), y, layer)
-
-    flesh = grid_sheet(grid, thickness=0.0048)
-    v = np.asarray(flesh.vertices)
-    w = np.clip((0.060 - np.abs(v[:, 0])) / 0.018, 0.0, 1.0) ** 1.05
-    paint_tendon(flesh, w)
+            pt = mix(origin, dest, s**0.88)
+            if s < 0.96:
+                seated = _eo_seat(sx, abs(float(pt[0])), float(pt[1]), lift=0.009 + 0.003 * (1.0 - s))
+                # Keep the sawtooth slips intact over the proximal part of each fiber.
+                if s < 0.42:
+                    keep = (1.0 - s / 0.42) ** 1.05
+                    pt = mix(seated, origin, keep)
+                else:
+                    pt = seated
+            else:
+                pt = mix(pt, dest, (s - 0.96) / 0.04)
+            grid[i, j] = pt
+    flesh = grid_sheet(grid, thickness=0.0060)
+    paint_solid(flesh, MUSCLE_RED)
     apo = _eo_aponeurosis_side(p, sx)
     return _concat([flesh, apo])
 

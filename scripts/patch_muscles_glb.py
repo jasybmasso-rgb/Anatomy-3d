@@ -31,7 +31,9 @@ from build_synthetic_muscles import (  # noqa: E402
 _FIBER_AXIS_OVERRIDE = {
     "transverse-de-l-abdomen": [1.0, 0.04, 0.02],
     "oblique-interne": [0.0, 0.92, 0.18],
-    "oblique-externe": [0.0, -0.92, 0.18],
+    # Patient-right inferomedial (hands-in-pockets). +X is toward the midline;
+    # applyFiberUVs mirrors X on the left half.
+    "oblique-externe": [0.55, -0.72, 0.42],
     "droit-abdomen": [0.0, 0.98, 0.18],
     "grand-dorsal": [0.0, 0.88, 0.28],
 }
