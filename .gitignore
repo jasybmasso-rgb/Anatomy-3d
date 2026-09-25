@@ -9,3 +9,12 @@ dist
 .idea
 __pycache__/
 *.pyc
+android/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/captures/
+android/local.properties
+*.apk
+*.aab
+*.ap_

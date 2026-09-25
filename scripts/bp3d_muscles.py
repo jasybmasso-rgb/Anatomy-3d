@@ -129,6 +129,8 @@ STABLE_IDS = {
     "soleus": "soleaire",
     "tibialis anterior": "tibial-anterieur",
     "external oblique": "oblique-externe",
+    "internal oblique": "oblique-interne",
+    "transversus abdominis": "transverse-de-l-abdomen",
     "supraspinatus": "supra-epineux",
     "latissimus dorsi": "grand-dorsal",
     "rectus abdominis": "droit-abdomen",

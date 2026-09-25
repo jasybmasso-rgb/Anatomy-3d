@@ -1,0 +1,24 @@
+{
+  "glbBytes": 2996024,
+  "glbMiB": 2.86,
+  "partCount": 88,
+  "countBodyparts3d": 88,
+  "countSynthetic": 0,
+  "vertexCount": 60298,
+  "faceCount": 105458,
+  "maxFacesPerPart": 1800,
+  "license": "CC BY-SA 2.1 Japan (BP3D meshes); synthetic-v2 tubes are original educational approximations",
+  "alignedTo": "public/models/skeleton.glb",
+  "inclusionRules": "Vaisseaux sanguins seulement : troncs art\u00e9riels et veineux nomm\u00e9s BodyParts3D (aorte, carotides, iliaques, f\u00e9morales, pulmonaires, caves, portes, coronaires\u2026) plus un arbre art\u00e9riel et un arbre veineux r\u00e9siduels pour les branches non nomm\u00e9es. Pas d\u2019organes (c\u0153ur-muscle, poumons, foie) dans cette couche.",
+  "missingPriorityNames": [
+    "right external carotid artery",
+    "left external carotid artery",
+    "right deep femoral artery",
+    "left deep femoral artery",
+    "anterior interventricular branch of left coronary artery",
+    "right external jugular vein",
+    "left external jugular vein",
+    "right pulmonary vein",
+    "left pulmonary vein"
+  ]
+}
