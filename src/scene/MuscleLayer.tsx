@@ -135,7 +135,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         applyFiberUVs(
           obj.geometry,
           hint.lengthSq() > 1e-8 ? hint : undefined,
-          muscle.id === "oblique-externe",
+          muscle.id === "oblique-externe" || muscle.id === "oblique-interne",
         );
         if (!obj.geometry.getAttribute("color")) {
           const n = obj.geometry.getAttribute("position").count;

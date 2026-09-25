@@ -572,46 +572,160 @@ def _abdominal_wrap(
     return grid
 
 
-def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Iliac crest / inguinal → ribs 10–12; fleshy red then white aponeurosis to the linea."""
-    suf = "d" if sx < 0 else "g"
-    crest = p[f"crete-iliaque-{suf}"]
-    eias = p[f"eias-{suf}"]
-    pub = p["symphyse-pubienne"]
-    inguinal = mix(eias, pub, 0.42)
-    crest_post = mix(p[f"eips-{suf}"], crest, 0.55) + np.array([sx * 0.004, 0.004, -0.008])
-    rib12 = _chart_rib_slip(sx, 0.196)
-    rib11 = _chart_rib_slip(sx, 0.224)
-    rib10 = _chart_rib_slip(sx, 0.252)
+# Posterior rib 12 → anterior rib 10. Each station is snapped to the inferior lip.
+_IO_LIP_GUIDES: tuple[tuple[float, float, float], ...] = (
+    (0.114, 0.158, 0.042),  # rib 12
+    (0.122, 0.176, 0.076),  # rib 11
+    (0.123, 0.206, 0.100),  # rib 11 anterior
+    (0.118, 0.236, 0.124),  # rib 10
+    (0.106, 0.256, 0.138),  # rib 10 anterior lip, just under the costal margin
+)
 
-    n_along, n_across = 18, 14
-    origins = (
-        [mix(crest_post, crest, t) for t in np.linspace(0.0, 1.0, 6)]
-        + [mix(crest, eias, t) for t in np.linspace(0.2, 1.0, 6)]
-        + [mix(eias, inguinal, t) for t in np.linspace(0.2, 1.0, 6)]
-    )
-    dests = (
-        [mix(rib12, rib11, t) for t in np.linspace(0.0, 1.0, 6)]
-        + [mix(rib11, rib10, t) for t in np.linspace(0.2, 1.0, 6)]
-        + [_torso_point(sx, 0.007, 0.255 - 0.185 * t, -0.0025) for t in np.linspace(0.0, 1.0, 6)]
-    )
 
+def _io_bone_lip(sx: float, x_abs: float, y: float, z: float) -> np.ndarray:
+    """Inferior edge of the rib that passes this station — not a lower rib nearby."""
+    v = _cage_pts()
+    side = v[_side_mask(v, sx)]
+    dx = np.abs(side[:, 0]) - x_abs
+    dz = side[:, 2] - z
+    dist = np.sqrt(dx * dx + dz * dz)
+    near = side[dist < 0.016]
+    if len(near) < 4:
+        near = side[dist < 0.028]
+    band = near[np.abs(near[:, 1] - y) < 0.016] if len(near) else near
+    if len(band) < 3:
+        band = near[np.abs(near[:, 1] - y) < 0.028] if len(near) else near
+    if len(band) == 0:
+        return np.array([sx * x_abs, y - 0.003, z], dtype=np.float64)
+    ymin = float(band[:, 1].min())
+    lip = band[band[:, 1] <= ymin + 0.004]
+    score = (np.abs(lip[:, 0]) - x_abs) ** 2 + (lip[:, 2] - z) ** 2
+    p = lip[int(score.argmin())].copy()
+    # Sit just under that rib's inferior margin.
+    p[1] -= 0.0030
+    p[0] -= sx * 0.0014
+    return p
+
+
+def _io_costal(sx: float, t: float) -> np.ndarray:
+    """Superior border: rib 12 (t=0) → rib 10 (t=1), then the semilunar corner."""
+    t = float(np.clip(t, 0.0, 1.0))
+    guides = _IO_LIP_GUIDES
+    # First 85% rides the bony lips; the last stretch reaches the rectus sheath.
+    if t < 0.86:
+        u = t / 0.86
+        x = u * (len(guides) - 1)
+        i = min(int(np.floor(x)), len(guides) - 2)
+        local = x - i
+        a = np.array(guides[i], dtype=np.float64)
+        b = np.array(guides[i + 1], dtype=np.float64)
+        g = a * (1.0 - local) + b * local
+        return _io_bone_lip(sx, float(g[0]), float(g[1]), float(g[2]))
+    u = (t - 0.86) / 0.14
+    rib10 = _io_bone_lip(sx, guides[-1][0], guides[-1][1], guides[-1][2])
+    corner = _io_seat(sx, 0.056, float(rib10[1]) - 0.004 * u, deep=0.006)
+    return mix(rib10, corner, u**0.85)
+
+
+def _io_seat(sx: float, x_abs: float, y: float, deep: float = 0.008) -> np.ndarray:
+    """Deep to external oblique: flank inset, sheath plane medially."""
+    y = float(y)
+    x_lat = float(_flank_x(y)) * 0.92
+    x_abs = float(np.clip(x_abs, 0.004, max(x_lat, 0.02)))
+    span = max(x_lat - 0.006, 0.02)
+    s = float(np.clip((x_lat - x_abs) / span, 0.0, 1.0))
+    z_lat = float(_flank_z(y)) - 0.010
+    z_wall = _rectus_ant_z(y) - 0.010
+    z = float(mix(z_lat, z_wall, s**1.05)) - deep * 0.25
+    return np.array([sx * x_abs, y, z], dtype=np.float64)
+
+
+def _io_origin(sx: float, t: float) -> np.ndarray:
+    """Iliac crest (t=0) → inguinal end of the fleshy belly (t=1)."""
+    t = float(np.clip(t, 0.0, 1.0))
+    if t < 0.68:
+        u = t / 0.68
+        z = float(mix(0.022, 0.090, u**0.92))
+        crest = _eo_crest(sx, z)
+        crest[0] -= sx * 0.005
+        crest[2] -= 0.003
+        return crest
+    u = (t - 0.68) / 0.32
+    crest = _eo_crest(sx, 0.090)
+    crest[0] -= sx * 0.005
+    # Fleshy inguinal end stays lateral to the sheath; apo continues to the pubis.
+    inguinal = _io_seat(sx, float(mix(abs(float(crest[0])), 0.058, u)), float(mix(crest[1], 0.028, u**0.9)))
+    return mix(crest, inguinal, u)
+
+
+def _io_aponeurosis_side(sx: float) -> trimesh.Trimesh:
+    """Medial sheath: semilunar → linea, rib-10 height → pubis. Tendon white."""
+    n_along, n_across = 16, 10
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
+    top = _io_costal(sx, 1.0)
+    bot = _io_origin(sx, 1.0)
+    pub = _pubic_crest(sx, 0.010)
     for i in range(n_along):
-        o = origins[i]
-        d = dests[i]
+        u = i / (n_along - 1)
+        lat = mix(top, bot, u**0.96)
+        y_lat = float(lat[1])
+        y_med = float(mix(y_lat - 0.006, float(pub[1]) + 0.004, u**1.05))
+        y_med = min(y_med, y_lat - 0.002)
+        med = _io_seat(sx, 0.0048, y_med, deep=0.004)
+        if u > 0.78:
+            med = mix(med, pub + np.array([0.0, 0.002, 0.002]), ((u - 0.78) / 0.22) ** 0.8)
         for j in range(n_across):
             s = j / (n_across - 1)
-            pt = mix(o, d, s**0.90)
-            x_abs = abs(float(pt[0]))
-            y = float(pt[1])
-            grid[i, j] = _torso_point(sx, min(x_abs, float(_flank_x(y)) * 0.90), y, -0.0045)
-
-    sheet = grid_sheet(grid, thickness=0.0040)
+            y = float(mix(y_lat, float(med[1]), s**0.95))
+            x_abs = float(mix(abs(float(lat[0])), abs(float(med[0])), s**0.92))
+            pt = _io_seat(sx, x_abs, y, deep=0.005)
+            if s < 0.12:
+                pt = mix(lat, pt, s / 0.12)
+            elif s > 0.88:
+                pt = mix(pt, med, (s - 0.88) / 0.12)
+            grid[i, j] = pt
+    sheet = grid_sheet(grid, thickness=0.0016)
     v = np.asarray(sheet.vertices)
-    w = np.clip((0.056 - np.abs(v[:, 0])) / 0.026, 0.0, 1.0) ** 1.15
-    paint_tendon(sheet, w)
+    x = np.abs(v[:, 0])
+    x_trans = np.interp(v[:, 1], [-0.02, 0.04, 0.12, 0.22], [0.070, 0.064, 0.058, 0.056])
+    blend = np.clip((x_trans - x) / 0.014, 0.0, 1.0) ** 0.6
+    medial = np.clip((x_trans - 0.012 - x) / 0.008, 0.0, 1.0)
+    paint_tendon(sheet, np.maximum(blend, medial))
     return sheet
+
+
+def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
+    """Crest / inguinal → inferior margins of ribs 12–10; apo to the rectus sheath.
+
+    Fibers run superomedially (opposite the external oblique). Fleshy belly is
+    fully red; only the sheath is tendon-white.
+    """
+    del p
+    n_along, n_across = 28, 14
+    grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
+    for i in range(n_along):
+        t = i / (n_along - 1)
+        origin = _io_origin(sx, t)
+        dest = _io_costal(sx, t)
+        for j in range(n_across):
+            s = j / (n_across - 1)
+            pt = mix(origin, dest, s**0.90)
+            if 0.06 < s < 0.90:
+                seated = _io_seat(sx, abs(float(pt[0])), float(pt[1]), deep=0.007)
+                # Keep y on the fiber; tuck x/z onto the deep wall.
+                belly = float(np.sin((s - 0.06) / 0.84 * np.pi))
+                pt = np.array(
+                    [
+                        mix(float(pt[0]), float(seated[0]), 0.55 * belly),
+                        float(pt[1]),
+                        mix(float(pt[2]), float(seated[2]), 0.65 * belly),
+                    ],
+                    dtype=np.float64,
+                )
+            grid[i, j] = pt
+    flesh = grid_sheet(grid, thickness=0.0046)
+    paint_solid(flesh, MUSCLE_RED)
+    return _concat([flesh, _io_aponeurosis_side(sx)])
 
 
 def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
