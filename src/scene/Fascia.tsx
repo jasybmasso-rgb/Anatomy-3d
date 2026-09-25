@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import {
   fasciaIdsForChains,
+  fasciaSideOf,
   matchesChainSide,
   tintForFascia,
   type ChainSide,
@@ -120,7 +121,6 @@ export function Fascia({
   useEffect(() => {
     const hidden = new Set(hiddenIds);
     const chainIds = chainLayerOn ? new Set(fasciaIdsForChains(activeChainIds)) : new Set<string>();
-    const planes = clipPlanesForSide(chainLayerOn ? chainSide : "both");
     const pick: THREE.Mesh[] = [];
     for (const entry of entries) {
       const inChain = chainIds.has(entry.id);
@@ -130,7 +130,10 @@ export function Fascia({
       if (!on) continue;
       const tint = inChain ? tintForFascia(entry.id, activeChainIds) : null;
       paintFascia(entry.material, entry.source, tint, entry.id === selectedId);
-      entry.material.clippingPlanes = planes;
+      // Midline sheets (thoracolumbar fascia) stay whole so the BFL can cross the sacrum.
+      const clip =
+        chainLayerOn && fasciaSideOf(entry.id) !== "mid" ? chainSide : "both";
+      entry.material.clippingPlanes = clipPlanesForSide(clip);
       pick.push(...entry.meshes);
     }
     setPickMeshes("fascia", pick);

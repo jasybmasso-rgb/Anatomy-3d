@@ -18,7 +18,7 @@ export type MyofascialChain = {
   tint: string;
   muscleIds: string[];
   fasciaIds?: string[];
-  /** SPL only: stations on the opposite side of the named spiral (Myers helix). */
+  /** Stations shown on the opposite side when a unilateral chain is selected (SPL helix, FFL/BFL X). */
   contraMuscleIds?: string[];
 };
 
@@ -107,7 +107,7 @@ export function getChainById(id: string | null | undefined): MyofascialChain | n
   return chains.find((chain) => chain.id === id) ?? null;
 }
 
-/** Opposite-side SPL stations when a unilateral spiral is selected. */
+/** Opposite-side stations of the active chains (SPL helix, FFL/BFL lower limb). */
 export function contraMuscleIdsForChains(activeIds: string[]): Set<string> {
   const ids = new Set<string>();
   for (const chain of chains) {
@@ -117,12 +117,24 @@ export function contraMuscleIdsForChains(activeIds: string[]): Set<string> {
   return ids;
 }
 
-/** Clip side for a muscle. SPL uses Myers crossed laterality; other chains stay ipsilateral. */
+/**
+ * Clip side for a muscle.
+ * FFL/BFL/SPL list the lower or crossed stations in contraMuscleIds so one
+ * named side still draws the diagonal that crosses the midline.
+ * IFL has no contra list, so it stays on the selected side.
+ * If two active chains disagree, both halves stay visible.
+ */
 export function chainClipSide(muscleId: string, side: ChainSide, activeIds: string[]): ChainSide {
   if (side === "both") return "both";
-  if (contraMuscleIdsForChains(activeIds).has(muscleId)) {
-    return side === "right" ? "left" : "right";
+  let wantsContra = false;
+  let wantsIpsi = false;
+  for (const chain of chains) {
+    if (!activeIds.includes(chain.id) || !chain.muscleIds.includes(muscleId)) continue;
+    if ((chain.contraMuscleIds ?? []).includes(muscleId)) wantsContra = true;
+    else wantsIpsi = true;
   }
+  if (wantsContra && wantsIpsi) return "both";
+  if (wantsContra) return side === "right" ? "left" : "right";
   return side;
 }
 

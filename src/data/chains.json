@@ -323,15 +323,17 @@
         "en": "Front Functional Line"
       },
       "description": {
-        "fr": "Pont poitrine–abdomen–adducteurs, souvent lu d’un côté vers l’autre dans les gestes de lancer ou de transfert d’appui.",
-        "en": "Chest–abdomen–adductor bridge, often read contralaterally in throwing or weight transfer."
+        "fr": "Grand pectoral et droit du même côté, croisement à la symphyse pubienne, puis long adducteur controlatéral. Un seul côté trace cette diagonale ; les deux côtés forment le X antérieur.",
+        "en": "Same-side pectoralis major and rectus, cross at the pubic symphysis, then contralateral adductor longus. One side draws that diagonal; both sides form the front X."
       },
       "tint": "#c45c7a",
       "muscleIds": [
         "grand-pectoral",
         "droit-abdomen",
-        "long-adducteur",
-        "grand-adducteur"
+        "long-adducteur"
+      ],
+      "contraMuscleIds": [
+        "long-adducteur"
       ],
       "fasciaIds": []
     },
@@ -344,12 +346,16 @@
         "en": "Back Functional Line"
       },
       "description": {
-        "fr": "Pont grand dorsal–grand fessier–vaste latéral. Lecture fréquente des foulées et des rotations du tronc vers le membre opposé.",
-        "en": "Latissimus–gluteus maximus–vastus lateralis bridge. Often read in gait and trunk rotation toward the opposite limb."
+        "fr": "Grand dorsal du même côté, croisement du fascia thoraco-lombaire près de la charnière sacro-lombaire, puis grand fessier et vaste latéral controlatéraux. Un seul côté trace cette diagonale ; les deux côtés forment le X postérieur. Pas de fascia sacré séparé : le fascia thoraco-lombaire sert de pont.",
+        "en": "Same-side latissimus, cross through thoracolumbar fascia near the sacrolumbar junction, then contralateral gluteus maximus and vastus lateralis. One side draws that diagonal; both sides form the back X. No separate sacral fascia mesh: thoracolumbar fascia is the bridge."
       },
       "tint": "#4a8f5c",
       "muscleIds": [
         "grand-dorsal",
+        "grand-fessier",
+        "vaste-lateral"
+      ],
+      "contraMuscleIds": [
         "grand-fessier",
         "vaste-lateral"
       ],
@@ -366,23 +372,16 @@
         "en": "Ipsilateral Functional Line"
       },
       "description": {
-        "fr": "Continuité du même côté entre thorax, oblique et sangle de hanche (sartorius, tenseur du fascia lata) dans les appuis unilatéraux.",
-        "en": "Same-side continuity between thorax, oblique and hip sling (sartorius, TFL) in unilateral stance."
+        "fr": "Même côté seulement, sans croisement : fibres latérales du grand dorsal, oblique externe, sartorius de l’EIAS jusqu’au genou médial.",
+        "en": "Same side only, no midline cross: lateral latissimus, external oblique, sartorius from the ASIS to the medial knee."
       },
       "tint": "#d4a017",
       "muscleIds": [
-        "grand-pectoral",
         "grand-dorsal",
         "oblique-externe",
-        "sartorius",
-        "tenseur-du-fascia-lata"
+        "sartorius"
       ],
-      "fasciaIds": [
-        "fascia-lata-d",
-        "fascia-lata-g",
-        "tractus-ilio-tibial-d",
-        "tractus-ilio-tibial-g"
-      ]
+      "fasciaIds": []
     }
   ]
 }

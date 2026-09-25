@@ -75,6 +75,12 @@ export function ChainPicker({
           simple.
         </p>
       ) : null}
+      {(activeChainIds.includes("ffl") || activeChainIds.includes("bfl")) && chainSide !== "both" ? (
+        <p className="chain-disclaimer">
+          FFL et BFL unilatérales : le segment inférieur est controlatéral (X de Myers). L’IFL ne
+          croise pas.
+        </p>
+      ) : null}
       {groups.map((group) => (
         <div key={group} className="chain-group">
           {compact ? null : <p className="chain-group-label">{GROUP_LABEL[group]}</p>}
@@ -133,6 +139,12 @@ export function ChainDetails({
         <p className="chain-disclaimer">
           SPL unilatérale : latéralité croisée (hélice de Myers), pas un filtre gauche/droite
           simple.
+        </p>
+      ) : null}
+      {(activeChainIds.includes("ffl") || activeChainIds.includes("bfl")) && chainSide !== "both" ? (
+        <p className="chain-disclaimer">
+          FFL et BFL unilatérales : le segment inférieur est controlatéral (X de Myers). L’IFL ne
+          croise pas.
         </p>
       ) : null}
       <ul className="chain-detail-list">
