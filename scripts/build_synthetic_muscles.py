@@ -728,44 +728,161 @@ def _internal_oblique_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trime
     return _concat([flesh, _io_aponeurosis_side(sx)])
 
 
+# Inner face of costal cartilages 12 → 7 (lateral/low → medial/high).
+_TA_COSTAL: tuple[tuple[float, float], ...] = (
+    (0.108, 0.158),  # rib 12
+    (0.110, 0.198),  # rib 11
+    (0.106, 0.234),  # rib 10
+    (0.096, 0.256),  # rib 9
+    (0.086, 0.274),  # rib 8, lateral end of 7
+    (0.058, 0.236),  # cartilage 7 meeting the sheath, still under the apo
+)
+
+# Right-side EO+IO vertices, used to keep TA tucked under their flesh.
+_OBLIQUE_CLOUD: np.ndarray | None = None
+
+
+def _oblique_cover_cloud(p: dict[str, np.ndarray]) -> np.ndarray:
+    """Patient-right oblique vertices. Built once so TA can sit just deep to them."""
+    global _OBLIQUE_CLOUD
+    if _OBLIQUE_CLOUD is None:
+        eo = np.asarray(_external_oblique_side(p, -1.0).vertices)
+        io = np.asarray(_internal_oblique_side(p, -1.0).vertices)
+        cloud = np.vstack([eo, io])
+        _OBLIQUE_CLOUD = cloud[cloud[:, 0] < 0.0]
+    return _OBLIQUE_CLOUD
+
+
+def _ta_y_limit(p: dict[str, np.ndarray], x_abs: float) -> float:
+    """Highest y the obliques still cover at this laterality."""
+    cloud = _oblique_cover_cloud(p)
+    x_abs = float(x_abs)
+    band = cloud[np.abs(np.abs(cloud[:, 0]) - x_abs) < 0.014]
+    if len(band) < 8:
+        band = cloud[np.abs(np.abs(cloud[:, 0]) - x_abs) < 0.026]
+    if len(band) < 4:
+        return 0.228
+    return float(band[:, 1].max()) - 0.006
+
+
+def _ta_costal_xy(s: float) -> tuple[float, float]:
+    guides = _TA_COSTAL
+    x = float(np.clip(s, 0.0, 1.0)) * (len(guides) - 1)
+    i = min(int(np.floor(x)), len(guides) - 2)
+    local = x - i
+    a = guides[i]
+    b = guides[i + 1]
+    return (a[0] * (1.0 - local) + b[0] * local, a[1] * (1.0 - local) + b[1] * local)
+
+
+def _ta_under_obliques(p: dict[str, np.ndarray], x_abs: float, y: float, s_medial: float) -> float:
+    """Depth on the inner abdominal wall: behind oblique flesh, in front of their back lip.
+
+    The old sheet reached the spinous processes and showed behind OE/OI.
+    """
+    cloud = _oblique_cover_cloud(p)
+    y = float(y)
+    x_abs = float(x_abs)
+    dist = np.hypot(np.abs(cloud[:, 0]) - x_abs, cloud[:, 1] - y)
+    tight = cloud[dist < 0.016]
+    wide = cloud[dist < 0.030]
+    if len(tight) < 8:
+        tight = wide
+    z_sheath = _rectus_ant_z(y) - 0.016
+    if len(wide) < 6:
+        return z_sheath
+    z_back = float(np.percentile(tight[:, 2], 15))
+    z_front = float(np.percentile(wide[:, 2], 94))
+    z_tuck = z_back + 0.005
+    z = float(mix(z_tuck, z_sheath, float(np.clip(s_medial, 0.0, 1.0)) ** 0.90))
+    z_hi = z_front - 0.012
+    z_lo = z_back + 0.003
+    # Prefer staying behind the superficial face when the sheet is thin.
+    if z_hi <= z_lo:
+        return z_hi
+    return float(min(max(z, z_lo), z_hi))
+
+
+def _ta_inner_cartilage(p: dict[str, np.ndarray], sx: float, x_abs: float, y: float) -> np.ndarray:
+    """Inner face of a costal cartilage: a few millimetres deep to its anterior lip."""
+    v = _cage_pts()
+    side = v[_side_mask(v, sx)]
+    dist = np.hypot(np.abs(side[:, 0]) - x_abs, side[:, 1] - y)
+    near = side[dist < 0.018]
+    if len(near) < 4:
+        near = side[dist < 0.032]
+    if len(near) == 0:
+        z = _ta_under_obliques(p, x_abs, y, 0.15)
+        return np.array([sx * x_abs, y, z], dtype=np.float64)
+    z_cut = float(np.percentile(near[:, 2], 82))
+    lip = near[near[:, 2] >= z_cut]
+    score = (np.abs(lip[:, 0]) - x_abs) ** 2 + 0.35 * (lip[:, 1] - y) ** 2
+    pt = lip[int(score.argmin())].copy()
+    pt[2] -= 0.006
+    pt[0] -= sx * 0.003
+    pt[2] = min(float(pt[2]), _ta_under_obliques(p, abs(float(pt[0])), float(pt[1]), 0.2))
+    return pt
+
+
+def _ta_lateral(p: dict[str, np.ndarray], sx: float, t: float) -> np.ndarray:
+    """Posterolateral edge: rib 12 inner face → iliac crest (thoracolumbar / crest origin)."""
+    t = float(np.clip(t, 0.0, 1.0))
+    rib = _ta_inner_cartilage(p, sx, _TA_COSTAL[0][0], _TA_COSTAL[0][1])
+    crest = _eo_crest(sx, 0.034)
+    crest[0] -= sx * 0.008
+    crest[1] -= 0.004
+    pt = mix(rib, crest, t**0.96)
+    x_abs = min(abs(float(pt[0])), float(_flank_x(float(pt[1]))) * 0.88)
+    z = _ta_under_obliques(p, x_abs, float(pt[1]), 0.0)
+    return np.array([sx * x_abs, float(pt[1]), z], dtype=np.float64)
+
+
+def _ta_medial(p: dict[str, np.ndarray], sx: float, t: float) -> np.ndarray:
+    """Linea alba from the 7th costal cartilage down to the pubic crest."""
+    t = float(np.clip(t, 0.0, 1.0))
+    rib = _ta_inner_cartilage(p, sx, _TA_COSTAL[-1][0], _TA_COSTAL[-1][1])
+    y = float(mix(float(rib[1]), -0.050, t**1.02))
+    x_abs = float(mix(max(abs(float(rib[0])), 0.018), 0.010, t))
+    z = _ta_under_obliques(p, x_abs, y, 1.0)
+    if t > 0.78:
+        pub = _pubic_crest(sx, 0.010)
+        pub[2] -= 0.005
+        return mix(np.array([sx * x_abs, y, z], dtype=np.float64), pub, ((t - 0.78) / 0.22) ** 0.85)
+    return np.array([sx * x_abs, y, z], dtype=np.float64)
+
+
 def _transversus_side(p: dict[str, np.ndarray], sx: float) -> trimesh.Trimesh:
-    """Horizontal-fiber corset: TLF / iliac / inguinal → costal margin → linea alba."""
-    from body_surface import posterior_midline
+    """Deep corset: inner costal cartilages 7–12, crest, inguinal → linea alba / pubis.
 
-    suf = "d" if sx < 0 else "g"
-    crest = p[f"crete-iliaque-{suf}"]
-    eias = p[f"eias-{suf}"]
-    eips = p[f"eips-{suf}"]
-    pub = p["symphyse-pubienne"]
-    xiph = p["xiphoide"]
-
-    n_along, n_across = 20, 16
+    Horizontal fibers. The belly sits on the deep face of the anterior wall,
+    tucked under the obliques instead of running back to the spine.
+    """
+    n_along, n_across = 24, 16
     grid = np.zeros((n_along, n_across, 3), dtype=np.float64)
     for i in range(n_along):
         t = i / (n_along - 1)
+        lateral = _ta_lateral(p, sx, t)
+        medial = _ta_medial(p, sx, t)
         for j in range(n_across):
             s = j / (n_across - 1)
-            # Superior border follows the costal margin (high medial, low lateral).
-            y_costal = mix(0.198, float(xiph[1]) - 0.022, s**1.15)
-            # Inferior border: iliac crest / inguinal toward pubis.
-            y_iliac = mix(float(crest[1]) + 0.006, float(pub[1]) + 0.018, s**0.88)
-            y = float(mix(y_costal, y_iliac, t))
-            # s=0 posterior-lateral (TLF), s=1 linea alba.
-            x_post = mix(abs(float(eips[0])) + 0.034, float(_flank_x(y)) * 0.90, 0.40)
-            x_abs = float(mix(x_post, 0.0070, s**0.82))
-            if s < 0.28:
-                spin = posterior_midline(y, ywin=0.016)
-                z_post = float(spin[2]) + 0.010 + 0.028 * (s / 0.28)
-                z_lat = float(_flank_z(y)) - 0.018
-                z = float(mix(z_post, z_lat, s / 0.28))
-            else:
-                ss = (s - 0.28) / 0.72
-                z = float(mix(float(_flank_z(y)) - 0.018, float(_wall_z(y)) - 0.022, ss**1.12))
+            pt = mix(lateral, medial, s**0.90)
+            # Top fibers originate on the inner costal cartilages.
+            if t < 0.20:
+                cx, cy = _ta_costal_xy(s)
+                cart = _ta_inner_cartilage(p, sx, cx, cy)
+                pt = mix(cart, pt, t / 0.20)
+            x_abs = abs(float(pt[0]))
+            y = min(float(pt[1]), _ta_y_limit(p, x_abs))
+            x_abs = min(x_abs, float(_flank_x(y)) * 0.90)
+            # Always the tucked depth. Cartilage points only steer x/y; their
+            # raw inner-face z sits behind the obliques and would show through.
+            z = _ta_under_obliques(p, x_abs, y, s)
             grid[i, j] = np.array([sx * x_abs, y, z], dtype=np.float64)
-    sheet = grid_sheet(grid, thickness=0.0032)
+    sheet = grid_sheet(grid, thickness=0.0026)
     v = np.asarray(sheet.vertices)
-    # Medial third becomes the posterior rectus sheath (tendinous / translucent).
-    w = np.clip((0.052 - np.abs(v[:, 0])) / 0.022, 0.0, 1.0) ** 1.12
+    # Posterior rectus sheath: medial to the semilunar line. Flesh stays opaque.
+    x_trans = np.interp(v[:, 1], [-0.04, 0.04, 0.14, 0.26], [0.058, 0.056, 0.050, 0.040])
+    w = np.clip((x_trans - np.abs(v[:, 0])) / 0.016, 0.0, 1.0) ** 0.85
     paint_tendon(sheet, w)
     return sheet
 

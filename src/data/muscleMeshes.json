@@ -5413,15 +5413,15 @@
       "fmaIds": [],
       "fileIds": [],
       "centroid": [
-        0.00036,
-        0.14505,
-        0.04604
+        -0.00021,
+        0.11281,
+        0.08662
       ],
       "focus": {
         "position": [
-          -0.04474,
-          0.14502,
-          0.04603
+          -0.06823,
+          0.11262,
+          0.08651
         ],
         "distance": 0.62
       },
@@ -5430,8 +5430,8 @@
         0.04,
         0.02
       ],
-      "vertexCount": 1280,
-      "faceCount": 2280,
+      "vertexCount": 1536,
+      "faceCount": 2760,
       "notes": "Schéma pédagogique ancré sur le squelette BodyParts3D (même worldMatrix). BodyParts3D 4.0 n’a pas d’OBJ dédié. Attachments selon O/I classiques ; ce n’est pas une segmentation cadavérique."
     },
     {
