@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Z-Anatomy — paroi abdominale, essai de décimation</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #e6e1d8;
+        --ink: #1c1915;
+        --muted: #5c564c;
+        --panel: rgba(255, 252, 247, 0.92);
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 14px/1.4 "Segoe UI", sans-serif; }
+      header {
+        display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+        padding: 10px 14px; background: var(--panel); border-bottom: 1px solid #d4cec3;
+      }
+      header h1 { font-size: 15px; font-weight: 650; margin: 0 8px 0 0; }
+      header p { margin: 0; color: var(--muted); font-size: 12px; }
+      button, select {
+        font: inherit; background: #fff; border: 1px solid #c9c2b6; border-radius: 6px;
+        padding: 4px 8px; cursor: pointer;
+      }
+      button[aria-pressed="true"] { background: #1c1915; color: #fff; border-color: #1c1915; }
+      #stage { position: absolute; inset: 52px 0 0 0; }
+      body.shot header { display: none; }
+      body.shot #stage { inset: 0; }
+      .label {
+        position: absolute; left: 10px; top: 8px; z-index: 2;
+        background: var(--panel); padding: 4px 8px; border-radius: 6px;
+        font-size: 12px; pointer-events: none;
+      }
+      .label b { font-weight: 650; }
+      .label span { color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Paroi abdominale</h1>
+      <p>Z-Anatomy — même caméra, même lumière</p>
+      <button type="button" id="grid" aria-pressed="true">Grille</button>
+      <button type="button" id="single" aria-pressed="false">Une vue</button>
+      <select id="variant"></select>
+      <button type="button" id="front">3/4 face</button>
+      <button type="button" id="close">Marge costale</button>
+      <label><input type="checkbox" id="lod" /> LOD 25 % / 5 %</label>
+      <span id="fps"></span>
+    </header>
+    <div id="stage"></div>
+    <script type="module" src="/src/viewer.js"></script>
+  </body>
+</html>

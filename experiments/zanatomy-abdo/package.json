@@ -1,0 +1,21 @@
+{
+  "name": "zanatomy-abdo-experiment",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5179",
+    "simplify": "node scripts/simplify.mjs",
+    "compress": "node scripts/compress.mjs",
+    "bench": "node scripts/bench.mjs"
+  },
+  "dependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
+    "draco3dgltf": "^1.5.7",
+    "meshoptimizer": "^1.3.0",
+    "puppeteer-core": "^24.43.1",
+    "three": "^0.186.1",
+    "vite": "^8.3.2"
+  }
+}
