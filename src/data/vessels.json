@@ -1,0 +1,4101 @@
+{
+  "version": 1,
+  "defaultVisible": false,
+  "inclusionRules": "Vaisseaux sanguins seulement : troncs artériels et veineux nommés BodyParts3D (aorte, carotides, iliaques, fémorales, pulmonaires, caves, portes, coronaires…) plus un arbre artériel et un arbre veineux résiduels pour les branches non nommées. Pas d’organes (cœur-muscle, poumons, foie) dans cette couche.",
+  "count": 88,
+  "countBodyparts3d": 88,
+  "countSynthetic": 0,
+  "vessels": [
+    {
+      "id": "aorte-ascendante",
+      "name": "Aorte ascendante",
+      "nameLatin": "ascending aorta",
+      "aliases": [
+        "ascending aorta"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "ascending aorta"
+      ],
+      "fmaIds": [
+        "FMA3736"
+      ],
+      "fileIds": [
+        "FJ3413"
+      ],
+      "centroid": [
+        0.01052,
+        0.39801,
+        0.07869
+      ],
+      "focus": {
+        "position": [
+          0.01052,
+          0.39801,
+          0.07869
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 229,
+      "faceCount": 396,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "arc-aortique",
+      "name": "Arc aortique",
+      "nameLatin": "arch of aorta",
+      "aliases": [
+        "arch of aorta"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "arch of aorta"
+      ],
+      "fmaIds": [
+        "FMA3768"
+      ],
+      "fileIds": [
+        "FJ3411"
+      ],
+      "centroid": [
+        0.01515,
+        0.43119,
+        0.05369
+      ],
+      "focus": {
+        "position": [
+          0.01515,
+          0.43119,
+          0.05369
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 381,
+      "faceCount": 670,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "aorte-thoracique-descendante",
+      "name": "Aorte thoracique descendante",
+      "nameLatin": "descending thoracic aorta",
+      "aliases": [
+        "descending thoracic aorta"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "descending thoracic aorta"
+      ],
+      "fmaIds": [
+        "FMA87217"
+      ],
+      "fileIds": [
+        "FJ1931"
+      ],
+      "centroid": [
+        0.0183,
+        0.36914,
+        0.02844
+      ],
+      "focus": {
+        "position": [
+          0.0183,
+          0.36914,
+          0.02844
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 730,
+      "faceCount": 1399,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "aorte-abdominale",
+      "name": "Aorte abdominale",
+      "nameLatin": "abdominal aorta",
+      "aliases": [
+        "abdominal aorta"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "abdominal aorta"
+      ],
+      "fmaIds": [
+        "FMA3789"
+      ],
+      "fileIds": [
+        "FJ1932"
+      ],
+      "centroid": [
+        0.00798,
+        0.16521,
+        0.07099
+      ],
+      "focus": {
+        "position": [
+          0.00798,
+          0.16521,
+          0.07099
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 733,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "tronc-brachio-cephalique",
+      "name": "Tronc brachio-céphalique",
+      "nameLatin": "brachiocephalic artery",
+      "aliases": [
+        "brachiocephalic artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "brachiocephalic artery"
+      ],
+      "fmaIds": [
+        "FMA3932"
+      ],
+      "fileIds": [
+        "FJ3417"
+      ],
+      "centroid": [
+        -0.00478,
+        0.4647,
+        0.06769
+      ],
+      "focus": {
+        "position": [
+          -0.00478,
+          0.4647,
+          0.06769
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 160,
+      "faceCount": 262,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-carotide-commune-droite",
+      "name": "Artère carotide commune droite",
+      "nameLatin": "right common carotid artery",
+      "aliases": [
+        "right common carotid artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right common carotid artery"
+      ],
+      "fmaIds": [
+        "FMA3941"
+      ],
+      "fileIds": [
+        "FJ3564"
+      ],
+      "centroid": [
+        -0.01514,
+        0.48777,
+        0.0677
+      ],
+      "focus": {
+        "position": [
+          -0.01514,
+          0.48777,
+          0.0677
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 448,
+      "faceCount": 884,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-carotide-commune-gauche",
+      "name": "Artère carotide commune gauche",
+      "nameLatin": "left common carotid artery",
+      "aliases": [
+        "left common carotid artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left common carotid artery"
+      ],
+      "fmaIds": [
+        "FMA4058"
+      ],
+      "fileIds": [
+        "FJ3483"
+      ],
+      "centroid": [
+        0.01731,
+        0.47719,
+        0.06053
+      ],
+      "focus": {
+        "position": [
+          0.01731,
+          0.47719,
+          0.06053
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 126,
+      "faceCount": 170,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-carotide-interne-droite",
+      "name": "Artère carotide interne droite",
+      "nameLatin": "right internal carotid artery",
+      "aliases": [
+        "right internal carotid artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right internal carotid artery"
+      ],
+      "fmaIds": [
+        "FMA3949"
+      ],
+      "fileIds": [
+        "FJ1682"
+      ],
+      "centroid": [
+        -0.01839,
+        0.64093,
+        0.06241
+      ],
+      "focus": {
+        "position": [
+          -0.01839,
+          0.64093,
+          0.06241
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 650,
+      "faceCount": 1272,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-carotide-interne-gauche",
+      "name": "Artère carotide interne gauche",
+      "nameLatin": "left internal carotid artery",
+      "aliases": [
+        "left internal carotid artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left internal carotid artery"
+      ],
+      "fmaIds": [
+        "FMA4062"
+      ],
+      "fileIds": [
+        "FJ1682M"
+      ],
+      "centroid": [
+        0.01877,
+        0.64093,
+        0.06257
+      ],
+      "focus": {
+        "position": [
+          0.01877,
+          0.64093,
+          0.06257
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 650,
+      "faceCount": 1272,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-subclaviere-droite",
+      "name": "Artère subclavière droite",
+      "nameLatin": "right subclavian artery",
+      "aliases": [
+        "right subclavian artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right subclavian artery"
+      ],
+      "fmaIds": [
+        "FMA3953"
+      ],
+      "fileIds": [
+        "FJ3579"
+      ],
+      "centroid": [
+        -0.0476,
+        0.47632,
+        0.0598
+      ],
+      "focus": {
+        "position": [
+          -0.0476,
+          0.47632,
+          0.0598
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 247,
+      "faceCount": 452,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-subclaviere-gauche",
+      "name": "Artère subclavière gauche",
+      "nameLatin": "left subclavian artery",
+      "aliases": [
+        "left subclavian artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left subclavian artery"
+      ],
+      "fmaIds": [
+        "FMA4694"
+      ],
+      "fileIds": [
+        "FJ3479"
+      ],
+      "centroid": [
+        0.04737,
+        0.47299,
+        0.05436
+      ],
+      "focus": {
+        "position": [
+          0.04737,
+          0.47299,
+          0.05436
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 362,
+      "faceCount": 646,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-vertebrale-droite",
+      "name": "Artère vertébrale droite",
+      "nameLatin": "right vertebral artery",
+      "aliases": [
+        "right vertebral artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right vertebral artery"
+      ],
+      "fmaIds": [
+        "FMA3958"
+      ],
+      "fileIds": [
+        "FJ1725"
+      ],
+      "centroid": [
+        -0.01688,
+        0.60999,
+        0.0303
+      ],
+      "focus": {
+        "position": [
+          -0.01688,
+          0.60999,
+          0.0303
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 489,
+      "faceCount": 800,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-vertebrale-gauche",
+      "name": "Artère vertébrale gauche",
+      "nameLatin": "left vertebral artery",
+      "aliases": [
+        "left vertebral artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left vertebral artery"
+      ],
+      "fmaIds": [
+        "FMA4066"
+      ],
+      "fileIds": [
+        "FJ1725M"
+      ],
+      "centroid": [
+        0.01754,
+        0.60998,
+        0.03044
+      ],
+      "focus": {
+        "position": [
+          0.01754,
+          0.60998,
+          0.03044
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 489,
+      "faceCount": 800,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-axillaire-droite",
+      "name": "Artère axillaire droite",
+      "nameLatin": "right axillary artery",
+      "aliases": [
+        "right axillary artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right axillary artery"
+      ],
+      "fmaIds": [
+        "FMA22655"
+      ],
+      "fileIds": [
+        "FJ2268"
+      ],
+      "centroid": [
+        -0.1186,
+        0.44356,
+        0.04834
+      ],
+      "focus": {
+        "position": [
+          -0.1186,
+          0.44356,
+          0.04834
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-axillaire-gauche",
+      "name": "Artère axillaire gauche",
+      "nameLatin": "left axillary artery",
+      "aliases": [
+        "left axillary artery"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left axillary artery"
+      ],
+      "fmaIds": [
+        "FMA22656"
+      ],
+      "fileIds": [
+        "FJ2216"
+      ],
+      "centroid": [
+        0.1216,
+        0.44061,
+        0.04867
+      ],
+      "focus": {
+        "position": [
+          0.1216,
+          0.44061,
+          0.04867
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-brachiale-droite",
+      "name": "Artère brachiale droite",
+      "nameLatin": "right brachial artery",
+      "aliases": [
+        "right brachial artery"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right brachial artery"
+      ],
+      "fmaIds": [
+        "FMA22691"
+      ],
+      "fileIds": [
+        "FJ2271"
+      ],
+      "centroid": [
+        -0.1756,
+        0.29871,
+        0.03774
+      ],
+      "focus": {
+        "position": [
+          -0.1756,
+          0.29871,
+          0.03774
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-brachiale-gauche",
+      "name": "Artère brachiale gauche",
+      "nameLatin": "left brachial artery",
+      "aliases": [
+        "left brachial artery"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left brachial artery"
+      ],
+      "fmaIds": [
+        "FMA22692"
+      ],
+      "fileIds": [
+        "FJ2219"
+      ],
+      "centroid": [
+        0.17654,
+        0.29785,
+        0.03908
+      ],
+      "focus": {
+        "position": [
+          0.17654,
+          0.29785,
+          0.03908
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-radiale-droite",
+      "name": "Artère radiale droite",
+      "nameLatin": "right radial artery",
+      "aliases": [
+        "right radial artery"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right radial artery"
+      ],
+      "fmaIds": [
+        "FMA22733"
+      ],
+      "fileIds": [
+        "FJ2294"
+      ],
+      "centroid": [
+        -0.25621,
+        0.03621,
+        0.05969
+      ],
+      "focus": {
+        "position": [
+          -0.25621,
+          0.03621,
+          0.05969
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-radiale-gauche",
+      "name": "Artère radiale gauche",
+      "nameLatin": "left radial artery",
+      "aliases": [
+        "left radial artery"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left radial artery"
+      ],
+      "fmaIds": [
+        "FMA22734"
+      ],
+      "fileIds": [
+        "FJ2242"
+      ],
+      "centroid": [
+        0.25847,
+        0.03005,
+        0.06277
+      ],
+      "focus": {
+        "position": [
+          0.25847,
+          0.03005,
+          0.06277
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-ulnaire-droite",
+      "name": "Artère ulnaire droite",
+      "nameLatin": "right ulnar artery",
+      "aliases": [
+        "right ulnar artery"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right ulnar artery"
+      ],
+      "fmaIds": [
+        "FMA22797"
+      ],
+      "fileIds": [
+        "FJ2310"
+      ],
+      "centroid": [
+        -0.22245,
+        0.05179,
+        0.05961
+      ],
+      "focus": {
+        "position": [
+          -0.22245,
+          0.05179,
+          0.05961
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-ulnaire-gauche",
+      "name": "Artère ulnaire gauche",
+      "nameLatin": "left ulnar artery",
+      "aliases": [
+        "left ulnar artery"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left ulnar artery"
+      ],
+      "fmaIds": [
+        "FMA22798"
+      ],
+      "fileIds": [
+        "FJ2258"
+      ],
+      "centroid": [
+        0.22287,
+        0.0527,
+        0.06127
+      ],
+      "focus": {
+        "position": [
+          0.22287,
+          0.0527,
+          0.06127
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 704,
+      "faceCount": 1399,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "tronc-pulmonaire",
+      "name": "Tronc pulmonaire",
+      "nameLatin": "pulmonary trunk",
+      "aliases": [
+        "pulmonary trunk"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "pulmonary trunk"
+      ],
+      "fmaIds": [
+        "FMA8612"
+      ],
+      "fileIds": [
+        "FJ2966"
+      ],
+      "centroid": [
+        0.02641,
+        0.40947,
+        0.09133
+      ],
+      "focus": {
+        "position": [
+          0.02641,
+          0.40947,
+          0.09133
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 871,
+      "faceCount": 1302,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-pulmonaire-droite",
+      "name": "Artère pulmonaire droite",
+      "nameLatin": "right pulmonary artery",
+      "aliases": [
+        "right pulmonary artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right pulmonary artery"
+      ],
+      "fmaIds": [
+        "FMA50872"
+      ],
+      "fileIds": [
+        "FJ3019"
+      ],
+      "centroid": [
+        -0.01122,
+        0.40219,
+        0.05236
+      ],
+      "focus": {
+        "position": [
+          -0.01122,
+          0.40219,
+          0.05236
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 341,
+      "faceCount": 678,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-pulmonaire-gauche",
+      "name": "Artère pulmonaire gauche",
+      "nameLatin": "left pulmonary artery",
+      "aliases": [
+        "left pulmonary artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left pulmonary artery"
+      ],
+      "fmaIds": [
+        "FMA50873"
+      ],
+      "fileIds": [
+        "FJ2924"
+      ],
+      "centroid": [
+        0.04327,
+        0.40593,
+        0.05079
+      ],
+      "focus": {
+        "position": [
+          0.04327,
+          0.40593,
+          0.05079
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-coeliaque",
+      "name": "Artère cœliaque",
+      "nameLatin": "celiac artery",
+      "aliases": [
+        "celiac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "celiac artery"
+      ],
+      "fmaIds": [
+        "FMA50737"
+      ],
+      "fileIds": [
+        "FJ1846",
+        "FJ2013"
+      ],
+      "centroid": [
+        0.00665,
+        0.22111,
+        0.07394
+      ],
+      "focus": {
+        "position": [
+          0.00665,
+          0.22111,
+          0.07394
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 266,
+      "faceCount": 476,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "tronc-coeliaque",
+      "name": "Tronc cœliaque",
+      "nameLatin": "celiac trunk",
+      "aliases": [
+        "celiac trunk"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "celiac trunk"
+      ],
+      "fmaIds": [
+        "FMA14812"
+      ],
+      "fileIds": [
+        "FJ3421"
+      ],
+      "centroid": [
+        0.00665,
+        0.22111,
+        0.07394
+      ],
+      "focus": {
+        "position": [
+          0.00665,
+          0.22111,
+          0.07394
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 133,
+      "faceCount": 238,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-commune-hepatique",
+      "name": "Artère commune hépatique",
+      "nameLatin": "common hepatic artery",
+      "aliases": [
+        "common hepatic artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "common hepatic artery"
+      ],
+      "fmaIds": [
+        "FMA14771"
+      ],
+      "fileIds": [
+        "FJ3078"
+      ],
+      "centroid": [
+        -0.00511,
+        0.21874,
+        0.09242
+      ],
+      "focus": {
+        "position": [
+          -0.00511,
+          0.21874,
+          0.09242
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 184,
+      "faceCount": 348,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-hepatique-propre",
+      "name": "Artère hépatique propre",
+      "nameLatin": "hepatic artery proper",
+      "aliases": [
+        "hepatic artery proper"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "hepatic artery proper"
+      ],
+      "fmaIds": [
+        "FMA14772"
+      ],
+      "fileIds": [
+        "FJ3081"
+      ],
+      "centroid": [
+        -0.01608,
+        0.232,
+        0.10075
+      ],
+      "focus": {
+        "position": [
+          -0.01608,
+          0.232,
+          0.10075
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 181,
+      "faceCount": 358,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-splenique",
+      "name": "Artère splénique",
+      "nameLatin": "splenic artery",
+      "aliases": [
+        "splenic artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "splenic artery"
+      ],
+      "fmaIds": [
+        "FMA14773"
+      ],
+      "fileIds": [
+        "FJ2562",
+        "FJ3420",
+        "FJ3544",
+        "FJ3640"
+      ],
+      "centroid": [
+        0.05917,
+        0.21467,
+        0.06227
+      ],
+      "focus": {
+        "position": [
+          0.05917,
+          0.21467,
+          0.06227
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1328,
+      "faceCount": 1799,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-superieure-mesenterique",
+      "name": "Artère supérieure mésentérique",
+      "nameLatin": "superior mesenteric artery",
+      "aliases": [
+        "superior mesenteric artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "superior mesenteric artery"
+      ],
+      "fmaIds": [
+        "FMA14749"
+      ],
+      "fileIds": [
+        "FJ1928",
+        "FJ2011"
+      ],
+      "centroid": [
+        -0.02037,
+        0.11805,
+        0.08536
+      ],
+      "focus": {
+        "position": [
+          -0.02037,
+          0.11805,
+          0.08536
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 875,
+      "faceCount": 1799,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-inferieure-mesenterique",
+      "name": "Artère inférieure mésentérique",
+      "nameLatin": "inferior mesenteric artery",
+      "aliases": [
+        "inferior mesenteric artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "inferior mesenteric artery"
+      ],
+      "fmaIds": [
+        "FMA14750"
+      ],
+      "fileIds": [
+        "FJ3442"
+      ],
+      "centroid": [
+        0.01033,
+        0.08878,
+        0.08458
+      ],
+      "focus": {
+        "position": [
+          0.01033,
+          0.08878,
+          0.08458
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 299,
+      "faceCount": 546,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-renale-droite",
+      "name": "Artère rénale droite",
+      "nameLatin": "right renal artery",
+      "aliases": [
+        "right renal artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right renal artery"
+      ],
+      "fmaIds": [
+        "FMA14752"
+      ],
+      "fileIds": [
+        "FJ2038"
+      ],
+      "centroid": [
+        -0.01555,
+        0.1737,
+        0.06387
+      ],
+      "focus": {
+        "position": [
+          -0.01555,
+          0.1737,
+          0.06387
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 124,
+      "faceCount": 206,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-renale-gauche",
+      "name": "Artère rénale gauche",
+      "nameLatin": "left renal artery",
+      "aliases": [
+        "left renal artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left renal artery"
+      ],
+      "fmaIds": [
+        "FMA14753"
+      ],
+      "fileIds": [
+        "FJ2046"
+      ],
+      "centroid": [
+        0.02093,
+        0.17945,
+        0.06552
+      ],
+      "focus": {
+        "position": [
+          0.02093,
+          0.17945,
+          0.06552
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 166,
+      "faceCount": 288,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-iliaque-commune-droite",
+      "name": "Artère iliaque commune droite",
+      "nameLatin": "right common iliac artery",
+      "aliases": [
+        "right common iliac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right common iliac artery"
+      ],
+      "fmaIds": [
+        "FMA14765"
+      ],
+      "fileIds": [
+        "FJ3565"
+      ],
+      "centroid": [
+        -0.01273,
+        0.07296,
+        0.07413
+      ],
+      "focus": {
+        "position": [
+          -0.01273,
+          0.07296,
+          0.07413
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 117,
+      "faceCount": 220,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-iliaque-commune-gauche",
+      "name": "Artère iliaque commune gauche",
+      "nameLatin": "left common iliac artery",
+      "aliases": [
+        "left common iliac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left common iliac artery"
+      ],
+      "fmaIds": [
+        "FMA14766"
+      ],
+      "fileIds": [
+        "FJ3464"
+      ],
+      "centroid": [
+        0.01795,
+        0.07263,
+        0.0673
+      ],
+      "focus": {
+        "position": [
+          0.01795,
+          0.07263,
+          0.0673
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 128,
+      "faceCount": 248,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-iliaque-externe-droite",
+      "name": "Artère iliaque externe droite",
+      "nameLatin": "right external iliac artery",
+      "aliases": [
+        "right external iliac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right external iliac artery"
+      ],
+      "fmaIds": [
+        "FMA18806"
+      ],
+      "fileIds": [
+        "FJ3567"
+      ],
+      "centroid": [
+        -0.04741,
+        0.00115,
+        0.06172
+      ],
+      "focus": {
+        "position": [
+          -0.04741,
+          0.00115,
+          0.06172
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 214,
+      "faceCount": 396,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-iliaque-externe-gauche",
+      "name": "Artère iliaque externe gauche",
+      "nameLatin": "left external iliac artery",
+      "aliases": [
+        "left external iliac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left external iliac artery"
+      ],
+      "fmaIds": [
+        "FMA18807"
+      ],
+      "fileIds": [
+        "FJ3466"
+      ],
+      "centroid": [
+        0.04796,
+        -0.00938,
+        0.06877
+      ],
+      "focus": {
+        "position": [
+          0.04796,
+          -0.00938,
+          0.06877
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 236,
+      "faceCount": 462,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-iliaque-interne-droite",
+      "name": "Artère iliaque interne droite",
+      "nameLatin": "right internal iliac artery",
+      "aliases": [
+        "right internal iliac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right internal iliac artery"
+      ],
+      "fmaIds": [
+        "FMA18809"
+      ],
+      "fileIds": [
+        "FJ3569"
+      ],
+      "centroid": [
+        -0.03218,
+        0.01527,
+        0.02476
+      ],
+      "focus": {
+        "position": [
+          -0.03218,
+          0.01527,
+          0.02476
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 201,
+      "faceCount": 276,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-iliaque-interne-gauche",
+      "name": "Artère iliaque interne gauche",
+      "nameLatin": "left internal iliac artery",
+      "aliases": [
+        "left internal iliac artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left internal iliac artery"
+      ],
+      "fmaIds": [
+        "FMA18810"
+      ],
+      "fileIds": [
+        "FJ3468"
+      ],
+      "centroid": [
+        0.02875,
+        0.01281,
+        0.01554
+      ],
+      "focus": {
+        "position": [
+          0.02875,
+          0.01281,
+          0.01554
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 194,
+      "faceCount": 270,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-femorale-droite",
+      "name": "Artère fémorale droite",
+      "nameLatin": "right femoral artery",
+      "aliases": [
+        "right femoral artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right femoral artery"
+      ],
+      "fmaIds": [
+        "FMA70249"
+      ],
+      "fileIds": [
+        "FJ2143"
+      ],
+      "centroid": [
+        -0.05003,
+        -0.20142,
+        0.07267
+      ],
+      "focus": {
+        "position": [
+          -0.05003,
+          -0.20142,
+          0.07267
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 380,
+      "faceCount": 752,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-femorale-gauche",
+      "name": "Artère fémorale gauche",
+      "nameLatin": "left femoral artery",
+      "aliases": [
+        "left femoral artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left femoral artery"
+      ],
+      "fmaIds": [
+        "FMA70250"
+      ],
+      "fileIds": [
+        "FJ2074"
+      ],
+      "centroid": [
+        0.0499,
+        -0.20627,
+        0.07437
+      ],
+      "focus": {
+        "position": [
+          0.0499,
+          -0.20627,
+          0.07437
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 373,
+      "faceCount": 740,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-poplitee-droite",
+      "name": "Artère poplitée droite",
+      "nameLatin": "right popliteal artery",
+      "aliases": [
+        "right popliteal artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right popliteal artery"
+      ],
+      "fmaIds": [
+        "FMA77380"
+      ],
+      "fileIds": [
+        "FJ2170"
+      ],
+      "centroid": [
+        -0.07736,
+        -0.48211,
+        0.02595
+      ],
+      "focus": {
+        "position": [
+          -0.07736,
+          -0.48211,
+          0.02595
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-poplitee-gauche",
+      "name": "Artère poplitée gauche",
+      "nameLatin": "left popliteal artery",
+      "aliases": [
+        "left popliteal artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left popliteal artery"
+      ],
+      "fmaIds": [
+        "FMA77381"
+      ],
+      "fileIds": [
+        "FJ2086"
+      ],
+      "centroid": [
+        0.07679,
+        -0.47539,
+        0.02741
+      ],
+      "focus": {
+        "position": [
+          0.07679,
+          -0.47539,
+          0.02741
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-anterieure-tibiale-droite",
+      "name": "Artère antérieure tibiale droite",
+      "nameLatin": "right anterior tibial artery",
+      "aliases": [
+        "right anterior tibial artery"
+      ],
+      "region": "membre-inférieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right anterior tibial artery"
+      ],
+      "fmaIds": [
+        "FMA43896"
+      ],
+      "fileIds": [
+        "FJ2130"
+      ],
+      "centroid": [
+        -0.0892,
+        -0.67717,
+        0.04421
+      ],
+      "focus": {
+        "position": [
+          -0.0892,
+          -0.67717,
+          0.04421
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-anterieure-tibiale-gauche",
+      "name": "Artère antérieure tibiale gauche",
+      "nameLatin": "left anterior tibial artery",
+      "aliases": [
+        "left anterior tibial artery"
+      ],
+      "region": "membre-inférieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left anterior tibial artery"
+      ],
+      "fmaIds": [
+        "FMA43897"
+      ],
+      "fileIds": [
+        "FJ2065"
+      ],
+      "centroid": [
+        0.08886,
+        -0.68299,
+        0.0449
+      ],
+      "focus": {
+        "position": [
+          0.08886,
+          -0.68299,
+          0.0449
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-posterieure-tibiale-droite",
+      "name": "Artère postérieure tibiale droite",
+      "nameLatin": "right posterior tibial artery",
+      "aliases": [
+        "right posterior tibial artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right posterior tibial artery"
+      ],
+      "fmaIds": [
+        "FMA43898"
+      ],
+      "fileIds": [
+        "FJ2172"
+      ],
+      "centroid": [
+        -0.06193,
+        -0.74954,
+        0.01737
+      ],
+      "focus": {
+        "position": [
+          -0.06193,
+          -0.74954,
+          0.01737
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 710,
+      "faceCount": 1399,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-posterieure-tibiale-gauche",
+      "name": "Artère postérieure tibiale gauche",
+      "nameLatin": "left posterior tibial artery",
+      "aliases": [
+        "left posterior tibial artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left posterior tibial artery"
+      ],
+      "fmaIds": [
+        "FMA43899"
+      ],
+      "fileIds": [
+        "FJ2087"
+      ],
+      "centroid": [
+        0.06154,
+        -0.76075,
+        0.01756
+      ],
+      "focus": {
+        "position": [
+          0.06154,
+          -0.76075,
+          0.01756
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 706,
+      "faceCount": 1399,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "tronc-de-l-artere-coronaire-droit",
+      "name": "Tronc de l’artère coronaire droit",
+      "nameLatin": "trunk of right coronary artery",
+      "aliases": [
+        "trunk of right coronary artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "trunk of right coronary artery"
+      ],
+      "fmaIds": [
+        "FMA3802"
+      ],
+      "fileIds": [
+        "FJ2723"
+      ],
+      "centroid": [
+        -0.00183,
+        0.35793,
+        0.09476
+      ],
+      "focus": {
+        "position": [
+          -0.00183,
+          0.35793,
+          0.09476
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "tronc-de-l-artere-coronaire-gauche",
+      "name": "Tronc de l’artère coronaire gauche",
+      "nameLatin": "trunk of left coronary artery",
+      "aliases": [
+        "trunk of left coronary artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "trunk of left coronary artery"
+      ],
+      "fmaIds": [
+        "FMA3855"
+      ],
+      "fileIds": [
+        "FJ2737"
+      ],
+      "centroid": [
+        0.02881,
+        0.39442,
+        0.07705
+      ],
+      "focus": {
+        "position": [
+          0.02881,
+          0.39442,
+          0.07705
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 121,
+      "faceCount": 204,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "branche-circonflexe-de-l-artere-coronaire-gauche",
+      "name": "Branche circonflexe de l’artère coronaire gauche",
+      "nameLatin": "circumflex branch of left coronary artery",
+      "aliases": [
+        "circumflex branch of left coronary artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "circumflex branch of left coronary artery"
+      ],
+      "fmaIds": [
+        "FMA3895"
+      ],
+      "fileIds": [
+        "FJ2649",
+        "FJ2650",
+        "FJ2651",
+        "FJ2652",
+        "FJ2653",
+        "FJ2654"
+      ],
+      "centroid": [
+        0.05921,
+        0.35578,
+        0.06264
+      ],
+      "focus": {
+        "position": [
+          0.05921,
+          0.35578,
+          0.06264
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1116,
+      "faceCount": 1799,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-interne-thoracique-droite",
+      "name": "Artère interne thoracique droite",
+      "nameLatin": "right internal thoracic artery",
+      "aliases": [
+        "right internal thoracic artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right internal thoracic artery"
+      ],
+      "fmaIds": [
+        "FMA3969"
+      ],
+      "fileIds": [
+        "FJ1937"
+      ],
+      "centroid": [
+        -0.02103,
+        0.39864,
+        0.11609
+      ],
+      "focus": {
+        "position": [
+          -0.02103,
+          0.39864,
+          0.11609
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-interne-thoracique-gauche",
+      "name": "Artère interne thoracique gauche",
+      "nameLatin": "left internal thoracic artery",
+      "aliases": [
+        "left internal thoracic artery"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left internal thoracic artery"
+      ],
+      "fmaIds": [
+        "FMA4068"
+      ],
+      "fileIds": [
+        "FJ1972"
+      ],
+      "centroid": [
+        0.02287,
+        0.40873,
+        0.10974
+      ],
+      "focus": {
+        "position": [
+          0.02287,
+          0.40873,
+          0.10974
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-basilaire",
+      "name": "Artère basilaire",
+      "nameLatin": "basilar artery",
+      "aliases": [
+        "basilar artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "basilar artery"
+      ],
+      "fmaIds": [
+        "FMA50542"
+      ],
+      "fileIds": [
+        "FJ1672",
+        "FJ1844"
+      ],
+      "centroid": [
+        -0.0003,
+        0.65252,
+        0.04816
+      ],
+      "focus": {
+        "position": [
+          -0.0003,
+          0.65252,
+          0.04816
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 268,
+      "faceCount": 506,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-anterieure-cerebrale-droite",
+      "name": "Artère antérieure cérébrale droite",
+      "nameLatin": "right anterior cerebral artery",
+      "aliases": [
+        "right anterior cerebral artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right anterior cerebral artery"
+      ],
+      "fmaIds": [
+        "FMA50029"
+      ],
+      "fileIds": [
+        "FJ1654"
+      ],
+      "centroid": [
+        -0.00724,
+        0.67612,
+        0.0704
+      ],
+      "focus": {
+        "position": [
+          -0.00724,
+          0.67612,
+          0.0704
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 213,
+      "faceCount": 400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "artere-anterieure-cerebrale-gauche",
+      "name": "Artère antérieure cérébrale gauche",
+      "nameLatin": "left anterior cerebral artery",
+      "aliases": [
+        "left anterior cerebral artery"
+      ],
+      "region": "tête",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left anterior cerebral artery"
+      ],
+      "fmaIds": [
+        "FMA50030"
+      ],
+      "fileIds": [
+        "FJ1654M"
+      ],
+      "centroid": [
+        0.00755,
+        0.67611,
+        0.07046
+      ],
+      "focus": {
+        "position": [
+          0.00755,
+          0.67611,
+          0.07046
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 213,
+      "faceCount": 400,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "veine-cave-superieure",
+      "name": "Veine cave supérieure",
+      "nameLatin": "superior vena cava",
+      "aliases": [
+        "superior vena cava"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "superior vena cava"
+      ],
+      "fmaIds": [
+        "FMA4720"
+      ],
+      "fileIds": [
+        "FJ3645"
+      ],
+      "centroid": [
+        -0.01474,
+        0.42803,
+        0.07178
+      ],
+      "focus": {
+        "position": [
+          -0.01474,
+          0.42803,
+          0.07178
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 318,
+      "faceCount": 598,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-cave-inferieure",
+      "name": "Veine cave inférieure",
+      "nameLatin": "inferior vena cava",
+      "aliases": [
+        "inferior vena cava"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "inferior vena cava"
+      ],
+      "fmaIds": [
+        "FMA10951"
+      ],
+      "fileIds": [
+        "FJ3441",
+        "FJ3659"
+      ],
+      "centroid": [
+        -0.01217,
+        0.20992,
+        0.07308
+      ],
+      "focus": {
+        "position": [
+          -0.01217,
+          0.20992,
+          0.07308
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 940,
+      "faceCount": 1799,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-brachiocephalique-droite",
+      "name": "Veine brachiocéphalique droite",
+      "nameLatin": "right brachiocephalic vein",
+      "aliases": [
+        "right brachiocephalic vein"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right brachiocephalic vein"
+      ],
+      "fmaIds": [
+        "FMA4751"
+      ],
+      "fileIds": [
+        "FJ3583"
+      ],
+      "centroid": [
+        -0.02079,
+        0.46097,
+        0.07564
+      ],
+      "focus": {
+        "position": [
+          -0.02079,
+          0.46097,
+          0.07564
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 275,
+      "faceCount": 546,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-brachiocephalique-gauche",
+      "name": "Veine brachiocéphalique gauche",
+      "nameLatin": "left brachiocephalic vein",
+      "aliases": [
+        "left brachiocephalic vein"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left brachiocephalic vein"
+      ],
+      "fmaIds": [
+        "FMA4761"
+      ],
+      "fileIds": [
+        "FJ3482"
+      ],
+      "centroid": [
+        0.00231,
+        0.45829,
+        0.07648
+      ],
+      "focus": {
+        "position": [
+          0.00231,
+          0.45829,
+          0.07648
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 377,
+      "faceCount": 748,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-jugulaire-interne-droite",
+      "name": "Veine jugulaire interne droite",
+      "nameLatin": "right internal jugular vein",
+      "aliases": [
+        "right internal jugular vein"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right internal jugular vein"
+      ],
+      "fmaIds": [
+        "FMA4754"
+      ],
+      "fileIds": [
+        "FJ3585"
+      ],
+      "centroid": [
+        -0.02568,
+        0.50067,
+        0.07371
+      ],
+      "focus": {
+        "position": [
+          -0.02568,
+          0.50067,
+          0.07371
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 153,
+      "faceCount": 226,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-jugulaire-interne-gauche",
+      "name": "Veine jugulaire interne gauche",
+      "nameLatin": "left internal jugular vein",
+      "aliases": [
+        "left internal jugular vein"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left internal jugular vein"
+      ],
+      "fmaIds": [
+        "FMA4762"
+      ],
+      "fileIds": [
+        "FJ3485"
+      ],
+      "centroid": [
+        0.02532,
+        0.49926,
+        0.07361
+      ],
+      "focus": {
+        "position": [
+          0.02532,
+          0.49926,
+          0.07361
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 158,
+      "faceCount": 280,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-subclaviere-droite",
+      "name": "Veine subclavière droite",
+      "nameLatin": "right subclavian vein",
+      "aliases": [
+        "right subclavian vein"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right subclavian vein"
+      ],
+      "fmaIds": [
+        "FMA4755"
+      ],
+      "fileIds": [
+        "FJ3587"
+      ],
+      "centroid": [
+        -0.0557,
+        0.47545,
+        0.07057
+      ],
+      "focus": {
+        "position": [
+          -0.0557,
+          0.47545,
+          0.07057
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 209,
+      "faceCount": 368,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-subclaviere-gauche",
+      "name": "Veine subclavière gauche",
+      "nameLatin": "left subclavian vein",
+      "aliases": [
+        "left subclavian vein"
+      ],
+      "region": "cou",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left subclavian vein"
+      ],
+      "fmaIds": [
+        "FMA4763"
+      ],
+      "fileIds": [
+        "FJ3486"
+      ],
+      "centroid": [
+        0.06303,
+        0.47337,
+        0.06883
+      ],
+      "focus": {
+        "position": [
+          0.06303,
+          0.47337,
+          0.06883
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 271,
+      "faceCount": 434,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-femorale-droite",
+      "name": "Veine fémorale droite",
+      "nameLatin": "right femoral vein",
+      "aliases": [
+        "right femoral vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right femoral vein"
+      ],
+      "fmaIds": [
+        "FMA21188"
+      ],
+      "fileIds": [
+        "FJ2144"
+      ],
+      "centroid": [
+        -0.04651,
+        -0.19402,
+        0.07963
+      ],
+      "focus": {
+        "position": [
+          -0.04651,
+          -0.19402,
+          0.07963
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 336,
+      "faceCount": 658,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-femorale-gauche",
+      "name": "Veine fémorale gauche",
+      "nameLatin": "left femoral vein",
+      "aliases": [
+        "left femoral vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left femoral vein"
+      ],
+      "fmaIds": [
+        "FMA21189"
+      ],
+      "fileIds": [
+        "FJ2102"
+      ],
+      "centroid": [
+        0.04726,
+        -0.19387,
+        0.08008
+      ],
+      "focus": {
+        "position": [
+          0.04726,
+          -0.19387,
+          0.08008
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 332,
+      "faceCount": 658,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "grande-veine-saphene-droit",
+      "name": "Grande veine saphène droit",
+      "nameLatin": "right great saphenous vein",
+      "aliases": [
+        "right great saphenous vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right great saphenous vein"
+      ],
+      "fmaIds": [
+        "FMA21379"
+      ],
+      "fileIds": [
+        "FJ2145"
+      ],
+      "centroid": [
+        -0.02441,
+        -0.38138,
+        0.04422
+      ],
+      "focus": {
+        "position": [
+          -0.02441,
+          -0.38138,
+          0.04422
+        ],
+        "distance": 0.912
+      },
+      "vertexCount": 716,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "grande-veine-saphene-gauche",
+      "name": "Grande veine saphène gauche",
+      "nameLatin": "left great saphenous vein",
+      "aliases": [
+        "left great saphenous vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left great saphenous vein"
+      ],
+      "fmaIds": [
+        "FMA21380"
+      ],
+      "fileIds": [
+        "FJ2103"
+      ],
+      "centroid": [
+        0.02518,
+        -0.39108,
+        0.04315
+      ],
+      "focus": {
+        "position": [
+          0.02518,
+          -0.39108,
+          0.04315
+        ],
+        "distance": 0.913
+      },
+      "vertexCount": 723,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-porte",
+      "name": "Veine porte",
+      "nameLatin": "hepatic portal vein",
+      "aliases": [
+        "hepatic portal vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "hepatic portal vein"
+      ],
+      "fmaIds": [
+        "FMA50735"
+      ],
+      "fileIds": [
+        "FJ1853"
+      ],
+      "centroid": [
+        -0.01339,
+        0.22095,
+        0.08914
+      ],
+      "focus": {
+        "position": [
+          -0.01339,
+          0.22095,
+          0.08914
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-hepatique-droite",
+      "name": "Veine hépatique droite",
+      "nameLatin": "right hepatic vein",
+      "aliases": [
+        "right hepatic vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right hepatic vein"
+      ],
+      "fmaIds": [
+        "FMA14338"
+      ],
+      "fileIds": [
+        "FJ2416"
+      ],
+      "centroid": [
+        -0.06286,
+        0.26973,
+        0.06129
+      ],
+      "focus": {
+        "position": [
+          -0.06286,
+          0.26973,
+          0.06129
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 901,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-hepatique-gauche",
+      "name": "Veine hépatique gauche",
+      "nameLatin": "left hepatic vein",
+      "aliases": [
+        "left hepatic vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left hepatic vein"
+      ],
+      "fmaIds": [
+        "FMA14339"
+      ],
+      "fileIds": [
+        "FJ2415"
+      ],
+      "centroid": [
+        0.0277,
+        0.27726,
+        0.10566
+      ],
+      "focus": {
+        "position": [
+          0.0277,
+          0.27726,
+          0.10566
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 803,
+      "faceCount": 1386,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-moyenne-hepatique",
+      "name": "Veine moyenne hépatique",
+      "nameLatin": "middle hepatic vein",
+      "aliases": [
+        "middle hepatic vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "middle hepatic vein"
+      ],
+      "fmaIds": [
+        "FMA14340"
+      ],
+      "fileIds": [
+        "FJ2414"
+      ],
+      "centroid": [
+        -0.02835,
+        0.27561,
+        0.12014
+      ],
+      "focus": {
+        "position": [
+          -0.02835,
+          0.27561,
+          0.12014
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 719,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-renale-droite",
+      "name": "Veine rénale droite",
+      "nameLatin": "right renal vein",
+      "aliases": [
+        "right renal vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right renal vein"
+      ],
+      "fmaIds": [
+        "FMA14335"
+      ],
+      "fileIds": [
+        "FJ3577",
+        "FJ3578"
+      ],
+      "centroid": [
+        -0.04705,
+        0.16054,
+        0.04607
+      ],
+      "focus": {
+        "position": [
+          -0.04705,
+          0.16054,
+          0.04607
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1267,
+      "faceCount": 1732,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-renale-gauche",
+      "name": "Veine rénale gauche",
+      "nameLatin": "left renal vein",
+      "aliases": [
+        "left renal vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left renal vein"
+      ],
+      "fmaIds": [
+        "FMA14336"
+      ],
+      "fileIds": [
+        "FJ3477",
+        "FJ3478"
+      ],
+      "centroid": [
+        0.0524,
+        0.17302,
+        0.04079
+      ],
+      "focus": {
+        "position": [
+          0.0524,
+          0.17302,
+          0.04079
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 1315,
+      "faceCount": 1800,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-iliaque-commune-droite",
+      "name": "Veine iliaque commune droite",
+      "nameLatin": "right common iliac vein",
+      "aliases": [
+        "right common iliac vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right common iliac vein"
+      ],
+      "fmaIds": [
+        "FMA21387"
+      ],
+      "fileIds": [
+        "FJ3566"
+      ],
+      "centroid": [
+        -0.01812,
+        0.07381,
+        0.06506
+      ],
+      "focus": {
+        "position": [
+          -0.01812,
+          0.07381,
+          0.06506
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 199,
+      "faceCount": 358,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-iliaque-commune-gauche",
+      "name": "Veine iliaque commune gauche",
+      "nameLatin": "left common iliac vein",
+      "aliases": [
+        "left common iliac vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left common iliac vein"
+      ],
+      "fmaIds": [
+        "FMA21388"
+      ],
+      "fileIds": [
+        "FJ3465"
+      ],
+      "centroid": [
+        0.00176,
+        0.07541,
+        0.06073
+      ],
+      "focus": {
+        "position": [
+          0.00176,
+          0.07541,
+          0.06073
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 244,
+      "faceCount": 430,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-superieure-pulmonaire-droite",
+      "name": "Veine supérieure pulmonaire droite",
+      "nameLatin": "right superior pulmonary vein",
+      "aliases": [
+        "right superior pulmonary vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right superior pulmonary vein"
+      ],
+      "fmaIds": [
+        "FMA49914"
+      ],
+      "fileIds": [
+        "FJ3020"
+      ],
+      "centroid": [
+        -0.02522,
+        0.38461,
+        0.05325
+      ],
+      "focus": {
+        "position": [
+          -0.02522,
+          0.38461,
+          0.05325
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 171,
+      "faceCount": 324,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-superieure-pulmonaire-gauche",
+      "name": "Veine supérieure pulmonaire gauche",
+      "nameLatin": "left superior pulmonary vein",
+      "aliases": [
+        "left superior pulmonary vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left superior pulmonary vein"
+      ],
+      "fmaIds": [
+        "FMA49916"
+      ],
+      "fileIds": [
+        "FJ2925",
+        "FJ2933"
+      ],
+      "centroid": [
+        0.0505,
+        0.38793,
+        0.04937
+      ],
+      "focus": {
+        "position": [
+          0.0505,
+          0.38793,
+          0.04937
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 448,
+      "faceCount": 886,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-inferieure-pulmonaire-droite",
+      "name": "Veine inférieure pulmonaire droite",
+      "nameLatin": "right inferior pulmonary vein",
+      "aliases": [
+        "right inferior pulmonary vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right inferior pulmonary vein"
+      ],
+      "fmaIds": [
+        "FMA49911"
+      ],
+      "fileIds": [
+        "FJ3040"
+      ],
+      "centroid": [
+        -0.02111,
+        0.35637,
+        0.03844
+      ],
+      "focus": {
+        "position": [
+          -0.02111,
+          0.35637,
+          0.03844
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 113,
+      "faceCount": 196,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-inferieure-pulmonaire-gauche",
+      "name": "Veine inférieure pulmonaire gauche",
+      "nameLatin": "left inferior pulmonary vein",
+      "aliases": [
+        "left inferior pulmonary vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left inferior pulmonary vein"
+      ],
+      "fmaIds": [
+        "FMA49913"
+      ],
+      "fileIds": [
+        "FJ2944",
+        "FJ2950",
+        "FJ2955"
+      ],
+      "centroid": [
+        0.0513,
+        0.35912,
+        0.03275
+      ],
+      "focus": {
+        "position": [
+          0.0513,
+          0.35912,
+          0.03275
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 602,
+      "faceCount": 1192,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-azygos",
+      "name": "Veine azygos",
+      "nameLatin": "azygos vein",
+      "aliases": [
+        "azygos vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "azygos vein"
+      ],
+      "fmaIds": [
+        "FMA4838"
+      ],
+      "fileIds": [
+        "FJ3416"
+      ],
+      "centroid": [
+        -0.011,
+        0.33538,
+        0.03372
+      ],
+      "focus": {
+        "position": [
+          -0.011,
+          0.33538,
+          0.03372
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "sinus-coronaire",
+      "name": "Sinus coronaire",
+      "nameLatin": "coronary sinus",
+      "aliases": [
+        "coronary sinus"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "coronary sinus"
+      ],
+      "fmaIds": [
+        "FMA4706"
+      ],
+      "fileIds": [
+        "FJ2655"
+      ],
+      "centroid": [
+        0.0154,
+        0.34503,
+        0.05535
+      ],
+      "focus": {
+        "position": [
+          0.0154,
+          0.34503,
+          0.05535
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 331,
+      "faceCount": 624,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "grande-veine-cardiaque",
+      "name": "Grande veine cardiaque",
+      "nameLatin": "great cardiac vein",
+      "aliases": [
+        "great cardiac vein"
+      ],
+      "region": "tronc",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "great cardiac vein"
+      ],
+      "fmaIds": [
+        "FMA4707"
+      ],
+      "fileIds": [
+        "FJ2656"
+      ],
+      "centroid": [
+        0.04551,
+        0.37521,
+        0.05689
+      ],
+      "focus": {
+        "position": [
+          0.04551,
+          0.37521,
+          0.05689
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 434,
+      "faceCount": 826,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-cephalique-droite",
+      "name": "Veine céphalique droite",
+      "nameLatin": "right cephalic vein",
+      "aliases": [
+        "right cephalic vein"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right cephalic vein"
+      ],
+      "fmaIds": [
+        "FMA13325"
+      ],
+      "fileIds": [
+        "FJ2272"
+      ],
+      "centroid": [
+        -0.2148,
+        0.22249,
+        0.05673
+      ],
+      "focus": {
+        "position": [
+          -0.2148,
+          0.22249,
+          0.05673
+        ],
+        "distance": 0.637
+      },
+      "vertexCount": 725,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-cephalique-gauche",
+      "name": "Veine céphalique gauche",
+      "nameLatin": "left cephalic vein",
+      "aliases": [
+        "left cephalic vein"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left cephalic vein"
+      ],
+      "fmaIds": [
+        "FMA13326"
+      ],
+      "fileIds": [
+        "FJ2220"
+      ],
+      "centroid": [
+        0.21666,
+        0.22156,
+        0.05758
+      ],
+      "focus": {
+        "position": [
+          0.21666,
+          0.22156,
+          0.05758
+        ],
+        "distance": 0.637
+      },
+      "vertexCount": 712,
+      "faceCount": 1399,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-basilique-droite",
+      "name": "Veine basilique droite",
+      "nameLatin": "right basilic vein",
+      "aliases": [
+        "right basilic vein"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "right basilic vein"
+      ],
+      "fmaIds": [
+        "FMA22909"
+      ],
+      "fileIds": [
+        "FJ2270"
+      ],
+      "centroid": [
+        -0.19454,
+        0.11909,
+        0.04677
+      ],
+      "focus": {
+        "position": [
+          -0.19454,
+          0.11909,
+          0.04677
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1400,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "veine-basilique-gauche",
+      "name": "Veine basilique gauche",
+      "nameLatin": "left basilic vein",
+      "aliases": [
+        "left basilic vein"
+      ],
+      "region": "membre-supérieur",
+      "notes": "Tronc vasculaire BodyParts3D (circulation seulement).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "left basilic vein"
+      ],
+      "fmaIds": [
+        "FMA22910"
+      ],
+      "fileIds": [
+        "FJ2218"
+      ],
+      "centroid": [
+        0.19419,
+        0.12229,
+        0.04759
+      ],
+      "focus": {
+        "position": [
+          0.19419,
+          0.12229,
+          0.04759
+        ],
+        "distance": 0.55
+      },
+      "vertexCount": 702,
+      "faceCount": 1399,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    },
+    {
+      "id": "arbre-arteriel",
+      "name": "Arbre artériel (branches)",
+      "nameLatin": "Arbor arterialis",
+      "aliases": [
+        "circulation",
+        "vaisseaux"
+      ],
+      "region": "tronc",
+      "notes": "Branches BodyParts3D non isolées comme troncs nommés, fusionnées pour limiter le nombre de nœuds (performance Android).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "arbre-arteriel"
+      ],
+      "fmaIds": [],
+      "fileIds": [
+        "FJ1655",
+        "FJ1656",
+        "FJ1656M",
+        "FJ1657",
+        "FJ1657M",
+        "FJ1658",
+        "FJ1658M",
+        "FJ1659",
+        "FJ1659M",
+        "FJ1661",
+        "FJ1661M",
+        "FJ1662",
+        "FJ1662M",
+        "FJ1663",
+        "FJ1663M",
+        "FJ1664",
+        "FJ1664M",
+        "FJ1665",
+        "FJ1665M",
+        "FJ1666",
+        "FJ1666M",
+        "FJ1667",
+        "FJ1667M",
+        "FJ1668",
+        "FJ1668M",
+        "FJ1669",
+        "FJ1669M",
+        "FJ1670",
+        "FJ1670M",
+        "FJ1671",
+        "FJ1671M",
+        "FJ1673",
+        "FJ1673M",
+        "FJ1674",
+        "FJ1674M",
+        "FJ1675",
+        "FJ1675M",
+        "FJ1676",
+        "FJ1676M",
+        "FJ1677",
+        "FJ1677M",
+        "FJ1678",
+        "FJ1678M",
+        "FJ1679",
+        "FJ1679M",
+        "FJ1680",
+        "FJ1680M",
+        "FJ1681",
+        "FJ1681M",
+        "FJ1683",
+        "FJ1683M",
+        "FJ1684",
+        "FJ1684M",
+        "FJ1685",
+        "FJ1685M",
+        "FJ1686",
+        "FJ1686M",
+        "FJ1687",
+        "FJ1687M",
+        "FJ1688",
+        "FJ1688M",
+        "FJ1689",
+        "FJ1689M",
+        "FJ1690",
+        "FJ1690M",
+        "FJ1691",
+        "FJ1691M",
+        "FJ1693",
+        "FJ1693M",
+        "FJ1695",
+        "FJ1695M",
+        "FJ1696",
+        "FJ1696M",
+        "FJ1697",
+        "FJ1697M",
+        "FJ1698",
+        "FJ1698M",
+        "FJ1699",
+        "FJ1699M",
+        "FJ1700",
+        "FJ1700M",
+        "FJ1701",
+        "FJ1701M",
+        "FJ1702",
+        "FJ1702M",
+        "FJ1703",
+        "FJ1703M",
+        "FJ1704",
+        "FJ1704M",
+        "FJ1705",
+        "FJ1705M",
+        "FJ1706",
+        "FJ1706M",
+        "FJ1707",
+        "FJ1707M",
+        "FJ1708",
+        "FJ1708M",
+        "FJ1709",
+        "FJ1709M",
+        "FJ1710",
+        "FJ1710M",
+        "FJ1711",
+        "FJ1711M",
+        "FJ1712",
+        "FJ1712M",
+        "FJ1713",
+        "FJ1713M",
+        "FJ1715",
+        "FJ1715M",
+        "FJ1716",
+        "FJ1716M",
+        "FJ1717",
+        "FJ1717M",
+        "FJ1720",
+        "FJ1720M",
+        "FJ1722",
+        "FJ1722M",
+        "FJ1724",
+        "FJ1724M",
+        "FJ1726",
+        "FJ1726M",
+        "FJ1727",
+        "FJ1727M",
+        "FJ1728",
+        "FJ1728M",
+        "FJ1729",
+        "FJ1729M",
+        "FJ1874",
+        "FJ1916",
+        "FJ1924",
+        "FJ1933",
+        "FJ1934",
+        "FJ1935",
+        "FJ1936",
+        "FJ1938",
+        "FJ1939",
+        "FJ1950",
+        "FJ1967",
+        "FJ1969",
+        "FJ1970",
+        "FJ1971",
+        "FJ1973",
+        "FJ1974",
+        "FJ1976",
+        "FJ1977",
+        "FJ1979",
+        "FJ2025",
+        "FJ2034",
+        "FJ2041",
+        "FJ2042",
+        "FJ2043",
+        "FJ2044",
+        "FJ2045",
+        "FJ2049",
+        "FJ2052",
+        "FJ2053",
+        "FJ2054",
+        "FJ2057",
+        "FJ2063",
+        "FJ2066",
+        "FJ2067",
+        "FJ2069",
+        "FJ2072",
+        "FJ2076",
+        "FJ2077",
+        "FJ2078",
+        "FJ2079",
+        "FJ2080",
+        "FJ2081",
+        "FJ2082",
+        "FJ2083",
+        "FJ2084",
+        "FJ2096",
+        "FJ2131",
+        "FJ2133",
+        "FJ2137",
+        "FJ2141",
+        "FJ2150",
+        "FJ2152",
+        "FJ2158",
+        "FJ2159",
+        "FJ2162",
+        "FJ2163",
+        "FJ2164",
+        "FJ2166",
+        "FJ2167",
+        "FJ2206",
+        "FJ2209",
+        "FJ2210",
+        "FJ2211",
+        "FJ2212",
+        "FJ2214",
+        "FJ2215",
+        "FJ2221",
+        "FJ2223",
+        "FJ2225",
+        "FJ2226",
+        "FJ2230",
+        "FJ2231",
+        "FJ2232",
+        "FJ2236",
+        "FJ2237",
+        "FJ2239",
+        "FJ2240",
+        "FJ2241",
+        "FJ2243",
+        "FJ2245",
+        "FJ2246",
+        "FJ2251",
+        "FJ2253",
+        "FJ2256",
+        "FJ2257",
+        "FJ2259",
+        "FJ2261",
+        "FJ2262",
+        "FJ2263",
+        "FJ2264",
+        "FJ2266",
+        "FJ2267",
+        "FJ2273",
+        "FJ2275",
+        "FJ2277",
+        "FJ2278",
+        "FJ2282",
+        "FJ2283",
+        "FJ2284",
+        "FJ2288",
+        "FJ2289",
+        "FJ2291",
+        "FJ2292",
+        "FJ2293",
+        "FJ2295",
+        "FJ2297",
+        "FJ2298",
+        "FJ2303",
+        "FJ2305",
+        "FJ2308",
+        "FJ2309",
+        "FJ2311",
+        "FJ2314",
+        "FJ2315",
+        "FJ2316",
+        "FJ2317",
+        "FJ2330",
+        "FJ2331",
+        "FJ2332",
+        "FJ2333",
+        "FJ2334",
+        "FJ2335",
+        "FJ2336",
+        "FJ2337",
+        "FJ2338",
+        "FJ2339",
+        "FJ2342",
+        "FJ2343",
+        "FJ2344",
+        "FJ2345",
+        "FJ2361",
+        "FJ2362",
+        "FJ2363",
+        "FJ2364",
+        "FJ2365",
+        "FJ2366",
+        "FJ2367",
+        "FJ2368",
+        "FJ2369",
+        "FJ2370",
+        "FJ2371",
+        "FJ2372",
+        "FJ2373",
+        "FJ2374",
+        "FJ2386",
+        "FJ2394",
+        "FJ2632",
+        "FJ2633",
+        "FJ2634",
+        "FJ2635",
+        "FJ2636",
+        "FJ2637",
+        "FJ2638",
+        "FJ2639",
+        "FJ2640",
+        "FJ2641",
+        "FJ2642",
+        "FJ2643",
+        "FJ2644",
+        "FJ2645",
+        "FJ2646",
+        "FJ2647",
+        "FJ2648",
+        "FJ2667",
+        "FJ2668",
+        "FJ2670",
+        "FJ2671",
+        "FJ2672",
+        "FJ2673",
+        "FJ2674",
+        "FJ2675",
+        "FJ2676",
+        "FJ2677",
+        "FJ2692",
+        "FJ2693",
+        "FJ2694",
+        "FJ2695",
+        "FJ2696",
+        "FJ2697",
+        "FJ2698",
+        "FJ2699",
+        "FJ2700",
+        "FJ2714",
+        "FJ2715",
+        "FJ2716",
+        "FJ2717",
+        "FJ2718",
+        "FJ2719",
+        "FJ2720",
+        "FJ2721",
+        "FJ2722",
+        "FJ2732",
+        "FJ2733",
+        "FJ2734",
+        "FJ2735",
+        "FJ2736",
+        "FJ2881",
+        "FJ2882",
+        "FJ2883",
+        "FJ2884",
+        "FJ2885",
+        "FJ2886",
+        "FJ2887",
+        "FJ2888",
+        "FJ2889",
+        "FJ2890",
+        "FJ2891",
+        "FJ2892",
+        "FJ2893",
+        "FJ2894",
+        "FJ2895",
+        "FJ2896",
+        "FJ2897",
+        "FJ2898",
+        "FJ2899",
+        "FJ2900",
+        "FJ2901",
+        "FJ2902",
+        "FJ2903",
+        "FJ2904",
+        "FJ2905",
+        "FJ2906",
+        "FJ2907",
+        "FJ2908",
+        "FJ2909",
+        "FJ2910",
+        "FJ2911",
+        "FJ2912",
+        "FJ2913",
+        "FJ2914",
+        "FJ2915",
+        "FJ2916",
+        "FJ2917",
+        "FJ2918",
+        "FJ2919",
+        "FJ2920",
+        "FJ2921",
+        "FJ2922",
+        "FJ2923",
+        "FJ2967",
+        "FJ2968",
+        "FJ2969",
+        "FJ2970",
+        "FJ2971",
+        "FJ2972",
+        "FJ2973",
+        "FJ2974",
+        "FJ2975",
+        "FJ2976",
+        "FJ2977",
+        "FJ2978",
+        "FJ2979",
+        "FJ2980",
+        "FJ2981",
+        "FJ2982",
+        "FJ2983",
+        "FJ2984",
+        "FJ2985",
+        "FJ2986",
+        "FJ2987",
+        "FJ2988",
+        "FJ2989",
+        "FJ2990",
+        "FJ2991",
+        "FJ2992",
+        "FJ2993",
+        "FJ2994",
+        "FJ2995",
+        "FJ2996",
+        "FJ2997",
+        "FJ2998",
+        "FJ2999",
+        "FJ3000",
+        "FJ3001",
+        "FJ3002",
+        "FJ3003",
+        "FJ3004",
+        "FJ3005",
+        "FJ3006",
+        "FJ3007",
+        "FJ3008",
+        "FJ3009",
+        "FJ3010",
+        "FJ3011",
+        "FJ3012",
+        "FJ3013",
+        "FJ3014",
+        "FJ3015",
+        "FJ3016",
+        "FJ3017",
+        "FJ3018",
+        "FJ3075",
+        "FJ3076",
+        "FJ3077",
+        "FJ3091",
+        "FJ3092",
+        "FJ3093",
+        "FJ3106",
+        "FJ3107",
+        "FJ3114",
+        "FJ3115",
+        "FJ3116",
+        "FJ3401",
+        "FJ3406",
+        "FJ3409",
+        "FJ3410",
+        "FJ3414",
+        "FJ3419",
+        "FJ3430",
+        "FJ3433",
+        "FJ3437",
+        "FJ3439",
+        "FJ3444",
+        "FJ3446",
+        "FJ3458",
+        "FJ3459",
+        "FJ3460",
+        "FJ3461",
+        "FJ3462",
+        "FJ3463",
+        "FJ3467",
+        "FJ3472",
+        "FJ3473",
+        "FJ3474",
+        "FJ3475",
+        "FJ3481",
+        "FJ3494",
+        "FJ3496",
+        "FJ3497",
+        "FJ3499",
+        "FJ3501",
+        "FJ3511",
+        "FJ3514",
+        "FJ3515",
+        "FJ3516",
+        "FJ3517",
+        "FJ3518",
+        "FJ3519",
+        "FJ3520",
+        "FJ3529",
+        "FJ3532",
+        "FJ3534",
+        "FJ3542",
+        "FJ3546",
+        "FJ3553",
+        "FJ3557",
+        "FJ3558",
+        "FJ3559",
+        "FJ3560",
+        "FJ3561",
+        "FJ3562",
+        "FJ3563",
+        "FJ3573",
+        "FJ3574",
+        "FJ3575",
+        "FJ3581",
+        "FJ3582",
+        "FJ3584",
+        "FJ3586",
+        "FJ3590",
+        "FJ3592",
+        "FJ3593",
+        "FJ3594",
+        "FJ3596",
+        "FJ3604",
+        "FJ3614",
+        "FJ3617",
+        "FJ3619",
+        "FJ3620",
+        "FJ3621",
+        "FJ3622",
+        "FJ3623",
+        "FJ3624",
+        "FJ3625",
+        "FJ3626",
+        "FJ3632",
+        "FJ3636",
+        "FJ3638",
+        "FJ3656"
+      ],
+      "centroid": [
+        0.00057,
+        0.24056,
+        0.06122
+      ],
+      "focus": {
+        "position": [
+          0.00057,
+          0.24056,
+          0.06122
+        ],
+        "distance": 1.45
+      },
+      "vertexCount": 10321,
+      "faceCount": 14797,
+      "kind": "vessel",
+      "vesselKind": "artery"
+    },
+    {
+      "id": "arbre-veineux",
+      "name": "Arbre veineux (branches)",
+      "nameLatin": "Arbor venosa",
+      "aliases": [
+        "circulation",
+        "vaisseaux"
+      ],
+      "region": "tronc",
+      "notes": "Branches BodyParts3D non isolées comme troncs nommés, fusionnées pour limiter le nombre de nœuds (performance Android).",
+      "source": "bodyparts3d",
+      "sourceNames": [
+        "arbre-veineux"
+      ],
+      "fmaIds": [],
+      "fileIds": [
+        "FJ1867",
+        "FJ1893",
+        "FJ1913",
+        "FJ1914",
+        "FJ1981",
+        "FJ1986",
+        "FJ1987",
+        "FJ1988",
+        "FJ1991",
+        "FJ1993",
+        "FJ1995",
+        "FJ1996",
+        "FJ2056",
+        "FJ2059",
+        "FJ2060",
+        "FJ2061",
+        "FJ2062",
+        "FJ2097",
+        "FJ2099",
+        "FJ2107",
+        "FJ2108",
+        "FJ2113",
+        "FJ2115",
+        "FJ2117",
+        "FJ2118",
+        "FJ2121",
+        "FJ2122",
+        "FJ2124",
+        "FJ2125",
+        "FJ2128",
+        "FJ2129",
+        "FJ2132",
+        "FJ2135",
+        "FJ2151",
+        "FJ2153",
+        "FJ2160",
+        "FJ2165",
+        "FJ2171",
+        "FJ2173",
+        "FJ2176",
+        "FJ2178",
+        "FJ2181",
+        "FJ2182",
+        "FJ2183",
+        "FJ2184",
+        "FJ2187",
+        "FJ2188",
+        "FJ2189",
+        "FJ2190",
+        "FJ2191",
+        "FJ2193",
+        "FJ2194",
+        "FJ2200",
+        "FJ2201",
+        "FJ2202",
+        "FJ2207",
+        "FJ2208",
+        "FJ2213",
+        "FJ2217",
+        "FJ2222",
+        "FJ2233",
+        "FJ2234",
+        "FJ2235",
+        "FJ2238",
+        "FJ2244",
+        "FJ2247",
+        "FJ2250",
+        "FJ2254",
+        "FJ2260",
+        "FJ2265",
+        "FJ2269",
+        "FJ2274",
+        "FJ2285",
+        "FJ2286",
+        "FJ2287",
+        "FJ2290",
+        "FJ2296",
+        "FJ2299",
+        "FJ2302",
+        "FJ2306",
+        "FJ2312",
+        "FJ2313",
+        "FJ2320",
+        "FJ2323",
+        "FJ2341",
+        "FJ2350",
+        "FJ2353",
+        "FJ2404",
+        "FJ2405",
+        "FJ2657",
+        "FJ2658",
+        "FJ2659",
+        "FJ2660",
+        "FJ2661",
+        "FJ2662",
+        "FJ2663",
+        "FJ2664",
+        "FJ2665",
+        "FJ2678",
+        "FJ2679",
+        "FJ2680",
+        "FJ2681",
+        "FJ2682",
+        "FJ2683",
+        "FJ2684",
+        "FJ2685",
+        "FJ2686",
+        "FJ2687",
+        "FJ2688",
+        "FJ2689",
+        "FJ2690",
+        "FJ2691",
+        "FJ2701",
+        "FJ2702",
+        "FJ2703",
+        "FJ2704",
+        "FJ2705",
+        "FJ2706",
+        "FJ2707",
+        "FJ2708",
+        "FJ2709",
+        "FJ2710",
+        "FJ2711",
+        "FJ2712",
+        "FJ2713",
+        "FJ2724",
+        "FJ2725",
+        "FJ2727",
+        "FJ2728",
+        "FJ2729",
+        "FJ2730",
+        "FJ2731",
+        "FJ2926",
+        "FJ2927",
+        "FJ2928",
+        "FJ2929",
+        "FJ2930",
+        "FJ2931",
+        "FJ2932",
+        "FJ2934",
+        "FJ2935",
+        "FJ2936",
+        "FJ2937",
+        "FJ2938",
+        "FJ2939",
+        "FJ2940",
+        "FJ2941",
+        "FJ2942",
+        "FJ2943",
+        "FJ2945",
+        "FJ2946",
+        "FJ2947",
+        "FJ2948",
+        "FJ2949",
+        "FJ2951",
+        "FJ2952",
+        "FJ2953",
+        "FJ2954",
+        "FJ2956",
+        "FJ2957",
+        "FJ2958",
+        "FJ2959",
+        "FJ2960",
+        "FJ2961",
+        "FJ2962",
+        "FJ2963",
+        "FJ2964",
+        "FJ2965",
+        "FJ3021",
+        "FJ3022",
+        "FJ3023",
+        "FJ3024",
+        "FJ3025",
+        "FJ3026",
+        "FJ3027",
+        "FJ3028",
+        "FJ3029",
+        "FJ3030",
+        "FJ3032",
+        "FJ3033",
+        "FJ3034",
+        "FJ3035",
+        "FJ3036",
+        "FJ3037",
+        "FJ3038",
+        "FJ3039",
+        "FJ3041",
+        "FJ3042",
+        "FJ3043",
+        "FJ3044",
+        "FJ3045",
+        "FJ3046",
+        "FJ3047",
+        "FJ3048",
+        "FJ3049",
+        "FJ3050",
+        "FJ3051",
+        "FJ3052",
+        "FJ3053",
+        "FJ3054",
+        "FJ3055",
+        "FJ3056",
+        "FJ3057",
+        "FJ3058",
+        "FJ3059",
+        "FJ3060",
+        "FJ3061",
+        "FJ3062",
+        "FJ3063",
+        "FJ3064",
+        "FJ3065",
+        "FJ3066",
+        "FJ3067",
+        "FJ3068",
+        "FJ3069",
+        "FJ3070",
+        "FJ3073",
+        "FJ3074",
+        "FJ3082",
+        "FJ3083",
+        "FJ3084",
+        "FJ3085",
+        "FJ3086",
+        "FJ3097",
+        "FJ3098",
+        "FJ3099",
+        "FJ3100",
+        "FJ3101",
+        "FJ3111",
+        "FJ3112",
+        "FJ3113",
+        "FJ3118",
+        "FJ3119",
+        "FJ3120",
+        "FJ3121",
+        "FJ3124",
+        "FJ3125",
+        "FJ3126",
+        "FJ3127",
+        "FJ3128",
+        "FJ3400",
+        "FJ3415",
+        "FJ3426",
+        "FJ3429",
+        "FJ3434",
+        "FJ3438",
+        "FJ3440",
+        "FJ3443",
+        "FJ3447",
+        "FJ3448",
+        "FJ3449",
+        "FJ3450",
+        "FJ3451",
+        "FJ3452",
+        "FJ3469",
+        "FJ3470",
+        "FJ3471",
+        "FJ3480",
+        "FJ3484",
+        "FJ3493",
+        "FJ3495",
+        "FJ3500",
+        "FJ3502",
+        "FJ3510",
+        "FJ3512",
+        "FJ3513",
+        "FJ3522",
+        "FJ3523",
+        "FJ3524",
+        "FJ3525",
+        "FJ3526",
+        "FJ3527",
+        "FJ3530",
+        "FJ3531",
+        "FJ3533",
+        "FJ3541",
+        "FJ3543",
+        "FJ3545",
+        "FJ3568",
+        "FJ3570",
+        "FJ3571",
+        "FJ3572",
+        "FJ3580",
+        "FJ3589",
+        "FJ3591",
+        "FJ3595",
+        "FJ3597",
+        "FJ3603",
+        "FJ3605",
+        "FJ3606",
+        "FJ3607",
+        "FJ3608",
+        "FJ3609",
+        "FJ3610",
+        "FJ3611",
+        "FJ3612",
+        "FJ3615",
+        "FJ3616",
+        "FJ3618",
+        "FJ3631",
+        "FJ3635",
+        "FJ3637",
+        "FJ3639",
+        "FJ3641",
+        "FJ3646",
+        "FJ3647",
+        "FJ3648",
+        "FJ3649",
+        "FJ3650",
+        "FJ3651",
+        "FJ3652",
+        "FJ3653",
+        "FJ3654",
+        "FJ3655",
+        "FJ3657",
+        "FJ3658"
+      ],
+      "centroid": [
+        0.00569,
+        0.03987,
+        0.06823
+      ],
+      "focus": {
+        "position": [
+          0.00569,
+          0.03987,
+          0.06823
+        ],
+        "distance": 1.45
+      },
+      "vertexCount": 6491,
+      "faceCount": 10263,
+      "kind": "vessel",
+      "vesselKind": "vein"
+    }
+  ]
+}

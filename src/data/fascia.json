@@ -1,0 +1,182 @@
+{
+  "version": 3,
+  "defaultVisible": false,
+  "inclusionRules": "Included from BodyParts3D: named iliotibial tract meshes (FJ1423 / FJ1423M). Fascia lata, crural fascia, thoracolumbar fascia, nuchal ligament and sacrotuberous ligaments are schematic sheets snapped to the body envelope (source=synthetic-v3).",
+  "gaps": [
+    "rétinaculums de cheville (hors ligaments)",
+    "clavipectoral / fascia pectoral",
+    "septums intermusculaires",
+    "aponévroses palmaire et plantaire (omises : géométrie v1 insuffisante)",
+    "fascia antébrachial (omis : les manchons cylindriques n’étaient pas adéquats)"
+  ],
+  "syntheticDisclaimer": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+  "count": 10,
+  "countBodyparts3d": 2,
+  "countSynthetic": 8,
+  "fascia": [
+    {
+      "id": "tractus-ilio-tibial-d",
+      "name": "Tractus ilio-tibial droit",
+      "nameLatin": "Tractus iliotibialis dexter",
+      "region": "cuisse",
+      "notes": "Épaississement du fascia lata (seule nappe fasciale distincte dans BP3D 4.0).",
+      "source": "bodyparts3d",
+      "sourceName": "right iliotibial tract",
+      "fmaId": "FMA58776",
+      "fileIds": [
+        "FJ1423"
+      ],
+      "centroid": [
+        -0.13428,
+        -0.19298,
+        0.03369
+      ]
+    },
+    {
+      "id": "tractus-ilio-tibial-g",
+      "name": "Tractus ilio-tibial gauche",
+      "nameLatin": "Tractus iliotibialis sinister",
+      "region": "cuisse",
+      "notes": "Épaississement du fascia lata (seule nappe fasciale distincte dans BP3D 4.0).",
+      "source": "bodyparts3d",
+      "sourceName": "left iliotibial tract",
+      "fmaId": "FMA58777",
+      "fileIds": [
+        "FJ1423M"
+      ],
+      "centroid": [
+        0.13491,
+        -0.19292,
+        0.03484
+      ]
+    },
+    {
+      "id": "fascia-lata-d",
+      "name": "Fascia lata droit",
+      "nameLatin": "Fascia lata",
+      "region": "cuisse",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "fascia-lata-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.13814,
+        -0.24345,
+        0.02137
+      ]
+    },
+    {
+      "id": "fascia-crural-d",
+      "name": "Fascia crural droit",
+      "nameLatin": "Fascia cruris",
+      "region": "jambe",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "fascia-crural-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.10744,
+        -0.67044,
+        0.00767
+      ]
+    },
+    {
+      "id": "fascia-lata-g",
+      "name": "Fascia lata gauche",
+      "nameLatin": "Fascia lata",
+      "region": "cuisse",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "fascia-lata-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.14372,
+        -0.24441,
+        0.05577
+      ]
+    },
+    {
+      "id": "fascia-crural-g",
+      "name": "Fascia crural gauche",
+      "nameLatin": "Fascia cruris",
+      "region": "jambe",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "fascia-crural-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.10839,
+        -0.66985,
+        0.03728
+      ]
+    },
+    {
+      "id": "fascia-thoracolombaire",
+      "name": "Fascia thoraco-lombaire (nappe postérieure)",
+      "nameLatin": "Fascia thoracolumbalis",
+      "region": "tronc",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "fascia-thoracolombaire",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.0,
+        0.15096,
+        -0.03206
+      ]
+    },
+    {
+      "id": "fascia-nuchal",
+      "name": "Ligament nuchal (nappe sagittale)",
+      "nameLatin": "Ligamentum nuchae",
+      "region": "cou",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "fascia-nuchal",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.00056,
+        0.59549,
+        -0.03576
+      ]
+    },
+    {
+      "id": "sacro-tubereux-d",
+      "name": "Ligament sacro-tubéreux droit",
+      "nameLatin": "Ligamentum sacrotuberale",
+      "region": "bassin",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "sacro-tubereux-d",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        -0.0289,
+        -0.04115,
+        -0.01559
+      ]
+    },
+    {
+      "id": "sacro-tubereux-g",
+      "name": "Ligament sacro-tubéreux gauche",
+      "nameLatin": "Ligamentum sacrotuberale",
+      "region": "bassin",
+      "notes": "Schéma pédagogique (synthetic-v3) : nappe fasciale mince calée sur l’enveloppe osseuse et musculaire (comme une planche d’atlas), bords libres irréguliers. Ce n’est pas une nappe cadavérique. Tractus ilio-tibiaux = BodyParts3D 4.0.",
+      "source": "synthetic-v3",
+      "sourceName": "sacro-tubereux-g",
+      "fmaId": "",
+      "fileIds": [],
+      "centroid": [
+        0.03135,
+        -0.04112,
+        -0.01559
+      ]
+    }
+  ]
+}

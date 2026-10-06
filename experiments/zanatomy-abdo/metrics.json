@@ -1,0 +1,876 @@
+{
+  "source": {
+    "repo": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+    "file": "Z-Anatomy/Startup.blend",
+    "blendBytes": 306838281,
+    "zipUrl": "https://github.com/Z-Anatomy/Models-of-human-anatomy/raw/refs/heads/master/Z-Anatomy.zip",
+    "license": "CC BY-SA 4.0",
+    "upstream": "BodyParts3D CC BY-SA 2.1 Japan",
+    "note": "Rectus sheath collection exists but contains no mesh. Aponeuroses are the Tendon material on each muscle, not separate objects. Linea alba (338 tris) was left out of the decimation set."
+  },
+  "census": {
+    "muscle_body_objects": 665,
+    "muscle_body_triangles": 2137447,
+    "largest": [
+      {
+        "name": "Iliotibial tract.r",
+        "triangles": 48612
+      },
+      {
+        "name": "Iliotibial tract.l",
+        "triangles": 48612
+      },
+      {
+        "name": "External intercostal muscles.r",
+        "triangles": 41410
+      },
+      {
+        "name": "External intercostal muscles.l",
+        "triangles": 41410
+      },
+      {
+        "name": "Internal intercostal muscles.r",
+        "triangles": 40184
+      },
+      {
+        "name": "Internal intercostal muscles.l",
+        "triangles": 40184
+      },
+      {
+        "name": "Innermost intercostal muscles.r",
+        "triangles": 38254
+      },
+      {
+        "name": "Innermost intercostal muscles.l",
+        "triangles": 38254
+      },
+      {
+        "name": "Transversus abdominis muscle.r",
+        "triangles": 34328
+      },
+      {
+        "name": "Transversus abdominis muscle.l",
+        "triangles": 34328
+      },
+      {
+        "name": "External abdominal oblique muscle.r",
+        "triangles": 29622
+      },
+      {
+        "name": "External abdominal oblique muscle.l",
+        "triangles": 29622
+      }
+    ]
+  },
+  "original": {
+    "triangles": 226846,
+    "byMuscle": {
+      "rectus": 41208,
+      "external": 59244,
+      "internal": 57738,
+      "transversus": 68656
+    },
+    "objects": [
+      {
+        "id": "rectus_l",
+        "sourceName": "Rectus abdominis muscle.l",
+        "triangles": 20604,
+        "vertices": 10304,
+        "materialPolygons": {
+          "0": 13993,
+          "1": 6611
+        },
+        "boundaryEdges": 0,
+        "boundaryVertices": 0,
+        "boundaryVertexFraction": 0,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": -1,
+        "centroid": [
+          0.0423,
+          -0.0824,
+          1.054
+        ]
+      },
+      {
+        "id": "rectus_r",
+        "sourceName": "Rectus abdominis muscle.r",
+        "triangles": 20604,
+        "vertices": 10304,
+        "materialPolygons": {
+          "0": 13993,
+          "1": 6611
+        },
+        "boundaryEdges": 0,
+        "boundaryVertices": 0,
+        "boundaryVertexFraction": 0,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": 1,
+        "centroid": [
+          -0.0423,
+          -0.0824,
+          1.054
+        ]
+      },
+      {
+        "id": "external_l",
+        "sourceName": "External abdominal oblique muscle.l",
+        "triangles": 29622,
+        "vertices": 14811,
+        "materialPolygons": {
+          "0": 29622
+        },
+        "boundaryEdges": 0,
+        "boundaryVertices": 0,
+        "boundaryVertexFraction": 0,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": -1,
+        "centroid": [
+          0.0729,
+          -0.0353,
+          1.0709
+        ]
+      },
+      {
+        "id": "external_r",
+        "sourceName": "External abdominal oblique muscle.r",
+        "triangles": 29622,
+        "vertices": 14811,
+        "materialPolygons": {
+          "0": 29622
+        },
+        "boundaryEdges": 0,
+        "boundaryVertices": 0,
+        "boundaryVertexFraction": 0,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": 1,
+        "centroid": [
+          -0.0729,
+          -0.0353,
+          1.0709
+        ]
+      },
+      {
+        "id": "internal_l",
+        "sourceName": "Internal abdominal oblique muscle.l",
+        "triangles": 28869,
+        "vertices": 14411,
+        "materialPolygons": {
+          "0": 28869
+        },
+        "boundaryEdges": 5,
+        "boundaryVertices": 5,
+        "boundaryVertexFraction": 0.0003,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": -1,
+        "centroid": [
+          0.0652,
+          -0.0344,
+          1.0458
+        ]
+      },
+      {
+        "id": "internal_r",
+        "sourceName": "Internal abdominal oblique muscle.r",
+        "triangles": 28869,
+        "vertices": 14411,
+        "materialPolygons": {
+          "0": 28869
+        },
+        "boundaryEdges": 5,
+        "boundaryVertices": 5,
+        "boundaryVertexFraction": 0.0003,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": 1,
+        "centroid": [
+          -0.0652,
+          -0.0344,
+          1.0458
+        ]
+      },
+      {
+        "id": "transversus_l",
+        "sourceName": "Transversus abdominis muscle.l",
+        "triangles": 34328,
+        "vertices": 17164,
+        "materialPolygons": {
+          "0": 34328
+        },
+        "boundaryEdges": 0,
+        "boundaryVertices": 0,
+        "boundaryVertexFraction": 0,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": -1,
+        "centroid": [
+          0.0683,
+          -0.0204,
+          1.0517
+        ]
+      },
+      {
+        "id": "transversus_r",
+        "sourceName": "Transversus abdominis muscle.r",
+        "triangles": 34328,
+        "vertices": 17164,
+        "materialPolygons": {
+          "0": 34328
+        },
+        "boundaryEdges": 0,
+        "boundaryVertices": 0,
+        "boundaryVertexFraction": 0,
+        "sharedMeshUsers": 2,
+        "worldDeterminant": 1,
+        "centroid": [
+          -0.0683,
+          -0.0204,
+          1.0517
+        ]
+      }
+    ],
+    "glb": "models/original.glb",
+    "glbBytes": 4024788
+  },
+  "simplification": [
+    {
+      "id": "meshopt-25",
+      "method": "meshoptimizer simplifyWithAttributes",
+      "flags": [
+        "LockBorder",
+        "PreserveFolds"
+      ],
+      "normalWeight": 0.02,
+      "requestedRatio": 0.25,
+      "triangles": 56684,
+      "percentOfOriginal": 24.99,
+      "perMesh": {
+        "rectus_l": 5148,
+        "rectus_r": 5148,
+        "external_l": 7404,
+        "external_r": 7404,
+        "internal_l": 7209,
+        "internal_r": 7207,
+        "transversus_l": 8582,
+        "transversus_r": 8582
+      },
+      "primitives": [
+        {
+          "mesh": "rectus_l",
+          "before": 13993,
+          "after": 3497,
+          "target": 3498,
+          "errorLimit": 0.003,
+          "error": 0.00146,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 2364
+        },
+        {
+          "mesh": "rectus_l",
+          "before": 6611,
+          "after": 1651,
+          "target": 1652,
+          "errorLimit": 0.003,
+          "error": 0.00167,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1447
+        },
+        {
+          "mesh": "rectus_r",
+          "before": 13993,
+          "after": 3497,
+          "target": 3498,
+          "errorLimit": 0.003,
+          "error": 0.00146,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 2364
+        },
+        {
+          "mesh": "rectus_r",
+          "before": 6611,
+          "after": 1651,
+          "target": 1652,
+          "errorLimit": 0.003,
+          "error": 0.00164,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1447
+        },
+        {
+          "mesh": "external_l",
+          "before": 29622,
+          "after": 7404,
+          "target": 7405,
+          "errorLimit": 0.003,
+          "error": 0.00135,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 3703
+        },
+        {
+          "mesh": "external_r",
+          "before": 29622,
+          "after": 7404,
+          "target": 7405,
+          "errorLimit": 0.003,
+          "error": 0.00135,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 3703
+        },
+        {
+          "mesh": "internal_l",
+          "before": 28869,
+          "after": 7209,
+          "target": 7217,
+          "errorLimit": 0.003,
+          "error": 0.0012,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 3605
+        },
+        {
+          "mesh": "internal_r",
+          "before": 28869,
+          "after": 7207,
+          "target": 7217,
+          "errorLimit": 0.003,
+          "error": 0.00119,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 3604
+        },
+        {
+          "mesh": "transversus_l",
+          "before": 34328,
+          "after": 8582,
+          "target": 8582,
+          "errorLimit": 0.003,
+          "error": 0.00109,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 4293
+        },
+        {
+          "mesh": "transversus_r",
+          "before": 34328,
+          "after": 8582,
+          "target": 8582,
+          "errorLimit": 0.003,
+          "error": 0.00109,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 4293
+        }
+      ],
+      "glb": "models/meshopt-25.glb",
+      "glbBytes": 1087212
+    },
+    {
+      "id": "meshopt-10",
+      "method": "meshoptimizer simplifyWithAttributes",
+      "flags": [
+        "LockBorder",
+        "PreserveFolds"
+      ],
+      "normalWeight": 0.02,
+      "requestedRatio": 0.1,
+      "triangles": 22693,
+      "percentOfOriginal": 10,
+      "perMesh": {
+        "rectus_l": 2071,
+        "rectus_r": 2072,
+        "external_l": 2962,
+        "external_r": 2962,
+        "internal_l": 2881,
+        "internal_r": 2881,
+        "transversus_l": 3432,
+        "transversus_r": 3432
+      },
+      "primitives": [
+        {
+          "mesh": "rectus_l",
+          "before": 13993,
+          "after": 1411,
+          "target": 1399,
+          "errorLimit": 0.008,
+          "error": 0.00773,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1321
+        },
+        {
+          "mesh": "rectus_l",
+          "before": 6611,
+          "after": 660,
+          "target": 661,
+          "errorLimit": 0.003,
+          "error": 0.00293,
+          "flags": "PreserveFolds",
+          "verticesAfter": 568
+        },
+        {
+          "mesh": "rectus_r",
+          "before": 13993,
+          "after": 1411,
+          "target": 1399,
+          "errorLimit": 0.008,
+          "error": 0.00778,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1321
+        },
+        {
+          "mesh": "rectus_r",
+          "before": 6611,
+          "after": 661,
+          "target": 661,
+          "errorLimit": 0.003,
+          "error": 0.00284,
+          "flags": "PreserveFolds",
+          "verticesAfter": 573
+        },
+        {
+          "mesh": "external_l",
+          "before": 29622,
+          "after": 2962,
+          "target": 2962,
+          "errorLimit": 0.003,
+          "error": 0.0025,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1483
+        },
+        {
+          "mesh": "external_r",
+          "before": 29622,
+          "after": 2962,
+          "target": 2962,
+          "errorLimit": 0.003,
+          "error": 0.00251,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1482
+        },
+        {
+          "mesh": "internal_l",
+          "before": 28869,
+          "after": 2881,
+          "target": 2886,
+          "errorLimit": 0.003,
+          "error": 0.00244,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1443
+        },
+        {
+          "mesh": "internal_r",
+          "before": 28869,
+          "after": 2881,
+          "target": 2886,
+          "errorLimit": 0.003,
+          "error": 0.00234,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1442
+        },
+        {
+          "mesh": "transversus_l",
+          "before": 34328,
+          "after": 3432,
+          "target": 3432,
+          "errorLimit": 0.003,
+          "error": 0.00223,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1718
+        },
+        {
+          "mesh": "transversus_r",
+          "before": 34328,
+          "after": 3432,
+          "target": 3432,
+          "errorLimit": 0.003,
+          "error": 0.00218,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 1718
+        }
+      ],
+      "glb": "models/meshopt-10.glb",
+      "glbBytes": 457152
+    },
+    {
+      "id": "meshopt-05",
+      "method": "meshoptimizer simplifyWithAttributes",
+      "flags": [
+        "LockBorder",
+        "PreserveFolds"
+      ],
+      "normalWeight": 0.02,
+      "requestedRatio": 0.05,
+      "triangles": 11333,
+      "percentOfOriginal": 5,
+      "perMesh": {
+        "rectus_l": 1029,
+        "rectus_r": 1028,
+        "external_l": 1480,
+        "external_r": 1480,
+        "internal_l": 1443,
+        "internal_r": 1441,
+        "transversus_l": 1716,
+        "transversus_r": 1716
+      },
+      "primitives": [
+        {
+          "mesh": "rectus_l",
+          "before": 13993,
+          "after": 699,
+          "target": 699,
+          "errorLimit": 0.008,
+          "error": 0.00458,
+          "flags": "PreserveFolds",
+          "verticesAfter": 517
+        },
+        {
+          "mesh": "rectus_l",
+          "before": 6611,
+          "after": 330,
+          "target": 330,
+          "errorLimit": 0.008,
+          "error": 0.00513,
+          "flags": "PreserveFolds",
+          "verticesAfter": 302
+        },
+        {
+          "mesh": "rectus_r",
+          "before": 13993,
+          "after": 698,
+          "target": 699,
+          "errorLimit": 0.008,
+          "error": 0.00458,
+          "flags": "PreserveFolds",
+          "verticesAfter": 516
+        },
+        {
+          "mesh": "rectus_r",
+          "before": 6611,
+          "after": 330,
+          "target": 330,
+          "errorLimit": 0.008,
+          "error": 0.00514,
+          "flags": "PreserveFolds",
+          "verticesAfter": 302
+        },
+        {
+          "mesh": "external_l",
+          "before": 29622,
+          "after": 1480,
+          "target": 1481,
+          "errorLimit": 0.008,
+          "error": 0.00401,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 742
+        },
+        {
+          "mesh": "external_r",
+          "before": 29622,
+          "after": 1480,
+          "target": 1481,
+          "errorLimit": 0.008,
+          "error": 0.004,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 741
+        },
+        {
+          "mesh": "internal_l",
+          "before": 28869,
+          "after": 1443,
+          "target": 1443,
+          "errorLimit": 0.008,
+          "error": 0.00364,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 725
+        },
+        {
+          "mesh": "internal_r",
+          "before": 28869,
+          "after": 1441,
+          "target": 1443,
+          "errorLimit": 0.008,
+          "error": 0.00365,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 724
+        },
+        {
+          "mesh": "transversus_l",
+          "before": 34328,
+          "after": 1716,
+          "target": 1716,
+          "errorLimit": 0.008,
+          "error": 0.00345,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 860
+        },
+        {
+          "mesh": "transversus_r",
+          "before": 34328,
+          "after": 1716,
+          "target": 1716,
+          "errorLimit": 0.008,
+          "error": 0.00345,
+          "flags": "LockBorder+PreserveFolds",
+          "verticesAfter": 860
+        }
+      ],
+      "glb": "models/meshopt-05.glb",
+      "glbBytes": 226240
+    }
+  ],
+  "methodNote": "Primary decimation is meshoptimizer (LockBorder + PreserveFolds) after a position weld. Blender Decimate collapse (no crease protection) is in metrics.decimate for comparison. Source meshes are closed shells; the costal margin is a crease, not a border. No UVs on the source.",
+  "decimate": [
+    {
+      "trianglesBefore": 226846,
+      "triangles": 56704,
+      "percentOfOriginal": 25,
+      "perMesh": {
+        "rectus_l": 5150,
+        "rectus_r": 5150,
+        "external_l": 7404,
+        "external_r": 7404,
+        "internal_l": 7216,
+        "internal_r": 7216,
+        "transversus_l": 8582,
+        "transversus_r": 8582
+      },
+      "glbBytes": 1035128,
+      "id": "decimate-25",
+      "method": "Blender Decimate collapse",
+      "requestedRatio": 0.25,
+      "glb": "models/decimate-25.glb"
+    },
+    {
+      "trianglesBefore": 226846,
+      "triangles": 22676,
+      "percentOfOriginal": 10,
+      "perMesh": {
+        "rectus_l": 2059,
+        "rectus_r": 2059,
+        "external_l": 2962,
+        "external_r": 2962,
+        "internal_l": 2885,
+        "internal_r": 2885,
+        "transversus_l": 3432,
+        "transversus_r": 3432
+      },
+      "glbBytes": 430144,
+      "id": "decimate-10",
+      "method": "Blender Decimate collapse",
+      "requestedRatio": 0.1,
+      "glb": "models/decimate-10.glb"
+    },
+    {
+      "trianglesBefore": 226846,
+      "triangles": 11337,
+      "percentOfOriginal": 5,
+      "perMesh": {
+        "rectus_l": 1029,
+        "rectus_r": 1030,
+        "external_l": 1480,
+        "external_r": 1480,
+        "internal_l": 1443,
+        "internal_r": 1443,
+        "transversus_l": 1716,
+        "transversus_r": 1716
+      },
+      "glbBytes": 221204,
+      "id": "decimate-05",
+      "method": "Blender Decimate collapse",
+      "requestedRatio": 0.05,
+      "glb": "models/decimate-05.glb"
+    }
+  ],
+  "weld": {
+    "note": "Position weld (1e-6 m) + area-weighted smooth normals. Triangle count is the geometric count; flat split vertices were only an export artifact.",
+    "rawTriangles": 226846,
+    "weldedTriangles": 226846,
+    "primitives": [
+      {
+        "mesh": "rectus_l",
+        "beforeVerts": 7612,
+        "afterVerts": 7612,
+        "droppedTriangles": 0,
+        "triangles": 13993
+      },
+      {
+        "mesh": "rectus_l",
+        "beforeVerts": 3927,
+        "afterVerts": 3927,
+        "droppedTriangles": 0,
+        "triangles": 6611
+      },
+      {
+        "mesh": "rectus_r",
+        "beforeVerts": 7612,
+        "afterVerts": 7612,
+        "droppedTriangles": 0,
+        "triangles": 13993
+      },
+      {
+        "mesh": "rectus_r",
+        "beforeVerts": 3927,
+        "afterVerts": 3927,
+        "droppedTriangles": 0,
+        "triangles": 6611
+      },
+      {
+        "mesh": "external_l",
+        "beforeVerts": 14811,
+        "afterVerts": 14811,
+        "droppedTriangles": 0,
+        "triangles": 29622
+      },
+      {
+        "mesh": "external_r",
+        "beforeVerts": 14811,
+        "afterVerts": 14811,
+        "droppedTriangles": 0,
+        "triangles": 29622
+      },
+      {
+        "mesh": "internal_l",
+        "beforeVerts": 14411,
+        "afterVerts": 14411,
+        "droppedTriangles": 0,
+        "triangles": 28869
+      },
+      {
+        "mesh": "internal_r",
+        "beforeVerts": 14411,
+        "afterVerts": 14411,
+        "droppedTriangles": 0,
+        "triangles": 28869
+      },
+      {
+        "mesh": "transversus_l",
+        "beforeVerts": 17164,
+        "afterVerts": 17164,
+        "droppedTriangles": 0,
+        "triangles": 34328
+      },
+      {
+        "mesh": "transversus_r",
+        "beforeVerts": 17164,
+        "afterVerts": 17164,
+        "droppedTriangles": 0,
+        "triangles": 34328
+      }
+    ],
+    "glbBytes": 4024788
+  },
+  "compression": {
+    "note": "Draco edgebreaker (pos 14, nrm 10, uv 12) and EXT_meshopt_compression level high, via gltf-transform. Textures stay PNG.",
+    "files": [
+      {
+        "file": "decimate-05.glb",
+        "rawBytes": 221204,
+        "dracoBytes": 53540,
+        "meshoptBytes": 68740
+      },
+      {
+        "file": "decimate-10.glb",
+        "rawBytes": 430144,
+        "dracoBytes": 94764,
+        "meshoptBytes": 120004
+      },
+      {
+        "file": "decimate-25.glb",
+        "rawBytes": 1035128,
+        "dracoBytes": 204976,
+        "meshoptBytes": 261608
+      },
+      {
+        "file": "meshopt-05-nm.glb",
+        "rawBytes": 11511184,
+        "dracoBytes": 11187604,
+        "meshoptBytes": 11249252
+      },
+      {
+        "file": "meshopt-05-nm1k.glb",
+        "rawBytes": 4297512,
+        "dracoBytes": 3973940,
+        "meshoptBytes": 4035568
+      },
+      {
+        "file": "meshopt-05.glb",
+        "rawBytes": 226240,
+        "dracoBytes": 52852,
+        "meshoptBytes": 72324
+      },
+      {
+        "file": "meshopt-10-nm.glb",
+        "rawBytes": 11333464,
+        "dracoBytes": 10679228,
+        "meshoptBytes": 10787364
+      },
+      {
+        "file": "meshopt-10-nm1k.glb",
+        "rawBytes": 4539864,
+        "dracoBytes": 3885628,
+        "meshoptBytes": 3993744
+      },
+      {
+        "file": "meshopt-10.glb",
+        "rawBytes": 457152,
+        "dracoBytes": 98892,
+        "meshoptBytes": 130132
+      },
+      {
+        "file": "meshopt-25.glb",
+        "rawBytes": 1087212,
+        "dracoBytes": 209344,
+        "meshoptBytes": 285120
+      },
+      {
+        "file": "original.glb",
+        "rawBytes": 4024788,
+        "dracoBytes": 680920,
+        "meshoptBytes": 867668
+      }
+    ]
+  },
+  "bake": {
+    "note": "Tangent-space Cycles bake, 2048 then scaled to 1024. Mirrored side (negative determinant) produces a noisier map. Normal maps do not improve the match to the original.",
+    "files": [
+      "meshopt-10-nm.glb",
+      "meshopt-10-nm1k.glb",
+      "meshopt-05-nm.glb",
+      "meshopt-05-nm1k.glb"
+    ]
+  },
+  "fps": {
+    "note": "Headless Chrome, SwiftShader, 1280x800, this VM. Not a phone, not a GPU. Fill-rate bound.",
+    "seconds": 3,
+    "samples": [
+      {
+        "id": "original",
+        "fps": 3,
+        "triangles": 226846
+      },
+      {
+        "id": "meshopt-25",
+        "fps": 5,
+        "triangles": 56684
+      },
+      {
+        "id": "meshopt-10",
+        "fps": 7,
+        "triangles": 22693
+      },
+      {
+        "id": "meshopt-05",
+        "fps": 8,
+        "triangles": 11333
+      },
+      {
+        "id": "meshopt-10-nm",
+        "fps": 4,
+        "triangles": 22677
+      },
+      {
+        "id": "grid",
+        "fps": 1,
+        "triangles": "four panes"
+      }
+    ]
+  },
+  "verdict": {
+    "desktop": "10% meshopt, no normal map. 25% only if the course zooms on the costal margin for a long time.",
+    "android": "10% as the near mesh, 5% as a far LOD. Skip normal maps.",
+    "fullBodyTrianglesAt10Percent": 213745,
+    "fullBodyTrianglesAt25Percent": 534362,
+    "fullBodyTrianglesAt5Percent": 106872
+  }
+}

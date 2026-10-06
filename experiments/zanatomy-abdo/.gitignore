@@ -1,0 +1,4 @@
+node_modules/
+dist/
+models/normals/
+models/compressed/
