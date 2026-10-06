@@ -1,5 +1,19 @@
 # Attribution — maillages anatomiques
 
+## Z-Anatomy — paroi abdominale
+
+Le fichier `public/models/zanatomy-abdo.glb` (droit de l’abdomen, oblique externe, oblique interne, transverse, gauche et droite) dérive du modèle **Z-Anatomy** (template Blender `Startup.blend`, 2 mai 2023), licence **CC BY-SA 4.0**. Z-Anatomy est lui-même dérivé de BodyParts3D.
+
+**Crédit :**
+
+> Z-Anatomy, CC BY-SA 4.0. Gauthier Kervyn (design, 3D, anatomie), Marcin Zielinski (script Blender). https://github.com/Z-Anatomy/Models-of-human-anatomy  
+> Dérivé de BodyParts3D, Copyright© 2008 The Database Center for Life Science licensed by CC Attribution-Share Alike 2.1 Japan.
+
+- Licence du dérivé : [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.fr)
+- Détail, omissions (gaine des droits vide, pas de pyramidal, ligne blanche hors du jeu décimé) et compression Draco : `public/models/zanatomy-abdo.ATTRIBUTION.md`
+
+Dans l’application, le menu **Couches** propose « Muscles abdominaux : Z-Anatomy / Anciens (procéduraux) ». Le mode Z-Anatomy est le défaut. Les aponévroses OE / OI / TA (opacité 50 %) restent les nappes procédurales, parce que la collection « Rectus sheath » de la source ne contient pas de maillage.
+
 ## BodyParts3D / Anatomography
 
 Les maillages `public/models/skeleton.glb`, `public/models/ligaments.glb`, `public/models/fascia.glb`, `public/models/muscles.glb`, `public/models/nerves.glb`, `public/models/organs.glb` et `public/models/vessels.glb` sont des **dérivés** (ou, pour les pièces `synthetic-v2`, des approximations pédagogiques alignées) des polygones **BodyParts3D** (arbre IS-A, réduction 99 %), filtrés respectivement aux **os + cartilage**, à une **couche ligamentaire / fibreuse profonde**, aux **fascias**, aux **muscles squelettiques nommés**, aux **nerfs**, aux **organes viscéraux** et aux **vaisseaux sanguins**, fusionnés et renormalisés pour le web.

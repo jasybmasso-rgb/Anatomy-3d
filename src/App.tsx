@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { CreditsDialog } from "./components/CreditsDialog";
 import { FullscreenToggle } from "./components/FullscreenToggle";
 import { LayerMenu, DEFAULT_LAYERS, type LayerId, type LayerState } from "./components/LayerMenu";
+import { loadAbdoSource, saveAbdoSource, type AbdoSource } from "./scene/abdoSource";
 import { ChainLegend } from "./components/ChainPicker";
 import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
@@ -34,6 +36,8 @@ export function App() {
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
   const [chainSide, setChainSide] = useState<ChainSide>("both");
   const [pinnedMuscleId, setPinnedMuscleId] = useState<string | null>(null);
+  const [abdoSource, setAbdoSource] = useState<AbdoSource>(loadAbdoSource);
+  const [creditsOpen, setCreditsOpen] = useState(false);
   const compact = useCompactLayout();
   const { mode: layoutMode, exit: exitLayout, toggle: toggleLayout } = useLayoutMode();
   const showFicheFullscreen = compact || layoutMode === "fiche";
@@ -87,6 +91,11 @@ export function App() {
     if (kind === "fascia") setLayers((prev) => ({ ...prev, fascias: true }));
   }
 
+  function onAbdoSourceChange(source: AbdoSource) {
+    setAbdoSource(source);
+    saveAbdoSource(source);
+  }
+
   function onActiveChainsChange(ids: string[]) {
     setActiveChainIds(ids);
     if (ids.length > 0) {
@@ -107,6 +116,9 @@ export function App() {
         <div className="brand">
           <p className="brand-mark">Anatomy-3d</p>
           <p className="brand-sub">Squelette, muscles, nerfs, organes et circulation</p>
+          <button type="button" className="credits-link" onClick={() => setCreditsOpen(true)}>
+            Crédits
+          </button>
         </div>
         <SearchBar
           muscles={muscles}
@@ -126,6 +138,8 @@ export function App() {
           onActiveChainsChange={onActiveChainsChange}
           chainSide={chainSide}
           onChainSideChange={setChainSide}
+          abdoSource={abdoSource}
+          onAbdoSourceChange={onAbdoSourceChange}
         />
         <button type="button" className="reset-btn" onClick={reset}>
           Réinitialiser
@@ -152,6 +166,7 @@ export function App() {
               showChains={layers.chains}
               activeChainIds={activeChainIds}
               chainSide={chainSide}
+              abdoSource={abdoSource}
               resetToken={resetToken}
               onSelectStructure={onSelectStructure}
             />
@@ -186,8 +201,10 @@ export function App() {
           ficheFullscreen={layoutMode === "fiche"}
           showFicheFullscreen={showFicheFullscreen}
           onToggleFicheFullscreen={() => toggleLayout("fiche")}
+          abdoSource={abdoSource}
         />
       </div>
+      <CreditsDialog open={creditsOpen} onClose={() => setCreditsOpen(false)} />
     </div>
   );
 }

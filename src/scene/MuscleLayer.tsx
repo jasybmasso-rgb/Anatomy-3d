@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
+import type { AbdoSource } from "./abdoSource";
 import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
 import { muscles } from "../data/loadMuscles";
 import { getDeviceProfile } from "./deviceProfile";
@@ -14,6 +15,13 @@ import {
   setMuscleTint,
   setMuscleSelected,
 } from "./fiberMaterial";
+import {
+  buildZAnatomyReps,
+  DRACO_DECODER_PATH,
+  isAbdominalWall,
+  ZANATOMY_ABDO_URL,
+  type MuscleRep,
+} from "./zanatomyAbdo";
 
 export type MuscleLayerProps = {
   selectedMuscleId: string | null;
@@ -24,13 +32,13 @@ export type MuscleLayerProps = {
   chainLayerOn: boolean;
   activeChainIds: string[];
   chainSide: ChainSide;
+  abdoSource: AbdoSource;
 };
 
 type MuscleEntry = {
   id: string;
-  object: THREE.Object3D;
-  material: THREE.MeshPhongMaterial;
-  meshes: THREE.Mesh[];
+  procedural: MuscleRep;
+  zanatomy?: MuscleRep;
 };
 
 const THIN_SHEETS = new Set([
@@ -101,11 +109,25 @@ function visibleIds(props: MuscleLayerProps): Set<string> {
   return shown;
 }
 
+function setRepVisible(rep: MuscleRep, visible: boolean) {
+  rep.object.visible = visible;
+  for (const mesh of rep.meshes) mesh.visible = visible;
+}
+
+function activeRep(entry: MuscleEntry, source: AbdoSource): MuscleRep {
+  if (source === "zanatomy" && entry.zanatomy) return entry.zanatomy;
+  return entry.procedural;
+}
+
 export function MuscleLayer(props: MuscleLayerProps) {
   const gltf = useGLTF("/models/muscles.glb");
+  const abdoGltf = useGLTF(ZANATOMY_ABDO_URL, DRACO_DECODER_PATH);
 
   const entries = useMemo(() => {
     const list: MuscleEntry[] = [];
+    const proceduralMeshes = new Map<string, THREE.Mesh[]>();
+    const fiberAxis = new Map<string, THREE.Vector3 | undefined>();
+
     for (const muscle of muscles) {
       const src = gltf.scene.getObjectByName(muscle.id);
       if (!src) continue;
@@ -118,6 +140,7 @@ export function MuscleLayer(props: MuscleLayerProps) {
         material.transparent = true;
         material.depthWrite = true;
         material.opacity = 1;
+        material.userData.aponeurosis = true;
       }
       const wallOff = WALL_OFFSET[muscle.id];
       if (wallOff !== undefined) {
@@ -157,15 +180,34 @@ export function MuscleLayer(props: MuscleLayerProps) {
         obj.material = material;
         meshes.push(obj);
       });
-      clone.visible = false;
-      list.push({ id: muscle.id, object: clone, material, meshes });
+      const group = new THREE.Group();
+      group.name = muscle.id;
+      group.add(clone);
+      group.visible = false;
+      if (isAbdominalWall(muscle.id)) {
+        proceduralMeshes.set(muscle.id, meshes);
+        fiberAxis.set(muscle.id, hint.lengthSq() > 1e-8 ? hint : undefined);
+      }
+      list.push({
+        id: muscle.id,
+        procedural: { object: group, materials: [material], meshes },
+      });
+    }
+
+    const zanatomy = buildZAnatomyReps(abdoGltf.scene, proceduralMeshes, fiberAxis);
+    for (const entry of list) {
+      const rep = zanatomy.get(entry.id);
+      if (rep) entry.zanatomy = rep;
     }
     return list;
-  }, [gltf]);
+  }, [gltf, abdoGltf]);
 
   useEffect(() => {
     for (const entry of entries) {
-      registerHighlight("muscle", entry.id, (selected) => setMuscleSelected(entry.material, selected));
+      const materials = [...entry.procedural.materials, ...(entry.zanatomy?.materials ?? [])];
+      registerHighlight("muscle", entry.id, (selected) => {
+        for (const material of materials) setMuscleSelected(material, selected);
+      });
     }
     return () => {
       for (const entry of entries) unregisterHighlight("muscle", entry.id);
@@ -175,42 +217,51 @@ export function MuscleLayer(props: MuscleLayerProps) {
   useEffect(() => {
     const shown = visibleIds(props);
     const chainOn = props.chainLayerOn && props.activeChainIds.length > 0;
+    const pick: THREE.Mesh[] = [];
     for (const entry of entries) {
       const on = shown.has(entry.id);
-      entry.object.visible = on;
+      const rep = activeRep(entry, props.abdoSource);
+      setRepVisible(entry.procedural, on && rep === entry.procedural);
+      if (entry.zanatomy) setRepVisible(entry.zanatomy, on && rep === entry.zanatomy);
       if (!on) continue;
       const selected = entry.id === props.selectedMuscleId;
       const tintHex = chainOn ? tintForMuscle(entry.id, props.activeChainIds) : null;
       const tint = tintHex ? new THREE.Color(tintHex) : null;
-      setMuscleTint(entry.material, tint, tint ? (selected ? 0.48 : 0.78) : 0);
-      setMuscleSelected(entry.material, selected);
-      const apo = APO_TRANSPARENT.has(entry.id);
-      entry.material.transparent = apo;
-      entry.material.opacity = 1;
-      entry.material.depthWrite = true;
       const side = chainOn ? chainClipSide(entry.id, props.chainSide, props.activeChainIds) : "both";
       const planes = clipPlanesForSide(side);
-      entry.material.clippingPlanes = planes;
-      entry.object.traverse((obj) => {
-        if (!(obj instanceof THREE.Mesh)) return;
-        obj.renderOrder = selected ? 12 : (WALL_ORDER[entry.id] ?? 5);
-        obj.castShadow = getDeviceProfile().shadows;
-      });
+      for (const material of rep.materials) {
+        setMuscleTint(material, tint, tint ? (selected ? 0.48 : 0.78) : 0);
+        setMuscleSelected(material, selected);
+        const apo = material.userData.aponeurosis === true;
+        material.transparent = apo;
+        material.opacity = 1;
+        material.depthWrite = true;
+        material.clippingPlanes = planes;
+      }
+      for (const mesh of rep.meshes) {
+        const base = (mesh.userData.renderOrder as number | undefined) ?? WALL_ORDER[entry.id] ?? 5;
+        mesh.renderOrder = selected ? 12 : base;
+        mesh.castShadow = getDeviceProfile().shadows;
+      }
+      pick.push(...rep.meshes);
     }
-    setPickMeshes(
-      "muscle",
-      entries.flatMap((entry) => (entry.object.visible ? entry.meshes : [])),
-    );
+    setPickMeshes("muscle", pick);
     return () => setPickMeshes("muscle", []);
   }, [entries, props]);
 
   return (
     <group name="muscles">
       {entries.map((entry) => (
-        <primitive key={entry.id} object={entry.object} />
+        <primitive key={`${entry.id}-procedural`} object={entry.procedural.object} />
       ))}
+      {entries.map((entry) =>
+        entry.zanatomy ? (
+          <primitive key={`${entry.id}-zanatomy`} object={entry.zanatomy.object} />
+        ) : null,
+      )}
     </group>
   );
 }
 
 useGLTF.preload("/models/muscles.glb");
+useGLTF.preload(ZANATOMY_ABDO_URL, DRACO_DECODER_PATH);

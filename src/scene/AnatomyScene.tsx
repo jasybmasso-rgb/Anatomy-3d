@@ -11,6 +11,7 @@ import { getDeviceProfile } from "./deviceProfile";
 import { Fascia } from "./Fascia";
 import { FLOOR_Y } from "./landmarks";
 import { Ligaments } from "./Ligaments";
+import type { AbdoSource } from "./abdoSource";
 import { MuscleLayer } from "./MuscleLayer";
 import { Skeleton } from "./Skeleton";
 import { StructurePick } from "./structurePick";
@@ -63,6 +64,7 @@ type AnatomySceneProps = {
   showChains: boolean;
   activeChainIds: string[];
   chainSide: ChainSide;
+  abdoSource: AbdoSource;
   resetToken: number;
   onSelectStructure: (kind: StructureKind, id: string) => void;
 };
@@ -85,6 +87,7 @@ export function AnatomyScene({
   showChains,
   activeChainIds,
   chainSide,
+  abdoSource,
   resetToken,
   onSelectStructure,
 }: AnatomySceneProps) {
@@ -203,6 +206,7 @@ export function AnatomyScene({
           chainLayerOn={showChains}
           activeChainIds={activeChainIds}
           chainSide={chainSide}
+          abdoSource={abdoSource}
         />
         <LandmarkLayer visible={showLandmarks} />
         <StructurePick onSelect={onSelectStructure} />

@@ -1,4 +1,6 @@
 import type { ChainSide } from "../data/chains";
+import type { AbdoSource } from "../scene/abdoSource";
+import { isAbdominalWall } from "../scene/zanatomyAbdo";
 import { connective as allConnective } from "../data/loadConnective";
 import { muscles as allMuscles } from "../data/loadMuscles";
 import { nerves, organs, vessels } from "../data/loadViscera";
@@ -56,6 +58,7 @@ type SidePanelProps = {
   ficheFullscreen: boolean;
   showFicheFullscreen: boolean;
   onToggleFicheFullscreen: () => void;
+  abdoSource: AbdoSource;
 };
 
 export function SidePanel({
@@ -74,6 +77,7 @@ export function SidePanel({
   ficheFullscreen,
   showFicheFullscreen,
   onToggleFicheFullscreen,
+  abdoSource,
 }: SidePanelProps) {
   const title = muscle?.name ?? viscera?.name ?? connective?.name;
   const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? null;
@@ -167,7 +171,12 @@ export function SidePanel({
               </div>
             ) : null}
           </dl>
-          {muscle.meshSource === "synthetic" ? (
+          {isAbdominalWall(muscle.id) && abdoSource === "zanatomy" ? (
+            <p className="panel-mesh-note">
+              Maillage Z-Anatomy, CC BY-SA 4.0, dérivé de BodyParts3D. La gaine des droits
+              (aponévroses, 50 %) reste le schéma procédural : la source n’a pas de gaine séparée.
+            </p>
+          ) : muscle.meshSource === "synthetic" ? (
             <p className="panel-mesh-note">Maillage schématique : absent de BodyParts3D 4.0.</p>
           ) : null}
         </>
