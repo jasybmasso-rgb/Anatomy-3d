@@ -614,6 +614,11 @@
   color: #d6e6ff;
 }
 
+.compare-link {
+  display: inline-block;
+  margin-top: 0.2rem;
+}
+
 .credits-backdrop {
   position: fixed;
   inset: 0;

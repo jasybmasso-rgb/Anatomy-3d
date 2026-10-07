@@ -14,6 +14,10 @@ Le fichier `public/models/zanatomy-abdo.glb` (droit de l’abdomen, oblique exte
 
 Dans l’application, le menu **Couches** propose « Muscles abdominaux : Z-Anatomy / Anciens (procéduraux) ». Le mode Z-Anatomy est le défaut. Les aponévroses OE / OI / TA (opacité 50 %) restent les nappes procédurales, parce que la collection « Rectus sheath » de la source ne contient pas de maillage.
 
+## Z-Anatomy — corps entier, résolution d’origine
+
+Les fichiers `public/models/zanatomy-original/*.glb` sont le même `Startup.blend` (2 mai 2023), exporté **sans décimation**. Compression Draco seulement (positions 16 bits, normales 10 bits). La page `zanatomy.html` (lien « Comparer : Z-Anatomy original ») sert à juger cette qualité brute. Le détail des systèmes, des triangles et des fichiers omis est dans `public/models/zanatomy-original/ATTRIBUTION.md` et `manifest.json`.
+
 ## BodyParts3D / Anatomography
 
 Les maillages `public/models/skeleton.glb`, `public/models/ligaments.glb`, `public/models/fascia.glb`, `public/models/muscles.glb`, `public/models/nerves.glb`, `public/models/organs.glb` et `public/models/vessels.glb` sont des **dérivés** (ou, pour les pièces `synthetic-v2`, des approximations pédagogiques alignées) des polygones **BodyParts3D** (arbre IS-A, réduction 99 %), filtrés respectivement aux **os + cartilage**, à une **couche ligamentaire / fibreuse profonde**, aux **fascias**, aux **muscles squelettiques nommés**, aux **nerfs**, aux **organes viscéraux** et aux **vaisseaux sanguins**, fusionnés et renormalisés pour le web.

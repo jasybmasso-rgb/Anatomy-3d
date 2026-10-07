@@ -188,14 +188,21 @@ function applyDollyToward(
 export function CameraRig({
   focus,
   resetToken,
+  homeEye,
+  homeTarget,
 }: {
   focus: FocusTarget | null;
   resetToken: number;
+  /** Resting camera when nothing is focused. Omitted in the main study view. */
+  homeEye?: [number, number, number];
+  homeTarget?: [number, number, number];
 }) {
+  const resolvedEye = homeEye ?? DEFAULT_EYE;
+  const resolvedTarget = homeTarget ?? DEFAULT_TARGET;
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera, gl, scene } = useThree();
-  const goalEye = useRef(new THREE.Vector3(...DEFAULT_EYE));
-  const goalTarget = useRef(new THREE.Vector3(...DEFAULT_TARGET));
+  const goalEye = useRef(new THREE.Vector3(...resolvedEye));
+  const goalTarget = useRef(new THREE.Vector3(...resolvedTarget));
   const animating = useRef(true);
   const raycaster = useRef(new THREE.Raycaster());
   const pointer = useRef(new THREE.Vector2());
@@ -240,11 +247,16 @@ export function CameraRig({
   }, []);
 
   useEffect(() => {
-    const next = goalsFor(focus);
+    const next = focus
+      ? goalsFor(focus)
+      : {
+          eye: new THREE.Vector3(...(homeEye ?? DEFAULT_EYE)),
+          target: new THREE.Vector3(...(homeTarget ?? DEFAULT_TARGET)),
+        };
     goalEye.current.copy(next.eye);
     goalTarget.current.copy(next.target);
     animating.current = true;
-  }, [focus, resetToken]);
+  }, [focus, resetToken, homeEye, homeTarget]);
 
   useEffect(() => {
     const element = gl.domElement;
