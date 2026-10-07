@@ -13,7 +13,7 @@
     "quantizeNormal": 10,
     "quantizeTexcoord": 12,
     "decimated": false,
-    "note": "Modificateurs de forme \u00e9valu\u00e9s (miroir, solidify, skin, subdivision au niveau d'affichage, bool\u00e9ens, biseau de courbes). Decimate et wireframe ignor\u00e9s. Pas de d\u00e9cimation suppl\u00e9mentaire."
+    "note": "Modificateurs de forme \u00e9valu\u00e9s (miroir, solidify, skin, subdivision au niveau d'affichage, bool\u00e9ens, biseau de courbes). Decimate et wireframe ignor\u00e9s. Pas de d\u00e9cimation suppl\u00e9mentaire. Les fascias, apon\u00e9vroses d'enveloppe, gaines et r\u00e9tinaculums sont dans fascias.glb, pas dans les muscles."
   },
   "systems": [
     {
@@ -35,14 +35,29 @@
       "id": "muscles",
       "label": "Muscles",
       "defaultOn": true,
-      "triangles": 2314539,
-      "objects": 659,
+      "triangles": 1845796,
+      "objects": 480,
       "files": [
         {
           "url": "/models/zanatomy-original/muscles.glb",
-          "bytes": 10023312,
-          "triangles": 2314539,
-          "objects": 659
+          "bytes": 8174412,
+          "triangles": 1845796,
+          "objects": 480
+        }
+      ]
+    },
+    {
+      "id": "fascias",
+      "label": "Fascias",
+      "defaultOn": false,
+      "triangles": 475085,
+      "objects": 197,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/fascias.glb",
+          "bytes": 1899196,
+          "triangles": 475085,
+          "objects": 197
         }
       ]
     },
@@ -50,14 +65,14 @@
       "id": "ligaments",
       "label": "Ligaments",
       "defaultOn": false,
-      "triangles": 306863,
-      "objects": 388,
+      "triangles": 300497,
+      "objects": 370,
       "files": [
         {
           "url": "/models/zanatomy-original/ligaments.glb",
-          "bytes": 1734196,
-          "triangles": 306863,
-          "objects": 388
+          "bytes": 1683224,
+          "triangles": 300497,
+          "objects": 370
         }
       ]
     },
@@ -107,8 +122,8 @@
       ]
     }
   ],
-  "totalTriangles": 10476208,
-  "totalBytes": 36640872,
+  "totalTriangles": 10476184,
+  "totalBytes": 36640196,
   "frames": {
     "corps-face": {
       "eye": [

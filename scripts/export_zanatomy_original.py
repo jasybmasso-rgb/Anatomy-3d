@@ -25,15 +25,16 @@ os.makedirs(OUT, exist_ok=True)
 SKIP_SUFFIX = (".g", ".j", ".t", ".i")
 MARKER = re.compile(r"\.[oe]\d*[lr]$", re.IGNORECASE)
 CARTILAGE = ("cartilag", "meniscus", "intervertebral disc", "articular disc", "labrum")
-LIGAMENT = ("ligament", "retinacul")
+LIGAMENT = ("ligament",)
 VESSEL_MESH = ("plexus", "vein", "vena", "arter", "aorta", "sinus")
 SIZE_LIMIT = 95 * 1024 * 1024
 
 COLORS = {
     "squelette": (0.86, 0.78, 0.66, 1.0),
     "cartilage": (0.70, 0.82, 0.88, 1.0),
-    "muscles": (0.77, 0.28, 0.23, 1.0),
-    "tendon": (0.96, 0.92, 0.84, 1.0),
+    "muscles": (0.70, 0.20, 0.16, 1.0),
+    "tendon": (0.96, 0.93, 0.86, 1.0),
+    "fascias": (0.84, 0.73, 0.67, 1.0),
     "ligaments": (0.91, 0.84, 0.68, 1.0),
     "nerfs": (0.93, 0.78, 0.22, 1.0),
     "vaisseaux": (0.72, 0.16, 0.18, 1.0),
@@ -44,6 +45,7 @@ COLORS = {
 LABELS = {
     "squelette": ("Squelette et cartilages", True),
     "muscles": ("Muscles", True),
+    "fascias": ("Fascias", False),
     "ligaments": ("Ligaments", False),
     "nerfs": ("Nerfs", False),
     "vaisseaux": ("Vaisseaux", False),
@@ -62,6 +64,33 @@ def log(msg):
 def has_word(name, words):
     n = name.lower()
     return any(w in n for w in words)
+
+
+def is_envelope(name):
+    """Fascia and sheets that hide muscle bellies. Not the muscle itself."""
+    n = name.lower()
+    if n.startswith("tensor fasciae latae"):
+        return False
+    if "palmaris longus" in n or "interossei" in n or n.startswith("plantaris muscle"):
+        return False
+    if n.startswith("tendon of ") or n.startswith("calcaneal tendon"):
+        return False
+    if n == "linea alba":
+        return True
+    needles = (
+        "fascia",
+        "fascial",
+        "aponeurosis",
+        "iliotibial tract",
+        "intermuscular septum",
+        "tendon sheath",
+        "synovial sheath",
+        "fibrous sheath",
+        "bursa",
+        "retinacul",
+        "investing",
+    )
+    return any(token in n for token in needles)
 
 
 def mat_for(key):
@@ -232,11 +261,21 @@ def collect():
     for obj in joints.objects:
         if not keep_object(obj):
             continue
-        take(obj, "squelette" if has_word(obj.name, CARTILAGE) else "ligaments")
+        if is_envelope(obj.name):
+            take(obj, "fascias")
+        elif has_word(obj.name, CARTILAGE):
+            take(obj, "squelette")
+        else:
+            take(obj, "ligaments")
     for obj in muscles.objects:
         if not keep_object(obj):
             continue
-        take(obj, "ligaments" if has_word(obj.name, LIGAMENT) else "muscles")
+        if is_envelope(obj.name):
+            take(obj, "fascias")
+        elif has_word(obj.name, LIGAMENT):
+            take(obj, "ligaments")
+        else:
+            take(obj, "muscles")
     for obj in cardio.objects:
         if not keep_object(obj):
             continue

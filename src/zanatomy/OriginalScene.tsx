@@ -11,10 +11,11 @@ const SCENE_BG = "#121a24";
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.62} />
-      <hemisphereLight args={["#f4f7fb", "#6a5c4e", 0.85]} />
-      <directionalLight position={[2.2, 3.4, 2.4]} intensity={1.25} />
-      <directionalLight position={[-1.8, 1.6, -1.4]} intensity={0.42} />
+      <ambientLight intensity={0.36} />
+      <hemisphereLight args={["#fff4ea", "#5a5048", 0.4]} />
+      <directionalLight position={[2.6, 4.4, 3.1]} intensity={1.02} />
+      <directionalLight position={[-3.1, 2.4, 1.4]} intensity={0.42} />
+      <directionalLight position={[0.2, 1.6, 3.6]} intensity={0.32} />
     </>
   );
 }

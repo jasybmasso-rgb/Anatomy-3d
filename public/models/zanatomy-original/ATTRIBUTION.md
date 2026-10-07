@@ -21,7 +21,8 @@ Toute redistribution de ces GLB doit rester sous **CC BY-SA 4.0**. Le code de l�
 
 ## Ce qui a été modifié
 
-- Un GLB par système : squelette (os et cartilages, y compris disques, ménisques et labrums des articulations), muscles, ligaments (aussi capsules, membranes interosseuses et rétinaculums), nerfs (encéphale, organes des sens et nerfs périphériques), vaisseaux, organes (viscères, organes lymphoïdes et cœur).
+- Un GLB par système : squelette (os et cartilages, y compris disques, ménisques et labrums des articulations), muscles, fascias (fascias d’enveloppe, aponévroses de surface, bandelette ilio-tibiale, gaines tendineuses, bourses, rétinaculums — décochés par défaut), ligaments (capsules et membranes interosseuses), nerfs (encéphale, organes des sens et nerfs périphériques), vaisseaux, organes (viscères, organes lymphoïdes et cœur).
+- Les muscles gardent leur géométrie d’origine. La couleur est un rouge de fibre, les fentes tendineuses restent pâles. Le tenseur du fascia lata, le long palmaire et les interosseux restent dans les muscles.
 - Les repères d’insertion (collection « Muscular insertions »), les libellés (`.g`, `.j`, `.t`), les régions de surface et la collection bonus ne sont pas exportés.
 - Matrices monde figées, côté gauche (déterminant négatif) avec normales inversées, export Y-up. Origine Z-Anatomy vers les pieds — **pas** aligné sur le squelette de l’application.
 - Les modificateurs qui construisent la forme (miroir, solidify, skin, subdivision au niveau d’affichage, booléens, biseau des courbes) sont évalués. Le modificateur Decimate (un objet) et les wireframes sont ignorés. Aucune décimation supplémentaire.
