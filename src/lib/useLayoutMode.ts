@@ -39,7 +39,7 @@ function replaceFs(next: Exclude<LayoutMode, "normal">) {
 
 /**
  * App-chrome fullscreen (not the browser Fullscreen API): expand the 3D viewport
- * or the anatomical fiche over the window. Escape / history.back() / Réduire exit.
+ * or the anatomical fiche over the window. Escape / history.back() / the inward-arrow button exit.
  */
 export function useLayoutMode() {
   const [mode, setMode] = useState<LayoutMode>("normal");

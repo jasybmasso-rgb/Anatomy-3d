@@ -181,7 +181,6 @@ export function App() {
           <FullscreenToggle
             className="fs-btn-viewport"
             active={layoutMode === "viewport"}
-            enterLabel="Plein écran"
             onToggle={() => toggleLayout("viewport")}
           />
         </div>

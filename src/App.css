@@ -15,7 +15,8 @@
   padding: 0.7rem 1.1rem;
   border-bottom: 1px solid #243044;
   background: #121926;
-  z-index: 2;
+  position: relative;
+  z-index: 30;
 }
 
 .brand-mark {
@@ -186,6 +187,8 @@
 }
 
 .workspace {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   display: grid;
@@ -231,20 +234,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
   border: 1px solid #33455f;
   background: rgba(12, 17, 24, 0.92);
   color: #e8eef4;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0.85rem;
-  min-height: 2.75rem;
-  font-weight: 600;
-  font-size: 0.88rem;
-  line-height: 1.2;
+  border-radius: 0.4rem;
   cursor: pointer;
-  white-space: nowrap;
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.fs-btn svg {
+  display: block;
+  width: 16px;
+  height: 16px;
 }
 
 .fs-btn:hover,
@@ -262,7 +270,7 @@
   position: absolute;
   top: max(0.65rem, env(safe-area-inset-top, 0px));
   right: max(0.65rem, env(safe-area-inset-right, 0px));
-  z-index: 5;
+  z-index: 2;
   pointer-events: auto;
 }
 
@@ -284,9 +292,7 @@
 }
 
 .fs-btn-panel {
-  max-width: 100%;
-  white-space: normal;
-  text-align: center;
+  flex: 0 0 auto;
 }
 
 .app[data-layout="viewport"] .topbar,
@@ -1022,7 +1028,28 @@
   }
 
   .fs-btn {
-    min-height: 2.85rem;
-    padding: 0.55rem 0.95rem;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .fs-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (pointer: coarse) {
+  .fs-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .fs-btn svg {
+    width: 18px;
+    height: 18px;
   }
 }

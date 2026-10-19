@@ -91,7 +91,6 @@ export function SidePanel({
           <FullscreenToggle
             className="fs-btn-panel"
             active={ficheFullscreen}
-            enterLabel="Fiche en plein écran"
             onToggle={onToggleFicheFullscreen}
           />
         </div>
