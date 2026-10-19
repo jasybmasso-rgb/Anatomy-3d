@@ -119,6 +119,9 @@ export function App() {
           <button type="button" className="credits-link" onClick={() => setCreditsOpen(true)}>
             Crédits
           </button>
+          <a className="credits-link compare-link" href="/zanatomy.html">
+            Comparer : Z-Anatomy original
+          </a>
         </div>
         <SearchBar
           muscles={muscles}

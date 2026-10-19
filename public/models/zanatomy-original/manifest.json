@@ -1,0 +1,323 @@
+{
+  "source": {
+    "repo": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+    "file": "Z-Anatomy/Startup.blend",
+    "date": "2023-05-02",
+    "license": "CC BY-SA 4.0",
+    "authors": "Gauthier Kervyn, Marcin Zielinski",
+    "upstream": "BodyParts3D, CC BY-SA 2.1 Japon"
+  },
+  "compression": {
+    "method": "draco",
+    "quantizePosition": 16,
+    "quantizeNormal": 10,
+    "quantizeTexcoord": 12,
+    "decimated": false,
+    "note": "Modificateurs de forme \u00e9valu\u00e9s (miroir, solidify, skin, subdivision au niveau d'affichage, bool\u00e9ens, biseau de courbes). Decimate et wireframe ignor\u00e9s. Pas de d\u00e9cimation suppl\u00e9mentaire. Les fascias, apon\u00e9vroses d'enveloppe, gaines et r\u00e9tinaculums sont dans fascias.glb, pas dans les muscles."
+  },
+  "systems": [
+    {
+      "id": "squelette",
+      "label": "Squelette et cartilages",
+      "defaultOn": true,
+      "triangles": 762267,
+      "objects": 326,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/squelette.glb",
+          "bytes": 3517756,
+          "triangles": 762267,
+          "objects": 326
+        }
+      ]
+    },
+    {
+      "id": "muscles",
+      "label": "Muscles",
+      "defaultOn": true,
+      "triangles": 1845796,
+      "objects": 480,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/muscles.glb",
+          "bytes": 8174412,
+          "triangles": 1845796,
+          "objects": 480
+        }
+      ]
+    },
+    {
+      "id": "fascias",
+      "label": "Fascias",
+      "defaultOn": false,
+      "triangles": 475085,
+      "objects": 197,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/fascias.glb",
+          "bytes": 1899196,
+          "triangles": 475085,
+          "objects": 197
+        }
+      ]
+    },
+    {
+      "id": "ligaments",
+      "label": "Ligaments",
+      "defaultOn": false,
+      "triangles": 300497,
+      "objects": 370,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/ligaments.glb",
+          "bytes": 1683224,
+          "triangles": 300497,
+          "objects": 370
+        }
+      ]
+    },
+    {
+      "id": "nerfs",
+      "label": "Nerfs",
+      "defaultOn": false,
+      "triangles": 2406786,
+      "objects": 582,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/nerfs.glb",
+          "bytes": 7768604,
+          "triangles": 2406786,
+          "objects": 582
+        }
+      ]
+    },
+    {
+      "id": "vaisseaux",
+      "label": "Vaisseaux",
+      "defaultOn": false,
+      "triangles": 3730186,
+      "objects": 658,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/vaisseaux.glb",
+          "bytes": 10195752,
+          "triangles": 3730186,
+          "objects": 658
+        }
+      ]
+    },
+    {
+      "id": "organes",
+      "label": "Organes",
+      "defaultOn": false,
+      "triangles": 955567,
+      "objects": 300,
+      "files": [
+        {
+          "url": "/models/zanatomy-original/organes.glb",
+          "bytes": 3401252,
+          "triangles": 955567,
+          "objects": 300
+        }
+      ]
+    }
+  ],
+  "totalTriangles": 10476184,
+  "totalBytes": 36640196,
+  "frames": {
+    "corps-face": {
+      "eye": [
+        0.04,
+        0.98,
+        3.05
+      ],
+      "target": [
+        0.0,
+        0.86,
+        0.0
+      ]
+    },
+    "corps-dos": {
+      "eye": [
+        -0.04,
+        0.98,
+        -3.05
+      ],
+      "target": [
+        0.0,
+        0.86,
+        0.0
+      ]
+    },
+    "face-cou": {
+      "eye": [
+        0.08,
+        1.58,
+        0.62
+      ],
+      "target": [
+        0.0,
+        1.54,
+        0.02
+      ]
+    },
+    "epaule": {
+      "eye": [
+        0.42,
+        1.48,
+        0.42
+      ],
+      "target": [
+        0.16,
+        1.35,
+        0.0
+      ]
+    },
+    "avant-bras": {
+      "eye": [
+        0.08,
+        0.92,
+        0.52
+      ],
+      "target": [
+        0.3,
+        0.84,
+        0.03
+      ]
+    },
+    "abdomen": {
+      "eye": [
+        0.12,
+        1.1,
+        0.78
+      ],
+      "target": [
+        0.0,
+        1.05,
+        0.08
+      ]
+    },
+    "genou": {
+      "eye": [
+        0.28,
+        0.5,
+        0.52
+      ],
+      "target": [
+        0.1,
+        0.44,
+        0.0
+      ]
+    },
+    "squelette": {
+      "eye": [
+        0.46,
+        1.46,
+        0.22
+      ],
+      "target": [
+        0.15,
+        1.35,
+        -0.04
+      ]
+    }
+  },
+  "bounds": {
+    "squelette": [
+      -0.33462458848953247,
+      0.009203300811350346,
+      -0.11280736327171326,
+      0.33462458848953247,
+      1.7054541110992432,
+      0.1373080015182495
+    ],
+    "muscles": [
+      -0.3353904187679291,
+      0.006664924323558807,
+      -0.13111308217048645,
+      0.33539047837257385,
+      1.7075750827789307,
+      0.13743233680725098
+    ],
+    "ligaments": [
+      -0.3307494521141052,
+      0.006449282635003328,
+      -0.10204395651817322,
+      0.33074951171875,
+      1.5872852802276611,
+      0.12876291573047638
+    ],
+    "nerfs": [
+      -0.3337412178516388,
+      0.006879543419927359,
+      -0.11231087148189545,
+      0.3337412178516388,
+      1.700574517250061,
+      0.13025932013988495
+    ],
+    "vaisseaux": [
+      -0.33198970556259155,
+      0.0034456164576113224,
+      -0.11265529692173004,
+      0.33198970556259155,
+      1.7014672756195068,
+      0.13625551760196686
+    ],
+    "organes": [
+      -0.2261435091495514,
+      0.3173653781414032,
+      -0.09305690973997116,
+      0.2261442244052887,
+      1.6197072267532349,
+      0.10809941589832306
+    ],
+    "face": [
+      -0.0614323616027832,
+      1.3817150592803955,
+      -0.049296990036964417,
+      0.061432406306266785,
+      1.6991924047470093,
+      0.08711200207471848
+    ],
+    "genou": [
+      -0.11685633659362793,
+      0.37369024753570557,
+      -0.03790196403861046,
+      0.11685633659362793,
+      0.5015591979026794,
+      0.02575167641043663
+    ],
+    "avant-bras": [
+      -0.31597596406936646,
+      0.7221091389656067,
+      -0.04194077104330063,
+      0.3159759044647217,
+      1.111856460571289,
+      0.0686236023902893
+    ],
+    "epaule": [
+      -0.17357537150382996,
+      1.254274606704712,
+      -0.11280736327171326,
+      0.17357538640499115,
+      1.417839765548706,
+      0.0012646988034248352
+    ],
+    "abdomen": [
+      -0.0816785916686058,
+      0.8497774600982666,
+      0.045041389763355255,
+      0.0816785916686058,
+      1.2582528591156006,
+      0.11968522518873215
+    ],
+    "nerf-genou": [
+      -0.09613089263439178,
+      0.05752897262573242,
+      -0.06589607894420624,
+      0.09613087773323059,
+      1.1008652448654175,
+      0.043682023882865906
+    ]
+  }
+}

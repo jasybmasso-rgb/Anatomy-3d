@@ -1,0 +1,157 @@
+.za-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100dvh;
+  background: #121a24;
+  overflow: hidden;
+}
+
+.za-bar {
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) minmax(16rem, 1fr) minmax(14rem, 22rem);
+  gap: 0.8rem 1rem;
+  align-items: start;
+  padding: 0.65rem 1rem 0.75rem;
+  border-bottom: 1px solid #243044;
+  background: #121926;
+  z-index: 2;
+}
+
+.za-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.za-sub,
+.za-wait,
+.za-count {
+  margin: 0.12rem 0 0;
+  color: #8b9bb4;
+  font-size: 0.75rem;
+}
+
+.za-back {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: #8eb4e8;
+  font-size: 0.75rem;
+}
+
+.za-systems {
+  margin: 0;
+  padding: 0.35rem 0.7rem 0.5rem;
+  border: 1px solid #33455f;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+}
+
+.za-systems legend {
+  padding: 0 0.3rem;
+  color: #d5deea;
+  font-size: 0.75rem;
+}
+
+.za-check {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+}
+
+.za-check .za-count {
+  margin: 0;
+}
+
+.za-side {
+  min-height: 4.2rem;
+}
+
+.za-readout,
+.za-name,
+.za-progress,
+.za-error {
+  margin: 0;
+}
+
+.za-readout {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.86rem;
+}
+
+.za-name {
+  margin-top: 0.3rem;
+  color: #f3e2c2;
+  font-size: 0.92rem;
+}
+
+.za-progress {
+  margin-top: 0.35rem;
+  color: #b7d0f5;
+  font-size: 0.8rem;
+}
+
+.za-error,
+.za-lost {
+  margin-top: 0.35rem;
+  color: #ffb4a8;
+  font-size: 0.82rem;
+}
+
+.za-viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.za-hint {
+  position: absolute;
+  left: 0.8rem;
+  bottom: 0.7rem;
+  margin: 0;
+  max-width: min(36rem, 70%);
+  color: #c5d2e4;
+  font-size: 0.75rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.za-lost {
+  position: absolute;
+  z-index: 3;
+  left: 1rem;
+  right: 1rem;
+  top: 1rem;
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  background: rgba(18, 25, 38, 0.92);
+  border: 1px solid #6a3a32;
+  border-radius: 0.45rem;
+}
+
+.za-credits {
+  padding: 0.45rem 1rem 0.55rem;
+  border-top: 1px solid #243044;
+  background: #101720;
+}
+
+.za-credits p {
+  margin: 0;
+  color: #8b9bb4;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.za-warn {
+  margin-top: 0.15rem !important;
+  color: #c9b48a !important;
+}
+
+@media (max-width: 900px) {
+  .za-bar {
+    grid-template-columns: 1fr;
+  }
+}

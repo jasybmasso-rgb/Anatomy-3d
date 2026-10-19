@@ -19,6 +19,8 @@ Le squelette affiché est un **GLB fusionné** (`public/models/skeleton.glb`, no
 
 La paroi abdominale (droit, obliques, transverse) peut s’afficher depuis **Z-Anatomy** (CC BY-SA 4.0, dérivé de BodyParts3D, maillage meshoptimizer 10 % compressé en Draco : `public/models/zanatomy-abdo.glb`). Le menu **Couches** contient le choix **Muscles abdominaux : Z-Anatomy / Anciens (procéduraux)** (défaut : Z-Anatomy, mémorisé dans le navigateur). Les aponévroses de la gaine des droits restent le schéma procédural à 50 % d’opacité. Le bouton **Crédits** rappelle les deux licences.
 
+Le lien **Comparer : Z-Anatomy original** ouvre une page séparée (`zanatomy.html`) : le corps entier Z-Anatomy à la géométrie d’origine (sans décimation), un fichier GLB par système. Les fascias d’enveloppe sont une couche **Fascias**, décochée par défaut, pour laisser voir les ventres musculaires. Ce n’est pas la vue d’étude ; le maillage est trop lourd pour un Chromebook.
+
 Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments, fascias, **nerfs**, **organes** et **vaisseaux sanguins** (trois interrupteurs distincts — jamais organes+circulation fusionnés). Les nerfs périphériques majeurs absents de BodyParts3D 4.0 sont des tubes schématiques plus fins, calés sur le trajet usuel (couleur or-jaune atlas). Ligaments, fascias, nerfs, organes et vaisseaux sont sélectionnables comme les muscles.
 
 Reconstruction du GLB :
@@ -70,6 +72,8 @@ Sortie : `android/app/build/outputs/apk/debug/app-debug.apk`. Guide d’installa
 | `src/data/landmarks.json` | Repères osseux (même espace que le GLB) |
 | `public/models/skeleton.glb` | Squelette BodyParts3D (CC BY-SA 2.1 JP) |
 | `public/models/zanatomy-abdo.glb` | Paroi abdominale Z-Anatomy, 10 %, Draco (CC BY-SA 4.0) |
+| `public/models/zanatomy-original/` | Corps entier Z-Anatomy, résolution d’origine, Draco 16 bits |
+| `zanatomy.html` | Page de comparaison (lien d’en-tête) |
 | `docs/ATTRIBUTION.md` | Crédit et share-alike |
 | `src/data/README.md` | Schéma des données |
 | `docs/SPEC-MVP.md` | Spécification Phase 1 |
