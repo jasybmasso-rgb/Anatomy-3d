@@ -1,4 +1,5 @@
 import type { Muscle } from "../types/muscle";
+import { contraMuscleIdsOf, fasciaIdsOf, muscleIdsOf } from "./chainTracks";
 import { muscles } from "./loadMuscles";
 import raw from "./chains.json";
 
@@ -93,14 +94,18 @@ const file = raw as ChainsFile;
 
 export const chainsDisclaimer: ChainNames = file.disclaimer;
 
-export const chains: MyofascialChain[] = file.chains.map((chain) => ({
-  ...chain,
-  muscleIds: filterKnown(chain.muscleIds, chain.sigle),
-  fasciaIds: filterFascia(chain.fasciaIds, chain.sigle),
-  contraMuscleIds: chain.contraMuscleIds
-    ? filterKnown(chain.contraMuscleIds, `${chain.sigle}-contra`)
-    : undefined,
-}));
+export const chains: MyofascialChain[] = file.chains.map((chain) => {
+  const trackedMuscles = muscleIdsOf(chain.id);
+  const trackedFascia = fasciaIdsOf(chain.id);
+  const trackedContra = contraMuscleIdsOf(chain.id);
+  return {
+    ...chain,
+    muscleIds: filterKnown(trackedMuscles.length > 0 ? trackedMuscles : chain.muscleIds, chain.sigle),
+    fasciaIds: filterFascia(trackedFascia.length > 0 ? trackedFascia : chain.fasciaIds, chain.sigle),
+    contraMuscleIds:
+      trackedContra.length > 0 ? filterKnown(trackedContra, `${chain.sigle}-contra`) : undefined,
+  };
+});
 
 export function getChainById(id: string | null | undefined): MyofascialChain | null {
   if (!id) return null;

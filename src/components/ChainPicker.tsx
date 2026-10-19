@@ -1,4 +1,16 @@
 import { chains, chainsDisclaimer, type ChainSide, type MyofascialChain } from "../data/chains";
+import {
+  STATION_ROLE_LABEL,
+  STATION_SIDE_LABEL,
+  stationSide,
+  stationTarget,
+  trackFor,
+  type ChainStation,
+} from "../data/chainTracks";
+import { getFasciaById } from "../data/loadConnective";
+import { getMuscleById } from "../data/loadMuscles";
+import type { StructureKind } from "../types/structure";
+import { applyImmediateHighlight, clearImmediateHighlight } from "../scene/selectionHighlight";
 
 const GROUP_LABEL: Record<MyofascialChain["group"], string> = {
   principal: "Lignes principales",
@@ -111,14 +123,108 @@ export function ChainPicker({
   );
 }
 
+function displayName(station: ChainStation): string {
+  if (station.role === "muscle" && station.id) {
+    return getMuscleById(station.id)?.name ?? station.label;
+  }
+  const fasciaId = station.id ?? station.leftId ?? station.rightId;
+  if (fasciaId && station.pickKind === "fascia") {
+    const name = getFasciaById(fasciaId)?.name;
+    if (name) return name.replace(/ (droit|droite|gauche)$/i, "");
+  }
+  return station.label;
+}
+
+function ChainStationList({
+  chain,
+  chainSide,
+  selectedKind,
+  selectedId,
+  onSelect,
+}: {
+  chain: MyofascialChain;
+  chainSide: ChainSide;
+  selectedKind: StructureKind | null;
+  selectedId: string | null;
+  onSelect: (kind: StructureKind, id: string) => void;
+}) {
+  const track = trackFor(chain.id);
+  if (!track) return null;
+  return (
+    <div className="chain-track-wrap">
+      <p className="chain-track-dir">{track.direction}</p>
+      <ol className="chain-track" aria-label={`Parcours ${chain.sigle}`}>
+        {track.stations.map((station, index) => {
+          const target = stationTarget(station, chainSide);
+          const side = stationSide(station, chainSide);
+          const on = Boolean(target && selectedKind === target.kind && selectedId === target.id);
+          const name = displayName(station);
+          const meta = (
+            <span className="chain-station-meta">
+              <span>{STATION_ROLE_LABEL[station.role]}</span>
+              <span>{STATION_SIDE_LABEL[side]}</span>
+              {station.crosses ? <span>croise</span> : null}
+              {target ? null : <span className="chain-station-note">pas encore modélisé</span>}
+            </span>
+          );
+          if (!target) {
+            return (
+              <li key={`${station.label}-${index}`}>
+                <div className="chain-station chain-station-missing">
+                  <span className="chain-station-index">{index + 1}</span>
+                  <span>
+                    <span className="chain-station-name">{name}</span>
+                    {meta}
+                  </span>
+                </div>
+              </li>
+            );
+          }
+          return (
+            <li key={`${target.kind}-${target.id}-${index}`}>
+              <button
+                type="button"
+                className={on ? "chain-station chain-station-on" : "chain-station"}
+                aria-pressed={on}
+                onPointerEnter={(event) => {
+                  if (event.pointerType !== "mouse") return;
+                  applyImmediateHighlight(target.kind, target.id);
+                }}
+                onPointerLeave={(event) => {
+                  if (event.pointerType !== "mouse") return;
+                  if (selectedKind && selectedId) applyImmediateHighlight(selectedKind, selectedId);
+                  else clearImmediateHighlight();
+                }}
+                onClick={() => onSelect(target.kind, target.id)}
+              >
+                <span className="chain-station-index">{index + 1}</span>
+                <span>
+                  <span className="chain-station-name">{name}</span>
+                  {meta}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 export function ChainDetails({
   activeChainIds,
   chainSide,
   onSideChange,
+  selectedKind,
+  selectedId,
+  onSelect,
 }: {
   activeChainIds: string[];
   chainSide: ChainSide;
   onSideChange: (side: ChainSide) => void;
+  selectedKind: StructureKind | null;
+  selectedId: string | null;
+  onSelect: (kind: StructureKind, id: string) => void;
 }) {
   const selected = chains.filter((chain) => activeChainIds.includes(chain.id));
   if (selected.length === 0) {
@@ -156,12 +262,13 @@ export function ChainDetails({
             </p>
             <p className="chain-detail-en">{chain.name.en}</p>
             <p className="chain-detail-body">{chain.description.fr}</p>
-            {(chain.fasciaIds?.length ?? 0) > 0 ? (
-              <p className="chain-detail-fascia">
-                Fascias : {chain.fasciaIds!.length} structure{chain.fasciaIds!.length > 1 ? "s" : ""}{" "}
-                (approximation pédagogique Myers).
-              </p>
-            ) : null}
+            <ChainStationList
+              chain={chain}
+              chainSide={chainSide}
+              selectedKind={selectedKind}
+              selectedId={selectedId}
+              onSelect={onSelect}
+            />
           </li>
         ))}
       </ul>

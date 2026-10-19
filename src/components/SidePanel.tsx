@@ -59,6 +59,7 @@ type SidePanelProps = {
   showFicheFullscreen: boolean;
   onToggleFicheFullscreen: () => void;
   abdoSource: AbdoSource;
+  onSelectStructure: (kind: StructureKind, id: string) => void;
 };
 
 export function SidePanel({
@@ -78,6 +79,7 @@ export function SidePanel({
   showFicheFullscreen,
   onToggleFicheFullscreen,
   abdoSource,
+  onSelectStructure,
 }: SidePanelProps) {
   const title = muscle?.name ?? viscera?.name ?? connective?.name;
   const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? null;
@@ -95,6 +97,19 @@ export function SidePanel({
           />
         </div>
       ) : null}
+      {showChains ? (
+        <ChainDetails
+          activeChainIds={activeChainIds}
+          chainSide={chainSide}
+          onSideChange={onChainSideChange}
+          selectedKind={kind}
+          selectedId={selectedId}
+          onSelect={(nextKind, id) => {
+            onHiddenChange(nextKind, id, false);
+            onSelectStructure(nextKind, id);
+          }}
+        />
+      ) : null}
       <MuscleVisibilityPanel
         muscles={allMuscles}
         viscera={[...nerves, ...organs, ...vessels]}
@@ -107,13 +122,6 @@ export function SidePanel({
         onShowAll={onShowAllMuscles}
         onHiddenChange={onHiddenChange}
       />
-      {showChains ? (
-        <ChainDetails
-          activeChainIds={activeChainIds}
-          chainSide={chainSide}
-          onSideChange={onChainSideChange}
-        />
-      ) : null}
       {muscle ? (
         <>
           <p className="panel-kicker">{REGION_LABEL[muscle.region]}</p>

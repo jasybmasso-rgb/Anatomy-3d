@@ -201,6 +201,7 @@ export function App() {
           showFicheFullscreen={showFicheFullscreen}
           onToggleFicheFullscreen={() => toggleLayout("fiche")}
           abdoSource={abdoSource}
+          onSelectStructure={onSelectStructure}
         />
       </div>
       <CreditsDialog open={creditsOpen} onClose={() => setCreditsOpen(false)} />

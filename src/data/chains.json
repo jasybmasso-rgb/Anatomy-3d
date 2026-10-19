@@ -15,8 +15,8 @@
         "en": "Superficial Back Line"
       },
       "description": {
-        "fr": "Continuité postérieure de la voûte plantaire vers la nuque : plantar flexors, ischio-jambiers, érecteurs, sous-occipitaux. Souvent lue comme l’étayage « en arrière » et l’extension.",
-        "en": "Posterior continuity from the plantar vault toward the nape: plantar flexors, hamstrings, erectors, suboccipitals. Often read as rearward support and extension."
+        "fr": "La ligne superficielle postérieure est le hauban qui tient le corps debout, de la voûte plantaire jusqu’au front. Elle relie l’aponévrose plantaire et les fléchisseurs courts des orteils, le tendon calcanéen et le triceps sural, les ischio-jambiers, le ligament sacro-tubéreux, le fascia thoraco-lombaire et les érecteurs, puis les sous-occipitaux et le fascia épicrânien. Elle limite la flexion et participe à l’extension de la hanche et du tronc. Une tension d’un seul tenant se lit souvent comme des ischio-jambiers courts, un bassin qui bascule en avant, ou une nuque qui tire vers l’arrière.",
+        "en": "The superficial back line is the posterior stay of standing, from the plantar vault to the brow. It links the plantar fascia and short toe flexors, the calcaneal tendon and triceps surae, the hamstrings, the sacrotuberous ligament, the thoracolumbar fascia and erectors, then the suboccipitals and the epicranial fascia. It limits flexion and helps extend the hip and trunk."
       },
       "tint": "#3d6bb3",
       "muscleIds": [
@@ -57,8 +57,8 @@
         "en": "Superficial Front Line"
       },
       "description": {
-        "fr": "Continuité antérieure du dos du pied vers le tronc et le cou : jambier antérieur, quadriceps, droit de l’abdomen, sterno-cléido-mastoïdien. Souvent associée à la flexion et à la face avant du corps.",
-        "en": "Anterior continuity from the dorsum of the foot toward the trunk and neck: tibialis anterior, quadriceps, rectus abdominis, sternocleidomastoid. Often associated with flexion."
+        "fr": "La ligne superficielle antérieure répond à la SBL sur la face avant, du dos du pied jusqu’à la mastoïde. Elle enchaîne les extenseurs des orteils et le tibial antérieur, le tendon rotulien et le quadriceps, le droit de l’abdomen, le fascia sternal et le sterno-cléido-mastoïdien. Elle fléchit le tronc et la hanche et porte la tête vers l’avant. On la reconnaît quand les genoux partent en recurvatum, le bassin se rétroverse, ou le menton avance.",
+        "en": "The superficial front line balances the SBL on the front of the body, from the dorsum of the foot to the mastoid. It links the toe extensors and tibialis anterior, the patellar tendon and quadriceps, rectus abdominis, the sternal fascia and sternocleidomastoid."
       },
       "tint": "#d4604a",
       "muscleIds": [
@@ -84,8 +84,8 @@
         "en": "Lateral Line"
       },
       "description": {
-        "fr": "Étriers latéraux de la malléole à la hanche, au flanc et au cou : fibulaires, tenseur du fascia lata, moyen fessier, obliques, intercostaux. Stabilité dans le plan frontal, inclinaisons.",
-        "en": "Lateral stirrups from the malleolus through hip, flank and neck: fibulars, TFL, gluteus medius, obliques, intercostals. Frontal-plane stability and side bending."
+        "fr": "La ligne latérale est l’étrier du plan frontal, de la malléole externe jusqu’au crâne. Elle relie les fibulaires et le fascia crural, le tractus ilio-tibial, le tenseur du fascia lata et les fessiers, les obliques et les intercostaux, puis le splénius et le sterno-cléido-mastoïdien. Elle stabilise l’appui sur un pied et incline le tronc. Un côté plus court se voit comme une épaule ou une crête iliaque haute, ou un appui qui fuit vers l’autre membre.",
+        "en": "The lateral line is the frontal-plane stirrup, from the lateral malleolus to the skull. It links the fibulars and crural fascia, the iliotibial tract, tensor fasciae latae and gluteals, the obliques and intercostals, then splenius and sternocleidomastoid."
       },
       "tint": "#c9a227",
       "muscleIds": [
@@ -122,8 +122,8 @@
         "en": "Spiral Line"
       },
       "description": {
-        "fr": "Hélice autour du tronc et des membres (latéralité croisée de Myers) : splénius homolatéral, rhomboïdes et dentelé controlatéraux, oblique externe controlatéral puis oblique interne homolatéral, TFL / jambier / long fibulaire / biceps fémoral du même côté. En unilatéral, ce n’est pas un filtre gauche/droite simple.",
-        "en": "Helix around trunk and limbs (Myers crossed laterality): ipsilateral splenius, contralateral rhomboids and serratus, contralateral external oblique then ipsilateral internal oblique, same-side TFL / tibialis / fibularis / biceps femoris. Unilateral SPL is not a simple L/R clip."
+        "fr": "La ligne spirale s’enroule autour du tronc et des membres en croisant la ligne médiane. Partie d’un splénius, elle passe par les rhomboïdes et le dentelé de l’autre côté, l’oblique externe controlatéral, puis revient du côté de départ par l’oblique interne, le tenseur du fascia lata, le tibial antérieur, le long fibulaire et le biceps fémoral, avant de remonter par le ligament sacro-tubéreux et les érecteurs. Elle organise les rotations et les contre-rotations. Une hélice fixe se lit comme une épaule enroulée, un bassin tourné, ou un genou qui regarde en dedans.",
+        "en": "The spiral line wraps the trunk and limbs and crosses the midline. From splenius it passes through the opposite rhomboids, serratus and external oblique, then returns on the starting side through internal oblique, tensor fasciae latae, tibialis anterior, fibularis longus and biceps femoris, and climbs back through the sacrotuberous ligament and the erectors."
       },
       "tint": "#7b5ea7",
       "muscleIds": [
@@ -170,8 +170,8 @@
         "en": "Deep Front Line"
       },
       "description": {
-        "fr": "Axe profond : jambier postérieur, adducteurs, iliopsoas, plancher pelvien, diaphragme, scalènes et longs du cou. Appui, respiration, organisation du centre.",
-        "en": "Deep axial line: tibialis posterior, adductors, iliopsoas, pelvic floor, diaphragm, scalenes and longus colli. Support, breathing, organisation of the centre."
+        "fr": "La ligne profonde antérieure est l’axe interne du corps, de la voûte plantaire profonde jusqu’au plancher de la bouche. Elle relie le tibial postérieur et les longs fléchisseurs, le poplité, les adducteurs, le plancher pelvien, l’iliopsoas, le diaphragme, les scalènes et les longs du cou, puis les muscles hyoïdiens. Elle porte le tonus postural profond, le soutien des viscères et la respiration. On l’examine quand le pied s’affaisse en dedans, la hanche se ferme, ou le souffle reste bloqué en haut du thorax.",
+        "en": "The deep front line is the inner axis, from the deep plantar vault to the floor of the mouth. It links tibialis posterior and the long toe flexors, popliteus, the adductors, the pelvic floor, iliopsoas, the diaphragm, the scalenes and longus colli, then the hyoid muscles."
       },
       "tint": "#2a9d8f",
       "muscleIds": [
@@ -219,8 +219,8 @@
         "en": "Superficial Front Arm Line"
       },
       "description": {
-        "fr": "De la poitrine vers le pouce : grand pectoral, biceps, fléchisseurs superficiels et thénar. Gestes de tirer et de fermer la main.",
-        "en": "From the chest toward the thumb: pectoralis major, biceps, superficial flexors and thenar. Pulling and closing the hand."
+        "fr": "La ligne superficielle antérieure du bras va du torse à la paume. Le grand pectoral et le grand dorsal encadrent l’aisselle, le septum intermusculaire médial mène aux fléchisseurs du poignet et des doigts, puis au rétinaculum des fléchisseurs et à l’aponévrose palmaire. Elle ramène le bras devant le corps et ferme la main. Une épaule enroulée avec un poignet qui reste fléchi en est la présentation habituelle.",
+        "en": "The superficial front arm line runs from the torso to the palm. Pectoralis major and latissimus frame the axilla, the medial intermuscular septum leads to the wrist and finger flexors, then the flexor retinaculum and palmar aponeurosis."
       },
       "tint": "#e07a3d",
       "muscleIds": [
@@ -244,8 +244,8 @@
         "en": "Deep Front Arm Line"
       },
       "description": {
-        "fr": "Plan plus profond de la ceinture vers les fléchisseurs : petit pectoral, coraco-brachial, brachial, fléchisseurs profonds.",
-        "en": "Deeper plane from the girdle toward the flexors: pectoralis minor, coracobrachialis, brachialis, deep flexors."
+        "fr": "La ligne profonde antérieure du bras est le plan profond, du petit pectoral jusqu’au pouce. Elle passe par le fascia clavipectoral et le biceps, longe le radius, et se termine dans les muscles du thénar. Elle stabilise l’épaule en avant et contrôle la prise fine du pouce. On la lit quand l’épaule se ferme vers l’avant et que le pouce a du mal à s’écarter.",
+        "en": "The deep front arm line is the deep plane from pectoralis minor to the thumb. It passes through the clavipectoral fascia and biceps, along the radius, and ends in the thenar muscles."
       },
       "tint": "#b85c38",
       "muscleIds": [
@@ -268,8 +268,8 @@
         "en": "Superficial Back Arm Line"
       },
       "description": {
-        "fr": "Du trapèze au dos de la main : trapèze, deltoïde, extenseurs du poignet et des doigts. Ouvrir le bras et relever la main.",
-        "en": "From trapezius to the dorsum of the hand: trapezius, deltoid, wrist and finger extensors. Opening the arm and lifting the hand."
+        "fr": "La ligne superficielle postérieure du bras va du trapèze au dos de la main. Elle relie le trapèze, le deltoïde, le septum intermusculaire latéral et les extenseurs du poignet et des doigts. Elle ouvre le bras en arrière et relève la main. Une ceinture qui s’affaisse et un poignet qui tombe en flexion en sont le tableau courant.",
+        "en": "The superficial back arm line runs from trapezius to the dorsum of the hand. It links trapezius, deltoid, the lateral intermuscular septum and the wrist and finger extensors."
       },
       "tint": "#5ba3d9",
       "muscleIds": [
@@ -294,8 +294,8 @@
         "en": "Deep Back Arm Line"
       },
       "description": {
-        "fr": "Stabilisateurs profonds de la scapula vers le triceps et le bord ulnaire : rhomboïdes, élévateur, coiffe, triceps, hypothénar.",
-        "en": "Deep scapular stabilisers toward triceps and the ulnar border: rhomboids, levator, rotator cuff, triceps, hypothenar."
+        "fr": "La ligne profonde postérieure du bras stabilise l’omoplate et va jusqu’à l’auriculaire. Elle enchaîne les rhomboïdes et l’élévateur de la scapula, la coiffe des rotateurs, le triceps, le périoste de l’ulna et les muscles de l’hypothénar. Elle contrôle l’épaule en rotation et l’extension du coude. On la consulte quand l’omoplate décroche ou que le coude ne se verrouille plus en appui.",
+        "en": "The deep back arm line stabilises the scapula and continues to the little finger. It links the rhomboids and levator scapulae, the rotator cuff, triceps, the ulnar periosteum and the hypothenar muscles."
       },
       "tint": "#4c5bd4",
       "muscleIds": [
@@ -323,8 +323,8 @@
         "en": "Front Functional Line"
       },
       "description": {
-        "fr": "Grand pectoral et droit du même côté, croisement à la symphyse pubienne, puis long adducteur controlatéral. Un seul côté trace cette diagonale ; les deux côtés forment le X antérieur.",
-        "en": "Same-side pectoralis major and rectus, cross at the pubic symphysis, then contralateral adductor longus. One side draws that diagonal; both sides form the front X."
+        "fr": "La ligne fonctionnelle antérieure relie l’épaule d’un côté à la cuisse opposée, en croisant devant le pubis. Le grand pectoral et le droit de l’abdomen du côté choisi rejoignent le long adducteur controlatéral : un seul côté trace cette diagonale, les deux côtés forment le X. Elle transmet les forces des gestes croisés, comme un lancer ou un pas contrarié. Une diagonale courte se voit dans un mouvement où l’épaule et la hanche opposée ne s’ouvrent plus ensemble.",
+        "en": "The front functional line links one shoulder to the opposite thigh, crossing in front of the pubis. Same-side pectoralis major and rectus meet the contralateral adductor longus."
       },
       "tint": "#c45c7a",
       "muscleIds": [
@@ -346,8 +346,8 @@
         "en": "Back Functional Line"
       },
       "description": {
-        "fr": "Grand dorsal du même côté, croisement du fascia thoraco-lombaire près de la charnière sacro-lombaire, puis grand fessier et vaste latéral controlatéraux. Un seul côté trace cette diagonale ; les deux côtés forment le X postérieur. Pas de fascia sacré séparé : le fascia thoraco-lombaire sert de pont.",
-        "en": "Same-side latissimus, cross through thoracolumbar fascia near the sacrolumbar junction, then contralateral gluteus maximus and vastus lateralis. One side draws that diagonal; both sides form the back X. No separate sacral fascia mesh: thoracolumbar fascia is the bridge."
+        "fr": "La ligne fonctionnelle postérieure est le X du dos, de l’épaule d’un côté au membre inférieur opposé. Le grand dorsal du côté choisi croise le fascia thoraco-lombaire près de la charnière sacro-lombaire, puis gagne le grand fessier et le vaste latéral controlatéraux. Elle porte les appuis croisés et l’extension de la marche. On la lit quand le bras et la jambe opposée ne se coordonnent plus, ou quand le bassin tourne sans suivre l’épaule.",
+        "en": "The back functional line is the X of the back, from one shoulder to the opposite lower limb. Same-side latissimus crosses the thoracolumbar fascia, then reaches the contralateral gluteus maximus and vastus lateralis."
       },
       "tint": "#4a8f5c",
       "muscleIds": [
@@ -372,8 +372,8 @@
         "en": "Ipsilateral Functional Line"
       },
       "description": {
-        "fr": "Même côté seulement, sans croisement : fibres latérales du grand dorsal, oblique externe, sartorius de l’EIAS jusqu’au genou médial.",
-        "en": "Same side only, no midline cross: lateral latissimus, external oblique, sartorius from the ASIS to the medial knee."
+        "fr": "La ligne fonctionnelle homolatérale reste du même côté, sans croiser la ligne médiane. Les fibres latérales du grand dorsal rejoignent l’oblique externe, puis le sartorius, de l’épine iliaque antéro-supérieure jusqu’au genou médial. Elle plie et stabilise le tronc avec la hanche du même côté, comme dans un fendu. Elle se distingue des X : choisir gauche ou droite ne fait pas passer la ligne de l’autre côté.",
+        "en": "The ipsilateral functional line stays on one side and does not cross the midline. Lateral latissimus meets external oblique, then sartorius, from the ASIS to the medial knee."
       },
       "tint": "#d4a017",
       "muscleIds": [
