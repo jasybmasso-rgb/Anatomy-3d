@@ -35,8 +35,9 @@ INCLUSION_RULES = (
     "All BodyParts3D 4.0 skeletal muscle organs / heads / zones that have unique "
     "OBJ files, grouped by muscle (laterality merged; named heads concatenated). "
     "Excluded: extraocular, tongue, palate, pharynx, larynx, facial expression, "
-    "abstract compartment parents. Latissimus dorsi and rectus abdominis have no "
-    "BP3D 4.0 mesh and remain landmark-anchored synthetics. Iliacus + psoas major "
+    "abstract compartment parents. Latissimus dorsi, rectus abdominis, internal oblique and "
+    "transversus abdominis have no BP3D 4.0 mesh and remain landmark-anchored synthetics. "
+    "Iliacus + psoas major "
     "are merged as iliopsoas. Fiber axis = PCA of patient-right (x≤0) vertices."
 )
 

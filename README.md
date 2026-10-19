@@ -11,13 +11,15 @@ Interface en **français canadien (fr-CA)**. Licence **MIT**.
 - À la sélection : **muscle stylisé** + animation de caméra vers le foyer du muscle.
 - **Réinitialiser** : muscle, panneau, champ de recherche et caméra.
 
-Les chaînes myofasciales (Tom Myers), les nerfs et la superposition multi-éléments **ne font pas** partie de cette phase. Voir `docs/PLAN-PHASES.md` et `docs/SPEC-MVP.md`.
+Les chaînes myofasciales (Tom Myers) sont une couche pédagogique. iOS / IPA hors de ce livrable.
 
 ## Choix 3D : squelette BodyParts3D
 
 Le squelette affiché est un **GLB fusionné** (`public/models/skeleton.glb`, normales incluses) dérivé de **BodyParts3D** (os + cartilage hyalin / fibrocartilage disponible, réduction 99 %). Voir `docs/ATTRIBUTION.md` pour le crédit **CC BY-SA 2.1 Japon** et les implications share-alike.
 
-Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments (`ligaments.glb`, tan — BP3D + fascicules synthétiques aux articulations majeures) et fascias (`fascia.glb`, gris-bleu — tractus ilio-tibiaux BP3D + nappes / feuilles synthétiques).
+La paroi abdominale (droit, obliques, transverse) peut s’afficher depuis **Z-Anatomy** (CC BY-SA 4.0, dérivé de BodyParts3D, maillage meshoptimizer 10 % compressé en Draco : `public/models/zanatomy-abdo.glb`). Le menu **Couches** contient le choix **Muscles abdominaux : Z-Anatomy / Anciens (procéduraux)** (défaut : Z-Anatomy, mémorisé dans le navigateur). Les aponévroses de la gaine des droits restent le schéma procédural à 50 % d’opacité. Le bouton **Crédits** rappelle les deux licences.
+
+Repère scène : Y-up, stature ~1,7 m, origine près du bassin, face +Z. Les muscles du MVP sont des maillages BodyParts3D (ou nappes synthétiques si le muscle est absent de BP3D 4.0), avec une texture de fibres fusiforme (ventre plus rouge, extrémités tendineuses plus claires). Les repères anatomiques (`src/data/landmarks.json`) sont des centroïdes / extrema de boîtes (v1 approximatif). Couches optionnelles (toggles **off** par défaut) : ligaments, fascias, **nerfs**, **organes** et **vaisseaux sanguins** (trois interrupteurs distincts — jamais organes+circulation fusionnés). Les nerfs périphériques majeurs absents de BodyParts3D 4.0 sont des tubes schématiques plus fins, calés sur le trajet usuel (couleur or-jaune atlas). Ligaments, fascias, nerfs, organes et vaisseaux sont sélectionnables comme les muscles.
 
 Reconstruction du GLB :
 
@@ -27,8 +29,10 @@ bash scripts/build-skeleton-glb.sh
 
 ## Prérequis
 
-- Node.js 20+ recommandé
+- **Node.js 22+** recommandé (Capacitor 8 / `@capacitor/cli` déclarent `engines.node >= 22`). Node 20 suffit pour le bundle web et pour une partie des dépendances ; Node 18 n’empêche pas `npm install` mais affiche des avertissements `EBADENGINE`.
 - npm
+
+Ne pas lancer `npm audit fix --force` : cela rétrograderait Capacitor 8 vers 6. L’avis `uuid` vient de `@capacitor/cli` → `xcode` (outillage de build), pas du runtime web.
 
 ## Installation et lancement
 
@@ -48,6 +52,16 @@ npm run preview
 
 `npm run build` lance la vérification TypeScript puis le bundle Vite.
 
+## APK Android (test sideload)
+
+Application Capacitor (`ca.anatomy3d.app`). APK **debug** pour installation hors Play Store (squelette, muscles, ligaments, fascias, **nerfs, organes et vaisseaux** inclus) :
+
+```bash
+npm run apk:debug
+```
+
+Sortie : `android/app/build/outputs/apk/debug/app-debug.apk`. Guide d’installation (sources inconnues, Chromebook) : `docs/GUIDE-ANDROID-APK.md`.
+
 ## Structure utile
 
 | Chemin | Rôle |
@@ -55,6 +69,7 @@ npm run preview
 | `src/data/muscles.json` | 22 muscles du MVP |
 | `src/data/landmarks.json` | Repères osseux (même espace que le GLB) |
 | `public/models/skeleton.glb` | Squelette BodyParts3D (CC BY-SA 2.1 JP) |
+| `public/models/zanatomy-abdo.glb` | Paroi abdominale Z-Anatomy, 10 %, Draco (CC BY-SA 4.0) |
 | `docs/ATTRIBUTION.md` | Crédit et share-alike |
 | `src/data/README.md` | Schéma des données |
 | `docs/SPEC-MVP.md` | Spécification Phase 1 |
@@ -63,6 +78,6 @@ npm run preview
 
 ## Hors-scope actuel
 
-- Anatomy Trains / chaînes de Tom Myers
-- Nerfs et plexus en 3D
-- Sélection de plusieurs éléments à la fois
+- IPA iOS
+- Réécriture Anatomy Trains / Myers
+- Fusion organes + vaisseaux dans une seule couche
