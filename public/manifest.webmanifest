@@ -1,0 +1,13 @@
+{
+  "name": "Anatomy-3d",
+  "short_name": "Anatomy-3d",
+  "lang": "fr-CA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121a24",
+  "theme_color": "#041436",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
