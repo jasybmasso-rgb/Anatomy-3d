@@ -1,0 +1,83 @@
+{
+  "alignment": {
+    "pivot": [
+      0,
+      0.861,
+      0.052
+    ],
+    "target": [
+      0,
+      -0.064,
+      0.094
+    ],
+    "scale": 0.995,
+    "pitchDegAboutX": 4
+  },
+  "files": [
+    {
+      "file": "squelette.glb",
+      "bytes": 3034548,
+      "triangles": 762263,
+      "nodes": 326,
+      "trianglesBefore": 762263
+    },
+    {
+      "file": "muscles.glb",
+      "bytes": 6719908,
+      "triangles": 1845796,
+      "nodes": 480,
+      "trianglesBefore": 1845796
+    },
+    {
+      "file": "fascias.glb",
+      "bytes": 1500560,
+      "triangles": 475085,
+      "nodes": 197,
+      "trianglesBefore": 475085
+    },
+    {
+      "file": "ligaments.glb",
+      "bytes": 1204604,
+      "triangles": 300497,
+      "nodes": 370,
+      "trianglesBefore": 300497
+    },
+    {
+      "file": "organes.glb",
+      "bytes": 2671928,
+      "triangles": 955567,
+      "nodes": 300,
+      "trianglesBefore": 955567
+    },
+    {
+      "file": "nerfs.glb",
+      "bytes": 2747276,
+      "triangles": 1216040,
+      "nodes": 257,
+      "trianglesBefore": 2406786
+    },
+    {
+      "file": "organes-snc.glb",
+      "bytes": 2796084,
+      "triangles": 790529,
+      "nodes": 325,
+      "trianglesBefore": 2406786
+    },
+    {
+      "file": "vaisseaux-extremites.glb",
+      "bytes": 1326480,
+      "triangles": 572544,
+      "nodes": 92,
+      "trianglesBefore": 3730186
+    },
+    {
+      "file": "vaisseaux.glb",
+      "bytes": 5066652,
+      "triangles": 1587888,
+      "nodes": 566,
+      "trianglesBefore": 3730186
+    }
+  ],
+  "triangles": 8506209,
+  "bytes": 27068040
+}

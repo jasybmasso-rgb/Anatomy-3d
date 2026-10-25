@@ -1,5 +1,5 @@
 import type { Muscle } from "../types/muscle";
-import { contraMuscleIdsOf, fasciaIdsOf, muscleIdsOf } from "./chainTracks";
+import { contraMuscleIdsOf, fasciaIdsOf, muscleIdsOf, trackFor } from "./chainTracks";
 import { muscles } from "./loadMuscles";
 import raw from "./chains.json";
 
@@ -191,6 +191,41 @@ export function fasciaIdsForChains(activeIds: string[]): string[] {
     for (const id of chain.fasciaIds ?? []) ids.add(id);
   }
   return [...ids];
+}
+
+function averageTint(matched: MyofascialChain[]): string | null {
+  if (matched.length === 0) return null;
+  if (matched.length === 1) return matched[0].tint;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  for (const chain of matched) {
+    const n = parseInt(chain.tint.replace("#", ""), 16);
+    r += (n >> 16) & 255;
+    g += (n >> 8) & 255;
+    b += n & 255;
+  }
+  const k = matched.length;
+  const hex = (v: number) =>
+    Math.round(v / k)
+      .toString(16)
+      .padStart(2, "0");
+  return `#${hex(r)}${hex(g)}${hex(b)}`;
+}
+
+/** Tint for any station mesh, including Z-Anatomy-only ids that are not in the procedural catalogs. */
+export function tintForStructureId(id: string, activeIds: string[]): string | null {
+  const listed = tintForMuscle(id, activeIds) ?? tintForFascia(id, activeIds);
+  if (listed) return listed;
+  const matched = chains.filter((chain) => {
+    if (!activeIds.includes(chain.id)) return false;
+    const track = trackFor(chain.id);
+    if (!track) return false;
+    return track.stations.some(
+      (station) => station.id === id || station.leftId === id || station.rightId === id,
+    );
+  });
+  return averageTint(matched);
 }
 
 export function tintForFascia(fasciaId: string, activeIds: string[]): string | null {

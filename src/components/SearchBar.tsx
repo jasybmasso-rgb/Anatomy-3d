@@ -4,10 +4,19 @@ import type { ConnectivePart, StructureKind, VisceraPart } from "../types/struct
 import { STRUCTURE_KIND_LABEL } from "../types/structure";
 import { searchStructures, type SearchHit } from "../lib/searchStructures";
 
+type ExtraPart = {
+  id: string;
+  name: string;
+  nameLatin: string;
+  aliases: string[];
+  kind: StructureKind;
+};
+
 type SearchBarProps = {
   muscles: Muscle[];
   viscera: VisceraPart[];
   connective: ConnectivePart[];
+  extra?: ExtraPart[];
   selectedId: string | null;
   selectedKind: StructureKind | null;
   resetToken: number;
@@ -18,6 +27,7 @@ export function SearchBar({
   muscles,
   viscera,
   connective,
+  extra = [],
   selectedId,
   selectedKind,
   resetToken,
@@ -36,8 +46,8 @@ export function SearchBar({
   }, [resetToken]);
 
   const results = useMemo(
-    () => searchStructures(muscles, viscera, connective, query).slice(0, 12),
-    [muscles, viscera, connective, query],
+    () => searchStructures(muscles, viscera, connective, query, extra).slice(0, 12),
+    [muscles, viscera, connective, extra, query],
   );
 
   useEffect(() => {

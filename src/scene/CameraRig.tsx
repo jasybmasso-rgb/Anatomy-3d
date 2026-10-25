@@ -10,6 +10,23 @@ import { registerOrbitFocus } from "./orbitFocus";
 export const DEFAULT_EYE: [number, number, number] = [1.55, 0.22, 2.35];
 export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 
+/** Optional `?shot=` poses for layer screenshots. Ignored during normal use. */
+const SHOT_POSES: Record<string, { eye: [number, number, number]; target: [number, number, number] }> = {
+  body: { eye: [1.7, 0.15, 2.55], target: [0, -0.08, 0] },
+  "hand-palmar": { eye: [0.27, -0.05, 0.42], target: [0.27, -0.1, 0.06] },
+  "hand-dorsal": { eye: [0.27, -0.02, -0.3], target: [0.27, -0.1, 0.06] },
+  "foot-plantar": { eye: [0.09, -1.28, -0.02], target: [0.09, -0.88, -0.01] },
+  "foot-dorsal": { eye: [0.14, -0.52, 0.36], target: [0.09, -0.87, 0.01] },
+};
+
+function shotGoals(): { eye: THREE.Vector3; target: THREE.Vector3 } | null {
+  if (typeof window === "undefined") return null;
+  const name = new URLSearchParams(window.location.search).get("shot");
+  const pose = name ? SHOT_POSES[name] : undefined;
+  if (!pose) return null;
+  return { eye: new THREE.Vector3(...pose.eye), target: new THREE.Vector3(...pose.target) };
+}
+
 const MIN_DISTANCE = 0.08;
 const MAX_DISTANCE = 8;
 const DAMPING = 0.08;
@@ -240,11 +257,19 @@ export function CameraRig({
   }, []);
 
   useEffect(() => {
-    const next = goalsFor(focus);
+    const posed = shotGoals();
+    const next = posed ?? goalsFor(focus);
     goalEye.current.copy(next.eye);
     goalTarget.current.copy(next.target);
+    if (posed && controls.current) {
+      camera.position.copy(next.eye);
+      controls.current.target.copy(next.target);
+      controls.current.update();
+      animating.current = false;
+      return;
+    }
     animating.current = true;
-  }, [focus, resetToken]);
+  }, [camera, focus, resetToken]);
 
   useEffect(() => {
     const element = gl.domElement;

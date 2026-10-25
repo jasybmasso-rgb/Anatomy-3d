@@ -1,8 +1,8 @@
 # Attribution — maillages anatomiques
 
-## Z-Anatomy — paroi abdominale
+## Z-Anatomy — corps entier (défaut)
 
-Le fichier `public/models/zanatomy-abdo.glb` (droit de l’abdomen, oblique externe, oblique interne, transverse, gauche et droite) dérive du modèle **Z-Anatomy** (template Blender `Startup.blend`, 2 mai 2023), licence **CC BY-SA 4.0**. Z-Anatomy est lui-même dérivé de BodyParts3D.
+Les fichiers `public/models/zanatomy/*.glb` remplacent, dans le mode **Z-Anatomy**, le squelette (os et cartilages), les muscles, les fascias, les ligaments, les nerfs, les organes (y compris l’encéphale) et les vaisseaux. Source : **Z-Anatomy**, template Blender `Startup.blend` du 2 mai 2023, licence **CC BY-SA 4.0**, dérivé de BodyParts3D (CC BY-SA 2.1 Japon).
 
 **Crédit :**
 
@@ -10,9 +10,12 @@ Le fichier `public/models/zanatomy-abdo.glb` (droit de l’abdomen, oblique exte
 > Dérivé de BodyParts3D, Copyright© 2008 The Database Center for Life Science licensed by CC Attribution-Share Alike 2.1 Japan.
 
 - Licence du dérivé : [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.fr)
-- Détail, omissions (gaine des droits vide, pas de pyramidal, ligne blanche hors du jeu décimé) et compression Draco : `public/models/zanatomy-abdo.ATTRIBUTION.md`
+- Tailles, triangles, décimation et omissions : `public/models/zanatomy/ATTRIBUTION.md`
+- Le menu **Couches** propose « Modèles : Z-Anatomy / Anciens (procéduraux) » (`localStorage` `anatomy3d.modelSource`, défaut Z-Anatomy). L’ancien interrupteur abdominal (`anatomy3d.abdoSource`) est replié dans ce choix : « procédural » revient à tous les GLB BodyParts3D / schémas.
+- Chaque système est un GLB Draco, chargé seulement quand sa couche est activée (le squelette Z-Anatomy reste visible). Les chaînes myofaciales chargent aussi muscles, fascias, ligaments et le GLB organes (langue).
+- `public/models/zanatomy-abdo.glb` reste le dérivé historique de la paroi (10 %, Draco). Le mode corps entier ne l’utilise plus.
 
-Dans l’application, le menu **Couches** propose « Muscles abdominaux : Z-Anatomy / Anciens (procéduraux) ». Le mode Z-Anatomy est le défaut. Les aponévroses OE / OI / TA (opacité 50 %) restent les nappes procédurales, parce que la collection « Rectus sheath » de la source ne contient pas de maillage.
+Les maillages procéduraux décrits plus bas restent disponibles via « Anciens (procéduraux) ».
 
 ## BodyParts3D / Anatomography
 

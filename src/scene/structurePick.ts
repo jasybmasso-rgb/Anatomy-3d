@@ -20,6 +20,7 @@ const KIND_BIAS: Record<StructureKind, number> = {
   fascia: -0.007,
   organ: 0,
   muscle: 0.005,
+  bone: 0.012,
 };
 
 const RESIDUAL_VESSEL = new Set(["arbre-arteriel", "arbre-veineux"]);

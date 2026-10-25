@@ -1,4 +1,5 @@
 import { chains, chainsDisclaimer, type ChainSide, type MyofascialChain } from "../data/chains";
+import type { ModelSource } from "../scene/modelSource";
 import {
   STATION_ROLE_LABEL,
   STATION_SIDE_LABEL,
@@ -138,12 +139,14 @@ function displayName(station: ChainStation): string {
 function ChainStationList({
   chain,
   chainSide,
+  modelSource,
   selectedKind,
   selectedId,
   onSelect,
 }: {
   chain: MyofascialChain;
   chainSide: ChainSide;
+  modelSource: ModelSource;
   selectedKind: StructureKind | null;
   selectedId: string | null;
   onSelect: (kind: StructureKind, id: string) => void;
@@ -155,7 +158,7 @@ function ChainStationList({
       <p className="chain-track-dir">{track.direction}</p>
       <ol className="chain-track" aria-label={`Parcours ${chain.sigle}`}>
         {track.stations.map((station, index) => {
-          const target = stationTarget(station, chainSide);
+          const target = stationTarget(station, chainSide, modelSource);
           const side = stationSide(station, chainSide);
           const on = Boolean(target && selectedKind === target.kind && selectedId === target.id);
           const name = displayName(station);
@@ -214,6 +217,7 @@ function ChainStationList({
 export function ChainDetails({
   activeChainIds,
   chainSide,
+  modelSource,
   onSideChange,
   selectedKind,
   selectedId,
@@ -221,6 +225,7 @@ export function ChainDetails({
 }: {
   activeChainIds: string[];
   chainSide: ChainSide;
+  modelSource: ModelSource;
   onSideChange: (side: ChainSide) => void;
   selectedKind: StructureKind | null;
   selectedId: string | null;
@@ -265,6 +270,7 @@ export function ChainDetails({
             <ChainStationList
               chain={chain}
               chainSide={chainSide}
+              modelSource={modelSource}
               selectedKind={selectedKind}
               selectedId={selectedId}
               onSelect={onSelect}

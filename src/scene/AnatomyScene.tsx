@@ -1,24 +1,38 @@
 import { ContactShadows } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { lazy, Suspense, useCallback, useMemo, useRef, useState } from "react";
 import type { ChainSide } from "../data/chains";
-import { nerves, organs, vessels } from "../data/loadViscera";
 import type { Muscle } from "../types/muscle";
 import type { FocusTarget, HiddenMap, StructureKind } from "../types/structure";
 import { LandmarkLayer } from "./LandmarkLayer";
 import { CameraRig, DEFAULT_EYE } from "./CameraRig";
 import { getDeviceProfile } from "./deviceProfile";
-import { Fascia } from "./Fascia";
 import { FLOOR_Y } from "./landmarks";
-import { Ligaments } from "./Ligaments";
-import type { AbdoSource } from "./abdoSource";
-import { MuscleLayer } from "./MuscleLayer";
-import { Skeleton } from "./Skeleton";
+import type { ModelSource } from "./modelSource";
 import { StructurePick } from "./structurePick";
-import { VisceraLayer } from "./VisceraLayer";
 import { attachWebglGuard } from "./webglGuard";
 
+const ZAnatomyBody = lazy(() => import("./ZAnatomyBody"));
+const ProceduralBody = lazy(() => import("./ProceduralBody"));
+
 const SCENE_BG = "#121a24";
+
+function FpsProbe() {
+  const on = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("fps") === "1";
+  const acc = useRef({ n: 0, t: 0 });
+  useFrame((_, dt) => {
+    if (!on) return;
+    acc.current.n += 1;
+    acc.current.t += dt;
+    if (acc.current.t < 0.5) return;
+    const fps = acc.current.n / acc.current.t;
+    acc.current.n = 0;
+    acc.current.t = 0;
+    const el = document.getElementById("fps-probe");
+    if (el) el.dataset.fps = fps.toFixed(1);
+  });
+  return null;
+}
 
 function supportsWebGL(): boolean {
   try {
@@ -64,7 +78,7 @@ type AnatomySceneProps = {
   showChains: boolean;
   activeChainIds: string[];
   chainSide: ChainSide;
-  abdoSource: AbdoSource;
+  modelSource: ModelSource;
   resetToken: number;
   onSelectStructure: (kind: StructureKind, id: string) => void;
 };
@@ -87,7 +101,7 @@ export function AnatomyScene({
   showChains,
   activeChainIds,
   chainSide,
-  abdoSource,
+  modelSource,
   resetToken,
   onSelectStructure,
 }: AnatomySceneProps) {
@@ -149,71 +163,59 @@ export function AnatomyScene({
       <fog attach="fog" args={[SCENE_BG, 8, 18]} />
       <Lights shadows={profile.shadows} shadowMap={profile.shadowMap} />
       <Suspense fallback={null}>
-        <Skeleton />
-        {showFascia || showChains ? (
-          <Fascia
-            layerVisible={showFascia}
-            selectedId={selectedKind === "fascia" ? selectedId : null}
-            hiddenIds={hiddenIds.fascia}
-            chainLayerOn={showChains}
+        {modelSource === "zanatomy" ? (
+          <ZAnatomyBody
+            showMuscles={showMuscles}
+            showAllMuscles={showAllMuscles}
+            pinnedMuscleId={pinnedMuscleId}
+            hiddenMuscleIds={hiddenIds.muscle}
+            hiddenFasciaIds={hiddenIds.fascia}
+            hiddenLigamentIds={hiddenIds.ligament}
+            hiddenNerveIds={hiddenIds.nerve}
+            hiddenOrganIds={hiddenIds.organ}
+            hiddenVesselIds={hiddenIds.vessel}
+            hiddenBoneIds={hiddenIds.bone}
+            showLigaments={showLigaments}
+            showFascia={showFascia}
+            showNerves={showNerves}
+            showOrgans={showOrgans}
+            showVessels={showVessels}
+            showChains={showChains}
             activeChainIds={activeChainIds}
             chainSide={chainSide}
+            selectedId={selectedId}
           />
-        ) : null}
-        {showLigaments ? (
-          <Ligaments
-            visible={showLigaments}
-            selectedId={selectedKind === "ligament" ? selectedId : null}
-            hiddenIds={hiddenIds.ligament}
+        ) : (
+          <ProceduralBody
+            showMuscles={showMuscles}
+            showAllMuscles={showAllMuscles}
+            pinnedMuscleId={pinnedMuscleId}
+            selectedMuscleId={muscle?.id ?? null}
+            hiddenMuscleIds={hiddenIds.muscle}
+            hiddenFasciaIds={hiddenIds.fascia}
+            hiddenLigamentIds={hiddenIds.ligament}
+            hiddenNerveIds={hiddenIds.nerve}
+            hiddenOrganIds={hiddenIds.organ}
+            hiddenVesselIds={hiddenIds.vessel}
+            showLigaments={showLigaments}
+            showFascia={showFascia}
+            showNerves={showNerves}
+            showOrgans={showOrgans}
+            showVessels={showVessels}
+            showChains={showChains}
+            activeChainIds={activeChainIds}
+            chainSide={chainSide}
+            selectedKind={selectedKind}
+            selectedId={selectedId}
           />
-        ) : null}
-        {showOrgans ? (
-          <VisceraLayer
-            url="/models/organs.glb"
-            parts={organs}
-            kind="organ"
-            visible={showOrgans}
-            selectedId={selectedKind === "organ" ? selectedId : null}
-            hiddenIds={hiddenIds.organ}
-          />
-        ) : null}
-        {showVessels ? (
-          <VisceraLayer
-            url="/models/vessels.glb"
-            parts={vessels}
-            kind="vessel"
-            visible={showVessels}
-            selectedId={selectedKind === "vessel" ? selectedId : null}
-            hiddenIds={hiddenIds.vessel}
-          />
-        ) : null}
-        {showNerves ? (
-          <VisceraLayer
-            url="/models/nerves.glb"
-            parts={nerves}
-            kind="nerve"
-            visible={showNerves}
-            selectedId={selectedKind === "nerve" ? selectedId : null}
-            hiddenIds={hiddenIds.nerve}
-          />
-        ) : null}
-        <MuscleLayer
-          selectedMuscleId={muscle?.id ?? null}
-          pinnedMuscleId={pinnedMuscleId}
-          showMuscles={showMuscles}
-          showAllMuscles={showAllMuscles}
-          hiddenMuscleIds={hiddenIds.muscle}
-          chainLayerOn={showChains}
-          activeChainIds={activeChainIds}
-          chainSide={chainSide}
-          abdoSource={abdoSource}
-        />
+        )}
         <LandmarkLayer visible={showLandmarks} />
         <StructurePick onSelect={onSelectStructure} />
       </Suspense>
       {profile.contactShadows ? (
         <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />
       ) : null}
+      <FpsProbe />
       <CameraRig focus={focus} resetToken={resetToken} />
     </Canvas>
   );

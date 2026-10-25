@@ -1,5 +1,7 @@
+import type { ModelSource } from "../scene/modelSource";
+
 export type StationRole = "muscle" | "fascia" | "ligament";
-export type PickKind = "muscle" | "fascia" | "ligament";
+export type PickKind = "muscle" | "fascia" | "ligament" | "organ";
 
 /** One stop on a Myers track, distal-to-cranial or as noted by the chain direction. */
 export type ChainStation = {
@@ -9,8 +11,14 @@ export type ChainStation = {
   id?: string;
   leftId?: string;
   rightId?: string;
-  /** Mesh catalog when it differs from the anatomical role. */
+  /** Mesh catalog when it differs from the anatomical role (procedural meshes). */
   pickKind?: PickKind;
+  /** Z-Anatomy file kind when it differs from pickKind (sacrotuberous ligament lives with ligaments). */
+  zaKind?: PickKind;
+  /** Present only on the Z-Anatomy meshes. Procedural mode keeps the station as a gap. */
+  zaOnly?: boolean;
+  /** Present on the procedural meshes, absent from Z-Anatomy. */
+  missingInZa?: boolean;
   /** Drawn on the opposite side when a single side is chosen (SPL, FFL, BFL). */
   crosses?: boolean;
   /** No left/right half (thoracolumbar fascia, pubic symphysis, galea). */
@@ -22,8 +30,15 @@ export type ChainTrack = {
   stations: ChainStation[];
 };
 
-function muscle(id: string, label: string, crosses = false): ChainStation {
-  return { role: "muscle", label, id, pickKind: "muscle", crosses };
+function muscle(id: string, label: string, crosses = false, missingInZa = false): ChainStation {
+  return {
+    role: "muscle",
+    label,
+    id,
+    pickKind: "muscle",
+    crosses,
+    missingInZa: missingInZa || undefined,
+  };
 }
 
 function fasciaPair(leftId: string, rightId: string, label: string, crosses = false): ChainStation {
@@ -35,11 +50,15 @@ function fasciaMid(id: string, label: string): ChainStation {
 }
 
 function ligamentPair(leftId: string, rightId: string, label: string, crosses = false): ChainStation {
-  return { role: "ligament", label, leftId, rightId, pickKind: "fascia", crosses };
+  return { role: "ligament", label, leftId, rightId, pickKind: "fascia", zaKind: "ligament", crosses };
 }
 
 function ligamentMid(id: string, label: string): ChainStation {
-  return { role: "ligament", label, id, pickKind: "fascia", midline: true };
+  return { role: "ligament", label, id, pickKind: "fascia", zaKind: "ligament", midline: true };
+}
+
+function zaFascia(leftId: string, rightId: string, label: string): ChainStation {
+  return { role: "fascia", label, leftId, rightId, pickKind: "fascia", zaOnly: true };
 }
 
 function gap(role: StationRole, label: string, opts?: { crosses?: boolean; midline?: boolean }): ChainStation {
@@ -50,11 +69,18 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
   sbl: {
     direction: "De la voûte plantaire vers le front",
     stations: [
-      gap("fascia", "Aponévrose plantaire"),
+      zaFascia("aponévrose-plantaire-g", "aponévrose-plantaire-d", "Aponévrose plantaire"),
       muscle("court-flechisseur-des-orteils", "Court fléchisseur des orteils"),
       muscle("abducteur-de-l-hallux", "Abducteur de l’hallux"),
       muscle("abducteur-du-petit-orteil", "Abducteur du petit orteil"),
-      gap("fascia", "Tendon calcanéen"),
+      {
+        role: "fascia",
+        label: "Tendon calcanéen",
+        leftId: "tendon-calcaneen-g",
+        rightId: "tendon-calcaneen-d",
+        pickKind: "muscle",
+        zaOnly: true,
+      },
       muscle("gastrocnemien", "Gastrocnémien"),
       muscle("soleaire", "Soléaire"),
       muscle("plantaire", "Plantaire"),
@@ -77,7 +103,7 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("petit-droit-posterieur-de-la-tete", "Petit droit postérieur de la tête"),
       muscle("oblique-inferieur-de-la-tete", "Oblique inférieur de la tête"),
       muscle("oblique-superieur-de-la-tete", "Oblique supérieur de la tête"),
-      gap("fascia", "Fascia épicrânien", { midline: true }),
+      zaFascia("fascia-epicranien-g", "fascia-epicranien-d", "Fascia épicrânien"),
     ],
   },
   sfl: {
@@ -94,7 +120,7 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("droit-abdomen", "Droit de l’abdomen", false),
       gap("fascia", "Fascia sternal", { midline: true }),
       muscle("sterno-cleido-mastoidien", "Sterno-cléido-mastoïdien"),
-      gap("fascia", "Fascia du cuir chevelu", { midline: true }),
+      zaFascia("fascia-epicranien-g", "fascia-epicranien-d", "Fascia du cuir chevelu"),
     ],
   },
   ll: {
@@ -104,7 +130,14 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("court-fibulaire", "Court fibulaire"),
       muscle("troisieme-fibulaire", "Troisième fibulaire"),
       fasciaPair("fascia-crural-g", "fascia-crural-d", "Fascia crural"),
-      gap("ligament", "Ligament antérieur de la tête de la fibula"),
+      {
+        role: "ligament",
+        label: "Ligament antérieur de la tête de la fibula",
+        leftId: "ligament-tete-fibula-g",
+        rightId: "ligament-tete-fibula-d",
+        pickKind: "ligament",
+        zaOnly: true,
+      },
       fasciaPair("tractus-ilio-tibial-g", "tractus-ilio-tibial-d", "Tractus ilio-tibial"),
       fasciaPair("fascia-lata-g", "fascia-lata-d", "Fascia lata"),
       muscle("tenseur-du-fascia-lata", "Tenseur du fascia lata"),
@@ -161,7 +194,7 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("pectine", "Pectiné"),
       muscle("pubo-coccygien", "Pubo-coccygien"),
       muscle("ilio-coccygien", "Ilio-coccygien"),
-      muscle("pubo-rectal", "Pubo-rectal"),
+      muscle("pubo-rectal", "Pubo-rectal", false, true),
       muscle("coccygien", "Coccygien"),
       muscle("iliopsoas", "Iliopsoas"),
       muscle("diaphragme", "Diaphragme"),
@@ -182,7 +215,14 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("thyro-hyoidien", "Thyro-hyoïdien"),
       muscle("genio-hyoidien", "Génio-hyoïdien"),
       muscle("mylo-hyoidien", "Mylo-hyoïdien"),
-      gap("muscle", "Langue", { midline: true }),
+      {
+        role: "muscle",
+        label: "Langue",
+        id: "langue",
+        pickKind: "organ",
+        midline: true,
+        zaOnly: true,
+      },
     ],
   },
   sfal: {
@@ -190,20 +230,27 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
     stations: [
       muscle("grand-pectoral", "Grand pectoral"),
       muscle("grand-dorsal", "Grand dorsal"),
-      gap("fascia", "Septum intermusculaire médial"),
+      zaFascia("septum-medial-bras-g", "septum-medial-bras-d", "Septum intermusculaire médial"),
       muscle("long-palmaire", "Long palmaire"),
       muscle("flechisseur-radial-du-carpe", "Fléchisseur radial du carpe"),
       muscle("flechisseur-ulnaire-du-carpe", "Fléchisseur ulnaire du carpe"),
       muscle("flechisseur-superficiel-des-doigts", "Fléchisseur superficiel des doigts"),
-      gap("ligament", "Rétinaculum des fléchisseurs"),
-      gap("fascia", "Aponévrose palmaire"),
+      {
+        role: "ligament",
+        label: "Rétinaculum des fléchisseurs",
+        leftId: "retinaculum-flechisseurs-g",
+        rightId: "retinaculum-flechisseurs-d",
+        pickKind: "fascia",
+        zaOnly: true,
+      },
+      zaFascia("aponévrose-palmaire-g", "aponévrose-palmaire-d", "Aponévrose palmaire"),
     ],
   },
   dfal: {
     direction: "Du petit pectoral vers le pouce",
     stations: [
       muscle("petit-pectoral", "Petit pectoral"),
-      gap("fascia", "Fascia clavipectoral"),
+      zaFascia("fascia-clavipectoral-g", "fascia-clavipectoral-d", "Fascia clavipectoral"),
       muscle("subclavier", "Subclavier"),
       muscle("biceps-brachial", "Biceps brachial"),
       muscle("coraco-brachial", "Coraco-brachial"),
@@ -221,7 +268,7 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
     stations: [
       muscle("trapeze", "Trapèze"),
       muscle("deltoide", "Deltoïde"),
-      gap("fascia", "Septum intermusculaire latéral"),
+      zaFascia("septum-lateral-bras-g", "septum-lateral-bras-d", "Septum intermusculaire latéral"),
       muscle("ancone", "Anconé"),
       muscle("long-extenseur-radial-du-carpe", "Long extenseur radial du carpe"),
       muscle("court-extenseur-radial-du-carpe", "Court extenseur radial du carpe"),
@@ -229,7 +276,14 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("extenseur-ulnaire-du-carpe", "Extenseur ulnaire du carpe"),
       muscle("extenseur-du-petit-doigt", "Extenseur du petit doigt"),
       muscle("extenseur-de-l-index", "Extenseur de l’index"),
-      gap("ligament", "Rétinaculum des extenseurs"),
+      {
+        role: "ligament",
+        label: "Rétinaculum des extenseurs",
+        leftId: "retinaculum-extenseurs-g",
+        rightId: "retinaculum-extenseurs-d",
+        pickKind: "fascia",
+        zaOnly: true,
+      },
     ],
   },
   dbal: {
@@ -255,7 +309,14 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
     stations: [
       muscle("grand-pectoral", "Grand pectoral"),
       muscle("droit-abdomen", "Droit de l’abdomen"),
-      gap("ligament", "Symphyse pubienne", { midline: true }),
+      {
+        role: "ligament",
+        label: "Symphyse pubienne",
+        id: "symphyse-pubienne",
+        pickKind: "ligament",
+        midline: true,
+        zaOnly: true,
+      },
       muscle("long-adducteur", "Long adducteur", true),
     ],
   },
@@ -308,8 +369,17 @@ export const STATION_ROLE_LABEL: Record<StationRole, string> = {
 export type StationTarget = { kind: PickKind; id: string };
 
 /** Mesh to select for the active laterality, or null when the station has no model. */
-export function stationTarget(station: ChainStation, side: Laterality): StationTarget | null {
-  const kind = station.pickKind ?? (station.role === "ligament" ? "fascia" : station.role);
+export function stationTarget(
+  station: ChainStation,
+  side: Laterality,
+  modelSource: ModelSource = "zanatomy",
+): StationTarget | null {
+  if (station.zaOnly && modelSource !== "zanatomy") return null;
+  if (station.missingInZa && modelSource === "zanatomy") return null;
+  const kind =
+    (modelSource === "zanatomy" ? station.zaKind : undefined) ??
+    station.pickKind ??
+    (station.role === "ligament" ? "fascia" : station.role);
   if (station.leftId || station.rightId) {
     const which = stationSide(station, side);
     const id =
@@ -330,6 +400,7 @@ export function muscleIdsOf(chainId: string): string[] {
   if (!track) return [];
   const ids: string[] = [];
   for (const station of track.stations) {
+    if (station.zaOnly) continue;
     if (station.role === "muscle" && station.id) ids.push(station.id);
   }
   return ids;
@@ -348,7 +419,9 @@ export function fasciaIdsOf(chainId: string): string[] {
   if (!track) return [];
   const ids: string[] = [];
   for (const station of track.stations) {
-    if (station.pickKind !== "fascia" && station.role !== "fascia") continue;
+    if (station.zaOnly) continue;
+    const kind = station.pickKind ?? (station.role === "ligament" ? "fascia" : station.role);
+    if (kind !== "fascia") continue;
     for (const id of [station.id, station.leftId, station.rightId]) {
       if (id) ids.push(id);
     }

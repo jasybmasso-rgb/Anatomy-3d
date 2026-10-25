@@ -2,7 +2,8 @@ import { useState } from "react";
 import { CreditsDialog } from "./components/CreditsDialog";
 import { FullscreenToggle } from "./components/FullscreenToggle";
 import { LayerMenu, DEFAULT_LAYERS, type LayerId, type LayerState } from "./components/LayerMenu";
-import { loadAbdoSource, saveAbdoSource, type AbdoSource } from "./scene/abdoSource";
+import { loadModelSource, saveModelSource, type ModelSource } from "./scene/modelSource";
+import { getZaById, zaExtraParts } from "./data/zanatomy";
 import { ChainLegend } from "./components/ChainPicker";
 import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
@@ -20,6 +21,22 @@ import "./App.css";
 
 const ALL_VISCERA = [...nerves, ...organs, ...vessels];
 
+function initialLayers(): LayerState {
+  if (typeof window === "undefined") return DEFAULT_LAYERS;
+  const raw = new URLSearchParams(window.location.search).get("layers");
+  if (!raw) return DEFAULT_LAYERS;
+  const next: LayerState = { ...DEFAULT_LAYERS, muscles: false };
+  for (const id of raw.split(",")) {
+    if (id in next) next[id as LayerId] = true;
+  }
+  return next;
+}
+
+function initialShowAll(): boolean {
+  if (typeof window === "undefined") return false;
+  return new URLSearchParams(window.location.search).get("all") === "1";
+}
+
 function toggleHidden(prev: HiddenMap, kind: StructureKind, id: string, hide: boolean): HiddenMap {
   const next = new Set(prev[kind]);
   if (hide) next.add(id);
@@ -30,13 +47,13 @@ function toggleHidden(prev: HiddenMap, kind: StructureKind, id: string, hide: bo
 export function App() {
   const [selection, setSelection] = useState<SelectionState>(null);
   const [resetToken, setResetToken] = useState(0);
-  const [layers, setLayers] = useState<LayerState>(DEFAULT_LAYERS);
-  const [showAllMuscles, setShowAllMuscles] = useState(false);
+  const [layers, setLayers] = useState<LayerState>(initialLayers);
+  const [showAllMuscles, setShowAllMuscles] = useState(initialShowAll);
   const [hiddenIds, setHiddenIds] = useState<HiddenMap>(EMPTY_HIDDEN);
   const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
   const [chainSide, setChainSide] = useState<ChainSide>("both");
   const [pinnedMuscleId, setPinnedMuscleId] = useState<string | null>(null);
-  const [abdoSource, setAbdoSource] = useState<AbdoSource>(loadAbdoSource);
+  const [modelSource, setModelSource] = useState<ModelSource>(loadModelSource);
   const [creditsOpen, setCreditsOpen] = useState(false);
   const compact = useCompactLayout();
   const { mode: layoutMode, exit: exitLayout, toggle: toggleLayout } = useLayoutMode();
@@ -52,7 +69,13 @@ export function App() {
     selection && (selection.kind === "ligament" || selection.kind === "fascia")
       ? getConnectiveById(selection.kind, selection.id)
       : null;
-  const focus = selectedMuscle ?? selectedViscera ?? selectedConnective;
+  const selectedZa =
+    modelSource === "zanatomy" && selection ? getZaById(selection.id) : null;
+  const catalogFocus = selectedMuscle ?? selectedViscera ?? selectedConnective ?? selectedZa;
+  const focus =
+    selectedZa && catalogFocus
+      ? { ...catalogFocus, id: selectedZa.id, region: selectedZa.region, focus: selectedZa.focus }
+      : catalogFocus;
 
   function reset() {
     clearImmediateHighlight();
@@ -91,9 +114,11 @@ export function App() {
     if (kind === "fascia") setLayers((prev) => ({ ...prev, fascias: true }));
   }
 
-  function onAbdoSourceChange(source: AbdoSource) {
-    setAbdoSource(source);
-    saveAbdoSource(source);
+  function onModelSourceChange(source: ModelSource) {
+    setModelSource(source);
+    saveModelSource(source);
+    clearImmediateHighlight();
+    setSelection(null);
   }
 
   function onActiveChainsChange(ids: string[]) {
@@ -122,8 +147,9 @@ export function App() {
         </div>
         <SearchBar
           muscles={muscles}
-          viscera={ALL_VISCERA}
-          connective={connective}
+          viscera={modelSource === "zanatomy" ? [] : ALL_VISCERA}
+          connective={modelSource === "zanatomy" ? [] : connective}
+          extra={modelSource === "zanatomy" ? zaExtraParts : []}
           selectedId={selection?.id ?? null}
           selectedKind={selection?.kind ?? null}
           resetToken={resetToken}
@@ -138,8 +164,8 @@ export function App() {
           onActiveChainsChange={onActiveChainsChange}
           chainSide={chainSide}
           onChainSideChange={setChainSide}
-          abdoSource={abdoSource}
-          onAbdoSourceChange={onAbdoSourceChange}
+          modelSource={modelSource}
+          onModelSourceChange={onModelSourceChange}
         />
         <button type="button" className="reset-btn" onClick={reset}>
           Réinitialiser
@@ -166,7 +192,7 @@ export function App() {
               showChains={layers.chains}
               activeChainIds={activeChainIds}
               chainSide={chainSide}
-              abdoSource={abdoSource}
+              modelSource={modelSource}
               resetToken={resetToken}
               onSelectStructure={onSelectStructure}
             />
@@ -200,11 +226,15 @@ export function App() {
           ficheFullscreen={layoutMode === "fiche"}
           showFicheFullscreen={showFicheFullscreen}
           onToggleFicheFullscreen={() => toggleLayout("fiche")}
-          abdoSource={abdoSource}
+          modelSource={modelSource}
+          zaPart={selectedZa}
           onSelectStructure={onSelectStructure}
         />
       </div>
       <CreditsDialog open={creditsOpen} onClose={() => setCreditsOpen(false)} />
+      {typeof window !== "undefined" && new URLSearchParams(window.location.search).get("fps") === "1" ? (
+        <div id="fps-probe" data-fps="" hidden />
+      ) : null}
     </div>
   );
 }

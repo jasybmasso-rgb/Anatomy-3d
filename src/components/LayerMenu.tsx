@@ -1,9 +1,9 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { ChainSide } from "../data/chains";
-import type { AbdoSource } from "../scene/abdoSource";
+import { MODEL_SOURCE_LABEL, type ModelSource } from "../scene/modelSource";
 import { ChainPicker } from "./ChainPicker";
 
-export const ABDO_SOURCE_LABEL = "Muscles abdominaux : Z-Anatomy / Anciens (procéduraux)";
+export const MODEL_TOGGLE_LABEL = MODEL_SOURCE_LABEL;
 
 export type LayerId =
   | "muscles"
@@ -55,8 +55,8 @@ type LayerMenuProps = {
   onActiveChainsChange: (ids: string[]) => void;
   chainSide: ChainSide;
   onChainSideChange: (side: ChainSide) => void;
-  abdoSource: AbdoSource;
-  onAbdoSourceChange: (source: AbdoSource) => void;
+  modelSource: ModelSource;
+  onModelSourceChange: (source: ModelSource) => void;
 };
 
 export function LayerMenu({
@@ -68,8 +68,8 @@ export function LayerMenu({
   onActiveChainsChange,
   chainSide,
   onChainSideChange,
-  abdoSource,
-  onAbdoSourceChange,
+  modelSource,
+  onModelSourceChange,
 }: LayerMenuProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -111,6 +111,32 @@ export function LayerMenu({
             quelle couche pour la sélectionner. Nerfs, organes et vaisseaux sont trois couches
             distinctes.
           </p>
+          <div
+            className="layer-menu-abdo"
+            role="radiogroup"
+            aria-label={MODEL_TOGGLE_LABEL}
+            data-model-source={modelSource}
+          >
+            <p className="layer-menu-abdo-label">{MODEL_TOGGLE_LABEL}</p>
+            <label className="layer-menu-nested">
+              <input
+                type="radio"
+                name="model-source"
+                checked={modelSource === "zanatomy"}
+                onChange={() => onModelSourceChange("zanatomy")}
+              />
+              Z-Anatomy
+            </label>
+            <label className="layer-menu-nested">
+              <input
+                type="radio"
+                name="model-source"
+                checked={modelSource === "procedural"}
+                onChange={() => onModelSourceChange("procedural")}
+              />
+              Anciens (procéduraux)
+            </label>
+          </div>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (
               <li key={layer.id}>
@@ -125,42 +151,14 @@ export function LayerMenu({
                   {layer.hint ? <em>{layer.hint}</em> : null}
                 </label>
                 {layer.id === "muscles" && layers.muscles ? (
-                  <>
-                    <label className="layer-menu-nested">
-                      <input
-                        type="checkbox"
-                        checked={showAllMuscles}
-                        onChange={(event) => onShowAllMuscles(event.target.checked)}
-                      />
-                      Afficher tous les muscles
-                    </label>
-                    <div
-                      className="layer-menu-abdo"
-                      role="radiogroup"
-                      aria-label={ABDO_SOURCE_LABEL}
-                      data-abdo-source={abdoSource}
-                    >
-                      <p className="layer-menu-abdo-label">{ABDO_SOURCE_LABEL}</p>
-                      <label className="layer-menu-nested">
-                        <input
-                          type="radio"
-                          name="abdo-source"
-                          checked={abdoSource === "zanatomy"}
-                          onChange={() => onAbdoSourceChange("zanatomy")}
-                        />
-                        Z-Anatomy
-                      </label>
-                      <label className="layer-menu-nested">
-                        <input
-                          type="radio"
-                          name="abdo-source"
-                          checked={abdoSource === "procedural"}
-                          onChange={() => onAbdoSourceChange("procedural")}
-                        />
-                        Anciens (procéduraux)
-                      </label>
-                    </div>
-                  </>
+                  <label className="layer-menu-nested">
+                    <input
+                      type="checkbox"
+                      checked={showAllMuscles}
+                      onChange={(event) => onShowAllMuscles(event.target.checked)}
+                    />
+                    Afficher tous les muscles
+                  </label>
                 ) : null}
                 {layer.id === "chains" && layers.chains ? (
                   <ChainPicker

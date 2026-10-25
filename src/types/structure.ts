@@ -1,4 +1,4 @@
-export type StructureKind = "muscle" | "ligament" | "fascia" | "nerve" | "organ" | "vessel";
+export type StructureKind = "muscle" | "ligament" | "fascia" | "nerve" | "organ" | "vessel" | "bone";
 
 export type FocusTarget = {
   id: string;
@@ -71,6 +71,7 @@ export const EMPTY_HIDDEN: HiddenMap = {
   nerve: [],
   organ: [],
   vessel: [],
+  bone: [],
 };
 
 export const STRUCTURE_KIND_LABEL: Record<StructureKind, string> = {
@@ -80,6 +81,7 @@ export const STRUCTURE_KIND_LABEL: Record<StructureKind, string> = {
   nerve: "Nerf",
   organ: "Organe",
   vessel: "Vaisseau sanguin",
+  bone: "Os",
 };
 
 export type SelectionState = {

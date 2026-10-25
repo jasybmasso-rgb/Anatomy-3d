@@ -1,7 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
-import type { AbdoSource } from "./abdoSource";
 import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
 import { muscles } from "../data/loadMuscles";
 import { getDeviceProfile } from "./deviceProfile";
@@ -15,13 +14,6 @@ import {
   setMuscleTint,
   setMuscleSelected,
 } from "./fiberMaterial";
-import {
-  buildZAnatomyReps,
-  DRACO_DECODER_PATH,
-  isAbdominalWall,
-  ZANATOMY_ABDO_URL,
-  type MuscleRep,
-} from "./zanatomyAbdo";
 
 export type MuscleLayerProps = {
   selectedMuscleId: string | null;
@@ -32,13 +24,17 @@ export type MuscleLayerProps = {
   chainLayerOn: boolean;
   activeChainIds: string[];
   chainSide: ChainSide;
-  abdoSource: AbdoSource;
+};
+
+type MuscleRep = {
+  object: THREE.Object3D;
+  materials: THREE.MeshPhongMaterial[];
+  meshes: THREE.Mesh[];
 };
 
 type MuscleEntry = {
   id: string;
   procedural: MuscleRep;
-  zanatomy?: MuscleRep;
 };
 
 const THIN_SHEETS = new Set([
@@ -114,20 +110,11 @@ function setRepVisible(rep: MuscleRep, visible: boolean) {
   for (const mesh of rep.meshes) mesh.visible = visible;
 }
 
-function activeRep(entry: MuscleEntry, source: AbdoSource): MuscleRep {
-  if (source === "zanatomy" && entry.zanatomy) return entry.zanatomy;
-  return entry.procedural;
-}
-
 export function MuscleLayer(props: MuscleLayerProps) {
   const gltf = useGLTF("/models/muscles.glb");
-  const abdoGltf = useGLTF(ZANATOMY_ABDO_URL, DRACO_DECODER_PATH);
 
   const entries = useMemo(() => {
     const list: MuscleEntry[] = [];
-    const proceduralMeshes = new Map<string, THREE.Mesh[]>();
-    const fiberAxis = new Map<string, THREE.Vector3 | undefined>();
-
     for (const muscle of muscles) {
       const src = gltf.scene.getObjectByName(muscle.id);
       if (!src) continue;
@@ -184,29 +171,19 @@ export function MuscleLayer(props: MuscleLayerProps) {
       group.name = muscle.id;
       group.add(clone);
       group.visible = false;
-      if (isAbdominalWall(muscle.id)) {
-        proceduralMeshes.set(muscle.id, meshes);
-        fiberAxis.set(muscle.id, hint.lengthSq() > 1e-8 ? hint : undefined);
-      }
       list.push({
         id: muscle.id,
         procedural: { object: group, materials: [material], meshes },
       });
     }
 
-    const zanatomy = buildZAnatomyReps(abdoGltf.scene, proceduralMeshes, fiberAxis);
-    for (const entry of list) {
-      const rep = zanatomy.get(entry.id);
-      if (rep) entry.zanatomy = rep;
-    }
     return list;
-  }, [gltf, abdoGltf]);
+  }, [gltf]);
 
   useEffect(() => {
     for (const entry of entries) {
-      const materials = [...entry.procedural.materials, ...(entry.zanatomy?.materials ?? [])];
       registerHighlight("muscle", entry.id, (selected) => {
-        for (const material of materials) setMuscleSelected(material, selected);
+        for (const material of entry.procedural.materials) setMuscleSelected(material, selected);
       });
     }
     return () => {
@@ -220,9 +197,8 @@ export function MuscleLayer(props: MuscleLayerProps) {
     const pick: THREE.Mesh[] = [];
     for (const entry of entries) {
       const on = shown.has(entry.id);
-      const rep = activeRep(entry, props.abdoSource);
-      setRepVisible(entry.procedural, on && rep === entry.procedural);
-      if (entry.zanatomy) setRepVisible(entry.zanatomy, on && rep === entry.zanatomy);
+      const rep = entry.procedural;
+      setRepVisible(rep, on);
       if (!on) continue;
       const selected = entry.id === props.selectedMuscleId;
       const tintHex = chainOn ? tintForMuscle(entry.id, props.activeChainIds) : null;
@@ -254,14 +230,8 @@ export function MuscleLayer(props: MuscleLayerProps) {
       {entries.map((entry) => (
         <primitive key={`${entry.id}-procedural`} object={entry.procedural.object} />
       ))}
-      {entries.map((entry) =>
-        entry.zanatomy ? (
-          <primitive key={`${entry.id}-zanatomy`} object={entry.zanatomy.object} />
-        ) : null,
-      )}
     </group>
   );
 }
 
 useGLTF.preload("/models/muscles.glb");
-useGLTF.preload(ZANATOMY_ABDO_URL, DRACO_DECODER_PATH);

@@ -30,6 +30,7 @@ const KIND_ORDER: Record<StructureKind, number> = {
   vessel: 3,
   ligament: 4,
   fascia: 5,
+  bone: 6,
 };
 
 type NamedPart = {
@@ -45,6 +46,7 @@ export function searchStructures(
   viscera: VisceraPart[],
   connective: ConnectivePart[],
   query: string,
+  extra: NamedPart[] = [],
 ): SearchHit[] {
   const needle = normalizeSearch(query);
   if (!needle) return [];
@@ -60,6 +62,7 @@ export function searchStructures(
     })),
     ...viscera,
     ...connective,
+    ...extra,
   ];
   for (const part of parts) {
     const rank = rankRow(part.id, part.name, part.nameLatin, part.aliases, needle);

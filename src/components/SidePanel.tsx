@@ -1,6 +1,6 @@
 import type { ChainSide } from "../data/chains";
-import type { AbdoSource } from "../scene/abdoSource";
-import { isAbdominalWall } from "../scene/zanatomyAbdo";
+import type { ModelSource } from "../scene/modelSource";
+import type { ZaPart } from "../data/zanatomy";
 import { connective as allConnective } from "../data/loadConnective";
 import { muscles as allMuscles } from "../data/loadMuscles";
 import { nerves, organs, vessels } from "../data/loadViscera";
@@ -58,7 +58,8 @@ type SidePanelProps = {
   ficheFullscreen: boolean;
   showFicheFullscreen: boolean;
   onToggleFicheFullscreen: () => void;
-  abdoSource: AbdoSource;
+  modelSource: ModelSource;
+  zaPart: ZaPart | null;
   onSelectStructure: (kind: StructureKind, id: string) => void;
 };
 
@@ -78,11 +79,12 @@ export function SidePanel({
   ficheFullscreen,
   showFicheFullscreen,
   onToggleFicheFullscreen,
-  abdoSource,
+  modelSource,
+  zaPart,
   onSelectStructure,
 }: SidePanelProps) {
-  const title = muscle?.name ?? viscera?.name ?? connective?.name;
-  const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? null;
+  const title = muscle?.name ?? viscera?.name ?? connective?.name ?? zaPart?.name;
+  const selectedId = muscle?.id ?? viscera?.id ?? connective?.id ?? zaPart?.id ?? null;
   return (
     <aside
       className={`panel${showFicheFullscreen ? " panel-has-toolbar" : ""}`}
@@ -101,6 +103,7 @@ export function SidePanel({
         <ChainDetails
           activeChainIds={activeChainIds}
           chainSide={chainSide}
+          modelSource={modelSource}
           onSideChange={onChainSideChange}
           selectedKind={kind}
           selectedId={selectedId}
@@ -178,10 +181,10 @@ export function SidePanel({
               </div>
             ) : null}
           </dl>
-          {isAbdominalWall(muscle.id) && abdoSource === "zanatomy" ? (
+          {modelSource === "zanatomy" ? (
             <p className="panel-mesh-note">
-              Maillage Z-Anatomy, CC BY-SA 4.0, dérivé de BodyParts3D. La gaine des droits
-              (aponévroses, 50 %) reste le schéma procédural : la source n’a pas de gaine séparée.
+              Maillage Z-Anatomy, CC BY-SA 4.0, dérivé de BodyParts3D. Nom français de la fiche
+              musculaire.
             </p>
           ) : muscle.meshSource === "synthetic" ? (
             <p className="panel-mesh-note">Maillage schématique : absent de BodyParts3D 4.0.</p>
@@ -242,6 +245,31 @@ export function SidePanel({
           ) : (
             <p className="panel-mesh-note">Maillage BodyParts3D, CC BY-SA 2.1 Japon.</p>
           )}
+        </>
+      ) : zaPart && kind ? (
+        <>
+          <p className="panel-kicker">
+            {STRUCTURE_KIND_LABEL[kind]}
+            {zaPart.tissue === "cartilage" ? " · Cartilage" : null}
+            {zaPart.region ? ` · ${REGION_LABEL[zaPart.region] ?? zaPart.region}` : null}
+          </p>
+          <h2 className="panel-title">{zaPart.name}</h2>
+          <p className="panel-latin">{zaPart.nameLatin}</p>
+          <dl className="panel-dl">
+            {zaPart.vesselKind ? (
+              <div>
+                <dt>Type</dt>
+                <dd>{zaPart.vesselKind === "vein" ? "Veine" : "Artère"}</dd>
+              </div>
+            ) : null}
+            <div>
+              <dt>Notes</dt>
+              <dd>{zaPart.notes}</dd>
+            </div>
+          </dl>
+          <p className="panel-mesh-note">
+            Maillage Z-Anatomy (Startup.blend, 2 mai 2023), CC BY-SA 4.0, dérivé de BodyParts3D.
+          </p>
         </>
       ) : (
         <>

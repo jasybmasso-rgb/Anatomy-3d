@@ -25,6 +25,7 @@ function hideLabel(kind: StructureKind | null): string {
   if (kind === "nerve") return "Masquer ce nerf";
   if (kind === "organ") return "Masquer cet organe";
   if (kind === "vessel") return "Masquer ce vaisseau";
+  if (kind === "bone") return "Masquer cet os";
   return "Masquer cette structure";
 }
 
