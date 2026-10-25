@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { ChainSide } from "../data/chains";
+import { publicUrl } from "../lib/publicUrl";
 import { FLOOR_Y } from "./landmarks";
 import { ZAnatomyFile } from "./ZAnatomyLayer";
 
@@ -59,7 +60,7 @@ export default function ZAnatomyBody({
     <group name="zanatomy">
       <Suspense fallback={null}>
         <ZAnatomyFile
-          url="/models/zanatomy/squelette.glb"
+          url={publicUrl("/models/zanatomy/squelette.glb")}
           file="squelette"
           layerVisible
           showAll
@@ -80,7 +81,7 @@ export default function ZAnatomyBody({
       {showMuscles || showChains ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/muscles.glb"
+            url={publicUrl("/models/zanatomy/muscles.glb")}
             file="muscles"
             layerVisible={showMuscles}
             showAll={showAllMuscles}
@@ -92,7 +93,7 @@ export default function ZAnatomyBody({
       {showFascia || showChains ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/fascias.glb"
+            url={publicUrl("/models/zanatomy/fascias.glb")}
             file="fascias"
             layerVisible={showFascia}
             showAll
@@ -104,7 +105,7 @@ export default function ZAnatomyBody({
       {showLigaments || showChains ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/ligaments.glb"
+            url={publicUrl("/models/zanatomy/ligaments.glb")}
             file="ligaments"
             layerVisible={showLigaments}
             showAll
@@ -116,7 +117,7 @@ export default function ZAnatomyBody({
       {showNerves ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/nerfs.glb"
+            url={publicUrl("/models/zanatomy/nerfs.glb")}
             file="nerfs"
             layerVisible
             showAll
@@ -132,7 +133,7 @@ export default function ZAnatomyBody({
       {showOrgans || showChains ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/organes.glb"
+            url={publicUrl("/models/zanatomy/organes.glb")}
             file="organes"
             layerVisible={showOrgans}
             showAll
@@ -144,7 +145,7 @@ export default function ZAnatomyBody({
       {showOrgans ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/organes-snc.glb"
+            url={publicUrl("/models/zanatomy/organes-snc.glb")}
             file="organes-snc"
             layerVisible
             showAll
@@ -160,7 +161,7 @@ export default function ZAnatomyBody({
       {showVessels ? (
         <Suspense fallback={null}>
           <ZAnatomyFile
-            url="/models/zanatomy/vaisseaux.glb"
+            url={publicUrl("/models/zanatomy/vaisseaux.glb")}
             file="vaisseaux"
             layerVisible
             showAll
@@ -172,7 +173,7 @@ export default function ZAnatomyBody({
             pinnedId={null}
           />
           <ZAnatomyFile
-            url="/models/zanatomy/vaisseaux-extremites.glb"
+            url={publicUrl("/models/zanatomy/vaisseaux-extremites.glb")}
             file="vaisseaux-extremites"
             layerVisible
             showAll

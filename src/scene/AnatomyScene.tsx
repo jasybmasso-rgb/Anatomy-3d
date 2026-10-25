@@ -181,12 +181,30 @@ export function AnatomyScene({
   const gpu = useGpuToggle();
   const [canvasEpoch, setCanvasEpoch] = useState(0);
   const [contextLost, setContextLost] = useState(false);
+  const autoRetries = useRef(0);
   const onLost = useCallback(() => setContextLost(true), []);
-  const onRestored = useCallback(() => setContextLost(false), []);
+  const onRestored = useCallback(() => {
+    autoRetries.current = 0;
+    setContextLost(false);
+  }, []);
   const retryContext = useCallback(() => {
+    autoRetries.current = 0;
     setContextLost(false);
     setCanvasEpoch((n) => n + 1);
   }, []);
+
+  useEffect(() => {
+    if (!contextLost) return;
+    // Safari on iPhone often never fires webglcontextrestored after a memory kill.
+    // Recreate the canvas once the lost context has had a moment to release.
+    if (autoRetries.current >= 2) return;
+    const timer = window.setTimeout(() => {
+      autoRetries.current += 1;
+      setContextLost(false);
+      setCanvasEpoch((n) => n + 1);
+    }, 1200);
+    return () => window.clearTimeout(timer);
+  }, [contextLost]);
 
   if (typeof window !== "undefined" && !supportsWebGL()) {
     return (

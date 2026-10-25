@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei";
+import { publicUrl } from "../lib/publicUrl";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import {
@@ -65,7 +66,7 @@ export function Fascia({
   activeChainIds,
   chainSide,
 }: FasciaProps) {
-  const gltf = useGLTF("/models/fascia.glb");
+  const gltf = useGLTF(publicUrl("/models/fascia.glb"));
   const entries = useMemo(() => {
     const list: {
       id: string;

@@ -11,7 +11,7 @@ Interface en **français canadien (fr-CA)**. Licence **MIT**.
 - À la sélection : **muscle stylisé** + animation de caméra vers le foyer du muscle.
 - **Réinitialiser** : muscle, panneau, champ de recherche et caméra.
 
-Les chaînes myofasciales sont une couche pédagogique. Le menu Couches choisit un modèle à la fois : Myers (Anatomy Trains), Françoise Mézière, GDS (Godelieve Denys-Struyf) ou Léopold Busquet. Ces grilles ne font pas consensus scientifique. iOS / IPA hors de ce livrable.
+Les chaînes myofasciales sont une couche pédagogique. Le menu Couches choisit un modèle à la fois : Myers (Anatomy Trains), Françoise Mézière, GDS (Godelieve Denys-Struyf) ou Léopold Busquet. Ces grilles ne font pas consensus scientifique. L’iPhone s’installe comme application web (Safari : Partager, puis Ajouter à l’écran d’accueil). Un IPA natif reste hors de ce livrable.
 
 ## Choix 3D : squelette BodyParts3D
 
@@ -51,6 +51,12 @@ npm run preview
 ```
 
 `npm run build` lance la vérification TypeScript puis le bundle Vite.
+
+## Site public (PWA)
+
+https://jasybmasso-rgb.github.io/Anatomy-3d/
+
+Le workflow `.github/workflows/pages.yml` publie cette branche sur GitHub Pages (`VITE_BASE=/Anatomy-3d/`). Le service worker met en cache l’interface tout de suite et chaque GLB à la première ouverture de sa couche. Le visualiseur `zanatomy.html` n’est pas dans ce site.
 
 ## APK Android (test sideload)
 

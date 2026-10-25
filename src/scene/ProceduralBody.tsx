@@ -1,5 +1,6 @@
 import type { ChainSide } from "../data/chains";
 import { chainHasOrgans } from "../data/chainTracks";
+import { publicUrl } from "../lib/publicUrl";
 import { nerves, organs, vessels } from "../data/loadViscera";
 import { Fascia } from "./Fascia";
 import { Ligaments } from "./Ligaments";
@@ -53,7 +54,7 @@ export default function ProceduralBody(props: ProceduralBodyProps) {
       ) : null}
       {props.showOrgans || (props.showChains && chainHasOrgans(props.activeChainIds)) ? (
         <VisceraLayer
-          url="/models/organs.glb"
+          url={publicUrl("/models/organs.glb")}
           parts={organs}
           kind="organ"
           visible={props.showOrgans}
@@ -65,7 +66,7 @@ export default function ProceduralBody(props: ProceduralBodyProps) {
       ) : null}
       {props.showVessels ? (
         <VisceraLayer
-          url="/models/vessels.glb"
+          url={publicUrl("/models/vessels.glb")}
           parts={vessels}
           kind="vessel"
           visible={props.showVessels}
@@ -75,7 +76,7 @@ export default function ProceduralBody(props: ProceduralBodyProps) {
       ) : null}
       {props.showNerves ? (
         <VisceraLayer
-          url="/models/nerves.glb"
+          url={publicUrl("/models/nerves.glb")}
           parts={nerves}
           kind="nerve"
           visible={props.showNerves}

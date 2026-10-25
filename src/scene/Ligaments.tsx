@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei";
+import { publicUrl } from "../lib/publicUrl";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { ligaments as catalog } from "../data/loadConnective";
@@ -27,7 +28,7 @@ type LigamentsProps = {
 };
 
 export function Ligaments({ visible, selectedId, hiddenIds }: LigamentsProps) {
-  const gltf = useGLTF("/models/ligaments.glb");
+  const gltf = useGLTF(publicUrl("/models/ligaments.glb"));
   const entries = useMemo(() => {
     const list: LigamentEntry[] = [];
     const byId = new Map(catalog.map((part) => [part.id, part]));

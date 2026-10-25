@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei";
+import { publicUrl } from "../lib/publicUrl";
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
@@ -111,7 +112,7 @@ function setRepVisible(rep: MuscleRep, visible: boolean) {
 }
 
 export function MuscleLayer(props: MuscleLayerProps) {
-  const gltf = useGLTF("/models/muscles.glb");
+  const gltf = useGLTF(publicUrl("/models/muscles.glb"));
 
   const entries = useMemo(() => {
     const list: MuscleEntry[] = [];
@@ -234,4 +235,4 @@ export function MuscleLayer(props: MuscleLayerProps) {
   );
 }
 
-useGLTF.preload("/models/muscles.glb");
+useGLTF.preload(publicUrl("/models/muscles.glb"));

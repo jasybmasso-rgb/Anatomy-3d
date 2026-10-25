@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei";
+import { publicUrl } from "../lib/publicUrl";
 import { useMemo } from "react";
 import * as THREE from "three";
 import { getDeviceProfile } from "./deviceProfile";
@@ -18,7 +19,7 @@ function isCartilageNode(obj: THREE.Object3D): boolean {
 }
 
 export function Skeleton() {
-  const gltf = useGLTF("/models/skeleton.glb");
+  const gltf = useGLTF(publicUrl("/models/skeleton.glb"));
   const scene = useMemo(() => {
     const clone = gltf.scene.clone(true);
     const boneMaterial = new THREE.MeshStandardMaterial({
@@ -80,4 +81,4 @@ export function Skeleton() {
   );
 }
 
-useGLTF.preload("/models/skeleton.glb");
+useGLTF.preload(publicUrl("/models/skeleton.glb"));

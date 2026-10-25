@@ -1,4 +1,6 @@
-/** Low-end Chromebook / Android WebView heuristics — prefer not crashing over polish. */
+import { isIos } from "../lib/pwaClient";
+
+/** Low-end phone, Chromebook, and Android WebView heuristics — prefer not crashing over polish. */
 /** Framebuffer cap. Above 1.5, a full-body Z-Anatomy view blows integrated-GPU memory. */
 export const MAX_PIXEL_RATIO = 1.5;
 
@@ -39,7 +41,7 @@ export function getDeviceProfile(): DeviceProfile {
   }
   const cores = navigator.hardwareConcurrency || 4;
   const memory = Number((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4);
-  const lowEnd = chromeOs() || androidWebView() || cores <= 4 || memory <= 4;
+  const lowEnd = isIos() || chromeOs() || androidWebView() || cores <= 4 || memory <= 4;
   cached = {
     lowEnd,
     dpr: lowEnd ? [1, 1] : [1, MAX_PIXEL_RATIO],

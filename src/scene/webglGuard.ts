@@ -14,10 +14,12 @@ export function attachWebglGuard(
     console.warn("Anatomy-3d: contexte WebGL restauré.");
     onRestored();
   };
-  canvas.addEventListener("webglcontextlost", lost, false);
-  canvas.addEventListener("webglcontextrestored", restored, false);
+  // Capture so preventDefault runs before other listeners. Safari will not
+  // restore the context unless the lost event is cancelled.
+  canvas.addEventListener("webglcontextlost", lost, true);
+  canvas.addEventListener("webglcontextrestored", restored, true);
   return () => {
-    canvas.removeEventListener("webglcontextlost", lost, false);
-    canvas.removeEventListener("webglcontextrestored", restored, false);
+    canvas.removeEventListener("webglcontextlost", lost, true);
+    canvas.removeEventListener("webglcontextrestored", restored, true);
   };
 }

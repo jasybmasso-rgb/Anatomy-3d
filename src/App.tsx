@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CreditsDialog } from "./components/CreditsDialog";
+import { IosInstallHint } from "./components/IosInstallHint";
 import { FullscreenToggle } from "./components/FullscreenToggle";
 import { LayerMenu, DEFAULT_LAYERS, type LayerId, type LayerState } from "./components/LayerMenu";
 import { loadModelSource, saveModelSource, type ModelSource } from "./scene/modelSource";
@@ -266,6 +267,7 @@ export function App() {
           onSelectStructure={onSelectStructure}
         />
       </div>
+      <IosInstallHint />
       <CreditsDialog open={creditsOpen} onClose={() => setCreditsOpen(false)} />
       {typeof window !== "undefined" && new URLSearchParams(window.location.search).get("fps") === "1" ? (
         <div id="fps-probe" data-fps="" hidden />

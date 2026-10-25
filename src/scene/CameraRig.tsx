@@ -388,7 +388,6 @@ export function CameraRig({
     element.addEventListener("pointermove", onPointerMove);
     element.addEventListener("pointerup", onPointerUp);
     element.addEventListener("pointercancel", onPointerUp);
-    element.addEventListener("pointerleave", onPointerUp);
     return () => {
       element.removeEventListener("wheel", onWheel, true);
       element.removeEventListener("dblclick", onDblClick);
@@ -396,7 +395,6 @@ export function CameraRig({
       element.removeEventListener("pointermove", onPointerMove);
       element.removeEventListener("pointerup", onPointerUp);
       element.removeEventListener("pointercancel", onPointerUp);
-      element.removeEventListener("pointerleave", onPointerUp);
     };
   }, [camera, gl, scene]);
 

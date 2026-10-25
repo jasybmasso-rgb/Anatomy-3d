@@ -1,12 +1,13 @@
 import * as THREE from "three";
+import { publicUrl } from "../lib/publicUrl";
 import {
   applyFiberUVs,
   createFiberMuscleMaterial,
   setMuscleTendonAlpha,
 } from "./fiberMaterial";
 
-export const ZANATOMY_ABDO_URL = "/models/zanatomy-abdo.glb";
-export const DRACO_DECODER_PATH = "/draco/";
+export const ZANATOMY_ABDO_URL = publicUrl("/models/zanatomy-abdo.glb");
+export const DRACO_DECODER_PATH = publicUrl("/draco/");
 
 /** Abdominal wall muscles replaced by the Z-Anatomy mesh when that mode is on. */
 export const ABDOMINAL_WALL_IDS = [
