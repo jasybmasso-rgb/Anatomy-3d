@@ -206,6 +206,37 @@
   touch-action: none;
 }
 
+.anatomy-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.scene-error-overlay {
+  z-index: 6;
+  background: rgba(18, 26, 36, 0.9);
+}
+
+.scene-error-overlay .reset-btn {
+  margin-top: 0.85rem;
+  align-self: flex-start;
+}
+
+.gpu-readout {
+  position: absolute;
+  left: 0.6rem;
+  bottom: 0.6rem;
+  z-index: 5;
+  margin: 0;
+  padding: 0.4rem 0.55rem;
+  font: 12px/1.4 ui-monospace, monospace;
+  color: #d5deea;
+  background: rgba(12, 17, 24, 0.82);
+  border: 1px solid #33455f;
+  border-radius: 0.35rem;
+  pointer-events: none;
+  white-space: pre;
+}
+
 .viewport .anatomy-canvas,
 .viewport canvas {
   display: block;

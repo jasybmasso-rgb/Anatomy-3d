@@ -1,6 +1,7 @@
 import { ContactShadows } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { lazy, Suspense, useCallback, useMemo, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
 import type { ChainSide } from "../data/chains";
 import type { Muscle } from "../types/muscle";
 import type { FocusTarget, HiddenMap, StructureKind } from "../types/structure";
@@ -16,6 +17,77 @@ const ZAnatomyBody = lazy(() => import("./ZAnatomyBody"));
 const ProceduralBody = lazy(() => import("./ProceduralBody"));
 
 const SCENE_BG = "#121a24";
+
+function gpuReadoutEnabled(): boolean {
+  if (typeof window === "undefined") return false;
+  if (new URLSearchParams(window.location.search).get("gpu") === "1") return true;
+  try {
+    return localStorage.getItem("anatomy3d.gpu") === "1";
+  } catch {
+    return false;
+  }
+}
+
+function useGpuToggle() {
+  const [on, setOn] = useState(gpuReadoutEnabled);
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (!event.altKey || !event.shiftKey || event.code !== "KeyG") return;
+      event.preventDefault();
+      setOn((value) => {
+        const next = !value;
+        try {
+          localStorage.setItem("anatomy3d.gpu", next ? "1" : "0");
+        } catch {
+          /* ignore */
+        }
+        return next;
+      });
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+  return on;
+}
+
+/** renderer.info plus a CPU-side buffer estimate. Hidden unless ?gpu=1 or Alt+Shift+G. */
+function GpuReadout({ enabled }: { enabled: boolean }) {
+  const gl = useThree((state) => state.gl);
+  const scene = useThree((state) => state.scene);
+  const acc = useRef(0);
+  useFrame((_, dt) => {
+    if (!enabled) return;
+    acc.current += dt;
+    if (acc.current < 0.5) return;
+    acc.current = 0;
+    const el = document.getElementById("gpu-readout");
+    if (!el) return;
+    const info = gl.info;
+    let bytes = 0;
+    const seen = new Set<THREE.BufferGeometry>();
+    scene.traverse((obj) => {
+      const mesh = obj as THREE.Mesh;
+      if (!mesh.isMesh || !mesh.geometry || seen.has(mesh.geometry)) return;
+      seen.add(mesh.geometry);
+      const geo = mesh.geometry;
+      for (const attr of Object.values(geo.attributes)) {
+        const array = (attr as THREE.BufferAttribute).array;
+        if (array) bytes += array.byteLength;
+      }
+      if (geo.index?.array) bytes += geo.index.array.byteLength;
+    });
+    const px = gl.getPixelRatio();
+    el.textContent = [
+      `triangles ${info.render.triangles.toLocaleString("fr-CA")}`,
+      `appels ${info.render.calls.toLocaleString("fr-CA")}`,
+      `géométries ${info.memory.geometries.toLocaleString("fr-CA")}`,
+      `textures ${info.memory.textures.toLocaleString("fr-CA")}`,
+      `tampons ${(bytes / 1e6).toFixed(1)} Mo`,
+      `pixels ${px.toFixed(2)}×`,
+    ].join("\n");
+  });
+  return null;
+}
 
 function FpsProbe() {
   const on = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("fps") === "1";
@@ -106,10 +178,12 @@ export function AnatomyScene({
   onSelectStructure,
 }: AnatomySceneProps) {
   const profile = useMemo(() => getDeviceProfile(), []);
+  const gpu = useGpuToggle();
   const [canvasEpoch, setCanvasEpoch] = useState(0);
   const [contextLost, setContextLost] = useState(false);
   const onLost = useCallback(() => setContextLost(true), []);
-  const onRestored = useCallback(() => {
+  const onRestored = useCallback(() => setContextLost(false), []);
+  const retryContext = useCallback(() => {
     setContextLost(false);
     setCanvasEpoch((n) => n + 1);
   }, []);
@@ -127,26 +201,32 @@ export function AnatomyScene({
     );
   }
 
-  if (contextLost) {
-    return (
-      <div className="scene-error" role="alert">
+  const pixelCap = profile.dpr[1];
+
+  return (
+    <div className="anatomy-stage">
+    {contextLost ? (
+      <div className="scene-error scene-error-overlay" role="alert">
         <p className="scene-error-kicker">WebGL interrompu</p>
         <h2>Le contexte graphique a été perdu</h2>
         <p>
-          L’affichage 3D s’est interrompu (souvent sur Chromebook ou Android). La scène se
-          rétablira automatiquement ; sinon rechargez la page.
+          L’affichage 3D s’est interrompu, souvent parce que la mémoire graphique est pleine.
+          La scène se rétablit automatiquement, sans recharger la page.
         </p>
+        <button type="button" className="reset-btn" onClick={retryContext}>
+          Réessayer
+        </button>
       </div>
-    );
-  }
-
-  return (
+    ) : null}
+    {gpu ? (
+      <pre id="gpu-readout" className="gpu-readout" aria-label="Mémoire graphique" />
+    ) : null}
     <Canvas
       key={canvasEpoch}
       className="anatomy-canvas"
       shadows={profile.shadows}
       style={{ width: "100%", height: "100%", display: "block", touchAction: "none" }}
-      camera={{ position: DEFAULT_EYE, fov: 38, near: 0.05, far: 40 }}
+      camera={{ position: DEFAULT_EYE, fov: 38, near: 0.04, far: 24 }}
       gl={{
         antialias: profile.antialias,
         alpha: false,
@@ -156,6 +236,7 @@ export function AnatomyScene({
       }}
       dpr={profile.dpr}
       onCreated={({ gl }) => {
+        gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, pixelCap));
         attachWebglGuard(gl.domElement, onLost, onRestored);
       }}
     >
@@ -216,7 +297,9 @@ export function AnatomyScene({
         <ContactShadows position={[0, FLOOR_Y + 0.002, 0]} opacity={0.38} scale={4} blur={2.2} far={2} />
       ) : null}
       <FpsProbe />
+      <GpuReadout enabled={gpu} />
       <CameraRig focus={focus} resetToken={resetToken} />
     </Canvas>
+    </div>
   );
 }

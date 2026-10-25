@@ -1,4 +1,6 @@
 /** Low-end Chromebook / Android WebView heuristics — prefer not crashing over polish. */
+/** Framebuffer cap. Above 1.5, a full-body Z-Anatomy view blows integrated-GPU memory. */
+export const MAX_PIXEL_RATIO = 1.5;
 
 export type DeviceProfile = {
   lowEnd: boolean;
@@ -40,7 +42,7 @@ export function getDeviceProfile(): DeviceProfile {
   const lowEnd = chromeOs() || androidWebView() || cores <= 4 || memory <= 4;
   cached = {
     lowEnd,
-    dpr: lowEnd ? [1, 1] : [1, 1.5],
+    dpr: lowEnd ? [1, 1] : [1, MAX_PIXEL_RATIO],
     antialias: !lowEnd,
     shadows: !lowEnd,
     shadowMap: lowEnd ? 512 : 1024,

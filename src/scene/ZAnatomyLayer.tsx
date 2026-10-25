@@ -1,15 +1,14 @@
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { chainClipSide, matchesChainSide, tintForStructureId, type ChainSide } from "../data/chains";
 import { zaPartsForFile, type ZaPart } from "../data/zanatomy";
 import type { StructureKind } from "../types/structure";
 import { getDeviceProfile } from "./deviceProfile";
-import { clipPlanesForSide } from "./fiberMaterial";
 import { attachFatRaycast } from "./fatRaycast";
-import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
+import { currentHighlightKey, registerHighlight, unregisterHighlight } from "./selectionHighlight";
 import { DRACO_DECODER_PATH } from "./zanatomyAbdo";
+import { zaMaterial } from "./zaMaterials";
 import { clearZaFilePicks, setZaFilePicks } from "./zaPicks";
 
 const RENDER_ORDER: Record<StructureKind, number> = {
@@ -24,78 +23,22 @@ const RENDER_ORDER: Record<StructureKind, number> = {
 
 type Entry = {
   part: ZaPart;
-  material: THREE.MeshStandardMaterial;
+  tint: string | null;
+  clip: ChainSide;
   meshes: THREE.Mesh[];
 };
 
-function styleFor(part: ZaPart): {
-  color: string;
-  opacity: number;
-  transparent: boolean;
-  side: THREE.Side;
-  roughness: number;
-} {
-  if (part.kind === "bone") {
-    if (part.tissue === "cartilage") {
-      return { color: "#b9d4e4", opacity: 0.72, transparent: true, side: THREE.DoubleSide, roughness: 0.28 };
-    }
-    return { color: "#f0e4d0", opacity: 1, transparent: false, side: THREE.FrontSide, roughness: 0.48 };
-  }
-  if (part.kind === "muscle") {
-    return { color: "#c4473a", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.55 };
-  }
-  if (part.kind === "fascia") {
-    return { color: "#8eabbe", opacity: 0.55, transparent: true, side: THREE.DoubleSide, roughness: 0.5 };
-  }
-  if (part.kind === "ligament") {
-    return { color: "#d9c7a2", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.46 };
-  }
-  if (part.kind === "nerve") {
-    return { color: "#f6d648", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.38 };
-  }
-  if (part.kind === "vessel") {
-    const vein = part.vesselKind === "vein";
-    return {
-      color: vein ? "#2a4aa8" : "#bc2a2a",
-      opacity: 1,
-      transparent: false,
-      side: THREE.DoubleSide,
-      roughness: 0.34,
-    };
-  }
-  return { color: "#c48c78", opacity: 0.94, transparent: true, side: THREE.FrontSide, roughness: 0.5 };
+function paintEntry(entry: Entry, selected: boolean) {
+  const material = zaMaterial(entry.part, entry.tint, selected, entry.clip);
+  for (const mesh of entry.meshes) mesh.material = material;
 }
 
-function createMaterial(part: ZaPart): THREE.MeshStandardMaterial {
-  const style = styleFor(part);
-  const material = new THREE.MeshStandardMaterial({
-    color: style.color,
-    roughness: style.roughness,
-    metalness: part.kind === "vessel" ? 0.06 : 0.02,
-    transparent: style.transparent,
-    opacity: style.opacity,
-    depthWrite: !style.transparent,
-    side: style.side,
-    clippingPlanes: [],
-  });
-  material.userData.baseColor = new THREE.Color(style.color);
-  material.userData.baseOpacity = style.opacity;
-  return material;
-}
-
-function paint(material: THREE.MeshStandardMaterial, tintHex: string | null, selected: boolean) {
-  const base = material.userData.baseColor as THREE.Color;
-  const opacity = material.userData.baseOpacity as number;
-  if (tintHex) {
-    material.color.set(tintHex);
-    material.emissive.set(tintHex);
-    material.emissiveIntensity = selected ? 0.5 : 0.28;
-  } else {
-    material.color.copy(base);
-    material.emissive.set(selected ? "#ffcc66" : "#000000");
-    material.emissiveIntensity = selected ? 0.38 : 0;
-  }
-  material.opacity = opacity;
+/** GLTF accessor min/max can lag a baked vertex transform. Frustum culling must use the vertices. */
+function refreshBounds(geometry: THREE.BufferGeometry) {
+  if (geometry.userData.zaBounds === 1) return;
+  geometry.computeBoundingBox();
+  geometry.computeBoundingSphere();
+  geometry.userData.zaBounds = 1;
 }
 
 function meshTriangles(mesh: THREE.Mesh): number {
@@ -157,12 +100,13 @@ export function ZAnatomyFile({
       if (!part) return;
       let entry = grouped.get(part.id);
       if (!entry) {
-        entry = { part, material: createMaterial(part), meshes: [] };
+        entry = { part, tint: null, clip: "both", meshes: [] };
         grouped.set(part.id, entry);
       }
       const geometry = obj.geometry;
       if (!geometry.getAttribute("normal")) geometry.computeVertexNormals();
-      obj.material = entry.material;
+      refreshBounds(geometry);
+      obj.material = zaMaterial(part, null, false, "both");
       obj.userData.pick = part.kind;
       obj.userData.structureId = part.id;
       if (part.kind === "muscle") obj.userData.muscleId = part.id;
@@ -182,7 +126,7 @@ export function ZAnatomyFile({
   useEffect(() => {
     for (const entry of entries) {
       registerHighlight(entry.part.kind, entry.part.id, (selected) => {
-        paint(entry.material, null, selected);
+        paintEntry(entry, selected);
       });
     }
     return () => {
@@ -217,17 +161,15 @@ export function ZAnatomyFile({
       ) {
         on = false;
       }
-      for (const mesh of entry.meshes) {
-        mesh.visible = on;
-        mesh.userData.wantVisible = on;
-      }
+      for (const mesh of entry.meshes) mesh.visible = on;
       if (!on) continue;
-      paint(entry.material, tintHex, part.id === selectedId);
-      const clip =
+      entry.tint = tintHex;
+      entry.clip =
         chainOn && part.kind === "muscle" && part.bilateral
           ? chainClipSide(part.id, chainSide, activeChainIds)
           : "both";
-      entry.material.clippingPlanes = clipPlanesForSide(clip);
+      const highlighted = currentHighlightKey() === `${part.kind}:${part.id}`;
+      paintEntry(entry, part.id === selectedId || highlighted);
       for (const mesh of entry.meshes) {
         mesh.renderOrder = part.id === selectedId ? 12 : RENDER_ORDER[part.kind];
         mesh.castShadow = part.kind === "bone" && profile.shadows;
@@ -249,32 +191,19 @@ export function ZAnatomyFile({
     showAll,
   ]);
 
-  const tick = useRef(0);
-  useFrame(({ camera }) => {
-    if (!getDeviceProfile().lowEnd) return;
-    tick.current += 1;
-    if (tick.current % 12 !== 0) return;
-    const center = new THREE.Vector3();
-    for (const entry of entries) {
-      if (entry.part.id === selectedId) continue;
-      for (const mesh of entry.meshes) {
-        if (!mesh.userData.wantVisible) continue;
-        const geo = mesh.geometry;
-        if (!geo.boundingSphere) geo.computeBoundingSphere();
-        const sphere = geo.boundingSphere;
-        if (!sphere) continue;
-        center.copy(sphere.center);
-        mesh.localToWorld(center);
-        const dist = camera.position.distanceTo(center);
-        const tiny = meshTriangles(mesh) < 900;
-        mesh.visible = !(tiny && dist > 1.15);
-      }
-    }
-  });
-
+  // Drop GPU buffers when the layer unmounts. The parsed GLB stays in the useGLTF
+  // cache, so turning the layer back on re-uploads from CPU memory and does not re-download.
   useEffect(() => {
     return () => {
-      for (const entry of entries) entry.material.dispose();
+      const seen = new Set<THREE.BufferGeometry>();
+      for (const entry of entries) {
+        for (const mesh of entry.meshes) {
+          const geo = mesh.geometry;
+          if (!geo || seen.has(geo)) continue;
+          seen.add(geo);
+          geo.dispose();
+        }
+      }
     };
   }, [entries]);
 
