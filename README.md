@@ -56,7 +56,7 @@ npm run preview
 
 https://jasybmasso-rgb.github.io/Anatomy-3d/
 
-Le workflow `.github/workflows/pages.yml` publie cette branche sur GitHub Pages (`VITE_BASE=/Anatomy-3d/`). Le service worker met en cache l’interface tout de suite et chaque GLB à la première ouverture de sa couche. Le visualiseur `zanatomy.html` n’est pas dans ce site.
+Le workflow `.github/workflows/pages.yml` publie cette branche sur GitHub Pages (`VITE_BASE=/Anatomy-3d/`). La première fois, ouvrir les réglages du dépôt → Pages → Source : **GitHub Actions**, puis relancer le workflow. Le service worker met en cache l’interface tout de suite et chaque GLB à la première ouverture de sa couche. Le visualiseur `zanatomy.html` n’est pas dans ce site.
 
 ## APK Android (test sideload)
 
