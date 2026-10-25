@@ -1,4 +1,10 @@
-import { chains, chainsDisclaimer, type ChainSide, type MyofascialChain } from "../data/chains";
+import { chains, type ChainSide, type MyofascialChain } from "../data/chains";
+import {
+  CHAIN_MODELS_NOTE,
+  CHAIN_SCHOOLS,
+  getChainSchool,
+  type ChainSchoolId,
+} from "../data/chainSchools";
 import type { ModelSource } from "../scene/modelSource";
 import {
   STATION_ROLE_LABEL,
@@ -13,12 +19,6 @@ import { getMuscleById } from "../data/loadMuscles";
 import type { StructureKind } from "../types/structure";
 import { applyImmediateHighlight, clearImmediateHighlight } from "../scene/selectionHighlight";
 
-const GROUP_LABEL: Record<MyofascialChain["group"], string> = {
-  principal: "Lignes principales",
-  bras: "Lignes du bras",
-  fonctionnelle: "Lignes fonctionnelles",
-};
-
 const SIDE_LABEL: { id: ChainSide; label: string }[] = [
   { id: "both", label: "Bilatéral" },
   { id: "left", label: "Gauche seulement" },
@@ -26,12 +26,56 @@ const SIDE_LABEL: { id: ChainSide; label: string }[] = [
 ];
 
 type ChainPickerProps = {
+  school: ChainSchoolId;
+  onSchoolChange: (school: ChainSchoolId) => void;
   activeChainIds: string[];
   onChange: (ids: string[]) => void;
   chainSide: ChainSide;
   onSideChange: (side: ChainSide) => void;
   compact?: boolean;
 };
+
+function lateralityNote(activeChainIds: string[], chainSide: ChainSide): string | null {
+  if (chainSide === "both" || activeChainIds.length === 0) return null;
+  if (activeChainIds.includes("spl")) {
+    return "SPL unilatérale : latéralité croisée (hélice de Myers), pas un filtre gauche/droite simple.";
+  }
+  if (activeChainIds.includes("ffl") || activeChainIds.includes("bfl")) {
+    return "FFL et BFL unilatérales : le segment inférieur est controlatéral (X de Myers). L’IFL ne croise pas.";
+  }
+  const crosses = activeChainIds.some((id) => trackFor(id)?.stations.some((station) => station.crosses));
+  if (!crosses) return null;
+  return "Latéralité simple : les stations marquées « croise » sont dessinées du côté opposé, là où la chaîne traverse la ligne médiane.";
+}
+
+export function ChainSchoolControl({
+  school,
+  onSchoolChange,
+  compact = false,
+}: {
+  school: ChainSchoolId;
+  onSchoolChange: (school: ChainSchoolId) => void;
+  compact?: boolean;
+}) {
+  const current = getChainSchool(school);
+  return (
+    <fieldset className={compact ? "chain-school chain-school-compact" : "chain-school"}>
+      <legend className="chain-school-label">Modèle de chaînes</legend>
+      {CHAIN_SCHOOLS.map((item) => (
+        <label key={item.id} className={school === item.id ? "chain-school-opt chain-school-opt-on" : "chain-school-opt"}>
+          <input
+            type="radio"
+            name={compact ? "chain-school-compact" : "chain-school"}
+            checked={school === item.id}
+            onChange={() => onSchoolChange(item.id)}
+          />
+          <span>{item.label}</span>
+        </label>
+      ))}
+      <p className="chain-school-blurb">{current.summary}</p>
+    </fieldset>
+  );
+}
 
 export function ChainSideControl({
   chainSide,
@@ -61,6 +105,8 @@ export function ChainSideControl({
 }
 
 export function ChainPicker({
+  school,
+  onSchoolChange,
   activeChainIds,
   onChange,
   chainSide,
@@ -68,38 +114,30 @@ export function ChainPicker({
   compact = false,
 }: ChainPickerProps) {
   const active = new Set(activeChainIds);
-  const groups: MyofascialChain["group"][] = ["principal", "bras", "fonctionnelle"];
+  const model = getChainSchool(school);
+  const visible = chains.filter((chain) => chain.school === school);
+  const note = lateralityNote(activeChainIds, chainSide);
 
   function toggle(id: string, value: boolean) {
     const next = new Set(active);
     if (value) next.add(id);
     else next.delete(id);
-    onChange([...next]);
+    onChange([...visible.filter((chain) => next.has(chain.id)).map((chain) => chain.id)]);
   }
 
   return (
-    <div className={compact ? "chain-picker chain-picker-compact" : "chain-picker"}>
+    <div className={compact ? "chain-picker chain-picker-compact" : "chain-picker"} data-chain-school={school}>
+      <ChainSchoolControl school={school} onSchoolChange={onSchoolChange} compact={compact} />
       {activeChainIds.length > 0 ? (
         <ChainSideControl chainSide={chainSide} onSideChange={onSideChange} compact={compact} />
       ) : null}
-      {activeChainIds.includes("spl") && chainSide !== "both" ? (
-        <p className="chain-disclaimer">
-          SPL unilatérale : latéralité croisée (hélice de Myers), pas un filtre gauche/droite
-          simple.
-        </p>
-      ) : null}
-      {(activeChainIds.includes("ffl") || activeChainIds.includes("bfl")) && chainSide !== "both" ? (
-        <p className="chain-disclaimer">
-          FFL et BFL unilatérales : le segment inférieur est controlatéral (X de Myers). L’IFL ne
-          croise pas.
-        </p>
-      ) : null}
-      {groups.map((group) => (
-        <div key={group} className="chain-group">
-          {compact ? null : <p className="chain-group-label">{GROUP_LABEL[group]}</p>}
+      {note ? <p className="chain-disclaimer">{note}</p> : null}
+      {model.groups.map((group) => (
+        <div key={group.id} className="chain-group">
+          <p className="chain-group-label">{group.label}</p>
           <ul className="chain-list">
-            {chains
-              .filter((chain) => chain.group === group)
+            {visible
+              .filter((chain) => chain.group === group.id)
               .map((chain) => {
                 const on = active.has(chain.id);
                 return (
@@ -112,7 +150,7 @@ export function ChainPicker({
                       />
                       <span className="chain-dot" style={{ background: chain.tint }} />
                       <span className="chain-sigle">{chain.sigle}</span>
-                      {compact ? null : <span className="chain-name">{chain.name.fr}</span>}
+                      <span className="chain-name">{chain.name.fr}</span>
                     </label>
                   </li>
                 );
@@ -215,6 +253,7 @@ function ChainStationList({
 }
 
 export function ChainDetails({
+  school,
   activeChainIds,
   chainSide,
   modelSource,
@@ -223,6 +262,7 @@ export function ChainDetails({
   selectedId,
   onSelect,
 }: {
+  school: ChainSchoolId;
   activeChainIds: string[];
   chainSide: ChainSide;
   modelSource: ModelSource;
@@ -231,33 +271,21 @@ export function ChainDetails({
   selectedId: string | null;
   onSelect: (kind: StructureKind, id: string) => void;
 }) {
-  const selected = chains.filter((chain) => activeChainIds.includes(chain.id));
-  if (selected.length === 0) {
-    return (
-      <section className="chain-details" aria-label="Chaînes myofaciales">
-        <p className="panel-kicker">Chaînes myofaciales</p>
-        <p className="chain-disclaimer">{chainsDisclaimer.fr}</p>
-        <p className="panel-empty-body">Cochez une ou plusieurs lignes dans Couches.</p>
-      </section>
-    );
-  }
+  const model = getChainSchool(school);
+  const selected = chains.filter((chain) => chain.school === school && activeChainIds.includes(chain.id));
+  const note = lateralityNote(activeChainIds, chainSide);
   return (
-    <section className="chain-details" aria-label="Chaînes actives">
-      <p className="panel-kicker">Chaînes myofaciales</p>
-      <p className="chain-disclaimer">{chainsDisclaimer.fr}</p>
+    <section className="chain-details" aria-label="Chaînes myofasciales">
+      <p className="panel-kicker">Chaînes myofasciales</p>
+      <p className="chain-detail-title">{model.label}</p>
+      <p className="chain-detail-body">{model.explanation}</p>
+      <p className="chain-disclaimer">{CHAIN_MODELS_NOTE}</p>
+      {selected.length === 0 ? (
+        <p className="panel-empty-body">Cochez une ou plusieurs chaînes dans Couches. Un seul modèle est affiché à la fois.</p>
+      ) : (
+        <>
       <ChainSideControl chainSide={chainSide} onSideChange={onSideChange} />
-      {activeChainIds.includes("spl") && chainSide !== "both" ? (
-        <p className="chain-disclaimer">
-          SPL unilatérale : latéralité croisée (hélice de Myers), pas un filtre gauche/droite
-          simple.
-        </p>
-      ) : null}
-      {(activeChainIds.includes("ffl") || activeChainIds.includes("bfl")) && chainSide !== "both" ? (
-        <p className="chain-disclaimer">
-          FFL et BFL unilatérales : le segment inférieur est controlatéral (X de Myers). L’IFL ne
-          croise pas.
-        </p>
-      ) : null}
+      {note ? <p className="chain-disclaimer">{note}</p> : null}
       <ul className="chain-detail-list">
         {selected.map((chain) => (
           <li key={chain.id}>
@@ -278,6 +306,8 @@ export function ChainDetails({
           </li>
         ))}
       </ul>
+        </>
+      )}
     </section>
   );
 }

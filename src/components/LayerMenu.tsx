@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { ChainSide } from "../data/chains";
+import type { ChainSchoolId } from "../data/chainSchools";
 import { MODEL_SOURCE_LABEL, type ModelSource } from "../scene/modelSource";
 import { ChainPicker } from "./ChainPicker";
 
@@ -51,6 +52,8 @@ type LayerMenuProps = {
   onChange: (id: LayerId, value: boolean) => void;
   showAllMuscles: boolean;
   onShowAllMuscles: (value: boolean) => void;
+  chainSchool: ChainSchoolId;
+  onChainSchoolChange: (school: ChainSchoolId) => void;
   activeChainIds: string[];
   onActiveChainsChange: (ids: string[]) => void;
   chainSide: ChainSide;
@@ -64,6 +67,8 @@ export function LayerMenu({
   onChange,
   showAllMuscles,
   onShowAllMuscles,
+  chainSchool,
+  onChainSchoolChange,
   activeChainIds,
   onActiveChainsChange,
   chainSide,
@@ -71,7 +76,10 @@ export function LayerMenu({
   modelSource,
   onModelSourceChange,
 }: LayerMenuProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return new URLSearchParams(window.location.search).get("menu") === "1";
+  });
   const rootRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
 
@@ -163,6 +171,8 @@ export function LayerMenu({
                 {layer.id === "chains" && layers.chains ? (
                   <ChainPicker
                     compact
+                    school={chainSchool}
+                    onSchoolChange={onChainSchoolChange}
                     activeChainIds={activeChainIds}
                     onChange={onActiveChainsChange}
                     chainSide={chainSide}

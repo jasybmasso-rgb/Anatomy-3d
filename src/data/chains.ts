@@ -1,5 +1,6 @@
 import type { Muscle } from "../types/muscle";
 import { contraMuscleIdsOf, fasciaIdsOf, muscleIdsOf, trackFor } from "./chainTracks";
+import { EXTRA_CHAINS, type ChainSchoolId } from "./chainSchools";
 import { muscles } from "./loadMuscles";
 import raw from "./chains.json";
 
@@ -13,13 +14,14 @@ export type ChainSide = "both" | "left" | "right";
 export type MyofascialChain = {
   id: string;
   sigle: string;
-  group: "principal" | "bras" | "fonctionnelle";
+  school: ChainSchoolId;
+  group: string;
   name: ChainNames;
   description: ChainNames;
   tint: string;
   muscleIds: string[];
   fasciaIds?: string[];
-  /** Stations shown on the opposite side when a unilateral chain is selected (SPL helix, FFL/BFL X). */
+  /** Stations shown on the opposite side when a unilateral chain is selected. */
   contraMuscleIds?: string[];
 };
 
@@ -94,18 +96,29 @@ const file = raw as ChainsFile;
 
 export const chainsDisclaimer: ChainNames = file.disclaimer;
 
-export const chains: MyofascialChain[] = file.chains.map((chain) => {
+type ChainInput = Omit<MyofascialChain, "muscleIds" | "fasciaIds" | "contraMuscleIds"> & {
+  muscleIds?: string[];
+  fasciaIds?: string[];
+};
+
+function hydrate(chain: ChainInput): MyofascialChain {
+  const hasTrack = trackFor(chain.id) != null;
   const trackedMuscles = muscleIdsOf(chain.id);
   const trackedFascia = fasciaIdsOf(chain.id);
   const trackedContra = contraMuscleIdsOf(chain.id);
   return {
     ...chain,
-    muscleIds: filterKnown(trackedMuscles.length > 0 ? trackedMuscles : chain.muscleIds, chain.sigle),
-    fasciaIds: filterFascia(trackedFascia.length > 0 ? trackedFascia : chain.fasciaIds, chain.sigle),
+    muscleIds: filterKnown(hasTrack ? trackedMuscles : (chain.muscleIds ?? []), chain.sigle),
+    fasciaIds: filterFascia(hasTrack ? trackedFascia : chain.fasciaIds, chain.sigle),
     contraMuscleIds:
       trackedContra.length > 0 ? filterKnown(trackedContra, `${chain.sigle}-contra`) : undefined,
   };
-});
+}
+
+export const chains: MyofascialChain[] = [
+  ...file.chains.map((chain) => hydrate({ ...chain, school: "myers" })),
+  ...EXTRA_CHAINS.map((chain) => hydrate(chain)),
+];
 
 export function getChainById(id: string | null | undefined): MyofascialChain | null {
   if (!id) return null;
@@ -222,7 +235,8 @@ export function tintForStructureId(id: string, activeIds: string[]): string | nu
     const track = trackFor(chain.id);
     if (!track) return false;
     return track.stations.some(
-      (station) => station.id === id || station.leftId === id || station.rightId === id,
+      (station) =>
+        station.id === id || station.leftId === id || station.rightId === id || station.zaId === id,
     );
   });
   return averageTint(matched);

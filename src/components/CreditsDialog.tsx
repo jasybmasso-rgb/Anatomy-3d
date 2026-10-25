@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { CHAIN_MODELS_NOTE, CHAIN_SCHOOLS } from "../data/chainSchools";
 
 type CreditsDialogProps = {
   open: boolean;
@@ -48,6 +49,12 @@ export function CreditsDialog({ open, onClose }: CreditsDialogProps) {
           légèrement simplifiés ; mains, pieds, muscles, os, fascias, ligaments et nerfs périphériques
           restent au détail d’origine. Le menu Couches permet de revenir aux anciens maillages.
         </p>
+        <p>{CHAIN_MODELS_NOTE}</p>
+        {CHAIN_SCHOOLS.map((school) => (
+          <p key={school.id}>
+            <strong>{school.label}.</strong> {school.credit}
+          </p>
+        ))}
         <p>Code de l’application : MIT.</p>
         <button type="button" className="reset-btn" onClick={onClose}>
           Fermer

@@ -1,4 +1,5 @@
 import type { ChainSide } from "../data/chains";
+import { chainHasOrgans } from "../data/chainTracks";
 import { nerves, organs, vessels } from "../data/loadViscera";
 import { Fascia } from "./Fascia";
 import { Ligaments } from "./Ligaments";
@@ -50,12 +51,14 @@ export default function ProceduralBody(props: ProceduralBodyProps) {
           hiddenIds={props.hiddenLigamentIds}
         />
       ) : null}
-      {props.showOrgans ? (
+      {props.showOrgans || (props.showChains && chainHasOrgans(props.activeChainIds)) ? (
         <VisceraLayer
           url="/models/organs.glb"
           parts={organs}
           kind="organ"
           visible={props.showOrgans}
+          chainLayerOn={props.showChains}
+          activeChainIds={props.activeChainIds}
           selectedId={props.selectedKind === "organ" ? props.selectedId : null}
           hiddenIds={props.hiddenOrganIds}
         />

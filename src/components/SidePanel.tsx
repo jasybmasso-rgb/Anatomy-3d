@@ -1,4 +1,5 @@
 import type { ChainSide } from "../data/chains";
+import type { ChainSchoolId } from "../data/chainSchools";
 import type { ModelSource } from "../scene/modelSource";
 import type { ZaPart } from "../data/zanatomy";
 import { connective as allConnective } from "../data/loadConnective";
@@ -52,6 +53,7 @@ type SidePanelProps = {
   onShowAllMuscles: (value: boolean) => void;
   onHiddenChange: (kind: StructureKind, id: string, hide: boolean) => void;
   showChains: boolean;
+  chainSchool: ChainSchoolId;
   activeChainIds: string[];
   chainSide: ChainSide;
   onChainSideChange: (side: ChainSide) => void;
@@ -73,6 +75,7 @@ export function SidePanel({
   onShowAllMuscles,
   onHiddenChange,
   showChains,
+  chainSchool,
   activeChainIds,
   chainSide,
   onChainSideChange,
@@ -101,6 +104,7 @@ export function SidePanel({
       ) : null}
       {showChains ? (
         <ChainDetails
+          school={chainSchool}
           activeChainIds={activeChainIds}
           chainSide={chainSide}
           modelSource={modelSource}

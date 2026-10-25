@@ -13,6 +13,7 @@ export const DEFAULT_TARGET: [number, number, number] = [0, -0.05, 0];
 /** Optional `?shot=` poses for layer screenshots. Ignored during normal use. */
 const SHOT_POSES: Record<string, { eye: [number, number, number]; target: [number, number, number] }> = {
   body: { eye: [1.7, 0.15, 2.55], target: [0, -0.08, 0] },
+  back: { eye: [-1.15, 0.22, -2.65], target: [0, -0.05, 0] },
   "hand-palmar": { eye: [0.27, -0.05, 0.42], target: [0.27, -0.1, 0.06] },
   "hand-dorsal": { eye: [0.27, -0.02, -0.3], target: [0.27, -0.1, 0.06] },
   "foot-plantar": { eye: [0.09, -1.28, -0.02], target: [0.09, -0.88, -0.01] },

@@ -5,6 +5,7 @@ import type { VisceraPart } from "../types/structure";
 import { attachFatRaycast } from "./fatRaycast";
 import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
 import { setPickMeshes } from "./structurePick";
+import { tintForStructureId } from "../data/chains";
 import { getDeviceProfile } from "./deviceProfile";
 
 const ORGAN_TONE: Record<string, string> = {
@@ -64,11 +65,22 @@ type VisceraLayerProps = {
   parts: VisceraPart[];
   kind: "nerve" | "organ" | "vessel";
   visible: boolean;
+  chainLayerOn?: boolean;
+  activeChainIds?: string[];
   selectedId: string | null;
   hiddenIds: string[];
 };
 
-export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds }: VisceraLayerProps) {
+export function VisceraLayer({
+  url,
+  parts,
+  kind,
+  visible,
+  chainLayerOn = false,
+  activeChainIds = [],
+  selectedId,
+  hiddenIds,
+}: VisceraLayerProps) {
   const gltf = useGLTF(url);
   const entries = useMemo(() => {
     const list: { id: string; object: THREE.Object3D; material: THREE.MeshStandardMaterial; meshes: THREE.Mesh[] }[] =
@@ -78,6 +90,7 @@ export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds 
       if (!src) continue;
       const clone = src.clone(true);
       const material = createVisceraMaterial(part);
+      material.userData.baseColor = material.color.getHex();
       material.userData.baseClearcoat =
         "clearcoat" in material ? (material as THREE.MeshPhysicalMaterial).clearcoat : 0.08;
       const meshes: THREE.Mesh[] = [];
@@ -113,17 +126,20 @@ export function VisceraLayer({ url, parts, kind, visible, selectedId, hiddenIds 
     const hidden = new Set(hiddenIds);
     const pick: THREE.Mesh[] = [];
     for (const entry of entries) {
-      const on = visible && !hidden.has(entry.id);
+      const tint = chainLayerOn ? tintForStructureId(entry.id, activeChainIds) : null;
+      const on = !hidden.has(entry.id) && (visible || Boolean(tint));
       entry.object.visible = on;
+      const base = entry.material.userData.baseColor as number | undefined;
+      entry.material.color.set(tint ?? base ?? entry.material.color);
       setSelected(entry.material, on && entry.id === selectedId);
       if (on) pick.push(...entry.meshes);
     }
     setPickMeshes(kind, pick);
     return () => setPickMeshes(kind, []);
-  }, [entries, hiddenIds, kind, selectedId, visible]);
+  }, [activeChainIds, chainLayerOn, entries, hiddenIds, kind, selectedId, visible]);
 
   return (
-    <group name={`${kind}s`} visible={visible}>
+    <group name={`${kind}s`} visible={visible || chainLayerOn}>
       {entries.map((entry) => (
         <primitive key={entry.id} object={entry.object} />
       ))}

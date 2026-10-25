@@ -8,7 +8,13 @@ import { ChainLegend } from "./components/ChainPicker";
 import { SceneErrorBoundary } from "./components/SceneErrorBoundary";
 import { SearchBar } from "./components/SearchBar";
 import { SidePanel } from "./components/SidePanel";
-import { muscleIdsForChains, type ChainSide } from "./data/chains";
+import { getChainById, muscleIdsForChains, type ChainSide } from "./data/chains";
+import {
+  isChainSchool,
+  loadChainSchool,
+  saveChainSchool,
+  type ChainSchoolId,
+} from "./data/chainSchools";
 import { connective, getConnectiveById } from "./data/loadConnective";
 import { muscles, getMuscleById } from "./data/loadMuscles";
 import { nerves, organs, vessels, getVisceraById } from "./data/loadViscera";
@@ -23,13 +29,30 @@ const ALL_VISCERA = [...nerves, ...organs, ...vessels];
 
 function initialLayers(): LayerState {
   if (typeof window === "undefined") return DEFAULT_LAYERS;
-  const raw = new URLSearchParams(window.location.search).get("layers");
-  if (!raw) return DEFAULT_LAYERS;
-  const next: LayerState = { ...DEFAULT_LAYERS, muscles: false };
-  for (const id of raw.split(",")) {
-    if (id in next) next[id as LayerId] = true;
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get("layers");
+  const next: LayerState = raw ? { ...DEFAULT_LAYERS, muscles: false } : { ...DEFAULT_LAYERS };
+  if (raw) {
+    for (const id of raw.split(",")) {
+      if (id in next) next[id as LayerId] = true;
+    }
   }
+  if (params.get("chain")) next.chains = true;
   return next;
+}
+
+function initialSchool(): ChainSchoolId {
+  if (typeof window === "undefined") return "myers";
+  const query = new URLSearchParams(window.location.search).get("school");
+  if (isChainSchool(query)) return query;
+  return loadChainSchool();
+}
+
+function initialChains(school: ChainSchoolId): string[] {
+  if (typeof window === "undefined") return [];
+  const raw = new URLSearchParams(window.location.search).get("chain");
+  if (!raw) return [];
+  return raw.split(",").filter((id) => getChainById(id)?.school === school);
 }
 
 function initialShowAll(): boolean {
@@ -50,7 +73,8 @@ export function App() {
   const [layers, setLayers] = useState<LayerState>(initialLayers);
   const [showAllMuscles, setShowAllMuscles] = useState(initialShowAll);
   const [hiddenIds, setHiddenIds] = useState<HiddenMap>(EMPTY_HIDDEN);
-  const [activeChainIds, setActiveChainIds] = useState<string[]>([]);
+  const [chainSchool, setChainSchool] = useState<ChainSchoolId>(initialSchool);
+  const [activeChainIds, setActiveChainIds] = useState<string[]>(() => initialChains(initialSchool()));
   const [chainSide, setChainSide] = useState<ChainSide>("both");
   const [pinnedMuscleId, setPinnedMuscleId] = useState<string | null>(null);
   const [modelSource, setModelSource] = useState<ModelSource>(loadModelSource);
@@ -121,6 +145,14 @@ export function App() {
     setSelection(null);
   }
 
+  function onChainSchoolChange(school: ChainSchoolId) {
+    setChainSchool(school);
+    saveChainSchool(school);
+    setActiveChainIds([]);
+    setChainSide("both");
+    clearImmediateHighlight();
+  }
+
   function onActiveChainsChange(ids: string[]) {
     setActiveChainIds(ids);
     if (ids.length > 0) {
@@ -160,6 +192,8 @@ export function App() {
           onChange={setLayer}
           showAllMuscles={showAllMuscles}
           onShowAllMuscles={onShowAllMuscles}
+          chainSchool={chainSchool}
+          onChainSchoolChange={onChainSchoolChange}
           activeChainIds={activeChainIds}
           onActiveChainsChange={onActiveChainsChange}
           chainSide={chainSide}
@@ -220,6 +254,7 @@ export function App() {
           onShowAllMuscles={onShowAllMuscles}
           onHiddenChange={(kind, id, hide) => setHiddenIds((prev) => toggleHidden(prev, kind, id, hide))}
           showChains={layers.chains}
+          chainSchool={chainSchool}
           activeChainIds={activeChainIds}
           chainSide={chainSide}
           onChainSideChange={setChainSide}

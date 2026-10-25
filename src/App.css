@@ -828,7 +828,49 @@
 }
 
 .chain-picker-compact .chain-item {
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto 1fr;
+}
+
+.chain-school {
+  margin: 0 0 0.45rem;
+  padding: 0.4rem 0.45rem 0.45rem;
+  border: 1px solid #33455f;
+  border-radius: 0.4rem;
+  background: #121a26;
+}
+
+.chain-school-label {
+  margin: 0 0 0.3rem;
+  padding: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8b9bb4;
+}
+
+.chain-school-opt {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+  margin: 0.16rem 0;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.chain-school-opt input {
+  accent-color: #6ea8ff;
+  margin-top: 0.15rem;
+}
+
+.chain-school-opt-on {
+  color: #e8eef4;
+}
+
+.chain-school-blurb {
+  margin: 0.35rem 0 0;
+  color: #8b9bb4;
+  font-size: 0.72rem;
+  line-height: 1.35;
 }
 
 .chain-item:hover,

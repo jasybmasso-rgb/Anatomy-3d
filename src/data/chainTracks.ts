@@ -1,16 +1,19 @@
 import type { ModelSource } from "../scene/modelSource";
+import { EXTRA_CHAIN_TRACKS } from "./chainTracksExtra";
 
-export type StationRole = "muscle" | "fascia" | "ligament";
+export type StationRole = "muscle" | "fascia" | "ligament" | "organ";
 export type PickKind = "muscle" | "fascia" | "ligament" | "organ";
 
-/** One stop on a Myers track, distal-to-cranial or as noted by the chain direction. */
+/** One stop on a chain track, distal-to-cranial or as noted by the chain direction. */
 export type ChainStation = {
   role: StationRole;
   label: string;
-  /** Bilateral muscle, or a midline fascia/ligament mesh. */
+  /** Bilateral muscle, a midline mesh, or the procedural organ id. */
   id?: string;
   leftId?: string;
   rightId?: string;
+  /** Z-Anatomy id when the procedural catalog uses another name (estomac → za-estomac). */
+  zaId?: string;
   /** Mesh catalog when it differs from the anatomical role (procedural meshes). */
   pickKind?: PickKind;
   /** Z-Anatomy file kind when it differs from pickKind (sacrotuberous ligament lives with ligaments). */
@@ -19,7 +22,7 @@ export type ChainStation = {
   zaOnly?: boolean;
   /** Present on the procedural meshes, absent from Z-Anatomy. */
   missingInZa?: boolean;
-  /** Drawn on the opposite side when a single side is chosen (SPL, FFL, BFL). */
+  /** Drawn on the opposite side when a single side is chosen (SPL, FFL, BFL, crossed chains). */
   crosses?: boolean;
   /** No left/right half (thoracolumbar fascia, pubic symphysis, galea). */
   midline?: boolean;
@@ -337,6 +340,7 @@ export const CHAIN_TRACKS: Record<string, ChainTrack> = {
       muscle("sartorius", "Sartorius"),
     ],
   },
+  ...EXTRA_CHAIN_TRACKS,
 };
 
 export function trackFor(chainId: string): ChainTrack | null {
@@ -364,6 +368,7 @@ export const STATION_ROLE_LABEL: Record<StationRole, string> = {
   muscle: "Muscle",
   fascia: "Fascia",
   ligament: "Ligament",
+  organ: "Organe",
 };
 
 export type StationTarget = { kind: PickKind; id: string };
@@ -380,6 +385,9 @@ export function stationTarget(
     (modelSource === "zanatomy" ? station.zaKind : undefined) ??
     station.pickKind ??
     (station.role === "ligament" ? "fascia" : station.role);
+  if (modelSource === "zanatomy" && station.zaId && !station.leftId && !station.rightId) {
+    return { kind, id: station.zaId };
+  }
   if (station.leftId || station.rightId) {
     const which = stationSide(station, side);
     const id =
@@ -412,6 +420,17 @@ export function contraMuscleIdsOf(chainId: string): string[] {
   return track.stations
     .filter((station) => station.role === "muscle" && station.crosses && station.id)
     .map((station) => station.id as string);
+}
+
+export function chainHasOrgans(activeIds: string[]): boolean {
+  for (const id of activeIds) {
+    const track = trackFor(id);
+    if (!track) continue;
+    if (track.stations.some((station) => station.role === "organ" || station.pickKind === "organ")) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export function fasciaIdsOf(chainId: string): string[] {

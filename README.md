@@ -11,7 +11,7 @@ Interface en **français canadien (fr-CA)**. Licence **MIT**.
 - À la sélection : **muscle stylisé** + animation de caméra vers le foyer du muscle.
 - **Réinitialiser** : muscle, panneau, champ de recherche et caméra.
 
-Les chaînes myofasciales (Tom Myers) sont une couche pédagogique. iOS / IPA hors de ce livrable.
+Les chaînes myofasciales sont une couche pédagogique. Le menu Couches choisit un modèle à la fois : Myers (Anatomy Trains), Françoise Mézière, GDS (Godelieve Denys-Struyf) ou Léopold Busquet. Ces grilles ne font pas consensus scientifique. iOS / IPA hors de ce livrable.
 
 ## Choix 3D : squelette BodyParts3D
 
