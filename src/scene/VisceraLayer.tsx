@@ -50,7 +50,51 @@ function createVisceraMaterial(part: VisceraPart): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial(opts);
 }
 
-function setSelected(material: THREE.MeshStandardMaterial, selected: boolean) {
+const NERVE_HIGHLIGHT = 0x3dfff2;
+
+function paintNerveHighlight(material: THREE.MeshStandardMaterial, selected: boolean) {
+  const physical = material as THREE.MeshPhysicalMaterial;
+  const hasSheen = "sheen" in material;
+  if (selected) {
+    if (material.color.getHex() !== NERVE_HIGHLIGHT) {
+      material.userData.restColor = material.color.getHex();
+      if (hasSheen) {
+        material.userData.restSheen = physical.sheen;
+        material.userData.restSheenColor = physical.sheenColor.getHex();
+      }
+    }
+    material.color.set(NERVE_HIGHLIGHT);
+    material.emissive.set("#00ffe8");
+    material.emissiveIntensity = 1.15;
+    if (hasSheen) {
+      physical.sheen = 0.2;
+      physical.sheenColor.set("#d8fffb");
+    }
+  } else {
+    if (material.color.getHex() === NERVE_HIGHLIGHT && material.userData.restColor != null) {
+      material.color.set(material.userData.restColor as number);
+    }
+    material.emissive.set("#000000");
+    material.emissiveIntensity = 0;
+    if (hasSheen && material.userData.restSheenColor != null) {
+      physical.sheen = (material.userData.restSheen as number) ?? 0.45;
+      physical.sheenColor.set(material.userData.restSheenColor as number);
+    }
+  }
+  if ("clearcoat" in material) {
+    physical.clearcoat = selected ? 0.35 : material.userData.baseClearcoat ?? 0.08;
+  }
+}
+
+function setSelected(
+  material: THREE.MeshStandardMaterial,
+  selected: boolean,
+  kind: "nerve" | "organ" | "vessel",
+) {
+  if (kind === "nerve") {
+    paintNerveHighlight(material, selected);
+    return;
+  }
   material.emissive.set(selected ? "#ffcc66" : "#000000");
   material.emissiveIntensity = selected ? 0.38 : 0;
   if ("clearcoat" in material) {
@@ -115,7 +159,7 @@ export function VisceraLayer({
 
   useEffect(() => {
     for (const entry of entries) {
-      registerHighlight(kind, entry.id, (selected) => setSelected(entry.material, selected));
+      registerHighlight(kind, entry.id, (selected) => setSelected(entry.material, selected, kind));
     }
     return () => {
       for (const entry of entries) unregisterHighlight(kind, entry.id);
@@ -131,7 +175,7 @@ export function VisceraLayer({
       entry.object.visible = on;
       const base = entry.material.userData.baseColor as number | undefined;
       entry.material.color.set(tint ?? base ?? entry.material.color);
-      setSelected(entry.material, on && entry.id === selectedId);
+      setSelected(entry.material, on && entry.id === selectedId, kind);
       if (on) pick.push(...entry.meshes);
     }
     setPickMeshes(kind, pick);

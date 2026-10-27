@@ -17,8 +17,8 @@ type LigamentEntry = {
 };
 
 function setLigamentSelected(material: THREE.MeshPhysicalMaterial, selected: boolean, schematic: boolean) {
-  material.emissive.set(selected ? "#ffcc66" : schematic ? "#7a3a08" : "#5a2a06");
-  material.emissiveIntensity = selected ? 0.42 : schematic ? 0.28 : 0.2;
+  material.emissive.set(selected ? "#ffcc66" : schematic ? "#3a2814" : "#2c1e10");
+  material.emissiveIntensity = selected ? 0.42 : schematic ? 0.1 : 0.08;
 }
 
 type LigamentsProps = {

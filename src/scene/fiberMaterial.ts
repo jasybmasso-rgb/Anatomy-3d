@@ -85,11 +85,11 @@ vec3 pedagogicalLigamentAlbedo(vec2 uv) {
   vec2 fuv = circ * density + vec2(warp * 1.6, along * 2.0);
   float n = fiberFbm(fuv) * 0.7 + fiberFbm(fuv * 2.2 + 5.0) * 0.3;
   float ridge = smoothstep(0.34, 0.7, n);
-  vec3 base = vec3(0.72, 0.38, 0.07);
-  vec3 fiber = vec3(0.96, 0.74, 0.22);
+  vec3 base = vec3(0.45, 0.32, 0.18);
+  vec3 fiber = vec3(0.62, 0.48, 0.30);
   vec3 col = mix(base, fiber, ridge * 0.72);
   float endFlare = 1.0 - smoothstep(0.0, 0.16, min(along, 1.0 - along));
-  col = mix(col, vec3(0.93, 0.62, 0.16), endFlare * 0.55);
+  col = mix(col, vec3(0.55, 0.42, 0.26), endFlare * 0.55);
   return clamp(col, 0.0, 1.0);
 }
 `;
@@ -418,8 +418,8 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     depthWrite: false,
     side: THREE.DoubleSide,
     vertexColors: false,
-    emissive: schematic ? "#7a3a08" : "#5a2a06",
-    emissiveIntensity: schematic ? 0.28 : 0.2,
+    emissive: schematic ? "#3a2814" : "#2c1e10",
+    emissiveIntensity: schematic ? 0.1 : 0.08,
   });
   material.userData.kind = "ligament";
   material.onBeforeCompile = (shader) => {
@@ -439,7 +439,7 @@ export function createLigamentFiberMaterial(schematic: boolean): THREE.MeshPhysi
     material.userData.shader = shader;
   };
   material.customProgramCacheKey = () =>
-    schematic ? "anatomy-fiber-ligament-synth-v5" : "anatomy-fiber-ligament-bp3d-v5";
+    schematic ? "anatomy-fiber-ligament-synth-v6" : "anatomy-fiber-ligament-bp3d-v6";
   return material;
 }
 

@@ -28,7 +28,8 @@ const LOOK: Record<string, Look> = {
   cartilage: { color: "#b9d4e4", opacity: 0.72, transparent: true, side: THREE.DoubleSide, roughness: 0.28, metalness: 0.02 },
   muscle: { color: "#c4473a", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.55, metalness: 0.02 },
   fascia: { color: "#8eabbe", opacity: 0.55, transparent: true, side: THREE.DoubleSide, roughness: 0.5, metalness: 0.02 },
-  ligament: { color: "#d9c7a2", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.46, metalness: 0.02 },
+  // Darker tan than bone (#f0e4d0) so the bands stay readable against the skeleton.
+  ligament: { color: "#9a7344", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.46, metalness: 0.02 },
   nerve: { color: "#f6d648", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.38, metalness: 0.02 },
   artery: { color: "#bc2a2a", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.34, metalness: 0.06 },
   vein: { color: "#2a4aa8", opacity: 1, transparent: false, side: THREE.DoubleSide, roughness: 0.34, metalness: 0.06 },
@@ -52,8 +53,10 @@ export function zaMaterial(
   const cached = pool.get(key);
   if (cached) return cached;
   const look = LOOK[lookId] ?? LOOK.organ;
+  // Gold emissive sits on the yellow nerve and disappears. Cyan wins over a chain tint.
+  const nerveSelected = selected && lookId === "nerve";
   const material = new THREE.MeshStandardMaterial({
-    color: tint ?? look.color,
+    color: nerveSelected ? "#3dfff2" : (tint ?? look.color),
     roughness: look.roughness,
     metalness: look.metalness,
     transparent: look.transparent,
@@ -63,7 +66,10 @@ export function zaMaterial(
     clippingPlanes: CLIP_PLANES[clip],
     clipShadows: clip !== "both",
   });
-  if (tint) {
+  if (nerveSelected) {
+    material.emissive.set("#00ffe8");
+    material.emissiveIntensity = 1.15;
+  } else if (tint) {
     material.emissive.set(tint);
     material.emissiveIntensity = selected ? 0.5 : 0.28;
   } else if (selected) {
