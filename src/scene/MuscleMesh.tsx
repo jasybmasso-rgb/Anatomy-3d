@@ -1,11 +1,12 @@
 import { useGLTF } from "@react-three/drei";
+import { publicUrl } from "../lib/publicUrl";
 import { useMemo } from "react";
 import * as THREE from "three";
 import type { Muscle } from "../types/muscle";
 import { applyFiberUVs, createFiberMuscleMaterial } from "./fiberMaterial";
 
 export function MuscleMesh({ muscle }: { muscle: Muscle }) {
-  const gltf = useGLTF("/models/muscles.glb");
+  const gltf = useGLTF(publicUrl("/models/muscles.glb"));
   const object = useMemo(() => {
     const src = gltf.scene.getObjectByName(muscle.id);
     if (!src) return null;
@@ -39,4 +40,4 @@ export function MuscleMesh({ muscle }: { muscle: Muscle }) {
   return <primitive object={object} />;
 }
 
-useGLTF.preload("/models/muscles.glb");
+useGLTF.preload(publicUrl("/models/muscles.glb"));

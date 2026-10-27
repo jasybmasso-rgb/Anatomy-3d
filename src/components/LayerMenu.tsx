@@ -1,4 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
+import type { ChainSide } from "../data/chains";
+import type { ChainSchoolId } from "../data/chainSchools";
+import { MODEL_SOURCE_LABEL, type ModelSource } from "../scene/modelSource";
+import { ChainPicker } from "./ChainPicker";
+
+export const MODEL_TOGGLE_LABEL = MODEL_SOURCE_LABEL;
 
 export type LayerId =
   | "muscles"
@@ -6,8 +12,9 @@ export type LayerId =
   | "ligaments"
   | "landmarks"
   | "nerves"
-  | "chains"
-  | "vessels";
+  | "organs"
+  | "vessels"
+  | "chains";
 
 export type LayerState = Record<LayerId, boolean>;
 
@@ -17,8 +24,9 @@ export const DEFAULT_LAYERS: LayerState = {
   ligaments: false,
   landmarks: false,
   nerves: false,
-  chains: false,
+  organs: false,
   vessels: false,
+  chains: false,
 };
 
 type LayerMeta = {
@@ -33,18 +41,45 @@ const LAYERS: LayerMeta[] = [
   { id: "fascias", label: "Fascias", ready: true },
   { id: "ligaments", label: "Ligaments", ready: true },
   { id: "landmarks", label: "Repères osseux", ready: true },
-  { id: "nerves", label: "Nerfs", ready: false, hint: "bientôt" },
-  { id: "chains", label: "Chaînes myofaciales", ready: false, hint: "bientôt" },
-  { id: "vessels", label: "Vaisseaux / organes", ready: false, hint: "bientôt" },
+  { id: "nerves", label: "Nerfs", ready: true },
+  { id: "organs", label: "Organes", ready: true },
+  { id: "vessels", label: "Vaisseaux sanguins", ready: true },
+  { id: "chains", label: "Chaînes myofaciales", ready: true },
 ];
 
 type LayerMenuProps = {
   layers: LayerState;
   onChange: (id: LayerId, value: boolean) => void;
+  showAllMuscles: boolean;
+  onShowAllMuscles: (value: boolean) => void;
+  chainSchool: ChainSchoolId;
+  onChainSchoolChange: (school: ChainSchoolId) => void;
+  activeChainIds: string[];
+  onActiveChainsChange: (ids: string[]) => void;
+  chainSide: ChainSide;
+  onChainSideChange: (side: ChainSide) => void;
+  modelSource: ModelSource;
+  onModelSourceChange: (source: ModelSource) => void;
 };
 
-export function LayerMenu({ layers, onChange }: LayerMenuProps) {
-  const [open, setOpen] = useState(false);
+export function LayerMenu({
+  layers,
+  onChange,
+  showAllMuscles,
+  onShowAllMuscles,
+  chainSchool,
+  onChainSchoolChange,
+  activeChainIds,
+  onActiveChainsChange,
+  chainSide,
+  onChainSideChange,
+  modelSource,
+  onModelSourceChange,
+}: LayerMenuProps) {
+  const [open, setOpen] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return new URLSearchParams(window.location.search).get("menu") === "1";
+  });
   const rootRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
 
@@ -80,8 +115,36 @@ export function LayerMenu({ layers, onChange }: LayerMenuProps) {
       {open ? (
         <div className="layer-menu-panel" id={menuId} role="group" aria-label="Couches anatomiques">
           <p className="layer-menu-note">
-            Le squelette (os et cartilage) reste toujours visible. Sélection fine : à venir.
+            Le squelette (os et cartilage) reste toujours visible. Cliquez une structure de n’importe
+            quelle couche pour la sélectionner. Nerfs, organes et vaisseaux sont trois couches
+            distinctes.
           </p>
+          <div
+            className="layer-menu-abdo"
+            role="radiogroup"
+            aria-label={MODEL_TOGGLE_LABEL}
+            data-model-source={modelSource}
+          >
+            <p className="layer-menu-abdo-label">{MODEL_TOGGLE_LABEL}</p>
+            <label className="layer-menu-nested">
+              <input
+                type="radio"
+                name="model-source"
+                checked={modelSource === "zanatomy"}
+                onChange={() => onModelSourceChange("zanatomy")}
+              />
+              Z-Anatomy
+            </label>
+            <label className="layer-menu-nested">
+              <input
+                type="radio"
+                name="model-source"
+                checked={modelSource === "procedural"}
+                onChange={() => onModelSourceChange("procedural")}
+              />
+              Anciens (procéduraux)
+            </label>
+          </div>
           <ul className="layer-menu-list">
             {LAYERS.map((layer) => (
               <li key={layer.id}>
@@ -95,6 +158,27 @@ export function LayerMenu({ layers, onChange }: LayerMenuProps) {
                   <span>{layer.label}</span>
                   {layer.hint ? <em>{layer.hint}</em> : null}
                 </label>
+                {layer.id === "muscles" && layers.muscles ? (
+                  <label className="layer-menu-nested">
+                    <input
+                      type="checkbox"
+                      checked={showAllMuscles}
+                      onChange={(event) => onShowAllMuscles(event.target.checked)}
+                    />
+                    Afficher tous les muscles
+                  </label>
+                ) : null}
+                {layer.id === "chains" && layers.chains ? (
+                  <ChainPicker
+                    compact
+                    school={chainSchool}
+                    onSchoolChange={onChainSchoolChange}
+                    activeChainIds={activeChainIds}
+                    onChange={onActiveChainsChange}
+                    chainSide={chainSide}
+                    onSideChange={onChainSideChange}
+                  />
+                ) : null}
               </li>
             ))}
           </ul>

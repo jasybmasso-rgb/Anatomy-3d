@@ -1,0 +1,238 @@
+import { useGLTF } from "@react-three/drei";
+import { publicUrl } from "../lib/publicUrl";
+import { useEffect, useMemo } from "react";
+import * as THREE from "three";
+import { chainClipSide, tintForMuscle, type ChainSide } from "../data/chains";
+import { muscles } from "../data/loadMuscles";
+import { getDeviceProfile } from "./deviceProfile";
+import { registerHighlight, unregisterHighlight } from "./selectionHighlight";
+import { setPickMeshes } from "./structurePick";
+import {
+  applyFiberUVs,
+  clipPlanesForSide,
+  createFiberMuscleMaterial,
+  setMuscleTendonAlpha,
+  setMuscleTint,
+  setMuscleSelected,
+} from "./fiberMaterial";
+
+export type MuscleLayerProps = {
+  selectedMuscleId: string | null;
+  pinnedMuscleId: string | null;
+  showMuscles: boolean;
+  showAllMuscles: boolean;
+  hiddenMuscleIds: string[];
+  chainLayerOn: boolean;
+  activeChainIds: string[];
+  chainSide: ChainSide;
+};
+
+type MuscleRep = {
+  object: THREE.Object3D;
+  materials: THREE.MeshPhongMaterial[];
+  meshes: THREE.Mesh[];
+};
+
+type MuscleEntry = {
+  id: string;
+  procedural: MuscleRep;
+};
+
+const THIN_SHEETS = new Set([
+  "droit-abdomen",
+  "oblique-interne",
+  "transverse-de-l-abdomen",
+  "oblique-externe",
+  "grand-dorsal",
+  "temporal",
+  "masseter",
+  "pterygoide-medial",
+  "pterygoide-lateral",
+]);
+
+const APO_TRANSPARENT = new Set(["oblique-externe", "oblique-interne", "transverse-de-l-abdomen"]);
+
+/**
+ * Shared uniform `uTendonAlpha` for the OE / OI / TA aponeuroses.
+ * 0.5 = 50% opacity on tendon-painted vertices; fleshy fibers stay at alpha 1.
+ */
+const APONEUROSIS_OPACITY = 0.5;
+
+/** Superficial → drawn later. Deep wall / back stay behind even if sheets kiss. */
+const WALL_ORDER: Record<string, number> = {
+  "transverse-de-l-abdomen": 1,
+  "oblique-interne": 2,
+  "dentele-posterieur-inferieur": 2,
+  "iliocostal-thoracique": 2,
+  "iliocostal-lombaire": 2,
+  "longissimus-du-thorax": 2,
+  "droit-abdomen": 4,
+  "oblique-externe": 9,
+  "grand-dorsal": 11,
+};
+
+const WALL_OFFSET: Record<string, number> = {
+  "transverse-de-l-abdomen": 14,
+  "oblique-interne": 7,
+  "dentele-posterieur-inferieur": 12,
+  "iliocostal-thoracique": 12,
+  "iliocostal-lombaire": 10,
+  "longissimus-du-thorax": 10,
+  "droit-abdomen": 0,
+  "oblique-externe": -10,
+  "grand-dorsal": -16,
+};
+
+function visibleIds(props: MuscleLayerProps): Set<string> {
+  const hidden = new Set(props.hiddenMuscleIds);
+  const shown = new Set<string>();
+  if (props.showMuscles && props.showAllMuscles) {
+    for (const muscle of muscles) {
+      if (!hidden.has(muscle.id)) shown.add(muscle.id);
+    }
+  }
+  if (props.showMuscles && props.selectedMuscleId && !hidden.has(props.selectedMuscleId)) {
+    shown.add(props.selectedMuscleId);
+  }
+  if (props.showMuscles && props.pinnedMuscleId && !hidden.has(props.pinnedMuscleId)) {
+    shown.add(props.pinnedMuscleId);
+  }
+  if (props.chainLayerOn) {
+    for (const muscle of muscles) {
+      if (hidden.has(muscle.id)) continue;
+      if (tintForMuscle(muscle.id, props.activeChainIds)) shown.add(muscle.id);
+    }
+  }
+  return shown;
+}
+
+function setRepVisible(rep: MuscleRep, visible: boolean) {
+  rep.object.visible = visible;
+  for (const mesh of rep.meshes) mesh.visible = visible;
+}
+
+export function MuscleLayer(props: MuscleLayerProps) {
+  const gltf = useGLTF(publicUrl("/models/muscles.glb"));
+
+  const entries = useMemo(() => {
+    const list: MuscleEntry[] = [];
+    for (const muscle of muscles) {
+      const src = gltf.scene.getObjectByName(muscle.id);
+      if (!src) continue;
+      const clone = src.clone(true);
+      const hint = new THREE.Vector3(...(muscle.fiberAxis ?? [0, 0, 0]));
+      const material = createFiberMuscleMaterial();
+      if (THIN_SHEETS.has(muscle.id)) material.side = THREE.DoubleSide;
+      if (APO_TRANSPARENT.has(muscle.id)) {
+        setMuscleTendonAlpha(material, APONEUROSIS_OPACITY);
+        material.transparent = true;
+        material.depthWrite = true;
+        material.opacity = 1;
+        material.userData.aponeurosis = true;
+      }
+      const wallOff = WALL_OFFSET[muscle.id];
+      if (wallOff !== undefined) {
+        material.polygonOffset = true;
+        material.polygonOffsetFactor = wallOff;
+        material.polygonOffsetUnits = wallOff;
+      }
+      const meshes: THREE.Mesh[] = [];
+      clone.traverse((obj) => {
+        if (!(obj instanceof THREE.Mesh)) return;
+        obj.geometry = obj.geometry.clone();
+        if (!obj.geometry.getAttribute("normal")) {
+          obj.geometry.computeVertexNormals();
+        }
+        applyFiberUVs(
+          obj.geometry,
+          hint.lengthSq() > 1e-8 ? hint : undefined,
+          muscle.id === "oblique-externe" ||
+            muscle.id === "oblique-interne" ||
+            muscle.id === "transverse-de-l-abdomen",
+        );
+        if (!obj.geometry.getAttribute("color")) {
+          const n = obj.geometry.getAttribute("position").count;
+          const rgb = new Float32Array(n * 3);
+          for (let i = 0; i < n; i += 1) {
+            rgb[i * 3] = 0.769;
+            rgb[i * 3 + 1] = 0.282;
+            rgb[i * 3 + 2] = 0.227;
+          }
+          obj.geometry.setAttribute("color", new THREE.BufferAttribute(rgb, 3));
+        }
+        obj.userData.pick = "muscle";
+        obj.userData.muscleId = muscle.id;
+        obj.raycast = THREE.Mesh.prototype.raycast;
+        obj.castShadow = getDeviceProfile().shadows;
+        obj.receiveShadow = false;
+        obj.material = material;
+        meshes.push(obj);
+      });
+      const group = new THREE.Group();
+      group.name = muscle.id;
+      group.add(clone);
+      group.visible = false;
+      list.push({
+        id: muscle.id,
+        procedural: { object: group, materials: [material], meshes },
+      });
+    }
+
+    return list;
+  }, [gltf]);
+
+  useEffect(() => {
+    for (const entry of entries) {
+      registerHighlight("muscle", entry.id, (selected) => {
+        for (const material of entry.procedural.materials) setMuscleSelected(material, selected);
+      });
+    }
+    return () => {
+      for (const entry of entries) unregisterHighlight("muscle", entry.id);
+    };
+  }, [entries]);
+
+  useEffect(() => {
+    const shown = visibleIds(props);
+    const chainOn = props.chainLayerOn && props.activeChainIds.length > 0;
+    const pick: THREE.Mesh[] = [];
+    for (const entry of entries) {
+      const on = shown.has(entry.id);
+      const rep = entry.procedural;
+      setRepVisible(rep, on);
+      if (!on) continue;
+      const selected = entry.id === props.selectedMuscleId;
+      const tintHex = chainOn ? tintForMuscle(entry.id, props.activeChainIds) : null;
+      const tint = tintHex ? new THREE.Color(tintHex) : null;
+      const side = chainOn ? chainClipSide(entry.id, props.chainSide, props.activeChainIds) : "both";
+      const planes = clipPlanesForSide(side);
+      for (const material of rep.materials) {
+        setMuscleTint(material, tint, tint ? (selected ? 0.48 : 0.78) : 0);
+        setMuscleSelected(material, selected);
+        const apo = material.userData.aponeurosis === true;
+        material.transparent = apo;
+        material.opacity = 1;
+        material.depthWrite = true;
+        material.clippingPlanes = planes;
+      }
+      for (const mesh of rep.meshes) {
+        const base = (mesh.userData.renderOrder as number | undefined) ?? WALL_ORDER[entry.id] ?? 5;
+        mesh.renderOrder = selected ? 12 : base;
+        mesh.castShadow = getDeviceProfile().shadows;
+      }
+      pick.push(...rep.meshes);
+    }
+    setPickMeshes("muscle", pick);
+    return () => setPickMeshes("muscle", []);
+  }, [entries, props]);
+
+  return (
+    <group name="muscles">
+      {entries.map((entry) => (
+        <primitive key={`${entry.id}-procedural`} object={entry.procedural.object} />
+      ))}
+    </group>
+  );
+}
+
+useGLTF.preload(publicUrl("/models/muscles.glb"));

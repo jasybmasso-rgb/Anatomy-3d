@@ -764,15 +764,15 @@
       "nameLatin": "Epicondylus medialis humeri dexter",
       "region": "membre-supérieur",
       "position": [
-        -0.13922,
-        0.45063,
-        0.03319
+        -0.1867,
+        0.1966,
+        0.018
       ],
       "source": {
         "fmaId": "FMA23130",
         "partName": "right humerus",
-        "mode": "bbox_max_x",
-        "precision": "approximate-centroid-or-bbox"
+        "mode": "elbow_medial_epicondyle",
+        "precision": "snapped-to-skeleton-near-olecranon"
       }
     },
     {
@@ -1223,15 +1223,15 @@
       "nameLatin": "Condylus lateralis femoris dexter",
       "region": "membre-inférieur",
       "position": [
-        -0.14921,
-        -0.07782,
-        0.03097
+        -0.1097,
+        -0.4694,
+        0.0294
       ],
       "source": {
         "fmaId": "FMA24474",
         "partName": "right femur",
-        "mode": "bbox_min_x",
-        "precision": "approximate-centroid-or-bbox"
+        "mode": "knee_lateral_condyle",
+        "precision": "snapped-to-skeleton-near-patella"
       }
     },
     {

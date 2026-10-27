@@ -1,0 +1,27 @@
+{
+  "source": "Z-Anatomy Startup.blend (2 May 2023), meshoptimizer 10%",
+  "license": "CC BY-SA 4.0",
+  "upstream": "BodyParts3D CC BY-SA 2.1 Japan",
+  "file": "zanatomy-abdo.glb",
+  "compression": "KHR_draco_mesh_compression edgebreaker, position 14, normal 10",
+  "glbBytes": 98892,
+  "triangles": 22693,
+  "muscles": [
+    "rectus abdominis L/R",
+    "external abdominal oblique L/R",
+    "internal abdominal oblique L/R",
+    "transversus abdominis L/R"
+  ],
+  "omitted": [
+    "pyramidalis (not in the decimated extract)",
+    "linea alba (338 tris, left out of the decimation set)",
+    "rectus sheath collection (empty in the source blend)"
+  ],
+  "alignment": {
+    "space": "Applied at runtime onto the app skeleton (Y-up, origin near the pelvis, face +Z).",
+    "pivot": [0, 0.861, 0.052],
+    "target": [0, -0.064, 0.094],
+    "scale": 0.995,
+    "pitchDegAboutX": 4
+  }
+}
